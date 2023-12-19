@@ -18,12 +18,12 @@ public class PlayerStateMachine : MonoBehaviour
     Vector2 _currentMovementInput;
     Vector3 _currentMovement;
     Vector3 _appliedMovement; //_currentRunMovement
-    bool _isMovementPressed;
+    [SerializeField] bool _isMovementPressed;
     bool _isRunPressed;
 
     //constants
     float _rotationFactorPerFrame = 15.0f;
-    float _runMultiplier = 3.0f;
+    [SerializeField] float _runMultiplier = 5.0f; [SerializeField] float _walkMultiplier = 2.0f;
     int _zero = 0;
 
     //gravity variables
@@ -35,7 +35,7 @@ public class PlayerStateMachine : MonoBehaviour
     float _initialJumpVelocity;
     float _maxJumpHeight = 2.0f; // 4.0
     float _maxJumpTime = 0.3f; //.75
-    bool _isJumping = false;
+    [SerializeField] bool _isJumping = false;
     int _isJumpingHash;
     int _jumpCountHash;
     bool _requireNewJumpPress = false;
@@ -51,25 +51,31 @@ public class PlayerStateMachine : MonoBehaviour
     //getters  and setters
     public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
     public Animator Animator { get { return _animator; } set { _animator = value; } }
+    public CharacterController CharacterController { get { return _characterController; } set { _characterController = value; } }
     public Coroutine CurrentJumpResetRoutine { get { return currentJumpResetRoutine; } set { currentJumpResetRoutine = value; } }
     public Dictionary<int, float> InitialJumpVelocities { get { return _initialJumpVelocities; } } 
+    public Dictionary<int, float> JumpGravities { get { return _jumpGravities; } }
     public int JumpCount { get { return _jumpCount; } set { _jumpCount = value; } }
+    public int IsWalkingHash { get { return _isWalkingHash; } }
+    public int IsRunningHash { get { return _isRunningHash; } }
     public int IsJumpingHash { get { return _isJumpingHash; } }
     public int JumpCountHash { get { return _jumpCountHash; } }
+    public bool IsMovementPressed { get { return _isMovementPressed; } }
+    public bool IsRunPressed { get { return _isRunPressed; } }
     public bool RequireNewJumpPress { get { return _requireNewJumpPress; } set { _requireNewJumpPress = value; }}
     public bool IsJumping { set { _isJumping = value; } }
     public bool IsJumpPressed { get { return _isJumpPressed; } }
     public float GroundedGravity { get { return _groundedGravity; } }
     public float CurrentMovementY { get { return _currentMovement.y; } set { _currentMovement.y = value; } }
     public float AppliedMovementY { get { return _appliedMovement.y; } set { _appliedMovement.y = value; } }
-
+    public float AppliedMovementX { get { return _appliedMovement.x; } set { _appliedMovement.x = value; } }
+    public float AppliedMovementZ { get { return _appliedMovement.z; } set { _appliedMovement.z = value; } }
+    public float RunMultiplier { get { return _runMultiplier; } }
+    public Vector2 CurrentMovementInput { get { return _currentMovementInput; } }
     //
-    public CharacterController CharacterController { get { return _characterController; } set { _characterController = value; } }
-    public Dictionary<int, float> JumpGravities { get { return _jumpGravities; } }
 
+    public float WalkMultiplier { get { return _walkMultiplier; } }
 
-
-    //
     void Awake()
     {
         // initialy set reference variables
@@ -131,7 +137,7 @@ public class PlayerStateMachine : MonoBehaviour
     void Update()
     {
         HandleRotation();
-        _currentState.UpdateState();
+        _currentState.UpdateStates();
         _characterController.Move(_appliedMovement * Time.deltaTime);
     }
 

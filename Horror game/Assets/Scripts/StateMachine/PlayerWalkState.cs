@@ -5,16 +5,29 @@ using UnityEngine;
 public class PlayerWalkState : PlayerBaseState
 {
     public PlayerWalkState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
-    : base(currentContext, playerStateFactory) { }
+    : base(currentContext, playerStateFactory) {
+    }
 
-    public override void EnterState() { }
+    public override void EnterState() {
+        Debug.Log("Player Walk State");
+        Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
+        Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
+    }
 
     public override void UpdateState(){
         CheckSwitchStates();
+        Ctx.AppliedMovementX = Ctx.CurrentMovementInput.x * Ctx.WalkMultiplier;
+        Ctx.AppliedMovementZ = Ctx.CurrentMovementInput.y * Ctx.WalkMultiplier;
     }
     public override void ExitState() { }
-
-    public override void CheckSwitchStates() { }
-
     public override void InitializeSubState() { }
+
+    public override void CheckSwitchStates() {
+        if (!Ctx.IsMovementPressed){
+            SwitchStates(Factory.Idle());
+        } else if (Ctx.IsMovementPressed && Ctx.IsRunPressed) { 
+            SwitchStates(Factory.Run());
+        }
+    }
+
 }

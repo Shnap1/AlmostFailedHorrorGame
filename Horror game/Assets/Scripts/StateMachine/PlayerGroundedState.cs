@@ -5,11 +5,15 @@ using UnityEngine;
 public class PlayerGroundedState : PlayerBaseState
 {
     public PlayerGroundedState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) 
-    : base(currentContext, playerStateFactory){ }
+    : base(currentContext, playerStateFactory){
+        IsRootState = true;
+        InitializeSubState();
+        Debug.Log("PlayerGroundedState");
+    }
 
     public override void EnterState() {
-        _ctx.CurrentMovementY = _ctx.GroundedGravity;
-        _ctx.AppliedMovementY = _ctx.GroundedGravity;
+        Ctx.CurrentMovementY = Ctx.GroundedGravity;
+        Ctx.AppliedMovementY = Ctx.GroundedGravity;
     }
 
     public override void UpdateState() { 
@@ -18,15 +22,25 @@ public class PlayerGroundedState : PlayerBaseState
 
     public override void ExitState() { }
 
-    public override void InitializeSubState() { }
+    public override void InitializeSubState() {
+        if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed)
+        {
+            SetSubState(Factory.Idle());
+        }
+        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed) {
+            SetSubState(Factory.Walk());
+        }
+        else {
+            SetSubState(Factory.Run());
+        }
+    }
 
     public override void CheckSwitchStates(){
         //if player is grounded and jump is pressed,switch to jump state
-        if (_ctx.IsJumpPressed && !_ctx.RequireNewJumpPress) {
-            SwitchStates(_factory.Jump());
+        if (Ctx.IsJumpPressed && !Ctx.RequireNewJumpPress) {
+            SwitchStates(Factory.Jump());
         }
 
     }
 
-    //public override void InitializeSubState() { }
 }
