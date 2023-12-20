@@ -21,5 +21,9 @@ public class PlayerStateFactory
     public PlayerBaseState Grounded(){
         return new PlayerGroundedState(_context, this);
     }
-    
+    public PlayerBaseState Fall()
+    {
+        return new PlayerFallSate(_context, this);
+    }
+
 }

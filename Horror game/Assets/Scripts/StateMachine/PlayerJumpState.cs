@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerJumpState : PlayerBaseState
+public class PlayerJumpState : PlayerBaseState, IRootState
 {
     IEnumerator IJumpResetRoutine()
     {
@@ -19,8 +19,8 @@ public class PlayerJumpState : PlayerBaseState
     }
 
     public override void UpdateState() {
-        CheckSwitchStates();
         HandleGravity();
+        CheckSwitchStates();
     }
 
     public override void ExitState() {
@@ -74,7 +74,7 @@ public class PlayerJumpState : PlayerBaseState
 
     }
 
-    void HandleGravity()
+    public void HandleGravity()
     {
         bool isFalling = Ctx.CurrentMovementY <= 0.0f || !Ctx.IsJumpPressed;
         float fallMultipier = 2.0f;

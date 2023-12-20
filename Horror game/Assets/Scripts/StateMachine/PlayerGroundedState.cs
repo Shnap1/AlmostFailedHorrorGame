@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGroundedState : PlayerBaseState
+public class PlayerGroundedState : PlayerBaseState, IRootState
 {
     public PlayerGroundedState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) 
     : base(currentContext, playerStateFactory){
@@ -10,10 +10,14 @@ public class PlayerGroundedState : PlayerBaseState
         InitializeSubState();
         Debug.Log("PlayerGroundedState");
     }
-
-    public override void EnterState() {
+    public void HandleGravity()
+    {
         Ctx.CurrentMovementY = Ctx.GroundedGravity;
         Ctx.AppliedMovementY = Ctx.GroundedGravity;
+    }
+
+    public override void EnterState() {
+        HandleGravity();
     }
 
     public override void UpdateState() { 
@@ -37,8 +41,14 @@ public class PlayerGroundedState : PlayerBaseState
 
     public override void CheckSwitchStates(){
         //if player is grounded and jump is pressed,switch to jump state
-        if (Ctx.IsJumpPressed && !Ctx.RequireNewJumpPress) {
+        if (Ctx.IsJumpPressed && !Ctx.RequireNewJumpPress)
+        {
             SwitchStates(Factory.Jump());
+        }
+        //if player is not grounded and jump is not pressed, switch to fall state 
+        else if (!Ctx.CharacterController.isGrounded)
+        {
+            SwitchStates(Factory.Fall());
         }
 
     }
