@@ -28,7 +28,7 @@ public class AnimationAndMovementController : MonoBehaviour
 
     //gravity variables
     float _gravity = -9.8f;
-    float _groundedGravity = -.05f;
+    //float _groundedGravity = -.05f;
 
     //jumping variables
     bool _isJumpPressed = false;

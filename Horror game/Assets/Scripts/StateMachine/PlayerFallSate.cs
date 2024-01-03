@@ -8,11 +8,11 @@ public class PlayerFallSate : PlayerBaseState, IRootState
     PlayerStateFactory playerStateFactory) 
     : base(currentContext, playerStateFactory) {
         IsRootState = true;
-        InitializeSubState();
     }
 
     public override void EnterState()
     {
+        InitializeSubState();
         Debug.Log("Fall State");
         Ctx.Animator.SetBool(Ctx.IsFallingHash, true);
     }

@@ -9,6 +9,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         yield return new WaitForSeconds(.5f);
         Ctx.JumpCount = 0;
     }
+
     public PlayerJumpState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory) {
         InitializeSubState();
         IsRootState = true;

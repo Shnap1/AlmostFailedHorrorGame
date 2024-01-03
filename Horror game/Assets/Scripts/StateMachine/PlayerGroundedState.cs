@@ -7,13 +7,13 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
     public PlayerGroundedState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) 
     : base(currentContext, playerStateFactory){
         IsRootState = true;
-        InitializeSubState();
         Debug.Log("PlayerGroundedState");
     }
     public void HandleGravity()
     {
-        Ctx.CurrentMovementY = Ctx.GroundedGravity;
-        Ctx.AppliedMovementY = Ctx.GroundedGravity;
+        InitializeSubState();
+        Ctx.CurrentMovementY = Ctx.Gravity;
+        Ctx.AppliedMovementY = Ctx.Gravity;
     }
 
     public override void EnterState() {
