@@ -12,6 +12,7 @@ public class EnemyAiTutorial : MonoBehaviour
 
     public float health;
 
+    [SerializeField] int speed;
     //Patroling
     public Vector3 walkPoint;
     bool walkPointSet;
@@ -31,6 +32,8 @@ public class EnemyAiTutorial : MonoBehaviour
         player = GameObject.Find("PLAYER").transform;
         //player = GameObject.FindGameObjectWithTag("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        //agent.acceleration = speed;
+
     }
 
     private void Update()
