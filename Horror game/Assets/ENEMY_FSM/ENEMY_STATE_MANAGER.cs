@@ -1,9 +1,44 @@
-﻿
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAiTutorial : MonoBehaviour
+public class ENEMY_STATE_MANAGER : MonoBehaviour
 {
+    public enum EnemyEnums
+    {
+        Idle,
+        Attack,
+        Patroling
+    }
+
+    BaseStateNEW currentState;
+    Dictionary<EnemyEnums, BaseStateNEW> enemyStates = new Dictionary<EnemyEnums, BaseStateNEW>();
+
+    public void InitializeStates()
+    {
+        enemyStates[EnemyEnums.Idle] = new ENEMY_IDLE_STATE(this);
+        enemyStates[EnemyEnums.Patroling] = new ENEMY_PATROLLING_STATE(this);
+        enemyStates[EnemyEnums.Attack] = new ENEMY_ATTACK_STATE(this);
+    }
+    private void Start()
+    {
+        
+    }
+
+
+    public void SwitchStates(BaseStateNEW newState)
+    {
+        if(newState != currentState)
+        {
+            currentState.ExitState();
+            currentState = newState;
+            currentState.EnterState();
+        }
+    }
+
+    #region ENEMY AI TUTORIL script DATA
+    
     public NavMeshAgent agent;
 
     public Transform player;
@@ -42,12 +77,12 @@ public class EnemyAiTutorial : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
-       if (!playerInSightRange && !playerInAttackRange) Patroling();
-       if (playerInSightRange && !playerInAttackRange) ChasePlayer();
-       if (playerInAttackRange && playerInSightRange) AttackPlayer();
+        //if (!playerInSightRange && !playerInAttackRange) Patroling();
+        //if (playerInSightRange && !playerInAttackRange) ChasePlayer();
+        //if (playerInAttackRange && playerInSightRange) AttackPlayer();
     }
 
-    private void Patroling()
+    public void PatrolingFunction()
     {
         if (!walkPointSet) SearchWalkPoint();
 
@@ -60,7 +95,7 @@ public class EnemyAiTutorial : MonoBehaviour
         if (distanceToWalkPoint.magnitude < 1f)
             walkPointSet = false;
     }
-    private void SearchWalkPoint()
+    public void SearchWalkPoint()
     {
         //Calculate random point in range
         float randomZ = Random.Range(-walkPointRange, walkPointRange);
@@ -72,12 +107,12 @@ public class EnemyAiTutorial : MonoBehaviour
             walkPointSet = true;
     }
 
-    private void ChasePlayer()
+    public void ChasePlayer()
     {
         agent.SetDestination(player.position);
     }
 
-    private void AttackPlayer()
+    public void AttackPlayer()
     {
         //Make sure enemy doesn't move
         agent.SetDestination(transform.position);
@@ -124,4 +159,22 @@ public class EnemyAiTutorial : MonoBehaviour
     {
 
     }
+    #endregion
+
+    #region STATES FACTORY
+    public BaseStateNEW Idle()
+    {
+        return enemyStates[EnemyEnums.Idle];
+    }
+
+    public BaseStateNEW Attack()
+    {
+        return enemyStates[EnemyEnums.Attack];
+    }
+
+    public BaseStateNEW Patroling()
+    {
+        return enemyStates[EnemyEnums.Patroling];
+    }
+    #endregion
 }
