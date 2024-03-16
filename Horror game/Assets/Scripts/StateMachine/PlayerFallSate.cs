@@ -13,7 +13,7 @@ public class PlayerFallSate : PlayerBaseState, IRootState
     public override void EnterState()
     {
         InitializeSubState();
-        Debug.Log("Fall State");
+        //Debug.Log("Fall State");
         Ctx.Animator.SetBool(Ctx.IsFallingHash, true);
     }
 

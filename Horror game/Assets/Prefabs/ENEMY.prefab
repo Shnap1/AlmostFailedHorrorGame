@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5925553492070389419}
   - component: {fileID: 1251123955413029618}
   - component: {fileID: 8705233547482748784}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: ENEMY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,7 +33,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 54.04, y: 56.57811, z: -93.68}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.6556, y: 3.5914, z: 0.6562}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,7 +97,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 7642011906274267419}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.27
   m_Speed: 8
   m_Acceleration: 12
   avoidancePriority: 50
@@ -108,7 +108,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 1
   m_BaseOffset: 0.5
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
 --- !u!114 &529311857279262085
 MonoBehaviour:
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7642011906274267419}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 189364e44648413439c25966b8f06922, type: 3}
   m_Name: 
@@ -196,27 +196,29 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7642011906274267419}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ca645816e1aa1d49bf3f168a36bfe0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 0}
+  agent: {fileID: 8932908084888893919}
   player: {fileID: 0}
   whatIsGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   whatIsPlayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   health: 0
   speed: 0
   walkPoint: {x: 0, y: 0, z: 0}
-  walkPointRange: 0
-  timeBetweenAttacks: 0
+  walkPointSet: 0
+  walkPointRange: 27
+  timeBetweenAttacks: 1
+  alreadyAttacked: 0
   projectile: {fileID: 4723692209224359832, guid: eceb7e2921d838441a02588b40ef20e5,
     type: 3}
-  sightRange: 0
-  attackRange: 0
+  sightRange: 27.7
+  attackRange: 12
   playerInSightRange: 0
   playerInAttackRange: 0

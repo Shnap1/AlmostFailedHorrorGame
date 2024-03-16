@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -81,6 +82,8 @@ public class PlayerStateMachine : MonoBehaviour
     //
 
     public float WalkMultiplier { get { return _walkMultiplier; } }
+    [SerializeField] int playerHealth;
+    [SerializeField] int playerHealthMax;
 
     void Awake()
     {
@@ -138,6 +141,8 @@ public class PlayerStateMachine : MonoBehaviour
     void Start()
     {
         _characterController.Move(_appliedMovement * Time.deltaTime);
+        //onPlayerHealthChanged?.Invoke(playerHealth, playerHealthMax);
+
     }
 
     // Update is called once per frame
@@ -148,6 +153,10 @@ public class PlayerStateMachine : MonoBehaviour
 
         _cameraRelativeMovement = ConvertToCameraSpace(_appliedMovement);
         _characterController.Move(_cameraRelativeMovement * Time.deltaTime);
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //    TakeDamage(1);
+        //}
     }
 
     Vector3 ConvertToCameraSpace(Vector3 vectorToRotate)
@@ -215,6 +224,8 @@ public class PlayerStateMachine : MonoBehaviour
     {
         _isRunPressed = context.ReadValueAsButton();
     }
+
+    //public static Action<int, int> onPlayerHealthChanged;
 
     private void OnEnable()
     {

@@ -8,7 +8,7 @@ public class PlayerRunState : PlayerBaseState
     : base(currentContext, playerStateFactory) { }      
 
     public override void EnterState() {
-        Debug.Log("Run State");
+        //Debug.Log("Run State");
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, true);
     }

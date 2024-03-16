@@ -12,7 +12,8 @@ public class PlayerIdleState : PlayerBaseState
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, false);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
         Ctx.AppliedMovementX = 0;
-        Ctx.AppliedMovementZ = 0; Debug.Log("Idle State");
+        Ctx.AppliedMovementZ = 0; 
+        //Debug.Log("Idle State");
 
     }
 

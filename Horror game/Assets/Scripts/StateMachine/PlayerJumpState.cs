@@ -13,7 +13,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
     public PlayerJumpState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) : base(currentContext, playerStateFactory) {
         InitializeSubState();
         IsRootState = true;
-        Debug.Log("PlayerJumpState");
+        //Debug.Log("PlayerJumpState");
     }
     public override void EnterState() {
         HandleJump();

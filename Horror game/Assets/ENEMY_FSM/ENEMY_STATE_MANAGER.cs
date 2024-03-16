@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,7 +8,7 @@ public class ENEMY_STATE_MANAGER : MonoBehaviour
 {
     public enum EnemyEnums
     {
-        Idle,
+        Chase,
         Attack,
         Patroling
     }
@@ -17,24 +18,32 @@ public class ENEMY_STATE_MANAGER : MonoBehaviour
 
     public void InitializeStates()
     {
-        enemyStates[EnemyEnums.Idle] = new ENEMY_IDLE_STATE(this);
+        enemyStates[EnemyEnums.Chase] = new ENEMY_CHASE_STATE(this);
         enemyStates[EnemyEnums.Patroling] = new ENEMY_PATROLLING_STATE(this);
         enemyStates[EnemyEnums.Attack] = new ENEMY_ATTACK_STATE(this);
     }
     private void Start()
     {
-        
+        InitializeStates();
+        currentState = Patroling();
+        Debug.Log("ENEMY MANAGER Start()");
+        currentState.EnterState();
+
+        //ResetPositionCoroutine(1);
+        StartCoroutine(ResetingPath(1));
     }
 
 
     public void SwitchStates(BaseStateNEW newState)
     {
+        if (currentState == null) Debug.Log("current Enemy State is null");
         if(newState != currentState)
         {
             currentState.ExitState();
             currentState = newState;
             currentState.EnterState();
         }
+
     }
 
     #region ENEMY AI TUTORIL script DATA
@@ -50,12 +59,12 @@ public class ENEMY_STATE_MANAGER : MonoBehaviour
     [SerializeField] int speed;
     //Patroling
     public Vector3 walkPoint;
-    bool walkPointSet;
+    public bool walkPointSet;
     public float walkPointRange;
 
     //Attacking
     public float timeBetweenAttacks;
-    bool alreadyAttacked;
+    public bool alreadyAttacked;
     public GameObject projectile;
 
     //States
@@ -69,6 +78,7 @@ public class ENEMY_STATE_MANAGER : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         //agent.acceleration = speed;
 
+
     }
 
     private void Update()
@@ -77,40 +87,42 @@ public class ENEMY_STATE_MANAGER : MonoBehaviour
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
 
+        currentState.UpdateState();
+
         //if (!playerInSightRange && !playerInAttackRange) Patroling();
         //if (playerInSightRange && !playerInAttackRange) ChasePlayer();
         //if (playerInAttackRange && playerInSightRange) AttackPlayer();
     }
 
-    public void PatrolingFunction()
-    {
-        if (!walkPointSet) SearchWalkPoint();
+    //public void PatrolingFunction()
+    //{
+    //    if (!walkPointSet) SearchWalkPoint();
 
-        if (walkPointSet)
-            agent.SetDestination(walkPoint);
+    //    if (walkPointSet)
+    //        agent.SetDestination(walkPoint);
 
-        Vector3 distanceToWalkPoint = transform.position - walkPoint;
+    //    Vector3 distanceToWalkPoint = transform.position - walkPoint;
 
-        //Walkpoint reached
-        if (distanceToWalkPoint.magnitude < 1f)
-            walkPointSet = false;
-    }
-    public void SearchWalkPoint()
-    {
-        //Calculate random point in range
-        float randomZ = Random.Range(-walkPointRange, walkPointRange);
-        float randomX = Random.Range(-walkPointRange, walkPointRange);
+    //    //Walkpoint reached
+    //    if (distanceToWalkPoint.magnitude < 1f)
+    //        walkPointSet = false;
+    ////}
+    //public void SearchWalkPoint()
+    //{
+    //    //Calculate random point in range
+    //    float randomZ = Random.Range(-walkPointRange, walkPointRange);
+    //    float randomX = Random.Range(-walkPointRange, walkPointRange);
 
-        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+    //    walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
-        if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
-            walkPointSet = true;
-    }
+    //    if (Physics.Raycast(walkPoint, -transform.up, 2f, whatIsGround))
+    //        walkPointSet = true;
+    //}
 
-    public void ChasePlayer()
-    {
-        agent.SetDestination(player.position);
-    }
+    //public void ChasePlayer()
+    //{
+    //    agent.SetDestination(player.position);
+    //}
 
     public void AttackPlayer()
     {
@@ -155,16 +167,25 @@ public class ENEMY_STATE_MANAGER : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, sightRange);
     }
 
-    public void Fart()
-    {
+    //public void Fart()
+    //{
 
+    //}
+
+
+
+    IEnumerator ResetingPath(int patrolingTime)
+    {
+        yield return new WaitForSeconds(patrolingTime);
+        Debug.Log("    IEnumerator ResetingPath(int patrolingTime)\r\n");
     }
+
     #endregion
 
     #region STATES FACTORY
-    public BaseStateNEW Idle()
+    public BaseStateNEW Chase()
     {
-        return enemyStates[EnemyEnums.Idle];
+        return enemyStates[EnemyEnums.Chase];
     }
 
     public BaseStateNEW Attack()
@@ -176,5 +197,8 @@ public class ENEMY_STATE_MANAGER : MonoBehaviour
     {
         return enemyStates[EnemyEnums.Patroling];
     }
+
+
+
     #endregion
 }

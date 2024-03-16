@@ -10,22 +10,60 @@ public class ENEMY_PATROLLING_STATE : BaseStateNEW
 
     public override void CheckSwitchStates()
     {
-        
+        if (StateManager.playerInSightRange && !StateManager.playerInAttackRange)
+        {
+            StateManager.SwitchStates(StateManager.Chase());
+        }
+        else if(StateManager.playerInAttackRange && StateManager.playerInSightRange)
+        {
+            StateManager.SwitchStates(StateManager.Attack());
+        }
     }
 
     public override void EnterState()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Patrolling state");
+        PatrolingFunction();
+
     }
 
     public override void ExitState()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void UpdateState()
     {
-        throw new System.NotImplementedException();
+        //PatrolingFunction();
+        CheckSwitchStates();
+    }
+
+    public void PatrolingFunction()
+    {
+        //StateManager.transform.LookAt()
+        SearchWalkPoint();
+        if (!StateManager.walkPointSet) SearchWalkPoint();
+
+        else if (StateManager.walkPointSet)
+            StateManager.agent.SetDestination(StateManager.walkPoint);
+
+        Vector3 distanceToWalkPoint = StateManager.transform.position - StateManager.walkPoint;
+
+        //Walkpoint reached
+        if (distanceToWalkPoint.magnitude < 1f)
+            StateManager.walkPointSet = false;
+    }
+    public void SearchWalkPoint()
+    {
+        Debug.Log($"Reseted walkPoint to: {StateManager.walkPoint} ");
+        //Calculate random point in range
+        float randomZ = Random.Range(-StateManager.walkPointRange, StateManager.walkPointRange);
+        float randomX = Random.Range(-StateManager.walkPointRange, StateManager.walkPointRange);
+
+        StateManager.walkPoint = new Vector3(StateManager.transform.position.x + randomX, StateManager.transform.position.y, StateManager.transform.position.z + randomZ);
+
+        if (Physics.Raycast(StateManager.walkPoint, -StateManager.transform.up, 2f, StateManager.whatIsGround))
+            StateManager.walkPointSet = true;
     }
 
 }

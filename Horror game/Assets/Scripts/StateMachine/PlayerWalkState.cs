@@ -9,7 +9,7 @@ public class PlayerWalkState : PlayerBaseState
     }
 
     public override void EnterState() {
-        Debug.Log("Player Walk State");
+        //Debug.Log("Player Walk State");
         Ctx.Animator.SetBool(Ctx.IsWalkingHash, true);
         Ctx.Animator.SetBool(Ctx.IsRunningHash, false);
     }
