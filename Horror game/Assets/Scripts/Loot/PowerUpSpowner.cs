@@ -11,7 +11,7 @@ public class PowerUpSpowner : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField] public GameObject healthPowerUp;
     //[SerializeField] public GameObject staminaPowerUp;
-    public Dictionary<Loot, GameObject> LootDict = new Dictionary<Loot, GameObject>();
+    //public Dictionary<Loot, GameObject> LootDict = new Dictionary<Loot, GameObject>();
     public List<GameObject> LootList = new List<GameObject>();
     //public Dictionary<Locations, Transform> LocationsDict = new Dictionary<Locations, Transform>();
     public List<Transform> LocationsTrasnforms = new List<Transform>();
@@ -38,10 +38,22 @@ public class PowerUpSpowner : MonoBehaviour
         //thisPUSpawner = this;
     }
 
-    public static void SpawnPowerUp(Loot loot, Locations location)
+    public void RandomSpawnPowerUp()
     {
-        var spawner = PowerUpSpowner.ReturnPUSPowner();
-        //Instantiate<GameObject>(spawner.LootDict[loot], spawner.LocationsDict[location]);
+        //var spawner = PowerUpSpowner.ReturnPUSPowner();
+
+        //Instantiate<GameObject>(LootList[loot], Transform.LocationsTrasnform[0]);
+        GameObject randomGameObject = LootList[UnityEngine.Random.Range(0, LootList.Count)];
+        Transform randomTransform = LocationsTrasnforms[UnityEngine.Random.Range(0, LocationsTrasnforms.Count)];
+
+        Instantiate<GameObject>(randomGameObject, randomTransform);
+    }
+
+
+
+    public void SpawnPowerUp(GameObject loot, Transform transform)
+    {
+        Instantiate(loot, transform);
     }
 
     public void AddPowerUp(GameObject thisPU)
@@ -61,10 +73,6 @@ public class PowerUpSpowner : MonoBehaviour
         //}
     }
 
-    public static PowerUpSpowner ReturnPUSPowner()
-    {
-        return thisPUSpawner;
-    }
 }
 
 public interface IPowerUp

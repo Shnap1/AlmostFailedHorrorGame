@@ -22,7 +22,7 @@ public class Zombie_Chasing_State : MonoBehaviour, IStateNew
     public void UpdaterState()
     {
         CheckSwitchState();
-        ChasePlayer();
+        //ChasePlayer();
     }
 
     public void ExitState()
@@ -37,13 +37,17 @@ public class Zombie_Chasing_State : MonoBehaviour, IStateNew
 
     public void CheckSwitchState()
     {
-        if (SM.playerInAttackRange && SM.seePlayer)
+        if (SM.playerInAttackRange && SM.playerInSightRange)
         {
             SM.SwitchState(SM.Attacking);
         }
-        else if (!SM.seePlayer && !SM.playerInAttackRange)
+        else if (!SM.playerInSightRange && !SM.playerInAttackRange)
         {
             SM.SwitchState(SM.Patrolling);
+        }
+        else
+        {
+            ChasePlayer();
         }
         //else
         //{

@@ -17,7 +17,7 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
     [SerializeField] EnemyHealthCounter enemyHealthCounter;
 
     [HideInInspector] public Animator anim;
-    public bool seePlayer = false;
+    public bool seesPlayer = false;
 
     [SerializeField] AttackCollider attackCollider;
 
@@ -28,6 +28,7 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
 
     Coroutine LookCoroutine;
     public float turnSpeed = 1f;
+    bool RememberPlayerCorIsRUNNING;
     public void InitializeStates()
     {
         Patrolling = gameObject.AddComponent<Zombie_Patrolling_State>();
@@ -64,12 +65,9 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
     {
         currentState.UpdaterState();
 
-        //playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
+        playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
-        if (Input.GetKey(KeyCode.Space))
-        {
-            StartCoroutine(RememberPlayer());
-        }
+
 
     }
 
@@ -88,37 +86,64 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
 
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            //Debug.Log("OnTriggerEnter;");
-            seePlayer = true;
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        //Debug.Log("OnTriggerEnter;");
+    //        if (!seesPlayer)
+    //        {
+    //            seesPlayer = true;
+    //            StopCoroutine(RememberPlayer());
+    //        }
+    //    }
+    //}
     
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            //Debug.Log("OnTriggerExit");
-            StartCoroutine(RememberPlayer());
-        }
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+        
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        //Debug.Log("OnTriggerExit");
+    //        //Debug.Log("OnTriggerExit");
+
+    //        if (seesPlayer && !RememberPlayerCorIsRUNNING)
+    //        {
+    //            Debug.Log("OnTriggerExit  ----- StartCoroutine(RememberPlayer())");
+    //            StartCoroutine(RememberPlayer());
+    //        }
+    //    }
+    //}
 
     void TakeDamage(int addedDamage)
     {
         enemyHealthCounter.TakeDamage(addedDamage);
     }
 
-    IEnumerator RememberPlayer()
-    {
-        seePlayer = true;
-        //Debug.Log("WaitForSeconds(10)");
-        yield return new WaitForSeconds(10);
-        //Debug.Log("seePlayer = false");
-        seePlayer = false;
-    }
+    //IEnumerator RememberPlayer()
+    //{
+    //    //seePlayer = true;
+    //    //Debug.Log("WaitForSeconds(10)");
+
+    //    //if (seePlayer)
+    //    //{
+    //    //    yield return new WaitForSeconds(20);
+    //    //    StopCoroutine(RememberPlayer());
+    //    //    Debug.Log("seePlayer = false");
+    //    //    seePlayer = false;
+    //    //}
+    //    while (seesPlayer)
+    //    {
+    //        RememberPlayerCorIsRUNNING = true;
+    //        Debug.Log("RememberPlayerCorIsRUNNING = true;");
+    //        yield return new WaitForSeconds(5);
+    //        Debug.Log("seePlayer = false");
+    //        seesPlayer = false;
+    //        RememberPlayerCorIsRUNNING = false;
+    //        Debug.Log("RememberPlayerCorIsRUNNING = false;");
+
+    //    }
+    //}
 
     
     public void StartRotating()
@@ -164,8 +189,9 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
     public GameObject projectile;
 
     //States
-    public float attackRange; //sightRange
-    public bool playerInAttackRange; //, playerInSightRange
+    public float attackRange, sightRange;
+    public bool playerInAttackRange, playerInSightRange;
+
 
     private void Awake()
     {
@@ -197,8 +223,8 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackRange);
-        //Gizmos.color = Color.yellow;
-        //Gizmos.DrawWireSphere(transform.position, sightRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, sightRange);
     }
 
     #endregion

@@ -7,7 +7,7 @@ using static HealthPU;
 public class HealthCounter : MonoBehaviour
 {
     [SerializeField] int totalHealth = 1;
-    int maxHealth = 100;
+    [SerializeField] int maxHealth = 100;
 
     int totalDefence = 0;
 
@@ -45,22 +45,22 @@ public class HealthCounter : MonoBehaviour
         this.addedDamage = Math.Clamp(newDamage, 0, maxAddedDamage);
         if ((totalDefence - this.addedDamage) <= 0)
         {
-            Debug.Log("newDamage = " + newDamage);
+            //Debug.Log("newDamage = " + newDamage);
             int LeftAfterDefence = this.addedDamage - totalDefence;
-            Debug.Log(" LeftAfterDefence = totalDefence - this.addedDamage; = " + LeftAfterDefence);
+            //Debug.Log(" LeftAfterDefence = totalDefence - this.addedDamage; = " + LeftAfterDefence);
 
             totalDefence = 0;
             totalHealth = Math.Clamp(totalHealth - LeftAfterDefence, 0, maxHealth);
-            Debug.Log("totalHealth" + totalHealth);
+            //Debug.Log("totalHealth" + totalHealth);
         }
         else
         {
             totalDefence -= this.addedDamage;
-            Debug.Log("totalDefence -= this.addedDamage; totalDefence:" + totalDefence);
+            //Debug.Log("totalDefence -= this.addedDamage; totalDefence:" + totalDefence);
 
         }
         onPlayerHealthChanged?.Invoke(totalHealth, maxHealth);
-        Debug.Log("onPlayerHealthChanged?.Invoke(totalHealth, maxHealth); totalHealth=" + totalHealth + " maxHealth= " + maxHealth + "END/");
+        //Debug.Log("onPlayerHealthChanged?.Invoke(totalHealth, maxHealth); totalHealth=" + totalHealth + " maxHealth= " + maxHealth + "END/");
 
 
     }

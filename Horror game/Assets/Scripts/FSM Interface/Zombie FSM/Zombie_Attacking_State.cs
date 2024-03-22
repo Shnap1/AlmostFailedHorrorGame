@@ -65,11 +65,11 @@ public class Zombie_Attacking_State : MonoBehaviour, IStateNew
 
     public void CheckSwitchState()
     {
-        if (SM.seePlayer && !SM.playerInAttackRange)
+        if (SM.playerInSightRange && !SM.playerInAttackRange)
         {
             SM.SwitchState(SM.Chasing);
         }
-        else if (!SM.seePlayer && !SM.playerInAttackRange)
+        else if (!SM.playerInSightRange && !SM.playerInAttackRange)
         {
             SM.SwitchState(SM.Patrolling);
         }

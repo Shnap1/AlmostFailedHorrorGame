@@ -8,7 +8,7 @@ public class EnemyHealthCounter : MonoBehaviour
     [SerializeField] int totalHealth = 1;
     [SerializeField] GameObject healthBar;
     private EnemyHealthBar enemyHealthBar;
-    int maxHealth = 100;
+    [SerializeField] int maxHealth = 100;
 
     int totalDefence;
 
