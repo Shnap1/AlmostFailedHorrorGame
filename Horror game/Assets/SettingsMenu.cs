@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 //using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -11,19 +12,36 @@ public class SettingsMenu : MonoBehaviour
     public TMP_Dropdown resolutionDropdown;
     Resolution[] resolutions;
 
+    public Action<bool> OnGamePaused;
+    bool isPaused;
+
+    public GameObject PauseMenu;
+
     void Start()
+    {
+        SS();
+        TurnOffPauseUI();
+    }
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Escape)) TogglePause();
+    }
+
+    //
+    public void SS()
     {
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
         List<string> options = new List<string>();
 
         int currentResolutionIndex = 0;
-        for(int i = 0; i < resolutions.Length; i++)
+        for (int i = 0; i < resolutions.Length; i++)
         {
             string option = resolutions[i].width + " x " + resolutions[i].height;
             options.Add(option);
 
-            if(resolutions[i].width == Screen.currentResolution.width && 
+            if (resolutions[i].width == Screen.currentResolution.width &&
                resolutions[i].height == Screen.currentResolution.height)
             {
                 currentResolutionIndex = i;
@@ -33,7 +51,6 @@ public class SettingsMenu : MonoBehaviour
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
     }
-
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
@@ -56,4 +73,38 @@ public class SettingsMenu : MonoBehaviour
     {
         Screen.fullScreen = isFullscreen;
     }
+
+
+    public void TogglePause()
+    {
+        if(isPaused)
+        {
+            TurnOffPauseUI();
+        }
+        else if (!isPaused)
+        {
+            TurnOnPauseUI();
+        }
+    }
+
+    public void TurnOnPauseUI()
+    {
+        if (PauseMenu)
+        {
+            isPaused = true;
+            PauseMenu.SetActive(isPaused);
+            OnGamePaused?.Invoke(isPaused);
+        }
+    }
+
+    public void TurnOffPauseUI()
+    {
+        if (PauseMenu)
+        {
+            isPaused = false;
+            PauseMenu.SetActive(isPaused);
+            OnGamePaused?.Invoke(isPaused);
+        }
+    }
+
 }
