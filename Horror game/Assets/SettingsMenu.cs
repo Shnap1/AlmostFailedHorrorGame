@@ -5,11 +5,13 @@ using UnityEngine.Audio;
 //using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class SettingsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
     public TMP_Dropdown resolutionDropdown;
+    public TMP_Dropdown GraphicsDropdown;
     Resolution[] resolutions;
 
     public Action<bool> OnGamePaused;
@@ -19,17 +21,26 @@ public class SettingsMenu : MonoBehaviour
 
     void Start()
     {
-        SS();
+        GetResolutions();
         TurnOffPauseUI();
+        GetQuality();
+
     }
 
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape)) TogglePause();
     }
-
+    
+    public void GetQuality()
+    {
+        var currentQuality = QualitySettings.GetQualityLevel();
+        Debug.Log("currentQuality" + currentQuality);
+        GraphicsDropdown.value = currentQuality;
+        GraphicsDropdown.RefreshShownValue();
+    }
     //
-    public void SS()
+    public void GetResolutions()
     {
         resolutions = Screen.resolutions;
         resolutionDropdown.ClearOptions();
@@ -94,6 +105,9 @@ public class SettingsMenu : MonoBehaviour
             isPaused = true;
             PauseMenu.SetActive(isPaused);
             OnGamePaused?.Invoke(isPaused);
+            Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
         }
     }
 
@@ -104,7 +118,16 @@ public class SettingsMenu : MonoBehaviour
             isPaused = false;
             PauseMenu.SetActive(isPaused);
             OnGamePaused?.Invoke(isPaused);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Time.timeScale = 1;
         }
+    }
+
+    public void ExitToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+
     }
 
 }
