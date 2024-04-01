@@ -22,7 +22,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
         Debug.Log("Patrolling");
 
         StartCoroutine(ResetingPath(resetTime));
-
+        SM.healthBar.SetActive(false);
     }
     public void UpdaterState()
     {

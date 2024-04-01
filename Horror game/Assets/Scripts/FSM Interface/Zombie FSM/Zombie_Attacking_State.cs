@@ -19,7 +19,7 @@ public class Zombie_Attacking_State : MonoBehaviour, IStateNew
         SM.anim.SetBool("seePlayer", true);
         Debug.Log("Attacking");
         onAttack?.Invoke(true);
-
+        SM.healthBar.SetActive(true);
 
 
     }
@@ -33,7 +33,6 @@ public class Zombie_Attacking_State : MonoBehaviour, IStateNew
     {
         SM.agent.isStopped = false;
         onAttack?.Invoke(false);
-        
     }
 
 

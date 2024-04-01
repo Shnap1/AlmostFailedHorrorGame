@@ -29,6 +29,9 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
     Coroutine LookCoroutine;
     public float turnSpeed = 1f;
     bool RememberPlayerCorIsRUNNING;
+
+    public GameObject healthBar;
+
     public void InitializeStates()
     {
         Patrolling = gameObject.AddComponent<Zombie_Patrolling_State>();
