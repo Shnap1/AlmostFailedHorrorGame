@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
+using System;
 
 public class PlayerFallSate : PlayerBaseState, IRootState
 {
@@ -13,9 +15,39 @@ public class PlayerFallSate : PlayerBaseState, IRootState
     public override void EnterState()
     {
         InitializeSubState();
-        //Debug.Log("Fall State");
-        Ctx.Animator.SetBool(Ctx.IsFallingHash, true);
+        Debug.Log("Fall State");
+        //Ctx.Animator.SetBool(Ctx.IsFallingHash, true);
+        //StartDelayedExecution();
+
+        if (Ctx.wasGroundedBeforePause == false)
+        {
+            Debug.Log("Ctx.Animator.SetBool(Ctx.IsFallingHash, true);");
+            Ctx.Animator.SetBool(Ctx.IsFallingHash, true);
+
+        }
     }
+
+    public void StartDelayedExecution()
+    {
+        Task.Delay(1).ContinueWith(_ =>
+        {
+            DelayedMethod();
+        });
+    }
+
+    private void DelayedMethod()
+    {
+        Debug.Log("Delayed for 2 seconds");
+        Ctx.Animator.SetBool(Ctx.IsFallingHash, true);
+        //if (Ctx.CharacterController.isGrounded == false)
+        //{
+        //    Debug.Log("Ctx.Animator.SetBool(Ctx.IsFallingHash, true);");
+        //    Ctx.Animator.SetBool(Ctx.IsFallingHash, true);
+
+        //}
+
+    }
+
 
     public override void UpdateState()
     {

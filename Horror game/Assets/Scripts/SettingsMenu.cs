@@ -14,24 +14,26 @@ public class SettingsMenu : MonoBehaviour
     public TMP_Dropdown GraphicsDropdown;
     Resolution[] resolutions;
 
-    public Action<bool> OnGamePaused;
-    bool isPaused;
+    public static Action<bool> OnGamePaused;
+    [SerializeField] bool isPaused = false;
+    bool isGameOver;
 
-    public GameObject PauseMenu;
-
+    public GameObject PauseMenuUI;
+    public GameObject GameOverUI;
+    [SerializeField] PlayerStateMachine player;
     void Start()
     {
         GetResolutions();
-        TurnOffPauseUI();
         GetQuality();
 
     }
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape)) TogglePause();
+        if(Input.GetKeyDown(KeyCode.Escape)) TogglePauseUI();
+        if (Input.GetKeyDown(KeyCode.O)) ToggleGameOverUI(true);
     }
-    
+
     public void GetQuality()
     {
         var currentQuality = QualitySettings.GetQualityLevel();
@@ -39,7 +41,7 @@ public class SettingsMenu : MonoBehaviour
         GraphicsDropdown.value = currentQuality;
         GraphicsDropdown.RefreshShownValue();
     }
-    //
+    
     public void GetResolutions()
     {
         resolutions = Screen.resolutions;
@@ -86,7 +88,7 @@ public class SettingsMenu : MonoBehaviour
     }
 
 
-    public void TogglePause()
+    public void TogglePauseUI()
     {
         if(isPaused)
         {
@@ -100,34 +102,46 @@ public class SettingsMenu : MonoBehaviour
 
     public void TurnOnPauseUI()
     {
-        if (PauseMenu)
+        if (PauseMenuUI != null)
         {
-            isPaused = true;
-            PauseMenu.SetActive(isPaused);
-            OnGamePaused?.Invoke(isPaused);
-            Time.timeScale = 0;
-            Cursor.lockState = CursorLockMode.Confined;
-            Cursor.visible = true;
+            PauseGame();
+            PauseMenuUI.SetActive(true);
         }
     }
 
     public void TurnOffPauseUI()
     {
-        if (PauseMenu)
+        if (PauseMenuUI != null)
         {
-            isPaused = false;
-            PauseMenu.SetActive(isPaused);
-            OnGamePaused?.Invoke(isPaused);
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-            Time.timeScale = 1;
+            PauseGame();
+            PauseMenuUI.SetActive(false);
         }
     }
 
-    public void ExitToMainMenu()
+    public void ExitToMainMenu() => SceneManager.LoadScene("MainMenu");
+    public void ToggleGameOverUI(bool gameOver)
     {
-        SceneManager.LoadScene("MainMenu");
-
+        GameOverUI.SetActive(gameOver);
+        PauseGame();
     }
-
+    public void PauseGame()
+    {
+        if (isPaused)
+        {
+            isPaused = false;
+            Time.timeScale = 1;
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            OnGamePaused?.Invoke(false);
+        }
+        else if (!isPaused)
+        {
+            isPaused = true;
+            Time.timeScale = 0;
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
+            OnGamePaused?.Invoke(true);
+        }
+    }
+    public void ReloadScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
 }

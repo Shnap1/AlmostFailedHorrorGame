@@ -85,6 +85,8 @@ public class PlayerStateMachine : MonoBehaviour
     [SerializeField] int playerHealth;
     [SerializeField] int playerHealthMax;
 
+
+    public bool wasGroundedBeforePause;
     void Awake()
     {
         // initialy set reference variables
@@ -153,6 +155,9 @@ public class PlayerStateMachine : MonoBehaviour
 
         _cameraRelativeMovement = ConvertToCameraSpace(_appliedMovement);
         _characterController.Move(_cameraRelativeMovement * Time.deltaTime);
+
+
+
         //if(Input.GetMouseButtonDown(0))
         //{
         //    TakeDamage(1);
@@ -227,15 +232,23 @@ public class PlayerStateMachine : MonoBehaviour
 
     //public static Action<int, int> onPlayerHealthChanged;
 
+    void RecordIfGoundedBeforePause(bool ifPaused)
+    {
+        wasGroundedBeforePause = CharacterController.isGrounded;
+    }
+
     private void OnEnable()
     {
         //eneble the charachter controls action map
         _playerInput.CharacterControlls.Enable();
+        SettingsMenu.OnGamePaused += RecordIfGoundedBeforePause;
     }
 
     private void OnDisable()
     {
         //disable the charachter controls action map
         _playerInput.CharacterControlls.Disable();
+        SettingsMenu.OnGamePaused -= RecordIfGoundedBeforePause;
+
     }
 }
