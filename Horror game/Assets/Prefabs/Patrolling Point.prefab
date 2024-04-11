@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 2707239363980956118}
   - component: {fileID: 2403015531694484883}
   - component: {fileID: 4727772555776905555}
-  - component: {fileID: 6742689168281059271}
+  - component: {fileID: 6674727701212536731}
+  - component: {fileID: 1296389625690585864}
   m_Layer: 0
   m_Name: Patrolling Point
   m_TagString: Untagged
@@ -84,8 +85,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6742689168281059271
-BoxCollider:
+--- !u!114 &6674727701212536731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2649280250229723621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a53a6ac3eebeeb94ba3f08ad035bef8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PatroolPointManager: {fileID: 0}
+  pointTriggeredByPlayer: 0
+  pointClosestToPlayer: 0
+  numberOfEnemies: 0
+--- !u!135 &1296389625690585864
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -94,14 +111,14 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 768
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}

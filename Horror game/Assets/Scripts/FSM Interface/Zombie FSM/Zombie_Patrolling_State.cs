@@ -7,7 +7,17 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
 {
     ZombieStateManager SM;
     int resetTime = 5;
+
     bool patroling = false;
+
+        public enum Patrollers{
+        lastTriggeredPointFollower,
+        playerFollower,
+        randomPointFollower
+    }
+
+    public Patrollers thisEnemyPatrollerType;
+
 
     public void InitializeSM<T>(T stateManager) where T : IStateManagerNew
     {
@@ -26,8 +36,9 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
     }
     public void UpdaterState()
     {
-        PatrolToSetPoint();
+       // PatrolToSetPoint();
         CheckSwitchState();
+        SelectPatrollingType();
     }
 
     public void ExitState()
@@ -78,18 +89,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
         SM.agent.SetDestination(SM.walkPoint);
     }
 
-    public void CheckSwitchState()
-    {
-        if (SM.playerInSightRange && !SM.playerInAttackRange)
-        {
-            SM.SwitchState(SM.Chasing);
-        }
-        else if (SM.playerInAttackRange && SM.playerInSightRange)
-        {
-            SM.SwitchState(SM.Attacking);
 
-        }
-    }
 
     IEnumerator ResetingPath(int patrolingTime)
     {
@@ -98,6 +98,60 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
             //Debug.Log("IEnumerator ResetingPath(int )");
             SearchWalkPoint();
             yield return new WaitForSeconds(patrolingTime);
+        }
+    }
+
+    public void SelectPatrollingType()
+    {
+        if(thisEnemyPatrollerType == Patrollers.lastTriggeredPointFollower)
+        {
+            //Debug.Log("lastTriggeredPointFollower");
+
+        }
+        else if(thisEnemyPatrollerType == Patrollers.playerFollower)
+        {
+            //Debug.Log("playerFollower");
+            PlayerPatrolingFunction();
+
+        }
+        else if(thisEnemyPatrollerType == Patrollers.randomPointFollower)
+        {
+            //Debug.Log("randomPointFollower");
+        }
+    }
+
+
+public void PlayerPatrolingFunction()
+{
+    //StateManager.transform.LookAt()
+    SearchPlayerLocation();
+    if (!SM.walkPointSet) SearchPlayerLocation();
+
+    else if (SM.walkPointSet)
+        SM.agent.SetDestination(SM.walkPoint);
+
+    Vector3 distanceToWalkPoint = SM.transform.position - SM.walkPoint;
+
+    //Walkpoint reached
+    if (distanceToWalkPoint.magnitude < 1f)
+        SM.walkPointSet = false;
+}
+
+private void SearchPlayerLocation()
+{
+    SM.walkPoint = SM.player.position; // Assuming player is accessible here
+}
+
+
+        public void CheckSwitchState()
+    {
+        if (SM.playerInSightRange && !SM.playerInAttackRange)
+        {
+            SM.SwitchState(SM.Chasing);
+        }
+        else if (SM.playerInAttackRange && SM.playerInSightRange)
+        {
+            SM.SwitchState(SM.Attacking);
 
         }
     }

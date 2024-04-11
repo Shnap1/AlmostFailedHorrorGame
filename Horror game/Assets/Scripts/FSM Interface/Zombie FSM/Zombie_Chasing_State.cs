@@ -6,6 +6,7 @@ public class Zombie_Chasing_State : MonoBehaviour, IStateNew
 {
     ZombieStateManager SM;
 
+
     public void InitializeSM<T>(T stateManager) where T : IStateManagerNew
     {
         SM = stateManager as ZombieStateManager;

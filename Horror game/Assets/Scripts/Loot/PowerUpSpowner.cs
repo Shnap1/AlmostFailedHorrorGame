@@ -16,6 +16,9 @@ public class PowerUpSpowner : MonoBehaviour
     //public Dictionary<Locations, Transform> LocationsDict = new Dictionary<Locations, Transform>();
     public List<Transform> LocationsTrasnforms = new List<Transform>();
 
+    public List<Transform> AlreadySpanedTransforms = new List<Transform>();
+
+
     public static PowerUpSpowner thisPUSpawner;
     public enum Loot
     {
@@ -40,13 +43,41 @@ public class PowerUpSpowner : MonoBehaviour
 
     public void RandomSpawnPowerUp()
     {
+        if(AlreadySpanedTransforms.Count == LocationsTrasnforms.Count)
+        {
+            AlreadySpanedTransforms.Clear();
+        }
+
         //var spawner = PowerUpSpowner.ReturnPUSPowner();
 
         //Instantiate<GameObject>(LootList[loot], Transform.LocationsTrasnform[0]);
+        
+        
         GameObject randomGameObject = LootList[UnityEngine.Random.Range(0, LootList.Count)];
         Transform randomTransform = LocationsTrasnforms[UnityEngine.Random.Range(0, LocationsTrasnforms.Count)];
+        if(AlreadySpanedTransforms.Contains(randomTransform))
+        {
+            for(int i = 0; i < AlreadySpanedTransforms.Count; i++)
+            {
+                randomTransform = LocationsTrasnforms[UnityEngine.Random.Range(0, LocationsTrasnforms.Count)];
+                if (!AlreadySpanedTransforms.Contains(randomTransform))
+                {
+                    Instantiate<GameObject>(randomGameObject, randomTransform);
+                    AlreadySpanedTransforms.Add(randomTransform);
+                    break;
+                }
+            }
+        }
+        else if(!AlreadySpanedTransforms.Contains(randomTransform))
+        {
+            Debug.Log($" randomTransform = {randomTransform.position.ToString()}");
 
-        Instantiate<GameObject>(randomGameObject, randomTransform);
+            Instantiate<GameObject>(randomGameObject, randomTransform);
+            Debug.Log($"{randomGameObject.name} spawned in {randomTransform.position.ToString()}" );
+            AlreadySpanedTransforms.Add(randomTransform);
+        }
+
+
     }
 
 

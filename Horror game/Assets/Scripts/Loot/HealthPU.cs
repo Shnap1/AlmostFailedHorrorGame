@@ -10,8 +10,7 @@ public class HealthPU : MonoBehaviour, IPowerUp
 
     private void Start()
     {
-        //PowerUpSpowner.AddPowerUp(gameObject);
-        powerUpSpowner.AddPowerUp(gameObject);
+        //powerUpSpowner.AddPowerUp(gameObject);
     }
     public void DoAction(int amount, GameObject DoActioTo)
     {
@@ -37,13 +36,4 @@ public class HealthPU : MonoBehaviour, IPowerUp
         GetComponent<Collider>().enabled = false;
     }
 
-
-
-    //public enum HealthPUEnum
-    //{
-    //    TypeAss,
-    //    TypeTitt,
-    //}
-
-    //public HealthPUEnum thisPUType;
 }

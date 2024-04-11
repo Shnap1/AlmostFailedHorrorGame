@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -13,6 +14,13 @@ public class ENEMY_STATE_MANAGER : MonoBehaviour
         Patroling
     }
 
+    public enum ChasingType{
+        Follower, //always knows where the player is and follows it
+        PointChecker, //knows the last point player triggerred and goes there
+        FreePointWanderer //goes to point that has the least amount of other enemies then goes there, then chooses another free random point
+
+
+    }
     BaseStateNEW currentState;
     Dictionary<EnemyEnums, BaseStateNEW> enemyStates = new Dictionary<EnemyEnums, BaseStateNEW>();
 
