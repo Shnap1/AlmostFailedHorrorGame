@@ -6,11 +6,11 @@ using UnityEngine;
 public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
 {
     ZombieStateManager SM;
-    int resetTime = 5;
+    int resetTime = 10;
 
-    bool patroling = false;
+    public bool patroling = false;
 
-        public enum Patrollers{
+    public enum Patrollers{
         lastTriggeredPointFollower,
         playerFollower,
         randomPointFollower
@@ -18,6 +18,9 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
 
     public Patrollers thisEnemyPatrollerType;
 
+    
+
+    public Patrollers dropdownSelection;
 
     public void InitializeSM<T>(T stateManager) where T : IStateManagerNew
     {
@@ -26,25 +29,30 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
 
     public void EnteState()
     {
+        thisEnemyPatrollerType = Patrollers.playerFollower;
+        //thisEnemyPatrollerType = Patrollers.randomPointFollower;
+
+
         patroling = true;
         SM.anim.SetBool("closeToAttack", false);
         SM.anim.SetBool("seePlayer", false);
         Debug.Log("Patrolling");
 
-        StartCoroutine(ResetingPath(resetTime));
+        StartCoroutine(ResetingPath(resetTime, thisEnemyPatrollerType));
+
         SM.healthBar.SetActive(false);
     }
     public void UpdaterState()
     {
-       // PatrolToSetPoint();
+       //PatrolToSetPoint();
         CheckSwitchState();
-        SelectPatrollingType();
     }
 
     public void ExitState()
     {
         patroling = false;
-        StopCoroutine(ResetingPath(resetTime));
+        StopCoroutine(ResetingPath(resetTime, thisEnemyPatrollerType));
+        //SM.agent.ResetPath();
 
     }
 
@@ -91,34 +99,53 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
 
 
 
-    IEnumerator ResetingPath(int patrolingTime)
+    IEnumerator ResetingPath(int patrolingTime, Patrollers patrollerType)
     {
         while(patroling)
         {
-            //Debug.Log("IEnumerator ResetingPath(int )");
-            SearchWalkPoint();
+            PatrolingFunction();
+
+            /// NEW NEW
+                 if(patrollerType == Patrollers.lastTriggeredPointFollower)
+                {
+                    //Debug.Log("lastTriggeredPointFollower");
+
+                }
+                else if(patrollerType == Patrollers.playerFollower)
+                {
+                    //Debug.Log("playerFollower");
+                    PlayerPatrolingFunction();
+
+                }
+                else if(patrollerType == Patrollers.randomPointFollower)
+                {
+                    Debug.Log("randomPointFollower");
+                    SearchWalkPoint();
+                }
+            
+            /// NEW NEW
             yield return new WaitForSeconds(patrolingTime);
         }
     }
 
-    public void SelectPatrollingType()
-    {
-        if(thisEnemyPatrollerType == Patrollers.lastTriggeredPointFollower)
-        {
-            //Debug.Log("lastTriggeredPointFollower");
+    // public void SelectPatrollingType(Patrollers patrollerType)
+    // {
+    //     if(patrollerType == Patrollers.lastTriggeredPointFollower)
+    //     {
+    //         //Debug.Log("lastTriggeredPointFollower");
 
-        }
-        else if(thisEnemyPatrollerType == Patrollers.playerFollower)
-        {
-            //Debug.Log("playerFollower");
-            PlayerPatrolingFunction();
+    //     }
+    //     else if(patrollerType == Patrollers.playerFollower)
+    //     {
+    //         //Debug.Log("playerFollower");
+    //         PlayerPatrolingFunction();
 
-        }
-        else if(thisEnemyPatrollerType == Patrollers.randomPointFollower)
-        {
-            //Debug.Log("randomPointFollower");
-        }
-    }
+    //     }
+    //     else if(thisEnemyPatrollerType == Patrollers.randomPointFollower)
+    //     {
+    //         //Debug.Log("randomPointFollower");
+    //     }
+    // }
 
 
 public void PlayerPatrolingFunction()
@@ -133,7 +160,7 @@ public void PlayerPatrolingFunction()
     Vector3 distanceToWalkPoint = SM.transform.position - SM.walkPoint;
 
     //Walkpoint reached
-    if (distanceToWalkPoint.magnitude < 1f)
+    if (distanceToWalkPoint.magnitude < 3f)
         SM.walkPointSet = false;
 }
 

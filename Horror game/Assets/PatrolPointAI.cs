@@ -36,7 +36,6 @@ public class PatrolPointAI : MonoBehaviour
         }
         else if (other.gameObject.tag == "Enemy")
         {
-            //numberOfEnemies -= 1;
             numberOfEnemies = Mathf.Clamp(numberOfEnemies -1, 0, 5);
         }
     }

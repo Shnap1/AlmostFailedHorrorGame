@@ -1978,12 +1978,17 @@ PrefabInstance:
     - target: {fileID: 6008143588443066524, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_Name
       value: ZOMBIE ENEMY (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6632044263578365911, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
@@ -4672,8 +4677,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.08980815, y: 0.90894854, z: 0.3117219, w: 0.2618712}
-  m_LocalPosition: {x: 59.050636, y: 61.19, z: -82.26231}
+  m_LocalRotation: {x: -0.28791168, y: 0.4055313, z: 0.1362736, w: 0.8567851}
+  m_LocalPosition: {x: 89.84133, y: 17.19, z: -123.23531}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -6250,12 +6255,17 @@ PrefabInstance:
     - target: {fileID: 6008143588443066524, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_Name
       value: ZOMBIE ENEMY (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6632044263578365911, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
@@ -6354,12 +6364,17 @@ PrefabInstance:
     - target: {fileID: 6008143588443066524, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_Name
       value: ZOMBIE ENEMY (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6632044263578365911, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
@@ -6608,12 +6623,17 @@ PrefabInstance:
     - target: {fileID: 6008143588443066524, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_Name
       value: ZOMBIE ENEMY (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6632044263578365911, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
@@ -7259,7 +7279,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 557332105}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.097277746, y: 0.9573979, z: 0.03921187, w: 0.26905158}
+  m_LocalRotation: {x: -0.30823314, y: 0.40658945, z: 0.015532292, w: 0.85990477}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7387,7 +7407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f850e30b29c8434b9c8cb56b98c1171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PatrolpointsList: []
+  PatrolPointsList: []
   triggeredPatrolPointsList: []
 --- !u!1001 &615331859
 PrefabInstance:
@@ -7914,7 +7934,7 @@ Transform:
   m_GameObject: {fileID: 663939399}
   serializedVersion: 2
   m_LocalRotation: {x: 0.15229672, y: 0.03705352, z: -0.005713878, w: 0.98762345}
-  m_LocalPosition: {x: 59.050636, y: 61.19, z: -82.26231}
+  m_LocalPosition: {x: 89.84133, y: 17.19, z: -123.23531}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -8508,12 +8528,17 @@ PrefabInstance:
     - target: {fileID: 6008143588443066524, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_Name
       value: ZOMBIE ENEMY (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6632044263578365911, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
@@ -8945,7 +8970,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814765956}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.14532275, y: 0.9349567, z: 0.16760255, w: 0.2768513}
+  m_LocalRotation: {x: -0.42220038, y: 0.3878742, z: 0.067053325, w: 0.8165808}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8997,12 +9022,17 @@ PrefabInstance:
     - target: {fileID: 6008143588443066524, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_Name
       value: ZOMBIE ENEMY (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6632044263578365911, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
@@ -13010,12 +13040,17 @@ PrefabInstance:
     - target: {fileID: 6008143588443066524, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_Name
       value: ZOMBIE ENEMY (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6632044263578365911, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
@@ -18726,7 +18761,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1599925754}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.02739286, y: 0.94040567, z: -0.19740301, w: 0.27553377}
+  m_LocalRotation: {x: -0.0909483, y: 0.3934407, z: -0.08242423, w: 0.91111976}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -23365,12 +23400,17 @@ PrefabInstance:
     - target: {fileID: 6008143588443066524, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_Name
       value: ZOMBIE ENEMY (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6632044263578365911, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
@@ -24788,20 +24828,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: ZOMBIE ENEMY (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
+        type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 6632044263578365911, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -188.29
+      value: -109.42
       objectReference: {fileID: 0}
     - target: {fileID: 6632044263578365911, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -214.99
+      value: -205.3
       objectReference: {fileID: 0}
     - target: {fileID: 6632044263578365911, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 170.66
+      value: 50.47
       objectReference: {fileID: 0}
     - target: {fileID: 6632044263578365911, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
@@ -27480,17 +27525,17 @@ PrefabInstance:
     - target: {fileID: 6034436551175393872, guid: 4a75967add81799478347231efaccb16,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 60.6
+      value: 92.5
       objectReference: {fileID: 0}
     - target: {fileID: 6034436551175393872, guid: 4a75967add81799478347231efaccb16,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 59.6
+      value: 15.6
       objectReference: {fileID: 0}
     - target: {fileID: 6034436551175393872, guid: 4a75967add81799478347231efaccb16,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -85.3
+      value: -121.1
       objectReference: {fileID: 0}
     - target: {fileID: 6034436551175393872, guid: 4a75967add81799478347231efaccb16,
         type: 3}
