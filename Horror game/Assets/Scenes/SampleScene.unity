@@ -7404,10 +7404,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 608843904}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8f850e30b29c8434b9c8cb56b98c1171, type: 3}
+  m_Script: {fileID: 11500000, guid: 58384175c22ee494788f15cb3e6e7df5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PatrolPointsList: []
+  patrolPointsList: []
   triggeredPatrolPointsList: []
 --- !u!1001 &615331859
 PrefabInstance:
@@ -24818,6 +24818,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1367542618}
+    - target: {fileID: 218729066389837163, guid: 6a56734da8cb40e43a5bbe631144a0a2,
+        type: 3}
+      propertyPath: patroPointManager
+      value: 
+      objectReference: {fileID: 608843906}
     - target: {fileID: 6008143588443066524, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_AnchorMax.y

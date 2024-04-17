@@ -98,36 +98,42 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
     }
 
 
-
+    public void SetPatrollingType(Patrollers patrollerType)
+    {
+        thisEnemyPatrollerType = patrollerType;
+    }
     IEnumerator ResetingPath(int patrolingTime, Patrollers patrollerType)
     {
         while(patroling)
         {
-            PatrolingFunction();
+            //PatrolingFunction(); NEW NEW
 
-            /// NEW NEW
+            /// 
                  if(patrollerType == Patrollers.lastTriggeredPointFollower)
                 {
                     //Debug.Log("lastTriggeredPointFollower");
+                    EnemyGoesTo(SM.patroPointManager.GetTriggeredPatrolPointPos());
 
                 }
                 else if(patrollerType == Patrollers.playerFollower)
                 {
                     //Debug.Log("playerFollower");
                     PlayerPatrolingFunction();
+                    
 
                 }
                 else if(patrollerType == Patrollers.randomPointFollower)
                 {
                     Debug.Log("randomPointFollower");
-                    SearchWalkPoint();
+                    //SearchWalkPoint();
+                    EnemyGoesTo(SM.patroPointManager.GetEmptyPatrolPointPos());
                 }
             
             /// NEW NEW
             yield return new WaitForSeconds(patrolingTime);
         }
     }
-
+    
     // public void SelectPatrollingType(Patrollers patrollerType)
     // {
     //     if(patrollerType == Patrollers.lastTriggeredPointFollower)
@@ -156,6 +162,19 @@ public void PlayerPatrolingFunction()
 
     else if (SM.walkPointSet)
         SM.agent.SetDestination(SM.walkPoint);
+
+    Vector3 distanceToWalkPoint = SM.transform.position - SM.walkPoint;
+
+    //Walkpoint reached
+    if (distanceToWalkPoint.magnitude < 3f)
+        SM.walkPointSet = false;
+}
+
+public void EnemyGoesTo(Vector3 destination)
+{
+    SM.walkPoint = destination;
+    SM.agent.SetDestination(SM.walkPoint);
+    SM.walkPointSet = true;
 
     Vector3 distanceToWalkPoint = SM.transform.position - SM.walkPoint;
 

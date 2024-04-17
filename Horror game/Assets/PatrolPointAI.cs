@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class PatrolPointAI : MonoBehaviour
 {
-    public PatroolPointManager PatroolPointManager;
+    public PatrolPointManager PatroolPointManager;
     public bool pointTriggeredByPlayer = false;
     public bool pointClosestToPlayer = false;
     public int numberOfEnemies = 0;
     void Start()
     {
-        PatroolPointManager.PatrolPointsList.Add(this);
+        PatroolPointManager.patrolPointsList.Add(this);
     }
 
     void OnTriggerEnter(Collider other)
@@ -42,7 +42,7 @@ public class PatrolPointAI : MonoBehaviour
 
     void OnDisable()
     {
-        PatroolPointManager.PatrolPointsList.Remove(this);
+        PatroolPointManager.patrolPointsList.Remove(this);
     }
 
 }
