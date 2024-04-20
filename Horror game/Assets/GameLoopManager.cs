@@ -8,6 +8,8 @@ public class GameLoopManager : MonoBehaviour
     public static GameLoopManager instance;
     public GameState currentGameState;
     public static Action<GameState> OnGameStateChanged;
+    [SerializeField] PowerUpSpowner powerUpSpowner;
+    [SerializeField] EnemySpawner enemySpawner;
     private void Awake()
     {
         if (instance == null)
@@ -21,6 +23,18 @@ public class GameLoopManager : MonoBehaviour
         }
         UpdateGameState(GameState.Lobby);
     }
+
+// public GameLevel(int levelNumber, int enemiesToSpawn, int lootToSpawn, int collectablesToSpawn)
+    List<GameLevel> gameLevels = new List<GameLevel>()
+    {
+        new GameLevel(0, 1, 1, 1),
+        new GameLevel(1, 1, 1, 1),
+        new GameLevel(2, 2, 2, 2),
+        new GameLevel(3, 3, 3, 3),
+        new GameLevel(4, 4, 4, 4)
+    };
+
+    GameLevel currentLevel = new GameLevel(1, 5, 5, 3);
 
     public enum GameState
     {
@@ -38,6 +52,11 @@ public class GameLoopManager : MonoBehaviour
             switch (currentGameState)
             {
                 case GameState.GatesOpen:
+                    OpenGate();
+                    LoadLevelData(currentLevel);
+                    SpawnEnemies(currentLevel.enemiesToSpawn);
+                    SpawnLoot(currentLevel.lootToSpawn);
+                    SpawnCollectables(currentLevel.collectablesToSpawn);
                     break;
                 case GameState.LootCollected:
                     break;
@@ -55,8 +74,8 @@ public class GameLoopManager : MonoBehaviour
         }
     }
     
-    void LevelLoadData(int levelNumber){
-        
+    void LoadLevelData(GameLevel level){
+        currentLevel = level;
     }
 
     public void OpenGate(){
@@ -67,20 +86,24 @@ public class GameLoopManager : MonoBehaviour
         //
     }
 
-    void SpawnLoot(){
+    void SpawnLoot(int lootToSpawn){
+        for (int i = 0; i < lootToSpawn; i++)
+        {
+            powerUpSpowner.RandomSpawnPowerUp();
+        }
+    }
+    
+    void SpawnCollectables(int collectablesToSpawn){
         //
     }
     
-    void SpawnCollectables(){
-        //
-    }
-    
-    void SpawnEnemies(){
-        //
+    void SpawnEnemies(int enemiesToSpawn){
+        enemySpawner.SpawnEnemies(enemiesToSpawn);
     }
     void GoToLobby(){
         //
     }
+    
 
 }
 
@@ -100,8 +123,5 @@ public class GameLevel
         this.collectablesToSpawn = collectablesToSpawn;
     }
 
-    public GameLevel(int levelNumber){
-        this.levelNumber = levelNumber;
-    }
 }
 

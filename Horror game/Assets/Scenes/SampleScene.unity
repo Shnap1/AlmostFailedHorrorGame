@@ -10073,6 +10073,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 932282782}
+  - component: {fileID: 932282783}
   m_Layer: 0
   m_Name: GAME LOOP MANAGER
   m_TagString: Untagged
@@ -10095,6 +10096,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &932282783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 932282781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 393cf3cbab3825441894c5ec486b3029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentGameState: 4
+  powerUpSpowner: {fileID: 1914100795}
+  enemySpawner: {fileID: 1847040363}
 --- !u!1 &933782955
 GameObject:
   m_ObjectHideFlags: 0
@@ -21644,8 +21660,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1847040361}
   - component: {fileID: 1847040362}
+  - component: {fileID: 1847040363}
   m_Layer: 0
-  m_Name: ENEMIES
+  m_Name: ENEMY SPAWNER
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21687,6 +21704,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d3577a6ba8689b459275ca44980e947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1847040363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1847040360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05ff10655b83a124d882ff2514976697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2, type: 3}
+  patrolPointsManager: {fileID: 608843906}
 --- !u!1 &1858476155
 GameObject:
   m_ObjectHideFlags: 0
@@ -24863,11 +24894,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ZOMBIE ENEMY (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 6632044263578365911, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
