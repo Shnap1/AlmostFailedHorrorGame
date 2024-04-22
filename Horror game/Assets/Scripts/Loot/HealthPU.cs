@@ -6,7 +6,7 @@ public class HealthPU : MonoBehaviour, IPowerUp
 {
     bool wasUsed = false;
     [Range(0,100)]public int healthPoint;
-    public PowerUpSpowner powerUpSpowner;
+    public PowerUpSpawner powerUpSpowner;
 
     private void Start()
     {

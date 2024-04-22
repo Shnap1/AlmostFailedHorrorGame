@@ -117,7 +117,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
                 }
                 else if(patrollerType == Patrollers.playerFollower)
                 {
-                    //Debug.Log("playerFollower");
+                    Debug.Log("playerFollower");
                     PlayerPatrolingFunction();
                     
 

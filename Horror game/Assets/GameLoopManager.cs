@@ -8,7 +8,7 @@ public class GameLoopManager : MonoBehaviour
     public static GameLoopManager instance;
     public GameState currentGameState;
     public static Action<GameState> OnGameStateChanged;
-    [SerializeField] PowerUpSpowner powerUpSpowner;
+    [SerializeField] PowerUpSpawner powerUpSpowner;
     [SerializeField] EnemySpawner enemySpawner;
     private void Awake()
     {

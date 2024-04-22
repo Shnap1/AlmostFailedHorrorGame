@@ -22,8 +22,8 @@ public class PatrolPointManager : MonoBehaviour
     } 
     public Vector3 GetEmptyPatrolPointPos()
     {
-        var PatPointWithLeastEnemes = patrolPointsList.OrderBy(obj => obj.numberOfEnemies).First().transform.position;
-        return PatPointWithLeastEnemes;
-        // var PatPointWithLeastEnemes = patrolPointsList[Random.Range(0, patrolPointsList.Count)].transform.position;
+        var PatPointWithLeastEnemies = patrolPointsList.OrderBy(obj => obj.numberOfEnemies).First().transform.position;
+        return PatPointWithLeastEnemies;
+        // var PatPointWithLeastEnemies = patrolPointsList[Random.Range(0, patrolPointsList.Count)].transform.position;
     }
 }
