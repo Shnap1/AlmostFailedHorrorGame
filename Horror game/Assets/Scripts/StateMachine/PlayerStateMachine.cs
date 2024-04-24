@@ -87,9 +87,13 @@ public class PlayerStateMachine : MonoBehaviour
 
 
     public bool wasGroundedBeforePause;
+
+    public LootCounter lootCounter;
     void Awake()
     {
         // initialy set reference variables
+        lootCounter = GetComponent<LootCounter>();
+
         _playerInput = new PlayerInput();
         _characterController = GetComponent<CharacterController>();
         _animator = GetComponent<Animator>();
@@ -230,6 +234,12 @@ public class PlayerStateMachine : MonoBehaviour
         _isRunPressed = context.ReadValueAsButton();
     }
 
+    void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "TargetCollectable"){
+            lootCounter.AddLoot();
+        }
+    }
     //public static Action<int, int> onPlayerHealthChanged;
 
     void RecordIfGoundedBeforePause(bool ifPaused)

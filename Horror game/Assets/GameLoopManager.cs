@@ -7,9 +7,11 @@ public class GameLoopManager : MonoBehaviour
 {
     public static GameLoopManager instance;
     public GameState currentGameState;
-    public static Action<GameState> OnGameStateChanged;
-    [SerializeField] PowerUpSpawner powerUpSpowner;
+    //public static Action<GameState> OnGameStateChanged;
+    [SerializeField] PowerUpSpawner powerUpSpawner;
     [SerializeField] EnemySpawner enemySpawner;
+
+    public static event Action<GameState> OnGameUpdate;
     private void Awake()
     {
         if (instance == null)
@@ -44,7 +46,7 @@ public class GameLoopManager : MonoBehaviour
         Lose,
         Lobby
     }
-    void UpdateGameState(GameState newGameState)
+    public void UpdateGameState(GameState newGameState)
     {
         if(currentGameState != newGameState)
         {
@@ -70,7 +72,8 @@ public class GameLoopManager : MonoBehaviour
                     break;
             }
 
-            OnGameStateChanged?.Invoke(currentGameState);
+            //OnGameStateChanged?.Invoke(currentGameState);
+            OnGameUpdate?.Invoke(currentGameState);
         }
     }
     
@@ -89,7 +92,7 @@ public class GameLoopManager : MonoBehaviour
     void SpawnLoot(int lootToSpawn){
         for (int i = 0; i < lootToSpawn; i++)
         {
-            powerUpSpowner.RandomSpawnPowerUp();
+            powerUpSpawner.RandomSpawnPowerUp();
         }
     }
     
