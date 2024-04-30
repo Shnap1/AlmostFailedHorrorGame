@@ -14,18 +14,34 @@ public class GameLoopManager : MonoBehaviour
     public static event Action<GameState> OnGameUpdate;
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-        UpdateGameState(GameState.Lobby);
+        // if (instance == null)
+        // {
+        //     instance = this;
+        //     DontDestroyOnLoad(gameObject);
+        // }
+        // else
+        // {
+        //     Destroy(gameObject);
+        // }
+        UpdateGameState(GameState.GatesOpen);
+        Debug.Log("UpdateGameState(GameState.GatesOpen)");
+
     }
 
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        if(Input.GetKey(KeyCode.O)){
+            UpdateGameState(GameState.GatesOpen);
+            Debug.Log("UpdateGameState(GameState.GameStart)");
+        }
+        else if(Input.GetKey(KeyCode.U)){
+            UpdateGameState(GameState.GameStart);
+            Debug.Log("UpdateGameState(GameState.GameStart)");
+        }
+    }
 // public GameLevel(int levelNumber, int enemiesToSpawn, int lootToSpawn, int collectablesToSpawn)
     List<GameLevel> gameLevels = new List<GameLevel>()
     {
@@ -41,6 +57,7 @@ public class GameLoopManager : MonoBehaviour
     public enum GameState
     {
         GatesOpen,
+        GameStart,
         LootCollected,
         Victory,
         Lose,

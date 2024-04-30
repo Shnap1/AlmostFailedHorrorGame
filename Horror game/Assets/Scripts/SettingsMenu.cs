@@ -31,7 +31,7 @@ public class SettingsMenu : MonoBehaviour
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape)) TogglePauseUI();
-        if (Input.GetKeyDown(KeyCode.O)) ToggleGameOverUI(true);
+        // if (Input.GetKeyDown(KeyCode.O)) ToggleGameOverUI(true);
     }
 
     public void GetQuality()
@@ -87,7 +87,17 @@ public class SettingsMenu : MonoBehaviour
         Screen.fullScreen = isFullscreen;
     }
 
-
+    void TriggerToggleView(GameLoopManager.GameState gameState){
+        //if(gameState == GameLoopManager.GameState.)
+        switch (gameState)
+        {
+            case GameLoopManager.GameState.Lose:
+                isGameOver = true;
+                ToggleGameOverUI(isGameOver);
+                break;
+        }
+        
+    }
     public void TogglePauseUI()
     {
         if(isPaused)
