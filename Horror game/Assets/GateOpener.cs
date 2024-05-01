@@ -5,7 +5,7 @@ using UnityEngine;
 public class GateOpener : MonoBehaviour
 {
     public Animator animator;
-    bool gateOpen = false;
+    bool gateOpen;
 
     void Start()
     {
@@ -20,7 +20,7 @@ public class GateOpener : MonoBehaviour
     }
 
     public void Open(GameLoopManager.GameState gameState){
-        if(gameState == GameLoopManager.GameState.GatesOpen)
+        if(gameState == GameLoopManager.GameState.GatesOpen || gameState == GameLoopManager.GameState.LootCollected )
         {
             gateOpen = true;
             animator.SetBool("openGate", true);
@@ -29,8 +29,7 @@ public class GateOpener : MonoBehaviour
     }
 
     public void Close(GameLoopManager.GameState gameState){
-        if(gameState == GameLoopManager.GameState.LootCollected || 
-        gameState == GameLoopManager.GameState.GameStart)
+        if(gameState == GameLoopManager.GameState.GameStart || gameState == GameLoopManager.GameState.Victory)
         {
         gateOpen = false;
         animator.SetBool("openGate", false);

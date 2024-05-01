@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameLoopManager : MonoBehaviour
 {
     public static GameLoopManager instance;
-    public GameState currentGameState;
+    [HideInInspector]public GameState currentGameState;
     //public static Action<GameState> OnGameStateChanged;
     [SerializeField] PowerUpSpawner powerUpSpawner;
     [SerializeField] EnemySpawner enemySpawner;
@@ -23,9 +23,12 @@ public class GameLoopManager : MonoBehaviour
         // {
         //     Destroy(gameObject);
         // }
-        UpdateGameState(GameState.GatesOpen);
-        Debug.Log("UpdateGameState(GameState.GatesOpen)");
+    }
 
+    void Start()
+    {
+        UpdateGameState(GameState.GatesOpen);
+        Debug.Log($"Start() ---------- UpdateGameState(GameState.{currentGameState})");
     }
 
     /// <summary>
@@ -35,11 +38,11 @@ public class GameLoopManager : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.O)){
             UpdateGameState(GameState.GatesOpen);
-            Debug.Log("UpdateGameState(GameState.GameStart)");
+            Debug.Log($"UpdateGameState({currentGameState})");
         }
         else if(Input.GetKey(KeyCode.U)){
-            UpdateGameState(GameState.GameStart);
-            Debug.Log("UpdateGameState(GameState.GameStart)");
+            UpdateGameState(GameState.LootCollected);
+            Debug.Log($"UpdateGameState({currentGameState})");
         }
     }
 // public GameLevel(int levelNumber, int enemiesToSpawn, int lootToSpawn, int collectablesToSpawn)
