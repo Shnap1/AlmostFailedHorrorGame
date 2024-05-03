@@ -1,38 +1,45 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameLoopManager : MonoBehaviour
 {
     public static GameLoopManager instance;
-    [HideInInspector]public GameState currentGameState;
+    [HideInInspector]public static GameState currentGameState;
     //public static Action<GameState> OnGameStateChanged;
     [SerializeField] PowerUpSpawner powerUpSpawner;
     [SerializeField] EnemySpawner enemySpawner;
 
     public static event Action<GameState> OnGameUpdate;
     public static Func<string, string> onGameStateChanger;
-    [SerializeField] string testString;
+    [SerializeField] string currentTestString;
+    
     private void Awake()
     {
-        // if (instance == null)
-        // {
-        //     instance = this;
-        //     DontDestroyOnLoad(gameObject);
-        // }
-        // else
-        // {
-        //     Destroy(gameObject);
-        // }
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
     }
 
     void Start()
     {
         UpdateGameState(GameState.GatesOpen);
         Debug.Log($"Start() ---------- UpdateGameState(GameState.{currentGameState})");
-        testString = onGameStateChanger?.Invoke("test String from event") ?? "nothing";
+        // testString = onGameStateChanger?.Invoke("test String from event") ?? "nothing";
         
+        if(currentTestString != null)
+        {
+            currentTestString = onGameStateChanger?.Invoke("test String from event") ?? "nothing";
+        }
     }
 
     /// <summary>
@@ -50,6 +57,18 @@ public class GameLoopManager : MonoBehaviour
         }
     }
 // public GameLevel(int levelNumber, int enemiesToSpawn, int lootToSpawn, int collectablesToSpawn)
+
+    string TestFuncValueChecker(string strToBeChecked){
+        if(strToBeChecked != null && strToBeChecked != currentTestString)
+        {
+            currentTestString = strToBeChecked;
+            return strToBeChecked;
+        } else {
+            Debug.Log("Your teststring is either null or equal to currentTestString");
+        }
+        return null;
+
+    }
     List<GameLevel> gameLevels = new List<GameLevel>()
     {
         new GameLevel(0, 1, 1, 1),
@@ -131,6 +150,12 @@ public class GameLoopManager : MonoBehaviour
         //
     }
     
+    public static void StaticFunctionTest(GameState newGameState)
+    {
+       // currentGameState = newGameState;
+       instance.UpdateGameState(newGameState);
+       
+    }
 
 }
 

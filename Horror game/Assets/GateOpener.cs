@@ -28,7 +28,7 @@ public class GateOpener : MonoBehaviour
         }
         // string answer
         
-        return "nuffin";
+        return null;
     }
     public void Open(GameLoopManager.GameState gameState){
         if(gameState == GameLoopManager.GameState.GatesOpen || gameState == GameLoopManager.GameState.LootCollected )
