@@ -12,13 +12,24 @@ public class GateOpener : MonoBehaviour
         animator = GetComponent<Animator>();
         GameLoopManager.OnGameUpdate += Open;
         GameLoopManager.OnGameUpdate += Close;
+        GameLoopManager.onGameStateChanger += TestFunc;
     }
     void OnDestroy()
     {
         GameLoopManager.OnGameUpdate -= Open;
         GameLoopManager.OnGameUpdate -= Close;
     }
-
+    string TestFunc(string s)
+    {
+        if (s == "test String from event")
+        {
+        string answer = "TestFunc ANSWER: string RECIEVED";
+        return answer;
+        }
+        // string answer
+        
+        return "nuffin";
+    }
     public void Open(GameLoopManager.GameState gameState){
         if(gameState == GameLoopManager.GameState.GatesOpen || gameState == GameLoopManager.GameState.LootCollected )
         {

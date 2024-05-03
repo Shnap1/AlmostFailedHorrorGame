@@ -12,6 +12,8 @@ public class GameLoopManager : MonoBehaviour
     [SerializeField] EnemySpawner enemySpawner;
 
     public static event Action<GameState> OnGameUpdate;
+    public static Func<string, string> onGameStateChanger;
+    [SerializeField] string testString;
     private void Awake()
     {
         // if (instance == null)
@@ -29,6 +31,8 @@ public class GameLoopManager : MonoBehaviour
     {
         UpdateGameState(GameState.GatesOpen);
         Debug.Log($"Start() ---------- UpdateGameState(GameState.{currentGameState})");
+        testString = onGameStateChanger?.Invoke("test String from event") ?? "nothing";
+        
     }
 
     /// <summary>
