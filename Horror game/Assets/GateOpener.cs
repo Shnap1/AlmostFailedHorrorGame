@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GateOpener : MonoBehaviour
 {
-    public Animator animator;
-    bool gateOpen;
+    [HideInInspector]public Animator animator;
+    [SerializeField] bool gateOpen;
 
     void Start()
     {
@@ -34,16 +34,16 @@ public class GateOpener : MonoBehaviour
         if(gameState == GameLoopManager.GameState.GatesOpen || gameState == GameLoopManager.GameState.LootCollected )
         {
             gateOpen = true;
-            animator.SetBool("openGate", true);
+            animator.SetBool("openGate", gateOpen);
             Debug.Log("void Open(GameLoopManager.GameState gameState)");
         }
     }
 
     public void Close(GameLoopManager.GameState gameState){
-        if(gameState == GameLoopManager.GameState.GameStart || gameState == GameLoopManager.GameState.Victory)
+        if(gameState == GameLoopManager.GameState.GameStart || gameState == GameLoopManager.GameState.Victory) // 
         {
         gateOpen = false;
-        animator.SetBool("openGate", false);
+        animator.SetBool("openGate", gateOpen);
         }
     }
 

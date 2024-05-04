@@ -29,13 +29,15 @@ public class GateTrigger : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
+        // Debug.Log("Game Started  === PLAYER EXITED THE GATE");
+
         if (other.gameObject.tag == "Player" && GameLoopManager.currentGameState == GameLoopManager.GameState.GatesOpen)
         {
             //gateOpener.Close();
             gameLoopManager.UpdateGameState(GameLoopManager.GameState.GameStart);
             Debug.Log("Game Started  === PLAYER EXITED THE GATE");
+
         }
-        GameLoopManager.StaticFunctionTest(GameLoopManager.GameState.GatesOpen);
     }
     void OnTriggerEnter(Collider other)
     {

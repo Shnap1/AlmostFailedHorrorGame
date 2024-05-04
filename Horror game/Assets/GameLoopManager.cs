@@ -7,7 +7,7 @@ using UnityEngine;
 public class GameLoopManager : MonoBehaviour
 {
     public static GameLoopManager instance;
-    [HideInInspector]public static GameState currentGameState;
+    [SerializeField]public static GameState currentGameState;
     //public static Action<GameState> OnGameStateChanged;
     [SerializeField] PowerUpSpawner powerUpSpawner;
     [SerializeField] EnemySpawner enemySpawner;
@@ -48,11 +48,12 @@ public class GameLoopManager : MonoBehaviour
     void Update()
     {
         if(Input.GetKey(KeyCode.O)){
-            UpdateGameState(GameState.GatesOpen);
+            UpdateGameState(GameState.LootCollected);
             Debug.Log($"UpdateGameState({currentGameState})");
         }
-        else if(Input.GetKey(KeyCode.U)){
-            UpdateGameState(GameState.LootCollected);
+        
+        if(Input.GetKey(KeyCode.U)){
+            UpdateGameState(GameState.GatesOpen);
             Debug.Log($"UpdateGameState({currentGameState})");
         }
     }
@@ -116,8 +117,8 @@ public class GameLoopManager : MonoBehaviour
             }
 
             //OnGameStateChanged?.Invoke(currentGameState);
-            OnGameUpdate?.Invoke(currentGameState);
         }
+        OnGameUpdate?.Invoke(currentGameState);
     }
     
     void LoadLevelData(GameLevel level){
