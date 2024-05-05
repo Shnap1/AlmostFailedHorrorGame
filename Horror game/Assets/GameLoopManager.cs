@@ -7,7 +7,7 @@ using UnityEngine;
 public class GameLoopManager : MonoBehaviour
 {
     public static GameLoopManager instance;
-    [SerializeField]public static GameState currentGameState;
+    [SerializeField] public static GameState currentGameState;
     //public static Action<GameState> OnGameStateChanged;
     [SerializeField] PowerUpSpawner powerUpSpawner;
     [SerializeField] EnemySpawner enemySpawner;
@@ -15,7 +15,7 @@ public class GameLoopManager : MonoBehaviour
     public static event Action<GameState> OnGameUpdate;
     public static Func<string, string> onGameStateChanger;
     [SerializeField] string currentTestString;
-    
+
     private void Awake()
     {
         if (instance == null)
@@ -35,8 +35,8 @@ public class GameLoopManager : MonoBehaviour
         UpdateGameState(GameState.GatesOpen);
         Debug.Log($"Start() ---------- UpdateGameState(GameState.{currentGameState})");
         // testString = onGameStateChanger?.Invoke("test String from event") ?? "nothing";
-        
-        if(currentTestString != null)
+
+        if (currentTestString != null)
         {
             currentTestString = onGameStateChanger?.Invoke("test String from event") ?? "nothing";
         }
@@ -47,24 +47,29 @@ public class GameLoopManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if(Input.GetKey(KeyCode.O)){
+        if (Input.GetKey(KeyCode.O))
+        {
             UpdateGameState(GameState.LootCollected);
             Debug.Log($"UpdateGameState({currentGameState})");
         }
-        
-        if(Input.GetKey(KeyCode.U)){
+
+        if (Input.GetKey(KeyCode.U))
+        {
             UpdateGameState(GameState.GatesOpen);
             Debug.Log($"UpdateGameState({currentGameState})");
         }
     }
-// public GameLevel(int levelNumber, int enemiesToSpawn, int lootToSpawn, int collectablesToSpawn)
+    // public GameLevel(int levelNumber, int enemiesToSpawn, int lootToSpawn, int collectablesToSpawn)
 
-    string TestFuncValueChecker(string strToBeChecked){
-        if(strToBeChecked != null && strToBeChecked != currentTestString)
+    string TestFuncValueChecker(string strToBeChecked)
+    {
+        if (strToBeChecked != null && strToBeChecked != currentTestString)
         {
             currentTestString = strToBeChecked;
             return strToBeChecked;
-        } else {
+        }
+        else
+        {
             Debug.Log("Your teststring is either null or equal to currentTestString");
         }
         return null;
@@ -92,7 +97,7 @@ public class GameLoopManager : MonoBehaviour
     }
     public void UpdateGameState(GameState newGameState)
     {
-        if(currentGameState != newGameState)
+        if (currentGameState != newGameState)
         {
             currentGameState = newGameState;
             switch (currentGameState)
@@ -100,6 +105,11 @@ public class GameLoopManager : MonoBehaviour
                 case GameState.GatesOpen:
                     OpenGate();
                     LoadLevelData(currentLevel);
+                    // SpawnEnemies(currentLevel.enemiesToSpawn);
+                    // SpawnLoot(currentLevel.lootToSpawn);
+                    // SpawnCollectables(currentLevel.collectablesToSpawn);
+                    break;
+                case GameState.GameStart:
                     SpawnEnemies(currentLevel.enemiesToSpawn);
                     SpawnLoot(currentLevel.lootToSpawn);
                     SpawnCollectables(currentLevel.collectablesToSpawn);
@@ -120,42 +130,50 @@ public class GameLoopManager : MonoBehaviour
         }
         OnGameUpdate?.Invoke(currentGameState);
     }
-    
-    void LoadLevelData(GameLevel level){
+
+    void LoadLevelData(GameLevel level)
+    {
         currentLevel = level;
     }
 
-    public void OpenGate(){
+    public void OpenGate()
+    {
         //
     }
 
-    public void CloseGate(){
+    public void CloseGate()
+    {
         //
     }
 
-    void SpawnLoot(int lootToSpawn){
+    void SpawnLoot(int lootToSpawn)
+    {
         for (int i = 0; i < lootToSpawn; i++)
         {
             powerUpSpawner.RandomSpawnPowerUp();
         }
     }
-    
-    void SpawnCollectables(int collectablesToSpawn){
+
+    void SpawnCollectables(int collectablesToSpawn)
+    {
         //
     }
-    
-    void SpawnEnemies(int enemiesToSpawn){
+
+    void SpawnEnemies(int enemiesToSpawn)
+    {
         enemySpawner.SpawnEnemies(enemiesToSpawn);
+        Debug.Log($"SPAWN ENEMIES({enemiesToSpawn})");
     }
-    void GoToLobby(){
+    void GoToLobby()
+    {
         //
     }
-    
+
     public static void StaticFunctionTest(GameState newGameState)
     {
-       // currentGameState = newGameState;
-       instance.UpdateGameState(newGameState);
-       
+        // currentGameState = newGameState;
+        instance.UpdateGameState(newGameState);
+
     }
 
 }
