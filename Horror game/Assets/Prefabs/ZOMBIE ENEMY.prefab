@@ -2781,6 +2781,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 462a320063e8c5f43b00b8b2b1f48898, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  camera: {fileID: 0}
+  healthBarUI: {fileID: 8137849726520849088}
   Patrolling: {fileID: 0}
   Chasing: {fileID: 0}
   Attacking: {fileID: 0}

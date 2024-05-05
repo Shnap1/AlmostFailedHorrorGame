@@ -3355,6 +3355,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e319d40a6c6ed4d4fa67080f34c6dd53, type: 3}
+--- !u!1 &219895344 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
+    type: 3}
+  m_PrefabInstance: {fileID: 2031179236}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &226980139
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4850,7 +4856,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.24232094, y: -0.6635817, z: -0.24172676, w: 0.66521287}
+  m_LocalRotation: {x: -0.24232095, y: -0.6635817, z: -0.24172676, w: 0.66521287}
   m_LocalPosition: {x: 398.32822, y: 6.05, z: 109.70927}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -7662,7 +7668,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 557332105}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.24129759, y: -0.71923715, z: -0.035401184, w: 0.6505538}
+  m_LocalRotation: {x: -0.24129756, y: -0.71923715, z: -0.035401184, w: 0.6505538}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9355,7 +9361,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 814765956}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.32788318, y: -0.71821606, z: -0.1428516, w: 0.59686834}
+  m_LocalRotation: {x: -0.32788315, y: -0.71821606, z: -0.14285162, w: 0.59686834}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -22385,7 +22391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ff10655b83a124d882ff2514976697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2, type: 3}
+  enemy: {fileID: 219895344}
   patrolPointsManager: {fileID: 608843906}
 --- !u!1 &1858476155
 GameObject:
@@ -25548,6 +25554,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 218729066389837163, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 330585546}
+    - target: {fileID: 218729066389837163, guid: 6a56734da8cb40e43a5bbe631144a0a2,
+        type: 3}
+      propertyPath: camera
+      value: 
+      objectReference: {fileID: 330585545}
+    - target: {fileID: 218729066389837163, guid: 6a56734da8cb40e43a5bbe631144a0a2,
+        type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 1367542618}
@@ -25564,7 +25580,7 @@ PrefabInstance:
     - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_Name
-      value: ZOMBIE ENEMY (1)
+      value: ZOMBIE ENEMY
       objectReference: {fileID: 0}
     - target: {fileID: 6632044263578365911, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}

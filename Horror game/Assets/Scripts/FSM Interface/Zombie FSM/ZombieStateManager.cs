@@ -7,6 +7,8 @@ using UnityEngine.AI;
 
 public class ZombieStateManager : MonoBehaviour, IStateManagerNew
 {
+    public Transform cam;
+    [SerializeField] EnemyHealthBar healthBarUI;
     [HideInInspector] public Zombie_Patrolling_State Patrolling;
     [HideInInspector] public Zombie_Chasing_State Chasing;
     [HideInInspector] public Zombie_Attacking_State Attacking;
@@ -49,6 +51,7 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
     
     private void Start()
     {
+        healthBarUI.cam = cam;
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
 

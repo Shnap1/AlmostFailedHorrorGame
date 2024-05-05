@@ -7,7 +7,8 @@ public class EnemyHealthBar : MonoBehaviour
 {
     [SerializeField] Slider healthSlider;
     [SerializeField] int maxHealth;
-    [SerializeField] Transform cam;
+    public Transform cam;
+    
 
     public void UpdateHealthUI(int enemyHealth, int enemyHealthMax)
     {
