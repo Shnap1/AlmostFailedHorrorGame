@@ -5,7 +5,7 @@ using UnityEngine;
 public class HealthPU : MonoBehaviour, IPowerUp
 {
     bool wasUsed = false;
-    [Range(0,100)]public int healthPoint;
+    [Range(0, 100)] public int healthPoint;
     public PowerUpSpawner powerUpSpowner;
 
     private void Start()
@@ -32,8 +32,12 @@ public class HealthPU : MonoBehaviour, IPowerUp
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("Sphere collided with player");
-        if (other.CompareTag("Player") && !wasUsed) { DoAction(healthPoint, other.gameObject); wasUsed = true; } 
-        GetComponent<Collider>().enabled = false;
+        if (other.CompareTag("Player") && !wasUsed)
+        {
+            DoAction(healthPoint, other.gameObject); wasUsed = true;
+            GetComponent<Collider>().enabled = false;
+            Destroy(gameObject, 5f);
+        }
     }
 
 }

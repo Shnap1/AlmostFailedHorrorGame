@@ -7798,6 +7798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrolPointsList: []
   triggeredPatrolPointsList: []
+  emptySpawnedPointsList: []
 --- !u!1001 &615331859
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29019,7 +29020,7 @@ PrefabInstance:
     - target: {fileID: 1499656709052201217, guid: 8dd89bcf00b8b4d4a81ed2a67634d4bd,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.661406
+      value: 8.8
       objectReference: {fileID: 0}
     - target: {fileID: 1499656709052201217, guid: 8dd89bcf00b8b4d4a81ed2a67634d4bd,
         type: 3}
@@ -29029,7 +29030,7 @@ PrefabInstance:
     - target: {fileID: 1499656709052201217, guid: 8dd89bcf00b8b4d4a81ed2a67634d4bd,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.1244147
+      value: 2.57
       objectReference: {fileID: 0}
     - target: {fileID: 1499656709052201217, guid: 8dd89bcf00b8b4d4a81ed2a67634d4bd,
         type: 3}
@@ -29249,6 +29250,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TargetCollectable
+      objectReference: {fileID: 0}
+    - target: {fileID: 6695462425882964322, guid: 709b140628edf954aa05bbb79915f90f,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6695462425882964322, guid: 709b140628edf954aa05bbb79915f90f,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6695462425882964322, guid: 709b140628edf954aa05bbb79915f90f,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6695462425882964322, guid: 709b140628edf954aa05bbb79915f90f,
         type: 3}
