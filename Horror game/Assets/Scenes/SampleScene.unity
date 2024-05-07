@@ -23759,7 +23759,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPowerUp: {fileID: 4132004193571932287, guid: 8dd89bcf00b8b4d4a81ed2a67634d4bd,
     type: 3}
-  LootList:
+  PowerUpList:
   - {fileID: 4132004193571932287, guid: 8dd89bcf00b8b4d4a81ed2a67634d4bd, type: 3}
   TargetCollectable:
   - {fileID: 8395472672159372785}

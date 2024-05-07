@@ -12,7 +12,7 @@ public class PowerUpSpawner : MonoBehaviour
     [SerializeField] public GameObject healthPowerUp;
     //[SerializeField] public GameObject staminaPowerUp;
     //public Dictionary<Loot, GameObject> LootDict = new Dictionary<Loot, GameObject>();
-    public List<GameObject> LootList = new List<GameObject>();
+    public List<GameObject> PowerUpList = new List<GameObject>();
     //public Dictionary<Locations, Transform> LocationsDict = new Dictionary<Locations, Transform>();
 
     public List<GameObject> TargetCollectable = new List<GameObject>();
@@ -21,7 +21,7 @@ public class PowerUpSpawner : MonoBehaviour
     public List<Transform> AlreadySpawnedTransforms = new List<Transform>();
 
 
-    public static PowerUpSpawner thisPUSpawner;
+    public static PowerUpSpawner instance;
     public enum LootType
     {
         healthPU,
@@ -40,22 +40,24 @@ public class PowerUpSpawner : MonoBehaviour
     {
         //var hp = healthPowerUp.GetComponent<IPowerUp>();
         //hp.DoAction(2);
-        thisPUSpawner = gameObject.GetComponent<PowerUpSpawner>();
-        //thisPUSpawner = this;
+
+        //thisPUSpawner = gameObject.GetComponent<PowerUpSpawner>();
+
+        instance = this;
     }
 
     public void RandomSpawnPowerUp()
     {
-        if(AlreadySpawnedTransforms.Count == LocationsTrasnforms.Count)
+        if (AlreadySpawnedTransforms.Count == LocationsTrasnforms.Count)
         {
             AlreadySpawnedTransforms.Clear();
         }
 
-        GameObject randomGameObject = LootList[UnityEngine.Random.Range(0, LootList.Count)];
+        GameObject randomGameObject = PowerUpList[UnityEngine.Random.Range(0, PowerUpList.Count)];
         Transform randomTransform = LocationsTrasnforms[UnityEngine.Random.Range(0, LocationsTrasnforms.Count)];
-        if(AlreadySpawnedTransforms.Contains(randomTransform))
+        if (AlreadySpawnedTransforms.Contains(randomTransform))
         {
-            for(int i = 0; i < AlreadySpawnedTransforms.Count; i++)
+            for (int i = 0; i < AlreadySpawnedTransforms.Count; i++)
             {
                 randomTransform = LocationsTrasnforms[UnityEngine.Random.Range(0, LocationsTrasnforms.Count)];
                 if (!AlreadySpawnedTransforms.Contains(randomTransform))
@@ -66,16 +68,26 @@ public class PowerUpSpawner : MonoBehaviour
                 }
             }
         }
-        else if(!AlreadySpawnedTransforms.Contains(randomTransform))
+        else if (!AlreadySpawnedTransforms.Contains(randomTransform))
         {
             Debug.Log($" randomTransform = {randomTransform.position.ToString()}");
 
             Instantiate<GameObject>(randomGameObject, randomTransform);
-            Debug.Log($"{randomGameObject.name} spawned in {randomTransform.position.ToString()}" );
+            Debug.Log($"{randomGameObject.name} spawned in {randomTransform.position.ToString()}");
             AlreadySpawnedTransforms.Add(randomTransform);
         }
 
 
+    }
+
+    public static void PowerUpSpawnStatic(int amountOfPowerUps)
+    {
+        for (int i = 0; i < amountOfPowerUps; i++)
+        {
+
+            instance.RandomSpawnPowerUp();
+            Debug.Log($"SPAWN COLLECTABLES({i})");
+        }
     }
 
 
@@ -91,7 +103,7 @@ public class PowerUpSpawner : MonoBehaviour
         switch (typeOfLoot)
         {
             case LootType.healthPU:
-                PowerUp = LootList[UnityEngine.Random.Range(0, LootList.Count)];
+                PowerUp = PowerUpList[UnityEngine.Random.Range(0, PowerUpList.Count)];
                 break;
             case LootType.staminaPU:
                 //SpawnPowerUp(healthPowerUp, LocationsTrasnforms[1]);
@@ -114,11 +126,11 @@ public class PowerUpSpawner : MonoBehaviour
     {
         //var spawner = PowerUpSpowner.ReturnPUSPowner();
 
-        if (!LootList.Contains(thisPU))
+        if (!PowerUpList.Contains(thisPU))
         {
             Debug.Log($"{thisPU.name} added to LootList");
             //PowerUpSpowner.ReturnPUSPowner().LootList.Add(thisPU);
-            LootList.Add(thisPU);
+            PowerUpList.Add(thisPU);
         }
         //if (!spawner.LootDict.ContainsValue(thisPU))
         //{
@@ -132,4 +144,4 @@ public class PowerUpSpawner : MonoBehaviour
 public interface IPowerUp
 {
     public void DoAction(int amount, GameObject gameObject);
-} 
+}

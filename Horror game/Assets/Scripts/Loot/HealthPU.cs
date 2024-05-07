@@ -6,17 +6,17 @@ public class HealthPU : MonoBehaviour, IPowerUp
 {
     bool wasUsed = false;
     [Range(0, 100)] public int healthPoint;
-    public PowerUpSpawner powerUpSpowner;
+    public PowerUpSpawner powerUpSpawner;
 
     private void Start()
     {
         //powerUpSpowner.AddPowerUp(gameObject);
     }
-    public void DoAction(int amount, GameObject DoActioTo)
+    public void DoAction(int amount, GameObject DoActionTo)
     {
-        if (DoActioTo.GetComponent<HealthCounter>())
+        if (DoActionTo.GetComponent<HealthCounter>())
         {
-            DoActioTo.GetComponent<HealthCounter>().AddHealth(amount);
+            DoActionTo.GetComponent<HealthCounter>().AddHealth(amount);
 
             Debug.Log($"DoAction in {this.name}: {amount}");
         }

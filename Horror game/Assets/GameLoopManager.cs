@@ -115,12 +115,17 @@ public class GameLoopManager : MonoBehaviour
                     SpawnCollectables(currentLevel.collectablesToSpawn);
                     break;
                 case GameState.LootCollected:
+                    //TODO open gate 
                     break;
                 case GameState.Victory:
+                    //TODO add victory screen, kill enemies in gate boxCollider, add EXP and load next level 
                     break;
                 case GameState.Lose:
+                    //TODO add lose screen with 1) Retry button loading the same level 2) reload state 3) Lobby button to load lobby level
                     break;
                 case GameState.Lobby:
+                    //TODO add PLAY button in the corner that would open UI with options to load next level and scene that would change state to GatesOpen
+
                     break;
                 default:
                     break;
@@ -156,7 +161,8 @@ public class GameLoopManager : MonoBehaviour
 
     void SpawnCollectables(int collectablesToSpawn)
     {
-        //
+        //TODO make collectables script
+        PowerUpSpawner.PowerUpSpawnStatic(collectablesToSpawn);
     }
 
     void SpawnEnemies(int enemiesToSpawn)
