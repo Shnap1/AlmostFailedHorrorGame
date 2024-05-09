@@ -9,7 +9,7 @@ public class GameLoopManager : MonoBehaviour
     public static GameLoopManager instance;
     [SerializeField] public static GameState currentGameState;
     //public static Action<GameState> OnGameStateChanged;
-    [SerializeField] PowerUpSpawner powerUpSpawner;
+    [SerializeField] LootSpawner powerUpSpawner;
     [SerializeField] EnemySpawner enemySpawner;
 
     public static event Action<GameState> OnGameUpdate;
@@ -110,9 +110,14 @@ public class GameLoopManager : MonoBehaviour
                     // SpawnCollectables(currentLevel.collectablesToSpawn);
                     break;
                 case GameState.GameStart:
+
                     SpawnEnemies(currentLevel.enemiesToSpawn);
-                    SpawnLoot(currentLevel.lootToSpawn);
-                    SpawnCollectables(currentLevel.collectablesToSpawn);
+
+                    //Spawning LOOT
+                    LootSpawner.PowerUpSpawnStatic(currentLevel.number_of_loot_to_spawn, LootSpawner.LootType.healthPU);
+                    //Spawning TARGETS
+                    LootSpawner.PowerUpSpawnStatic(currentLevel.number_of_loot_to_spawn, LootSpawner.LootType.target);
+
                     break;
                 case GameState.LootCollected:
                     //TODO open gate 
@@ -162,7 +167,7 @@ public class GameLoopManager : MonoBehaviour
     void SpawnCollectables(int collectablesToSpawn)
     {
         //TODO make collectables script
-        PowerUpSpawner.PowerUpSpawnStatic(collectablesToSpawn);
+        // PowerUpSpawner.PowerUpSpawnStatic(collectablesToSpawn);
     }
 
     void SpawnEnemies(int enemiesToSpawn)
@@ -188,7 +193,7 @@ public class GameLevel
 {
     public int levelNumber;
     public int enemiesToSpawn;
-    public int lootToSpawn;
+    public int number_of_loot_to_spawn;
     public int collectablesToSpawn;
 
 
@@ -196,7 +201,7 @@ public class GameLevel
     {
         this.levelNumber = levelNumber;
         this.enemiesToSpawn = enemiesToSpawn;
-        this.lootToSpawn = lootToSpawn;
+        this.number_of_loot_to_spawn = lootToSpawn;
         this.collectablesToSpawn = collectablesToSpawn;
     }
 

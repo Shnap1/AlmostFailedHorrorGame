@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-using static PowerUpSpawner;
+using static LootSpawner;
 
-public class PowerUpSpawner : MonoBehaviour
+public class LootSpawner : MonoBehaviour
 {
     // Start is called before the first frame update
     [SerializeField] public GameObject healthPowerUp;
@@ -15,19 +15,20 @@ public class PowerUpSpawner : MonoBehaviour
     public List<GameObject> PowerUpList = new List<GameObject>();
     //public Dictionary<Locations, Transform> LocationsDict = new Dictionary<Locations, Transform>();
 
-    public List<GameObject> TargetCollectable = new List<GameObject>();
+    public List<GameObject> TargetList = new List<GameObject>();
     public List<Transform> LocationsTrasnforms = new List<Transform>();
 
     public List<Transform> AlreadySpawnedTransforms = new List<Transform>();
+    public List<Transform> FreeTransformsForSpawn = new List<Transform>();
 
 
-    public static PowerUpSpawner instance;
+    public static LootSpawner instance;
     public enum LootType
     {
         healthPU,
         staminaPU,
         defensePU,
-        targetCollectable
+        target
     }
 
     public enum Locations
@@ -42,6 +43,7 @@ public class PowerUpSpawner : MonoBehaviour
         //hp.DoAction(2);
 
         //thisPUSpawner = gameObject.GetComponent<PowerUpSpawner>();
+        FreeTransformsForSpawn = LocationsTrasnforms;
 
         instance = this;
     }
@@ -80,12 +82,12 @@ public class PowerUpSpawner : MonoBehaviour
 
     }
 
-    public static void PowerUpSpawnStatic(int amountOfPowerUps)
+    public static void PowerUpSpawnStatic(int amountOfPowerUps, LootType lootType)
     {
         for (int i = 0; i < amountOfPowerUps; i++)
         {
-
-            instance.RandomSpawnPowerUp();
+            // instance.RandomSpawnPowerUp();
+            instance.Spawn_Specific_LOOT_in_Random_Place(lootType);
             Debug.Log($"SPAWN COLLECTABLES({i})");
         }
     }
@@ -97,13 +99,17 @@ public class PowerUpSpawner : MonoBehaviour
         Instantiate(loot, transform);
     }
 
-    public void SpawnSpecificPUInRAndomPlace(LootType typeOfLoot)
+    public void Spawn_Specific_LOOT_in_Random_Place(LootType typeOfLoot)
     {
-        GameObject PowerUp = null;
+        Transform randomFreeTransform;
+        GameObject lootToSpawn = null;
+
+        if (FreeTransformsForSpawn.Count == 0) FreeTransformsForSpawn = LocationsTrasnforms;
+
         switch (typeOfLoot)
         {
             case LootType.healthPU:
-                PowerUp = PowerUpList[UnityEngine.Random.Range(0, PowerUpList.Count)];
+                lootToSpawn = PowerUpList[UnityEngine.Random.Range(0, PowerUpList.Count)];
                 break;
             case LootType.staminaPU:
                 //SpawnPowerUp(healthPowerUp, LocationsTrasnforms[1]);
@@ -111,15 +117,17 @@ public class PowerUpSpawner : MonoBehaviour
             case LootType.defensePU:
                 //SpawnPowerUp(healthPowerUp, LocationsTrasnforms[2]);
                 break;
-            case LootType.targetCollectable:
-                //SpawnPowerUp(TargetCollectable, LocationsTrasnforms[3]);
+            case LootType.target:
+                lootToSpawn = TargetList[UnityEngine.Random.Range(0, TargetList.Count)];
                 break;
             default:
                 break;
         }
-        Transform randomTransform = LocationsTrasnforms[UnityEngine.Random.Range(0, LocationsTrasnforms.Count)];
+        randomFreeTransform = FreeTransformsForSpawn[UnityEngine.Random.Range(0, FreeTransformsForSpawn.Count)];
+        Instantiate(lootToSpawn, randomFreeTransform);
+        FreeTransformsForSpawn.Remove(randomFreeTransform);
 
-        Instantiate(PowerUp, randomTransform);
+        Debug.Log($" randomTransform = {randomFreeTransform.position.ToString()}");
     }
 
     public void AddPowerUp(GameObject thisPU)
