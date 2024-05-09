@@ -16,6 +16,14 @@ public class GameLoopManager : MonoBehaviour
     public static Func<string, string> onGameStateChanger;
     [SerializeField] string currentTestString;
 
+    int number_of_TARGETS_to_collect;
+    int current_number_of_TARGETS_collected;
+
+    void OnEnable()
+    {
+
+    }
+
     private void Awake()
     {
         if (instance == null)
@@ -105,6 +113,7 @@ public class GameLoopManager : MonoBehaviour
                 case GameState.GatesOpen:
                     OpenGate();
                     LoadLevelData(currentLevel);
+                    current_number_of_TARGETS_collected = 0;
                     // SpawnEnemies(currentLevel.enemiesToSpawn);
                     // SpawnLoot(currentLevel.lootToSpawn);
                     // SpawnCollectables(currentLevel.collectablesToSpawn);
@@ -112,11 +121,12 @@ public class GameLoopManager : MonoBehaviour
                 case GameState.GameStart:
 
                     SpawnEnemies(currentLevel.enemiesToSpawn);
-
+                    //setting how many TARGETS to collect
+                    number_of_TARGETS_to_collect = currentLevel.collectablesToSpawn;
                     //Spawning LOOT
-                    LootSpawner.PowerUpSpawnStatic(currentLevel.number_of_loot_to_spawn, LootSpawner.LootType.healthPU);
+                    LootSpawner.PowerUpSpawn(currentLevel.number_of_LOOT_to_spawn, LootSpawner.LootType.healthPU);
                     //Spawning TARGETS
-                    LootSpawner.PowerUpSpawnStatic(currentLevel.number_of_loot_to_spawn, LootSpawner.LootType.target);
+                    LootSpawner.PowerUpSpawn(currentLevel.number_of_LOOT_to_spawn, LootSpawner.LootType.target);
 
                     break;
                 case GameState.LootCollected:
@@ -156,13 +166,6 @@ public class GameLoopManager : MonoBehaviour
         //
     }
 
-    void SpawnLoot(int lootToSpawn)
-    {
-        for (int i = 0; i < lootToSpawn; i++)
-        {
-            powerUpSpawner.RandomSpawnPowerUp();
-        }
-    }
 
     void SpawnCollectables(int collectablesToSpawn)
     {
@@ -186,6 +189,14 @@ public class GameLoopManager : MonoBehaviour
         instance.UpdateGameState(newGameState);
 
     }
+    public void CheckIfTargetsCollected()
+    {
+        current_number_of_TARGETS_collected++;
+        if (current_number_of_TARGETS_collected == number_of_TARGETS_to_collect)
+        {
+            UpdateGameState(GameState.LootCollected);
+        }
+    }
 
 }
 
@@ -193,7 +204,7 @@ public class GameLevel
 {
     public int levelNumber;
     public int enemiesToSpawn;
-    public int number_of_loot_to_spawn;
+    public int number_of_LOOT_to_spawn;
     public int collectablesToSpawn;
 
 
@@ -201,7 +212,7 @@ public class GameLevel
     {
         this.levelNumber = levelNumber;
         this.enemiesToSpawn = enemiesToSpawn;
-        this.number_of_loot_to_spawn = lootToSpawn;
+        this.number_of_LOOT_to_spawn = lootToSpawn;
         this.collectablesToSpawn = collectablesToSpawn;
     }
 

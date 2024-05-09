@@ -43,52 +43,51 @@ public class LootSpawner : MonoBehaviour
         //hp.DoAction(2);
 
         //thisPUSpawner = gameObject.GetComponent<PowerUpSpawner>();
-        FreeTransformsForSpawn = LocationsTrasnforms;
-
+        FreeTransformsForSpawn = new List<Transform>(LocationsTrasnforms);
         instance = this;
     }
 
-    public void RandomSpawnPowerUp()
-    {
-        if (AlreadySpawnedTransforms.Count == LocationsTrasnforms.Count)
-        {
-            AlreadySpawnedTransforms.Clear();
-        }
+    // public void RandomSpawnPowerUp()
+    // {
+    //     if (AlreadySpawnedTransforms.Count == LocationsTrasnforms.Count)
+    //     {
+    //         AlreadySpawnedTransforms.Clear();
+    //     }
 
-        GameObject randomGameObject = PowerUpList[UnityEngine.Random.Range(0, PowerUpList.Count)];
-        Transform randomTransform = LocationsTrasnforms[UnityEngine.Random.Range(0, LocationsTrasnforms.Count)];
-        if (AlreadySpawnedTransforms.Contains(randomTransform))
-        {
-            for (int i = 0; i < AlreadySpawnedTransforms.Count; i++)
-            {
-                randomTransform = LocationsTrasnforms[UnityEngine.Random.Range(0, LocationsTrasnforms.Count)];
-                if (!AlreadySpawnedTransforms.Contains(randomTransform))
-                {
-                    Instantiate<GameObject>(randomGameObject, randomTransform);
-                    AlreadySpawnedTransforms.Add(randomTransform);
-                    break;
-                }
-            }
-        }
-        else if (!AlreadySpawnedTransforms.Contains(randomTransform))
-        {
-            Debug.Log($" randomTransform = {randomTransform.position.ToString()}");
+    //     GameObject randomGameObject = PowerUpList[UnityEngine.Random.Range(0, PowerUpList.Count)];
+    //     Transform randomTransform = LocationsTrasnforms[UnityEngine.Random.Range(0, LocationsTrasnforms.Count)];
+    //     if (AlreadySpawnedTransforms.Contains(randomTransform))
+    //     {
+    //         for (int i = 0; i < AlreadySpawnedTransforms.Count; i++)
+    //         {
+    //             randomTransform = LocationsTrasnforms[UnityEngine.Random.Range(0, LocationsTrasnforms.Count)];
+    //             if (!AlreadySpawnedTransforms.Contains(randomTransform))
+    //             {
+    //                 Instantiate<GameObject>(randomGameObject, randomTransform);
+    //                 AlreadySpawnedTransforms.Add(randomTransform);
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     else if (!AlreadySpawnedTransforms.Contains(randomTransform))
+    //     {
+    //         Debug.Log($" randomTransform = {randomTransform.position.ToString()}");
 
-            Instantiate<GameObject>(randomGameObject, randomTransform);
-            Debug.Log($"{randomGameObject.name} spawned in {randomTransform.position.ToString()}");
-            AlreadySpawnedTransforms.Add(randomTransform);
-        }
+    //         Instantiate<GameObject>(randomGameObject, randomTransform);
+    //         Debug.Log($"{randomGameObject.name} spawned in {randomTransform.position.ToString()}");
+    //         AlreadySpawnedTransforms.Add(randomTransform);
+    //     }
 
 
-    }
+    // }
 
-    public static void PowerUpSpawnStatic(int amountOfPowerUps, LootType lootType)
+    public static void PowerUpSpawn(int amountOfPowerUps, LootType lootType)
     {
         for (int i = 0; i < amountOfPowerUps; i++)
         {
             // instance.RandomSpawnPowerUp();
             instance.Spawn_Specific_LOOT_in_Random_Place(lootType);
-            Debug.Log($"SPAWN COLLECTABLES({i})");
+            Debug.Log($"SPAWN COLLECTABLES-{lootType} number: ({i})");
         }
     }
 
@@ -104,7 +103,11 @@ public class LootSpawner : MonoBehaviour
         Transform randomFreeTransform;
         GameObject lootToSpawn = null;
 
-        if (FreeTransformsForSpawn.Count == 0) FreeTransformsForSpawn = LocationsTrasnforms;
+        if (FreeTransformsForSpawn.Count <= 0)
+        {
+            FreeTransformsForSpawn = new List<Transform>(LocationsTrasnforms);
+            Debug.Log($"FreeTransformsForSpawn.Count = {FreeTransformsForSpawn.Count}");
+        }
 
         switch (typeOfLoot)
         {
@@ -127,7 +130,7 @@ public class LootSpawner : MonoBehaviour
         Instantiate(lootToSpawn, randomFreeTransform);
         FreeTransformsForSpawn.Remove(randomFreeTransform);
 
-        Debug.Log($" randomTransform = {randomFreeTransform.position.ToString()}");
+        //Debug.Log($" randomTransform = {randomFreeTransform.position.ToString()}");
     }
 
     public void AddPowerUp(GameObject thisPU)

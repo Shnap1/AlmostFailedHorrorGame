@@ -10,7 +10,8 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
 
     public bool patroling = false;
 
-    public enum Patrollers{
+    public enum Patrollers
+    {
         lastTriggeredPointFollower,
         playerFollower,
         randomPointFollower
@@ -18,7 +19,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
 
     public Patrollers thisEnemyPatrollerType;
 
-    
+
 
     public Patrollers dropdownSelection;
 
@@ -36,7 +37,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
         patroling = true;
         SM.anim.SetBool("closeToAttack", false);
         SM.anim.SetBool("seePlayer", false);
-        Debug.Log("Patrolling");
+        //Debug.Log("Patrolling");
 
         StartCoroutine(ResetingPath(resetTime, thisEnemyPatrollerType));
 
@@ -44,7 +45,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
     }
     public void UpdaterState()
     {
-       //PatrolToSetPoint();
+        //PatrolToSetPoint();
         CheckSwitchState();
     }
 
@@ -104,36 +105,36 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
     }
     IEnumerator ResetingPath(int patrolingTime, Patrollers patrollerType)
     {
-        while(patroling)
+        while (patroling)
         {
             //PatrolingFunction(); NEW NEW
 
             /// 
-                 if(patrollerType == Patrollers.lastTriggeredPointFollower)
-                {
-                    //Debug.Log("lastTriggeredPointFollower");
-                    EnemyGoesTo(SM.patroPointManager.GetTriggeredPatrolPointPos());
+            if (patrollerType == Patrollers.lastTriggeredPointFollower)
+            {
+                //Debug.Log("lastTriggeredPointFollower");
+                EnemyGoesTo(SM.patroPointManager.GetTriggeredPatrolPointPos());
 
-                }
-                else if(patrollerType == Patrollers.playerFollower)
-                {
-                    Debug.Log("playerFollower");
-                    PlayerPatrolingFunction();
-                    
+            }
+            else if (patrollerType == Patrollers.playerFollower)
+            {
+                //Debug.Log("playerFollower");
+                PlayerPatrolingFunction();
 
-                }
-                else if(patrollerType == Patrollers.randomPointFollower)
-                {
-                    Debug.Log("randomPointFollower");
-                    //SearchWalkPoint();
-                    EnemyGoesTo(SM.patroPointManager.GetEmptyPatrolPointPos());
-                }
-            
+
+            }
+            else if (patrollerType == Patrollers.randomPointFollower)
+            {
+                Debug.Log("randomPointFollower");
+                //SearchWalkPoint();
+                EnemyGoesTo(SM.patroPointManager.GetEmptyPatrolPointPos());
+            }
+
             /// NEW NEW
             yield return new WaitForSeconds(patrolingTime);
         }
     }
-    
+
     // public void SelectPatrollingType(Patrollers patrollerType)
     // {
     //     if(patrollerType == Patrollers.lastTriggeredPointFollower)
@@ -154,42 +155,42 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
     // }
 
 
-public void PlayerPatrolingFunction()
-{
-    //StateManager.transform.LookAt()
-    SearchPlayerLocation();
-    if (!SM.walkPointSet) SearchPlayerLocation();
+    public void PlayerPatrolingFunction()
+    {
+        //StateManager.transform.LookAt()
+        SearchPlayerLocation();
+        if (!SM.walkPointSet) SearchPlayerLocation();
 
-    else if (SM.walkPointSet)
+        else if (SM.walkPointSet)
+            SM.agent.SetDestination(SM.walkPoint);
+
+        Vector3 distanceToWalkPoint = SM.transform.position - SM.walkPoint;
+
+        //Walkpoint reached
+        if (distanceToWalkPoint.magnitude < 3f)
+            SM.walkPointSet = false;
+    }
+
+    public void EnemyGoesTo(Vector3 destination)
+    {
+        SM.walkPoint = destination;
         SM.agent.SetDestination(SM.walkPoint);
+        SM.walkPointSet = true;
 
-    Vector3 distanceToWalkPoint = SM.transform.position - SM.walkPoint;
+        Vector3 distanceToWalkPoint = SM.transform.position - SM.walkPoint;
 
-    //Walkpoint reached
-    if (distanceToWalkPoint.magnitude < 3f)
-        SM.walkPointSet = false;
-}
+        //Walkpoint reached
+        if (distanceToWalkPoint.magnitude < 3f)
+            SM.walkPointSet = false;
+    }
 
-public void EnemyGoesTo(Vector3 destination)
-{
-    SM.walkPoint = destination;
-    SM.agent.SetDestination(SM.walkPoint);
-    SM.walkPointSet = true;
-
-    Vector3 distanceToWalkPoint = SM.transform.position - SM.walkPoint;
-
-    //Walkpoint reached
-    if (distanceToWalkPoint.magnitude < 3f)
-        SM.walkPointSet = false;
-}
-
-private void SearchPlayerLocation()
-{
-    SM.walkPoint = SM.player.position; // Assuming player is accessible here
-}
+    private void SearchPlayerLocation()
+    {
+        SM.walkPoint = SM.player.position; // Assuming player is accessible here
+    }
 
 
-        public void CheckSwitchState()
+    public void CheckSwitchState()
     {
         if (SM.playerInSightRange && !SM.playerInAttackRange)
         {

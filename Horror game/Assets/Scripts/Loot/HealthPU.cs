@@ -31,9 +31,9 @@ public class HealthPU : MonoBehaviour, IPowerUp
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Sphere collided with player");
         if (other.CompareTag("Player") && !wasUsed)
         {
+            Debug.Log("Sphere collided with player");
             DoAction(healthPoint, other.gameObject); wasUsed = true;
             GetComponent<Collider>().enabled = false;
             Destroy(gameObject, 5f);
