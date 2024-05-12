@@ -25,12 +25,12 @@ public class SettingsMenu : MonoBehaviour
     [SerializeField] PlayerStateMachine player;
     void OnEnable()
     {
-        GameLoopManager.OnGameUpdate += ToggleVictoryUI;
+        GameLoopManager.OnGameUpdate += TurnOnVictoryOrFailUI;
     }
 
     void OnDisable()
     {
-        GameLoopManager.OnGameUpdate -= ToggleVictoryUI;
+        GameLoopManager.OnGameUpdate -= TurnOnVictoryOrFailUI;
     }
     void Start()
     {
@@ -41,8 +41,34 @@ public class SettingsMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape)) TogglePauseUI();
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseStateChecker(GameLoopManager.currentGameState);
+        }
         // if (Input.GetKeyDown(KeyCode.O)) ToggleGameOverUI(true);
+    }
+
+    void PauseStateChecker(GameLoopManager.GameState gameState)
+    {
+        switch (gameState)
+        {
+            case GameLoopManager.GameState.GameStart:
+                TogglePauseUI();
+                break;
+            case GameLoopManager.GameState.LootCollected:
+                TogglePauseUI();
+                break;
+            case GameLoopManager.GameState.GatesOpen:
+                TogglePauseUI();
+                break;
+            case GameLoopManager.GameState.Victory:
+                //
+                break;
+            case GameLoopManager.GameState.Lose:
+                break;
+            default:
+                break;
+        }
     }
 
     public void GetQuality()
@@ -98,20 +124,25 @@ public class SettingsMenu : MonoBehaviour
         Screen.fullScreen = isFullscreen;
     }
 
-    void TriggerToggleView(GameLoopManager.GameState gameState)
+    void TurnOnVictoryOrFailUI(GameLoopManager.GameState gameState)
     {
-        //if(gameState == GameLoopManager.GameState.)
         switch (gameState)
         {
             case GameLoopManager.GameState.Lose:
                 isGameOver = true;
                 ToggleGameOverUI(isGameOver);
                 break;
+            case GameLoopManager.GameState.Victory:
+                StartCoroutine(DelayedVictoryUI());
+                break;
+            default:
+                break;
         }
 
     }
     public void TogglePauseUI()
     {
+        Debug.Log("TogglePauseUI");
         if (isPaused)
         {
             TurnOffPauseUI();
@@ -141,6 +172,7 @@ public class SettingsMenu : MonoBehaviour
     }
 
     public void ExitToMainMenu() => SceneManager.LoadScene("MainMenu");
+
     public void ToggleGameOverUI(bool gameOver)
     {
         GameOverUI.SetActive(gameOver);
@@ -167,13 +199,6 @@ public class SettingsMenu : MonoBehaviour
     }
 
 
-    public void ToggleVictoryUI(GameLoopManager.GameState gameState)
-    {
-        if (VictoryUI != null && gameState == GameLoopManager.GameState.Victory)
-        {
-            StartCoroutine(DelayedVictoryUI());
-        }
-    }
 
     IEnumerator DelayedVictoryUI()
     {
@@ -191,5 +216,12 @@ public class SettingsMenu : MonoBehaviour
     {
         //
     }
-    public void ReloadScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
+
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
+        GameLoopManager.instance.UpdateGameState(GameLoopManager.GameState.GatesOpen);
+    }
+
 }

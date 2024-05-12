@@ -59,6 +59,10 @@ public class HealthCounter : MonoBehaviour
             //Debug.Log("totalDefence -= this.addedDamage; totalDefence:" + totalDefence);
 
         }
+        if (totalHealth <= 0)
+        {
+            GameLoopManager.instance.UpdateGameState(GameLoopManager.GameState.Lose);
+        }
         onPlayerHealthChanged?.Invoke(totalHealth, maxHealth);
         //Debug.Log("onPlayerHealthChanged?.Invoke(totalHealth, maxHealth); totalHealth=" + totalHealth + " maxHealth= " + maxHealth + "END/");
 

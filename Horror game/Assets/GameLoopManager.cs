@@ -55,17 +55,7 @@ public class GameLoopManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetKey(KeyCode.O))
-        {
-            UpdateGameState(GameState.LootCollected);
-            Debug.Log($"UpdateGameState({currentGameState})");
-        }
 
-        if (Input.GetKey(KeyCode.U))
-        {
-            UpdateGameState(GameState.GatesOpen);
-            Debug.Log($"UpdateGameState({currentGameState})");
-        }
     }
     // public GameLevel(int levelNumber, int enemiesToSpawn, int lootToSpawn, int collectablesToSpawn)
 

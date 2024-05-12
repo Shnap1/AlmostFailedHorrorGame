@@ -4,46 +4,77 @@ using UnityEngine;
 
 public class GateOpener : MonoBehaviour
 {
-    [HideInInspector]public Animator animator;
+    public Animator animator;
     [SerializeField] bool gateOpen;
 
     void Start()
     {
-        animator = GetComponent<Animator>();
-        GameLoopManager.OnGameUpdate += Open;
-        GameLoopManager.OnGameUpdate += Close;
-        GameLoopManager.onGameStateChanger += TestFunc;
+        // animator = GetComponent<Animator>();
+        GameLoopManager.OnGameUpdate += OpenCloseGate;
+        GameLoopManager.OnGameUpdate += OpenCloseGate;
+    }
+
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.O))
+        {
+            OpenGate();
+            animator.SetBool("testBool", true);
+
+        }
+        else if (Input.GetKey(KeyCode.C))
+        {
+            CloseGate();
+            animator.SetBool("testBool", false);
+        }
     }
     void OnDestroy()
     {
-        GameLoopManager.OnGameUpdate -= Open;
-        GameLoopManager.OnGameUpdate -= Close;
+        GameLoopManager.OnGameUpdate -= OpenCloseGate;
+        GameLoopManager.OnGameUpdate -= OpenCloseGate;
     }
-    string TestFunc(string s)
+
+    void OpenCloseGate(GameLoopManager.GameState gameState)
     {
-        if (s == "test String from event")
+        switch (gameState)
         {
-        string answer = "TestFunc ANSWER: string RECIEVED";
-        return answer;
+            case GameLoopManager.GameState.GatesOpen:
+                OpenGate();
+                break;
+            case GameLoopManager.GameState.GameStart:
+                CloseGate();
+                break;
+            case GameLoopManager.GameState.LootCollected:
+                OpenGate();
+                break;
+            case GameLoopManager.GameState.Victory:
+                CloseGate();
+                break;
+            default:
+                break;
         }
-        // string answer
-        
-        return null;
     }
-    public void Open(GameLoopManager.GameState gameState){
-        if(gameState == GameLoopManager.GameState.GatesOpen || gameState == GameLoopManager.GameState.LootCollected )
+    public void OpenGate()
+    {
         {
             gateOpen = true;
-            animator.SetBool("openGate", gateOpen);
-            Debug.Log("void Open(GameLoopManager.GameState gameState)");
+            animator.SetBool("openGate", true);
+            Debug.Log($"OpenGate({gateOpen})");
+            animator.SetBool("testBool", true);
+
         }
     }
 
-    public void Close(GameLoopManager.GameState gameState){
-        if(gameState == GameLoopManager.GameState.GameStart || gameState == GameLoopManager.GameState.Victory) // 
+    public void CloseGate()
+    {
         {
-        gateOpen = false;
-        animator.SetBool("openGate", gateOpen);
+
+            gateOpen = false;
+            animator.SetBool("openGate", false);
+            Debug.Log($"CloseGate({gateOpen})");
+            animator.SetBool("testBool", false);
+
+
         }
     }
 
