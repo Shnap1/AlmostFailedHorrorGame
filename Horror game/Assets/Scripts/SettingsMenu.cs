@@ -178,7 +178,7 @@ public class SettingsMenu : MonoBehaviour
     IEnumerator DelayedVictoryUI()
     {
         VictoryUI.SetActive(true);
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(3); //
         PauseGame();
     }
 
