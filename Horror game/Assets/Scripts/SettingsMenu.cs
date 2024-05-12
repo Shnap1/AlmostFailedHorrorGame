@@ -20,7 +20,18 @@ public class SettingsMenu : MonoBehaviour
 
     public GameObject PauseMenuUI;
     public GameObject GameOverUI;
+
+    public GameObject VictoryUI;
     [SerializeField] PlayerStateMachine player;
+    void OnEnable()
+    {
+        GameLoopManager.OnGameUpdate += ToggleVictoryUI;
+    }
+
+    void OnDisable()
+    {
+        GameLoopManager.OnGameUpdate -= ToggleVictoryUI;
+    }
     void Start()
     {
         GetResolutions();
@@ -30,7 +41,7 @@ public class SettingsMenu : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape)) TogglePauseUI();
+        if (Input.GetKeyDown(KeyCode.Escape)) TogglePauseUI();
         // if (Input.GetKeyDown(KeyCode.O)) ToggleGameOverUI(true);
     }
 
@@ -41,7 +52,7 @@ public class SettingsMenu : MonoBehaviour
         GraphicsDropdown.value = currentQuality;
         GraphicsDropdown.RefreshShownValue();
     }
-    
+
     public void GetResolutions()
     {
         resolutions = Screen.resolutions;
@@ -87,7 +98,8 @@ public class SettingsMenu : MonoBehaviour
         Screen.fullScreen = isFullscreen;
     }
 
-    void TriggerToggleView(GameLoopManager.GameState gameState){
+    void TriggerToggleView(GameLoopManager.GameState gameState)
+    {
         //if(gameState == GameLoopManager.GameState.)
         switch (gameState)
         {
@@ -96,11 +108,11 @@ public class SettingsMenu : MonoBehaviour
                 ToggleGameOverUI(isGameOver);
                 break;
         }
-        
+
     }
     public void TogglePauseUI()
     {
-        if(isPaused)
+        if (isPaused)
         {
             TurnOffPauseUI();
         }
@@ -152,6 +164,32 @@ public class SettingsMenu : MonoBehaviour
             Cursor.visible = true;
             OnGamePaused?.Invoke(true);
         }
+    }
+
+
+    public void ToggleVictoryUI(GameLoopManager.GameState gameState)
+    {
+        if (VictoryUI != null && gameState == GameLoopManager.GameState.Victory)
+        {
+            StartCoroutine(DelayedVictoryUI());
+        }
+    }
+
+    IEnumerator DelayedVictoryUI()
+    {
+        VictoryUI.SetActive(true);
+        yield return new WaitForSeconds(3);
+        PauseGame();
+    }
+
+    public void LoadNextMission()
+    {
+        //
+    }
+
+    public void LoadBase()
+    {
+        //
     }
     public void ReloadScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
 }

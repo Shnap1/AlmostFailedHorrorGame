@@ -9,7 +9,6 @@ using static LootSpawner;
 public class LootSpawner : MonoBehaviour
 {
     // Start is called before the first frame update
-    [SerializeField] public GameObject healthPowerUp;
     //[SerializeField] public GameObject staminaPowerUp;
     //public Dictionary<Loot, GameObject> LootDict = new Dictionary<Loot, GameObject>();
     public List<GameObject> PowerUpList = new List<GameObject>();

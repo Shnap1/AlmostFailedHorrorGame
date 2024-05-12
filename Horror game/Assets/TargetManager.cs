@@ -13,7 +13,7 @@ public class TargetManager : MonoBehaviour
         {
             //Debug.Log("Sphere collided with player");
             GetComponent<Collider>().enabled = false;
-
+            GameLoopManager.TargetCollected();
             Destroy(gameObject);
         }
     }

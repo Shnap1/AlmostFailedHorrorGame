@@ -36,7 +36,7 @@ public class HealthPU : MonoBehaviour, IPowerUp
             Debug.Log("Sphere collided with player");
             DoAction(healthPoint, other.gameObject); wasUsed = true;
             GetComponent<Collider>().enabled = false;
-            Destroy(gameObject, 5f);
+            Destroy(gameObject);
         }
     }
 
