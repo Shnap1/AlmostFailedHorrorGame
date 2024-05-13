@@ -38,6 +38,9 @@ public class GameLoopManager : MonoBehaviour
         // DontDestroyOnLoad(gameObject);
         // DontDestroyOnLoad(powerUpSpawner.gameObject);
         // DontDestroyOnLoad(enemySpawner.gameObject);
+
+        if (Time.timeScale == 0) Time.timeScale = 1;
+
     }
 
     void Start()
