@@ -4,8 +4,24 @@ using UnityEngine;
 
 public class GateOpener : MonoBehaviour
 {
+    public static GateOpener instance;
+
     public Animator animator;
     [SerializeField] bool gateOpen;
+    public GameObject gate;
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+    }
 
     void Start()
     {
@@ -57,6 +73,8 @@ public class GateOpener : MonoBehaviour
     public void OpenGate()
     {
         {
+            if (gateOpen == false) animator.SetBool("openGate", true);
+
             gateOpen = true;
             animator.SetBool("openGate", true);
             Debug.Log($"OpenGate({gateOpen})");

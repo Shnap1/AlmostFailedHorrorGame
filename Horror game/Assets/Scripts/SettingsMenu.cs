@@ -196,6 +196,7 @@ public class SettingsMenu : MonoBehaviour
             Cursor.visible = true;
             OnGamePaused?.Invoke(true);
         }
+        Debug.Log($"PauseGame {isPaused}");
     }
 
 
@@ -222,6 +223,7 @@ public class SettingsMenu : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
         GameLoopManager.instance.UpdateGameState(GameLoopManager.GameState.GatesOpen);
+        PauseGame();
     }
 
 }

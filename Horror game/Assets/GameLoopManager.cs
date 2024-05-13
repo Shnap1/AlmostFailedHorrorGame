@@ -35,7 +35,9 @@ public class GameLoopManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        DontDestroyOnLoad(gameObject);
+        DontDestroyOnLoad(powerUpSpawner.gameObject);
+        DontDestroyOnLoad(enemySpawner.gameObject);
     }
 
     void Start()
@@ -101,6 +103,8 @@ public class GameLoopManager : MonoBehaviour
             switch (currentGameState)
             {
                 case GameState.GatesOpen:
+                    //TODO Destroy all enemies,collectables in the scene
+                    //TODO reset player's health, position, score,collected count
                     OpenGate();
                     LoadLevelData(currentLevel);
                     current_number_of_TARGETS_collected = 0;
