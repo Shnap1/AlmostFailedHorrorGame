@@ -29,15 +29,15 @@ public class GameLoopManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else
         {
             Destroy(gameObject);
         }
-        DontDestroyOnLoad(gameObject);
-        DontDestroyOnLoad(powerUpSpawner.gameObject);
-        DontDestroyOnLoad(enemySpawner.gameObject);
+        // DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(powerUpSpawner.gameObject);
+        // DontDestroyOnLoad(enemySpawner.gameObject);
     }
 
     void Start()
