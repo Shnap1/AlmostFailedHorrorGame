@@ -2,6 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+
 
 public class EnemyHealthCounter : MonoBehaviour
 {
@@ -9,6 +12,11 @@ public class EnemyHealthCounter : MonoBehaviour
     [SerializeField] GameObject healthBar;
     private EnemyHealthBar enemyHealthBar;
     [SerializeField] int maxHealth = 100;
+
+    [SerializeField] ZombieStateManager zombieStateManager;
+    [SerializeField] TMP_Text followerType;
+    [SerializeField] TMP_Text currentEnemyStateText;
+
 
     int totalDefence;
 
@@ -20,6 +28,16 @@ public class EnemyHealthCounter : MonoBehaviour
     int maxAddedDefence = 1000;
     int maxAddedDamage = 1000;
 
+    void OnEnable()
+    {
+        ZombieStateManager.onZombieStateChanged += UpdZombieStateInfo;
+        Zombie_Patrolling_State.onPatrollingTypeSet += UpdEnemyInfo;
+    }
+    void OnDisable()
+    {
+        ZombieStateManager.onZombieStateChanged -= UpdZombieStateInfo;
+        Zombie_Patrolling_State.onPatrollingTypeSet -= UpdEnemyInfo;
+    }
     private void Start()
     {
         enemyHealthBar = healthBar.GetComponent<EnemyHealthBar>();
@@ -51,5 +69,15 @@ public class EnemyHealthCounter : MonoBehaviour
             totalDefence -= this.addedDamage;
         }
         enemyHealthBar.UpdateHealthUI(totalHealth, maxHealth);
+    }
+
+    public void UpdEnemyInfo(Zombie_Patrolling_State.Patrollers patrollerType)
+    {
+        followerType.text = patrollerType.ToString();
+    }
+
+    public void UpdZombieStateInfo(IStateNew zombieState)
+    {
+        currentEnemyStateText.text = zombieState.ToString();
     }
 }

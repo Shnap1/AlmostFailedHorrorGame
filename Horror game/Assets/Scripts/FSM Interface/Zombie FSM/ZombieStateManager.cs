@@ -14,6 +14,8 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
     [HideInInspector] public Zombie_Attacking_State Attacking;
 
     IStateNew currentState;
+
+    public static event Action<IStateNew> onZombieStateChanged;
     [SerializeField] public Transform player;
     [HideInInspector] public Rigidbody rb;
     [SerializeField] EnemyHealthCounter enemyHealthCounter;
@@ -43,12 +45,12 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
         Chasing = gameObject.AddComponent<Zombie_Chasing_State>();
         Chasing.InitializeSM(this);
 
-        Attacking = gameObject.AddComponent <Zombie_Attacking_State>();
+        Attacking = gameObject.AddComponent<Zombie_Attacking_State>();
         Attacking.InitializeSM(this);
 
     }
 
-    
+
     private void Start()
     {
         healthBarUI.cam = cam;
@@ -57,10 +59,12 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
 
         InitializeStates();
         currentState = Patrolling;
-        currentState.EnteState();
+        currentState.EnterState();
         agent.speed = speed;
 
         UpdateDamage();
+        onZombieStateChanged?.Invoke(currentState);
+
     }
 
     void UpdateDamage()
@@ -70,7 +74,7 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
 
     private void Update()
     {
-        currentState.UpdaterState();
+        currentState.UpdateState();
 
         playerInSightRange = Physics.CheckSphere(transform.position, sightRange, whatIsPlayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, attackRange, whatIsPlayer);
@@ -87,10 +91,11 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
                 currentState.ExitState();
 
                 currentState = state;
-                currentState.EnteState();
+                currentState.EnterState();
             }
         }
 
+        onZombieStateChanged?.Invoke(currentState);
     }
 
     //private void OnTriggerEnter(Collider other)
@@ -105,10 +110,10 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
     //        }
     //    }
     //}
-    
+
     //private void OnTriggerExit(Collider other)
     //{
-        
+
     //    if (other.CompareTag("Player"))
     //    {
     //        //Debug.Log("OnTriggerExit");
@@ -152,7 +157,7 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
     //    }
     //}
 
-    
+
     public void StartRotating()
     {
         if (LookCoroutine != null)
@@ -161,12 +166,12 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
         }
         LookCoroutine = StartCoroutine(LookAt());
     }
-    
+
     IEnumerator LookAt()
     {
         Quaternion lookRotation = Quaternion.LookRotation(player.position - transform.position);
         float time = 0;
-        while(time < 1)
+        while (time < 1)
         {
             transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, time);
             time += Time.deltaTime * turnSpeed;

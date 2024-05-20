@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System;
 
 public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
 {
     ZombieStateManager SM;
     int resetTime = 10;
 
-    public bool patroling = false;
+    public bool patrolling = false;
 
     public enum Patrollers
     {
@@ -17,10 +18,8 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
         randomPointFollower
     }
 
+    public static event Action<Patrollers> onPatrollingTypeSet;
     public Patrollers thisEnemyPatrollerType;
-
-
-
     public Patrollers dropdownSelection;
 
     public void InitializeSM<T>(T stateManager) where T : IStateManagerNew
@@ -28,13 +27,13 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
         SM = stateManager as ZombieStateManager;
     }
 
-    public void EnteState()
+    public void EnterState()
     {
-        thisEnemyPatrollerType = Patrollers.playerFollower;
         //thisEnemyPatrollerType = Patrollers.randomPointFollower;
+        SetPatrollingType(Patrollers.playerFollower);
 
 
-        patroling = true;
+        patrolling = true;
         SM.anim.SetBool("closeToAttack", false);
         SM.anim.SetBool("seePlayer", false);
         //Debug.Log("Patrolling");
@@ -42,8 +41,10 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
         StartCoroutine(ResetingPath(resetTime, thisEnemyPatrollerType));
 
         SM.healthBar.SetActive(false);
+        onPatrollingTypeSet?.Invoke(thisEnemyPatrollerType);
+
     }
-    public void UpdaterState()
+    public void UpdateState()
     {
         //PatrolToSetPoint();
         CheckSwitchState();
@@ -51,13 +52,13 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
 
     public void ExitState()
     {
-        patroling = false;
+        patrolling = false;
         StopCoroutine(ResetingPath(resetTime, thisEnemyPatrollerType));
         //SM.agent.ResetPath();
 
     }
 
-    public void PatrolingFunction()
+    public void PatrollingFunction()
     {
         //StateManager.transform.LookAt()
         SearchWalkPoint();
@@ -75,8 +76,8 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
     public void SearchWalkPoint()
     {
         //Calculate random point in range
-        float randomZ = Random.Range(-SM.walkPointRange, SM.walkPointRange);
-        float randomX = Random.Range(-SM.walkPointRange, SM.walkPointRange);
+        float randomZ = UnityEngine.Random.Range(-SM.walkPointRange, SM.walkPointRange);
+        float randomX = UnityEngine.Random.Range(-SM.walkPointRange, SM.walkPointRange);
 
         SM.walkPoint = new Vector3(SM.transform.position.x + randomX, SM.transform.position.y, SM.transform.position.z + randomZ);
 
@@ -102,10 +103,11 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
     public void SetPatrollingType(Patrollers patrollerType)
     {
         thisEnemyPatrollerType = patrollerType;
+        onPatrollingTypeSet?.Invoke(thisEnemyPatrollerType);
     }
-    IEnumerator ResetingPath(int patrolingTime, Patrollers patrollerType)
+    IEnumerator ResetingPath(int patrollingTime, Patrollers patrollerType)
     {
-        while (patroling)
+        while (patrolling)
         {
             //PatrolingFunction(); NEW NEW
 
@@ -131,7 +133,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
             }
 
             /// NEW NEW
-            yield return new WaitForSeconds(patrolingTime);
+            yield return new WaitForSeconds(patrollingTime);
         }
     }
 

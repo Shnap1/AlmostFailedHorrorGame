@@ -11,9 +11,9 @@ public interface IStateManagerNew
 
 public interface IStateNew
 {
-    void InitializeSM<T>(T stateManager) where T: IStateManagerNew;
-    void EnteState();
-    void UpdaterState();
+    void InitializeSM<T>(T stateManager) where T : IStateManagerNew;
+    void EnterState();
+    void UpdateState();
     void ExitState();
     void CheckSwitchState();
 }

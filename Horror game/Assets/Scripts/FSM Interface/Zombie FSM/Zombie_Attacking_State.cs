@@ -13,7 +13,7 @@ public class Zombie_Attacking_State : MonoBehaviour, IStateNew
         SM = stateManager as ZombieStateManager;
     }
 
-    public void EnteState()
+    public void EnterState()
     {
         SM.anim.SetBool("closeToAttack", true);
         SM.anim.SetBool("seePlayer", true);
@@ -23,7 +23,7 @@ public class Zombie_Attacking_State : MonoBehaviour, IStateNew
 
 
     }
-    public void UpdaterState()
+    public void UpdateState()
     {
         CheckSwitchState();
         //AttackPlayer();

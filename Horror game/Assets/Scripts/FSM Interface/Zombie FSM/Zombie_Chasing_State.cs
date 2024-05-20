@@ -12,7 +12,7 @@ public class Zombie_Chasing_State : MonoBehaviour, IStateNew
         SM = stateManager as ZombieStateManager;
     }
 
-    public void EnteState()
+    public void EnterState()
     {
         SM.anim.SetBool("closeToAttack", false);
         SM.anim.SetBool("seePlayer", true);
@@ -20,7 +20,7 @@ public class Zombie_Chasing_State : MonoBehaviour, IStateNew
         SM.agent.speed = SM.chaseSpeed;
 
     }
-    public void UpdaterState()
+    public void UpdateState()
     {
         CheckSwitchState();
         //ChasePlayer();
