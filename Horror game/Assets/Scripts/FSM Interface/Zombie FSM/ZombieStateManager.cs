@@ -35,7 +35,7 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
     bool RememberPlayerCorIsRUNNING;
 
     public GameObject healthBar;
-    public PatrolPointManager patroPointManager;
+    public PatrolPointManager patrolPointManager;
 
     public void InitializeStates()
     {

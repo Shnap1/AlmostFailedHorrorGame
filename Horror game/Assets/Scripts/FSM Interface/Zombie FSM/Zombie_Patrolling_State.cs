@@ -11,6 +11,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
 
     public bool patrolling = false;
 
+    [HideInInspector]
     public enum Patrollers
     {
         lastTriggeredPointFollower,
@@ -20,7 +21,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
 
     public static event Action<Patrollers> onPatrollingTypeSet;
     public Patrollers thisEnemyPatrollerType;
-    public Patrollers dropdownSelection;
+    // public Patrollers dropdownSelection;
 
     public void InitializeSM<T>(T stateManager) where T : IStateManagerNew
     {
@@ -30,7 +31,10 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
     public void EnterState()
     {
         //thisEnemyPatrollerType = Patrollers.randomPointFollower;
-        SetPatrollingType(Patrollers.playerFollower);
+
+        // SetPatrollingType(Patrollers.playerFollower);
+        SetPatrollingType(Patrollers.randomPointFollower);
+
 
 
         patrolling = true;
@@ -48,6 +52,8 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
     {
         //PatrolToSetPoint();
         CheckSwitchState();
+        // EnemyGoesTo(SM.patrolPointManager.GetTriggeredPatrolPointPos());
+
     }
 
     public void ExitState()
@@ -115,13 +121,14 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
             if (patrollerType == Patrollers.lastTriggeredPointFollower)
             {
                 //Debug.Log("lastTriggeredPointFollower");
-                EnemyGoesTo(SM.patroPointManager.GetTriggeredPatrolPointPos());
+                EnemyGoesTo(SM.patrolPointManager.GetTriggeredPatrolPointPos());
+                Debug.Log("EnemyGoesTo(SM.patrolPointManager.GetTriggeredPatrolPointPos())");
 
             }
             else if (patrollerType == Patrollers.playerFollower)
             {
                 //Debug.Log("playerFollower");
-                PlayerPatrolingFunction();
+                PlayerPatrollingFunction();
 
 
             }
@@ -129,7 +136,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
             {
                 Debug.Log("randomPointFollower");
                 //SearchWalkPoint();
-                EnemyGoesTo(SM.patroPointManager.GetEmptyPatrolPointPos());
+                EnemyGoesTo(SM.patrolPointManager.GetEmptyRandomPointsToSpawn());
             }
 
             /// NEW NEW
@@ -157,7 +164,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
     // }
 
 
-    public void PlayerPatrolingFunction()
+    public void PlayerPatrollingFunction()
     {
         //StateManager.transform.LookAt()
         SearchPlayerLocation();

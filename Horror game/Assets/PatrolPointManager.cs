@@ -10,19 +10,63 @@ public class PatrolPointManager : MonoBehaviour
     public List<PatrolPointAI> emptySpawnedPointsList = new List<PatrolPointAI>
     ();
     PatrolPointAI pointToSpawn;
+    public PatrolPointAI randomTriggeredPatrolPoint;
     void Start()
     {
-        emptySpawnedPointsList = patrolPointsList;
+        emptySpawnedPointsList = new List<PatrolPointAI>(patrolPointsList);
     }
 
     void Update()
     {
 
     }
+    // public Vector3 GetTriggeredPatrolPointPos()
+    // {
+    //     Vector3 point ;
+    //     if (triggeredPatrolPointsList.Count <= 0)
+    //     {
+    //         Debug.Log($"triggeredPatrolPointsList.Count <= 0");
+    //         point = GetEmptyPointsToSpawn();
+    //     }
+    //     else if (randomTriggeredPatrolPoint == null)
+    //     {
+    //         Debug.Log($"randomTriggeredPatrolPoint == null");
+    //         point = GetEmptyPointsToSpawn();
+
+    //     }
+    //     else if (randomTriggeredPatrolPoint != null)
+    //     {
+
+    //         Debug.Log($"randomTriggeredPatrolPoint INDEX = {triggeredPatrolPointsList.IndexOf(randomTriggeredPatrolPoint)}");
+    //         randomTriggeredPatrolPoint = triggeredPatrolPointsList[Random.Range(0, triggeredPatrolPointsList.Count)];
+    //         point = randomTriggeredPatrolPoint.transform.position;
+    //     }
+    //     return point;
+    // }
+
     public Vector3 GetTriggeredPatrolPointPos()
     {
-        return triggeredPatrolPointsList[Random.Range(0, triggeredPatrolPointsList.Count)].transform.position;
+        Debug.Log("GetTriggeredPatrolPointPos");
+        Vector3 point = Vector3.zero; // Assign a default value to 'point'
+
+        switch (triggeredPatrolPointsList.Count)
+        {
+            case 0:
+                point = GetEmptyRandomPointsToSpawn();
+                Debug.Log($"point Vector3= {point} from GetEmptyRandomPointsToSpawn");
+                break;
+            case 1:
+                point = triggeredPatrolPointsList[0].transform.position;
+                break;
+            default:
+                randomTriggeredPatrolPoint = triggeredPatrolPointsList[Random.Range(0, triggeredPatrolPointsList.Count)];
+                point = randomTriggeredPatrolPoint.transform.position;
+                break;
+        }
+        Debug.Log($"point Vector3= {point}");
+        return point;
     }
+
     public Vector3 GetEmptyPatrolPointPos()
     {
         var PatPointWithLeastEnemies = patrolPointsList.OrderBy(obj => obj.numberOfEnemies).First().transform.position;
@@ -30,12 +74,12 @@ public class PatrolPointManager : MonoBehaviour
         // var PatPointWithLeastEnemies = patrolPointsList[Random.Range(0, patrolPointsList.Count)].transform.position;
     }
 
-    public Vector3 GetEmptyPointsToSpawn()
+    public Vector3 GetEmptyRandomPointsToSpawn()
     {
-
+        Debug.Log("GetEmptyRandomPointsToSpawn");
         if (emptySpawnedPointsList.Count == 0)
         {
-            emptySpawnedPointsList = patrolPointsList;
+            emptySpawnedPointsList = new List<PatrolPointAI>(patrolPointsList);
         }
         pointToSpawn = emptySpawnedPointsList[Random.Range(0, emptySpawnedPointsList.Count)];
         emptySpawnedPointsList.Remove(pointToSpawn);

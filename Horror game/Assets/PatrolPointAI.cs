@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class PatrolPointAI : MonoBehaviour
 {
-    public PatrolPointManager PatroolPointManager;
+    public PatrolPointManager PatrolPointManager;
     public bool pointTriggeredByPlayer = false;
     public bool pointClosestToPlayer = false;
     public int numberOfEnemies = 0;
     void Start()
     {
-        PatroolPointManager.patrolPointsList.Add(this);
+        PatrolPointManager.patrolPointsList.Add(this);
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
             pointTriggeredByPlayer = true;
-            PatroolPointManager.triggeredPatrolPointsList.Add(this);
+            PatrolPointManager.triggeredPatrolPointsList.Add(this);
         }
-        else if(other.gameObject.tag == "Enemy")
+        else if (other.gameObject.tag == "Enemy")
         {
             //numberOfEnemies += 1;
             numberOfEnemies = Mathf.Clamp(numberOfEnemies + 1, 0, 5);
@@ -32,17 +32,17 @@ public class PatrolPointAI : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             pointTriggeredByPlayer = false;
-            PatroolPointManager.triggeredPatrolPointsList.Remove(this);
+            PatrolPointManager.triggeredPatrolPointsList.Remove(this);
         }
         else if (other.gameObject.tag == "Enemy")
         {
-            numberOfEnemies = Mathf.Clamp(numberOfEnemies -1, 0, 5);
+            numberOfEnemies = Mathf.Clamp(numberOfEnemies - 1, 0, 5);
         }
     }
 
     void OnDisable()
     {
-        PatroolPointManager.patrolPointsList.Remove(this);
+        PatrolPointManager.patrolPointsList.Remove(this);
     }
 
 }
