@@ -33,7 +33,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
         //thisEnemyPatrollerType = Patrollers.randomPointFollower;
 
         // SetPatrollingType(Patrollers.playerFollower);
-        SetPatrollingType(Patrollers.randomPointFollower);
+        SetPatrollingType(Patrollers.playerFollower);
 
 
 
@@ -42,7 +42,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
         SM.anim.SetBool("seePlayer", false);
         //Debug.Log("Patrolling");
 
-        StartCoroutine(ResetingPath(resetTime, thisEnemyPatrollerType));
+        StartCoroutine(ResettingPath(resetTime, thisEnemyPatrollerType));
 
         SM.healthBar.SetActive(false);
         onPatrollingTypeSet?.Invoke(thisEnemyPatrollerType);
@@ -59,7 +59,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
     public void ExitState()
     {
         patrolling = false;
-        StopCoroutine(ResetingPath(resetTime, thisEnemyPatrollerType));
+        StopCoroutine(ResettingPath(resetTime, thisEnemyPatrollerType));
         //SM.agent.ResetPath();
 
     }
@@ -111,28 +111,26 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
         thisEnemyPatrollerType = patrollerType;
         onPatrollingTypeSet?.Invoke(thisEnemyPatrollerType);
     }
-    IEnumerator ResetingPath(int patrollingTime, Patrollers patrollerType)
+    IEnumerator ResettingPath(int patrollingTime, Patrollers patrollerType)
     {
         while (patrolling)
         {
             //PatrolingFunction(); NEW NEW
 
             /// 
-            if (patrollerType == Patrollers.lastTriggeredPointFollower)
+            if (thisEnemyPatrollerType == Patrollers.lastTriggeredPointFollower)
             {
                 //Debug.Log("lastTriggeredPointFollower");
                 EnemyGoesTo(SM.patrolPointManager.GetTriggeredPatrolPointPos());
                 Debug.Log("EnemyGoesTo(SM.patrolPointManager.GetTriggeredPatrolPointPos())");
 
             }
-            else if (patrollerType == Patrollers.playerFollower)
+            else if (thisEnemyPatrollerType == Patrollers.playerFollower)
             {
-                //Debug.Log("playerFollower");
-                PlayerPatrollingFunction();
-
+                EnemyGoesTo(SearchPlayerLocation());
 
             }
-            else if (patrollerType == Patrollers.randomPointFollower)
+            else if (thisEnemyPatrollerType == Patrollers.randomPointFollower)
             {
                 Debug.Log("randomPointFollower");
                 //SearchWalkPoint();
@@ -163,23 +161,6 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
     //     }
     // }
 
-
-    public void PlayerPatrollingFunction()
-    {
-        //StateManager.transform.LookAt()
-        SearchPlayerLocation();
-        if (!SM.walkPointSet) SearchPlayerLocation();
-
-        else if (SM.walkPointSet)
-            SM.agent.SetDestination(SM.walkPoint);
-
-        Vector3 distanceToWalkPoint = SM.transform.position - SM.walkPoint;
-
-        //Walkpoint reached
-        if (distanceToWalkPoint.magnitude < 3f)
-            SM.walkPointSet = false;
-    }
-
     public void EnemyGoesTo(Vector3 destination)
     {
         SM.walkPoint = destination;
@@ -193,9 +174,9 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
             SM.walkPointSet = false;
     }
 
-    private void SearchPlayerLocation()
+    private Vector3 SearchPlayerLocation()
     {
-        SM.walkPoint = SM.player.position; // Assuming player is accessible here
+        return SM.player.position; // Assuming player is accessible here
     }
 
 
