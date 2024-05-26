@@ -6,13 +6,67 @@ public class EnemySpawner : MonoBehaviour
 {
     public GameObject enemy;
     public PatrolPointManager patrolPointsManager;
-    public void SpawnEnemies(int enemiesToSpawn)
+    public List<GameObject> enemiesLVL1 = new List<GameObject>();
+    public List<GameObject> enemiesLVL2 = new List<GameObject>();
+    public List<GameObject> enemiesLVL3 = new List<GameObject>();
+
+    public void SpawnEnemies(int numberOfEnemiesToSpawn)
     {
 
-        for (int i = 0; i < enemiesToSpawn; i++)
+        for (int i = 0; i < numberOfEnemiesToSpawn; i++)
         {
             Vector3 spawnPoint = patrolPointsManager.GetEmptyRandomPointsToSpawn();
             Instantiate(enemy, spawnPoint, Quaternion.identity);
         }
+    }
+
+    public void SpawnEnemiesByLevel(int numberOfEnemiesToSpawn, int levelNumber)
+    {
+
+        for (int i = 0; i < numberOfEnemiesToSpawn; i++)
+        {
+
+            Vector3 spawnPoint = patrolPointsManager.GetEmptyRandomPointsToSpawn();
+            List<GameObject> listOfEnemiesToSpawnByLVL = null;
+            switch (levelNumber) //Choosing a list of enemies to spawn by level number
+            {
+                case 1:
+                    listOfEnemiesToSpawnByLVL = enemiesLVL1;
+                    break;
+                case 2:
+                    listOfEnemiesToSpawnByLVL = enemiesLVL2;
+                    break;
+                case 3:
+                    listOfEnemiesToSpawnByLVL = enemiesLVL3;
+                    break;
+                default:
+                    listOfEnemiesToSpawnByLVL = enemiesLVL2;
+                    break;
+
+            }
+            GameObject enemyToSpawn = PickARandomEnemyOfLevel(listOfEnemiesToSpawnByLVL);
+            Instantiate(enemyToSpawn, spawnPoint, Quaternion.identity);
+
+            //TODO also add code to also Instantiate 2 enemies above the current level
+        }
+    }
+
+    GameObject PickARandomEnemyOfLevel(List<GameObject> listByLevel)
+    {
+        GameObject enemyToSpawn = null;
+
+        switch (listByLevel.Count)
+        {
+            case 0: //Doing it to prevent error when list is empty
+                Debug.Log($"List called {nameof(listByLevel)} - is empty. No enemy to spawn");
+                break;
+            case 1: //Doing it to prevent error when the range is 0 to 0 - will cause an out of bounds error
+                enemyToSpawn = listByLevel[0];
+                break;
+            default:
+                enemyToSpawn = listByLevel[Random.Range(0, listByLevel.Count)];
+                break;
+        }
+        return enemyToSpawn;
     }
 }

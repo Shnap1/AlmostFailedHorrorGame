@@ -16,33 +16,6 @@ public class PatrolPointManager : MonoBehaviour
         emptySpawnedPointsList = new List<PatrolPointAI>(patrolPointsList);
     }
 
-    void Update()
-    {
-
-    }
-    // public Vector3 GetTriggeredPatrolPointPos()
-    // {
-    //     Vector3 point ;
-    //     if (triggeredPatrolPointsList.Count <= 0)
-    //     {
-    //         Debug.Log($"triggeredPatrolPointsList.Count <= 0");
-    //         point = GetEmptyPointsToSpawn();
-    //     }
-    //     else if (randomTriggeredPatrolPoint == null)
-    //     {
-    //         Debug.Log($"randomTriggeredPatrolPoint == null");
-    //         point = GetEmptyPointsToSpawn();
-
-    //     }
-    //     else if (randomTriggeredPatrolPoint != null)
-    //     {
-
-    //         Debug.Log($"randomTriggeredPatrolPoint INDEX = {triggeredPatrolPointsList.IndexOf(randomTriggeredPatrolPoint)}");
-    //         randomTriggeredPatrolPoint = triggeredPatrolPointsList[Random.Range(0, triggeredPatrolPointsList.Count)];
-    //         point = randomTriggeredPatrolPoint.transform.position;
-    //     }
-    //     return point;
-    // }
 
     public Vector3 GetTriggeredPatrolPointPos()
     {
