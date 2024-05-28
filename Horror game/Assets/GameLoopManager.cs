@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Diagnostics;
+
 
 public class GameLoopManager : MonoBehaviour
 {
@@ -18,6 +20,11 @@ public class GameLoopManager : MonoBehaviour
 
     public int number_of_TARGETS_to_collect;
     public int current_number_of_TARGETS_collected;
+
+    public Stopwatch stopwatch;
+    public float gameTime;
+
+    public static event Action<float, bool> onPlayTimeSTopped;
 
     void OnEnable()
     {
@@ -46,7 +53,7 @@ public class GameLoopManager : MonoBehaviour
     void Start()
     {
         UpdateGameState(GameState.GatesOpen);
-        Debug.Log($"Start() ---------- UpdateGameState(GameState.{currentGameState})");
+        UnityEngine.Debug.Log($"Start() ---------- UpdateGameState(GameState.{currentGameState})");
         // testString = onGameStateChanger?.Invoke("test String from event") ?? "nothing";
 
         if (currentTestString != null)
@@ -73,7 +80,7 @@ public class GameLoopManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Your teststring is either null or equal to currentTestString");
+            UnityEngine.Debug.Log("Your teststring is either null or equal to currentTestString");
         }
         return null;
 
@@ -125,15 +132,19 @@ public class GameLoopManager : MonoBehaviour
                     //Spawning TARGETS
                     LootSpawner.PowerUpSpawn(currentLevel.number_of_TARGETS_to_spawn, LootSpawner.LootType.target);
 
+                    stopwatch = Stopwatch.StartNew();
+
                     break;
                 case GameState.LootCollected:
                     //TODO open gate 
                     break;
                 case GameState.Victory:
                     //TODO add victory screen, kill enemies in gate boxCollider, add EXP and load next level 
+                    StopStopWatch(gameWon: true);
                     break;
                 case GameState.Lose:
                     //TODO add lose screen with 1) Retry button loading the same level 2) reload state 3) Lobby button to load lobby level
+                    StopStopWatch(gameWon: false);
                     break;
                 case GameState.Lobby:
                     //TODO add PLAY button in the corner that would open UI with options to load next level and scene that would change state to GatesOpen
@@ -173,7 +184,7 @@ public class GameLoopManager : MonoBehaviour
     void SpawnEnemies(int enemiesToSpawn)
     {
         enemySpawner.SpawnEnemies(enemiesToSpawn);
-        Debug.Log($"SPAWN ENEMIES({enemiesToSpawn})");
+        UnityEngine.Debug.Log($"SPAWN ENEMIES({enemiesToSpawn})");
     }
     void GoToLobby()
     {
@@ -200,6 +211,12 @@ public class GameLoopManager : MonoBehaviour
         }
     }
 
+    void StopStopWatch(bool gameWon)
+    {
+        stopwatch.Stop();
+        gameTime = (float)stopwatch.Elapsed.TotalSeconds;
+        onPlayTimeSTopped?.Invoke(gameTime, gameWon);
+    }
 }
 
 public class GameLevel
