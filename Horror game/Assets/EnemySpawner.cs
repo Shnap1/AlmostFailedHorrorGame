@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -22,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void SpawnEnemiesByLevel(int numberOfEnemiesToSpawn, int levelNumber)
     {
-
+        int enemiesSpawned = 0;
         for (int i = 0; i < numberOfEnemiesToSpawn; i++)
         {
 
@@ -48,6 +49,17 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(enemyToSpawn, spawnPoint, Quaternion.identity);
 
             //TODO also add code to also Instantiate 2 enemies above the current level
+
+            enemiesSpawned++;
+        }
+
+        if (levelNumber + 1 <= 3 && enemiesSpawned <= numberOfEnemiesToSpawn + 2)
+        {
+            SpawnEnemiesByLevel(2, levelNumber + 1); //Added +2 to ensure there will be at least 2 enemies above the current level spawned
+        }
+        else if (levelNumber + 1 > 3 && enemiesSpawned <= numberOfEnemiesToSpawn + 2)
+        {
+            SpawnEnemiesByLevel(2, levelNumber);
         }
     }
 

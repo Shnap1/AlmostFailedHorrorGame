@@ -113,8 +113,6 @@ public class GameLoopManager : MonoBehaviour
             switch (currentGameState)
             {
                 case GameState.GatesOpen:
-                    //TODO Destroy all enemies,collectables in the scene
-                    //TODO reset player's health, position, score,collected count
                     OpenGate();
                     LoadLevelData(currentLevel);
                     current_number_of_TARGETS_collected = 0;
@@ -125,6 +123,7 @@ public class GameLoopManager : MonoBehaviour
                 case GameState.GameStart:
 
                     SpawnEnemies(currentLevel.enemiesToSpawn);
+                    //TODO replace SpawnEnemies() with SpawnEnemiesByLevel() 
                     //setting how many TARGETS to collect
                     number_of_TARGETS_to_collect = currentLevel.number_of_TARGETS_to_spawn;
                     //Spawning LOOT
