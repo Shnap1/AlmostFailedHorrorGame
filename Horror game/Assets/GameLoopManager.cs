@@ -25,6 +25,7 @@ public class GameLoopManager : MonoBehaviour
     public float gameTime;
 
     public static event Action<float, bool> onPlayTimeSTopped;
+    public static event Action<GameLoopManager.GameState, int, int> onTargetCollected;
 
     void OnEnable()
     {
@@ -156,6 +157,8 @@ public class GameLoopManager : MonoBehaviour
             //OnGameStateChanged?.Invoke(currentGameState);
         }
         OnGameUpdate?.Invoke(currentGameState);
+        onTargetCollected?.Invoke(currentGameState, number_of_TARGETS_to_collect, current_number_of_TARGETS_collected);
+
     }
 
     void LoadLevelData(GameLevel level)
@@ -199,15 +202,18 @@ public class GameLoopManager : MonoBehaviour
 
     public static void TargetCollected()
     {
-        instance.CheckIfTargetsCollected();
+        instance.CheckIfALLTargetsCollected();
     }
-    public void CheckIfTargetsCollected()
+    public void CheckIfALLTargetsCollected()
     {
         current_number_of_TARGETS_collected++;
         if (current_number_of_TARGETS_collected == number_of_TARGETS_to_collect)
         {
             UpdateGameState(GameState.LootCollected);
         }
+        //onTargetCollected?.Invoke(instance.current_number_of_TARGETS_collected);
+        onTargetCollected?.Invoke(currentGameState, number_of_TARGETS_to_collect, current_number_of_TARGETS_collected);
+
     }
 
     void StopStopWatch(bool gameWon)
