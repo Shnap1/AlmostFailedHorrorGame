@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Entities.UniversalDelegates;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -17,7 +18,29 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < numberOfEnemiesToSpawn; i++)
         {
             Vector3 spawnPoint = patrolPointsManager.GetEmptyRandomPointsToSpawn();
-            Instantiate(enemy, spawnPoint, Quaternion.identity);
+
+            if (i == 0 || i >= 4)
+            {
+                enemy.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.randomPointFollower);
+                Debug.Log("SetPatrollingType(randomPointFollower)");
+                // break;
+            }
+            else if (i == 1)
+            {
+                enemy.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.lastTriggeredPointFollower);
+                Debug.Log("SetPatrollingType(lastTriggeredPointFollower)");
+                // break;
+            }
+            else if (i == 3)
+            {
+                enemy.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.playerFollower);
+                Debug.Log("SetPatrollingType(playerFollower)");
+                // break;
+            }
+            var s = Instantiate(enemy, spawnPoint, Quaternion.identity);
+            //TODO fix UI not showing patrollingstate correctly
+            // s.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.randomPointFollower);
+
         }
     }
 
@@ -46,7 +69,60 @@ public class EnemySpawner : MonoBehaviour
 
             }
             GameObject enemyToSpawn = PickARandomEnemyOfLevel(listOfEnemiesToSpawnByLVL);
-            Instantiate(enemyToSpawn, spawnPoint, Quaternion.identity);
+
+
+
+
+
+            // enemyToSpawn.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.randomPointFollower);
+            // Debug.Log("SetPatrollingType(randomPointFollower)");
+            // if (i <= 3 || i >= 6)
+            // {
+            //     enemyToSpawn.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.randomPointFollower);
+            //     Debug.Log("SetPatrollingType(randomPointFollower)");
+            //     break;
+            // }
+            // else if (i == 4)
+            // {
+            //     enemyToSpawn.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.lastTriggeredPointFollower);
+            //     Debug.Log("SetPatrollingType(lastTriggeredPointFollower)");
+            //     break;
+            // }
+            // else if (i == 5)
+            // {
+            //     enemyToSpawn.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.playerFollower);
+            //     Debug.Log("SetPatrollingType(playerFollower)");
+            //     break;
+            // }
+
+
+
+
+
+
+
+
+
+            //Setting patrollerType for each enemy. The first 3 have to be set to randomFollower, #4 to lastTriggeredPointFollower and the last #5 to playerFollower/ All above could be randomFollowers
+            var test = Instantiate(enemyToSpawn, spawnPoint, Quaternion.identity);
+            if (i <= 3 || i >= 6)
+            {
+                test.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.randomPointFollower);
+                Debug.Log("SetPatrollingType(randomPointFollower)");
+                break;
+            }
+            else if (i == 4)
+            {
+                test.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.lastTriggeredPointFollower);
+                Debug.Log("SetPatrollingType(lastTriggeredPointFollower)");
+                break;
+            }
+            else if (i == 5)
+            {
+                test.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.playerFollower);
+                Debug.Log("SetPatrollingType(playerFollower)");
+                break;
+            }
 
             //TODO also add code to also Instantiate 2 enemies above the current level
 

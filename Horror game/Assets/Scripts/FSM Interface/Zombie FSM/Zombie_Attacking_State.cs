@@ -32,7 +32,8 @@ public class Zombie_Attacking_State : MonoBehaviour, IStateNew
     public void ExitState()
     {
         SM.agent.isStopped = false;
-        onAttack?.Invoke(false);
+
+        //onAttack?.Invoke(false);
     }
 
 

@@ -36,7 +36,9 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
 
     public GameObject healthBar;
     public PatrolPointManager patrolPointManager;
+    public Zombie_Patrolling_State.Patrollers patrollerType;
 
+    //TODO create a way to pass objects from the SCENE like main camera and player to instantiated prefabs like enemy.
     public void InitializeStates()
     {
         Patrolling = gameObject.AddComponent<Zombie_Patrolling_State>();
@@ -53,7 +55,14 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
 
     private void Start()
     {
+
+        player = GameData.instance.player;
+        cam = GameData.instance.cam;
         healthBarUI.cam = cam;
+        patrolPointManager = GameData.instance.patrolPointManager;
+
+        // Patrolling.SetPatrollingType(patrollerType);
+
         rb = GetComponent<Rigidbody>();
         anim = GetComponent<Animator>();
 
@@ -130,6 +139,13 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
     void TakeDamage(int addedDamage)
     {
         enemyHealthCounter.TakeDamage(addedDamage);
+    }
+
+    public void SetPatrollingType(Zombie_Patrolling_State.Patrollers patrollerType)
+    {
+        this.patrollerType = patrollerType;
+        // Patrolling.SetPatrollingType(this.patrollerType);
+        //TODO figure out whether this shit can set the patrollerType in the Zombie_Patrolling_State.cs
     }
 
     //IEnumerator RememberPlayer()

@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class GameData : MonoBehaviour
 {
-    private static GameData instance;
+    public static GameData instance;
     public int currentLevel = 0;
     public string currentTestString;
     private int currentScore = 0;
+
+    public Transform player;
+    public Transform cam;
+    public PatrolPointManager patrolPointManager;
+
 
     void OnEnable()
     {

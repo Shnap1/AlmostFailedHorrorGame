@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 920580373}
-  m_IndirectSpecularColor: {r: 0.029087225, g: 0.02989758, b: 0.029896658, a: 1}
+  m_IndirectSpecularColor: {r: 0.029104818, g: 0.029892154, b: 0.029935632, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3359,12 +3359,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6651b84ac1edf6d4da786e12d386f6e4,
     type: 3}
   m_PrefabInstance: {fileID: 198023187}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &219895344 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
-    type: 3}
-  m_PrefabInstance: {fileID: 2031179236}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &231118054
 GameObject:
@@ -7384,7 +7378,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 557332105}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.22285132, y: -0.766859, z: -0.03779743, w: 0.60069627}
+  m_LocalRotation: {x: -0.22285134, y: -0.7668589, z: -0.03779743, w: 0.60069627}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -21714,7 +21708,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05ff10655b83a124d882ff2514976697, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 219895344}
+  enemy: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2, type: 3}
   patrolPointsManager: {fileID: 608843906}
   enemiesLVL1: []
   enemiesLVL2: []
@@ -24673,43 +24667,33 @@ PrefabInstance:
       objectReference: {fileID: 1367542618}
     - target: {fileID: 218729066389837163, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
-      propertyPath: patroPointManager
-      value: 
-      objectReference: {fileID: 608843906}
+      propertyPath: patrollerType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 218729066389837163, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: patrolPointManager
       value: 
       objectReference: {fileID: 608843906}
-    - target: {fileID: 1350360968619936141, guid: 6a56734da8cb40e43a5bbe631144a0a2,
+    - target: {fileID: 2768162307731470216, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2345857497512433408, guid: 6a56734da8cb40e43a5bbe631144a0a2,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3637817454524492506, guid: 6a56734da8cb40e43a5bbe631144a0a2,
-        type: 3}
-      propertyPath: m_Drag
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 3637817454524492506, guid: 6a56734da8cb40e43a5bbe631144a0a2,
-        type: 3}
-      propertyPath: m_AngularDrag
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6008143588443066524, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
       propertyPath: m_Name
       value: ZOMBIE ENEMY
+      objectReference: {fileID: 0}
+    - target: {fileID: 6287607486970148205, guid: 6a56734da8cb40e43a5bbe631144a0a2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6632044263578365911, guid: 6a56734da8cb40e43a5bbe631144a0a2,
         type: 3}
@@ -25700,6 +25684,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentLevel: 0
   currentTestString: 
+  player: {fileID: 1367542618}
+  cam: {fileID: 330585546}
+  patrolPointManager: {fileID: 608843906}
 --- !u!4 &2094196393
 Transform:
   m_ObjectHideFlags: 0

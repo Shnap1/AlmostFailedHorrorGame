@@ -30,12 +30,6 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
 
     public void EnterState()
     {
-        //thisEnemyPatrollerType = Patrollers.randomPointFollower;
-
-        // SetPatrollingType(Patrollers.playerFollower);
-        SetPatrollingType(Patrollers.playerFollower);
-
-
 
         patrolling = true;
         SM.anim.SetBool("closeToAttack", false);
@@ -44,7 +38,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
 
         StartCoroutine(ResettingPath(resetTime, thisEnemyPatrollerType));
 
-        SM.healthBar.SetActive(false);
+        //SM.healthBar.SetActive(false);
         onPatrollingTypeSet?.Invoke(thisEnemyPatrollerType);
 
     }
@@ -53,6 +47,11 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
         //PatrolToSetPoint();
         CheckSwitchState();
         // EnemyGoesTo(SM.patrolPointManager.GetTriggeredPatrolPointPos());
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SetPatrollingType(Patrollers.playerFollower);
+            Debug.Log($" SetPatrollingType() =={thisEnemyPatrollerType}");
+        }
 
     }
 
@@ -109,12 +108,16 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
     public void SetPatrollingType(Patrollers patrollerType)
     {
         thisEnemyPatrollerType = patrollerType;
+        StopCoroutine(ResettingPath(resetTime, thisEnemyPatrollerType));
         onPatrollingTypeSet?.Invoke(thisEnemyPatrollerType);
+        StartCoroutine(ResettingPath(resetTime, thisEnemyPatrollerType));
+
     }
     IEnumerator ResettingPath(int patrollingTime, Patrollers patrollerType)
     {
         while (patrolling)
         {
+            PPcheckerLOL();
             //PatrolingFunction(); NEW NEW
 
             /// 
@@ -139,7 +142,14 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
 
             /// NEW NEW
             yield return new WaitForSeconds(patrollingTime);
+            PPcheckerLOL();
         }
+    }
+
+    void PPcheckerLOL()
+    {
+        thisEnemyPatrollerType = SM.patrollerType;
+
     }
 
     // public void SelectPatrollingType(Patrollers patrollerType)
