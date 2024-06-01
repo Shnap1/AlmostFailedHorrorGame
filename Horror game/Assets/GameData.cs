@@ -17,12 +17,20 @@ public class GameData : MonoBehaviour
     void OnEnable()
     {
         // GameLoopManager.onPlayTimeSTopped += GetRuntimeData;
+        PlayerStateMachine.onPlayerCreated += GetPlayerTransform;
         LevelManager.OnLevelCalculated += GetPlayTimeData;
+        MainCameraScript.onCamCreated += GetCamTransform;
+        PatrolPointManager.onPatrolPointManagerCreated += GetPatrolPointManager;
 
     }
     void OnDisable()
     {
         LevelManager.OnLevelCalculated -= GetPlayTimeData;
+        PlayerStateMachine.onPlayerCreated -= GetPlayerTransform;
+        MainCameraScript.onCamCreated -= GetCamTransform;
+        PatrolPointManager.onPatrolPointManagerCreated -= GetPatrolPointManager;
+
+
 
     }
 
@@ -46,4 +54,9 @@ public class GameData : MonoBehaviour
         Debug.Log("GetPlayTimeData");
         currentTestString = "IDI NAHYII!";
     }
+    void GetCamTransform(Transform cam) => this.cam = cam;
+
+    void GetPlayerTransform(Transform player) => this.player = player;
+    void GetPatrolPointManager(PatrolPointManager manager) => patrolPointManager = manager;
+
 }

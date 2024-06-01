@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class PatrolPointManager : MonoBehaviour
 {
@@ -10,7 +11,12 @@ public class PatrolPointManager : MonoBehaviour
     public List<PatrolPointAI> emptySpawnedPointsList = new List<PatrolPointAI>
     ();
     PatrolPointAI pointToSpawn;
+    public static event Action<PatrolPointManager> onPatrolPointManagerCreated;
     public PatrolPointAI randomTriggeredPatrolPoint;
+    void Awake()
+    {
+        onPatrolPointManagerCreated?.Invoke(this);
+    }
     void Start()
     {
         emptySpawnedPointsList = new List<PatrolPointAI>(patrolPointsList);
@@ -32,7 +38,7 @@ public class PatrolPointManager : MonoBehaviour
                 point = triggeredPatrolPointsList[0].transform.position;
                 break;
             default:
-                randomTriggeredPatrolPoint = triggeredPatrolPointsList[Random.Range(0, triggeredPatrolPointsList.Count)];
+                randomTriggeredPatrolPoint = triggeredPatrolPointsList[UnityEngine.Random.Range(0, triggeredPatrolPointsList.Count)];
                 point = randomTriggeredPatrolPoint.transform.position;
                 break;
         }
@@ -54,7 +60,7 @@ public class PatrolPointManager : MonoBehaviour
         {
             emptySpawnedPointsList = new List<PatrolPointAI>(patrolPointsList);
         }
-        pointToSpawn = emptySpawnedPointsList[Random.Range(0, emptySpawnedPointsList.Count)];
+        pointToSpawn = emptySpawnedPointsList[UnityEngine.Random.Range(0, emptySpawnedPointsList.Count)];
         emptySpawnedPointsList.Remove(pointToSpawn);
         return pointToSpawn.transform.position;
     }

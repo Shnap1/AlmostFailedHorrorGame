@@ -148,7 +148,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
 
     void PPcheckerLOL()
     {
-        thisEnemyPatrollerType = SM.patrollerType;
+        // thisEnemyPatrollerType = SM.patrollerType;
 
     }
 

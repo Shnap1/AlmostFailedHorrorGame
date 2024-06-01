@@ -35,7 +35,7 @@ public class PlayerStateMachine : MonoBehaviour
     //float _groundedGravity = -.05f;
 
     //jumping variables
-    [SerializeField]bool _isJumpPressed = false;
+    [SerializeField] bool _isJumpPressed = false;
     float _initialJumpVelocity;
     float _maxJumpHeight = 2.0f; // 4.0
     float _maxJumpTime = 0.3f; //.75
@@ -58,7 +58,7 @@ public class PlayerStateMachine : MonoBehaviour
     public Animator Animator { get { return _animator; } set { _animator = value; } }
     public CharacterController CharacterController { get { return _characterController; } set { _characterController = value; } }
     public Coroutine CurrentJumpResetRoutine { get { return currentJumpResetRoutine; } set { currentJumpResetRoutine = value; } }
-    public Dictionary<int, float> InitialJumpVelocities { get { return _initialJumpVelocities; } } 
+    public Dictionary<int, float> InitialJumpVelocities { get { return _initialJumpVelocities; } }
     public Dictionary<int, float> JumpGravities { get { return _jumpGravities; } }
     public int JumpCount { get { return _jumpCount; } set { _jumpCount = value; } }
     public int IsWalkingHash { get { return _isWalkingHash; } }
@@ -68,7 +68,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int JumpCountHash { get { return _jumpCountHash; } }
     public bool IsMovementPressed { get { return _isMovementPressed; } }
     public bool IsRunPressed { get { return _isRunPressed; } }
-    public bool RequireNewJumpPress { get { return _requireNewJumpPress; } set { _requireNewJumpPress = value; }}
+    public bool RequireNewJumpPress { get { return _requireNewJumpPress; } set { _requireNewJumpPress = value; } }
     public bool IsJumping { set { _isJumping = value; } }
     public bool IsJumpPressed { get { return _isJumpPressed; } }
     //public float GroundedGravity { get { return _groundedGravity; } }
@@ -89,8 +89,10 @@ public class PlayerStateMachine : MonoBehaviour
     public bool wasGroundedBeforePause;
 
     public LootCounter lootCounter;
+    public static event Action<Transform> onPlayerCreated;
     void Awake()
     {
+        onPlayerCreated?.Invoke(this.transform);
         // initialy set reference variables
         lootCounter = GetComponent<LootCounter>();
 
@@ -174,7 +176,7 @@ public class PlayerStateMachine : MonoBehaviour
         float currentYValue = vectorToRotate.y;
 
         // get the forward and right directional vectors of the camera
-        Vector3  cameraForward = Camera.main.transform.forward;
+        Vector3 cameraForward = Camera.main.transform.forward;
         Vector3 cameraRight = Camera.main.transform.right;
 
         // remove the Y values to ignore upward/downward camera angles
@@ -190,7 +192,7 @@ public class PlayerStateMachine : MonoBehaviour
         Vector3 cameraRightXProduct = vectorToRotate.x * cameraRight;
 
         //the sum of both products is the Vector3 in camera
-        Vector3 vectorRotatedToCameraSpace =cameraForwardZProduct + cameraRightXProduct;
+        Vector3 vectorRotatedToCameraSpace = cameraForwardZProduct + cameraRightXProduct;
         vectorRotatedToCameraSpace.y = currentYValue;
         return vectorRotatedToCameraSpace;
     }
@@ -236,7 +238,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "TargetCollectable"){
+        if (other.gameObject.tag == "TargetCollectable")
+        {
             lootCounter.AddLoot();
         }
     }
