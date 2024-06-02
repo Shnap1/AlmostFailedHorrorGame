@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class TargetManager : MonoBehaviour
 {
+    public GameObject target;
     public static Action onTargetCollected;
 
     private void OnTriggerEnter(Collider other)
@@ -14,7 +15,8 @@ public class TargetManager : MonoBehaviour
             //Debug.Log("Sphere collided with player");
             GetComponent<Collider>().enabled = false;
             GameLoopManager.TargetCollected();
-            Destroy(gameObject);
+            Destroy(target);
         }
     }
+
 }
