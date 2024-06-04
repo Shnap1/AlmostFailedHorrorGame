@@ -39,7 +39,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 920580373}
-  m_IndirectSpecularColor: {r: 0.029087225, g: 0.02989758, b: 0.029896658, a: 1}
+  m_IndirectSpecularColor: {r: 0.029104818, g: 0.029892154, b: 0.029935632, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6613,7 +6613,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &484183346
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10720,7 +10720,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: New Text
+  m_Text: current task
 --- !u!222 &961363587
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13294,7 +13294,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!224 &1175240767
 RectTransform:
@@ -13338,6 +13338,10 @@ MonoBehaviour:
   GameOverUI: {fileID: 2039377055}
   VictoryUI: {fileID: 2034160939}
   player: {fileID: 1367542623}
+  UItoHideForWEBGL:
+  - {fileID: 1480290824}
+  - {fileID: 106699785}
+  - {fileID: 98835117}
 --- !u!1 &1181340901
 GameObject:
   m_ObjectHideFlags: 0
@@ -14700,7 +14704,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!224 &1255326995
 RectTransform:
@@ -20907,8 +20911,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 93.300964, y: 12.187702, z: 52.893375}
-  m_Center: {x: 46.328583, y: 3.1830063, z: 18.576689}
+  m_Size: {x: 99.44876, y: 12.187702, z: 53.80777}
+  m_Center: {x: 49.40248, y: 3.1830063, z: 18.826416}
 --- !u!114 &1738954899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20981,7 +20985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.017767329, b: 0.4264151, a: 0.79607844}
+  m_Color: {r: 0, g: 0.017767329, b: 0.4264151, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

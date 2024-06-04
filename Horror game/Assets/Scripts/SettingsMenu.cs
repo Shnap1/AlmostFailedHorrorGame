@@ -23,6 +23,8 @@ public class SettingsMenu : MonoBehaviour
 
     public GameObject VictoryUI;
     [SerializeField] PlayerStateMachine player;
+
+    public List<GameObject> UItoHideForWEBGL = new List<GameObject>();
     void OnEnable()
     {
         GameLoopManager.OnGameUpdate += TurnOnVictoryOrFailUI;
@@ -36,6 +38,22 @@ public class SettingsMenu : MonoBehaviour
     {
         GetResolutions();
         GetQuality();
+        UIhider(UItoHideForWEBGL);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
+    }
+
+    void UIhider(List<GameObject> UIElements)
+    {
+        if (Application.platform == RuntimePlatform.WebGLPlayer)
+        {
+            // Disable the game object
+            foreach (GameObject UIElement in UIElements)
+            {
+                UIElement.SetActive(false);
+            }
+        }
 
     }
 
@@ -204,13 +222,17 @@ public class SettingsMenu : MonoBehaviour
     IEnumerator DelayedVictoryUI()
     {
         VictoryUI.SetActive(true);
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         yield return new WaitForSeconds(3); //
         PauseGame();
     }
 
     public void LoadNextMission()
     {
-        //
+        //TODO: replace it with an actual next mission once I add many enemies so I could recalculate next level difficulty
+        //TODO make RETURN TO THE BASE button active once I add a lobby location
+        ReloadScene();
     }
 
     public void LoadBase()

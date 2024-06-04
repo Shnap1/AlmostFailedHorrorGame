@@ -31,7 +31,7 @@ public class HealthBar : MonoBehaviour
 
     void UpdateStateText(GameLoopManager.GameState gameState, int number_of_TARGETS_to_collect, int number_of_TARGETS_collected)
     {
-        currentGameStateText.text = gameState.ToString();
+        //currentGameStateText.text = gameState.ToString();
         switch (gameState)
         {
             case GameLoopManager.GameState.GatesOpen:
@@ -47,6 +47,8 @@ public class HealthBar : MonoBehaviour
                 currentGameStateText.text = "You are now in the lobby. Go to the gates to start the game";
                 break;
             default:
+                currentGameStateText.text = "";
+
                 break;
         }
     }
