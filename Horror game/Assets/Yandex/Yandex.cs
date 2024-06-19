@@ -15,8 +15,20 @@ public class Yandex : MonoBehaviour
     [DllImport("__Internal")]
     private static extern void GiveMePlayerData();
 
+    [DllImport("__Internal")]
+    private static extern void RateGame();
+
+
+
     [SerializeField] TextMeshProUGUI _nameText;
     [SerializeField] RawImage _photo;
+
+
+    public void RateGameButton()
+    {
+        RateGame();
+    }
+
 
     public void HelloButton()
     {
