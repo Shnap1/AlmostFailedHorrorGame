@@ -26,5 +26,12 @@ mergeInto(LibraryManager.library, {
 
   	},
 
+  	SaveExtern: function (data) {
+
+  	},
+
+  	LoadExtern: function () {
+  		
+  	},
 
   });
