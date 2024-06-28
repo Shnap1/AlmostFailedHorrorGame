@@ -233,6 +233,10 @@ public class SettingsMenu : MonoBehaviour
         //TODO: replace it with an actual next mission once I add many enemies so I could recalculate next level difficulty
         //TODO make RETURN TO THE BASE button active once I add a lobby location
         ReloadScene();
+        //TODO add Progress.Instance.PlayerInfo.Level = currentLevel;
+#if UNITY_WEBGL
+        Progress.Instance.Save();
+#endif
     }
 
     public void LoadBase()

@@ -29,7 +29,7 @@ mergeInto(LibraryManager.library, {
   	SaveExtern: function(data) {
   		var dataString = UTF8ToString(data);
   		var myobj = JSON.parse(dataString);
-  		player.setData(myObj);
+  		player.setData(myobj);
   	},
 
   	LoadExtern: function() {

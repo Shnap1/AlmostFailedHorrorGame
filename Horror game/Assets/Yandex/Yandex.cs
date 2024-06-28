@@ -26,6 +26,9 @@ public class Yandex : MonoBehaviour
 
     public void RateGameButton()
     {
+#if UNITY_WEBGL
+        Progress.Instance.Save();
+#endif
         RateGame();
     }
 

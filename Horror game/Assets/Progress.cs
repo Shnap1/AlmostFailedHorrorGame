@@ -17,12 +17,12 @@ public class PlayerInfo
 public class Progress : MonoBehaviour
 {
     public PlayerInfo PlayerInfo;
-    private static Progress Instance;
+    public static Progress Instance;
 
     [DllImport("__Internal")]
     private static extern void SaveExtern(string data);
     [DllImport("__Internal")]
-    private static extern void LoadExtern(string data);
+    private static extern void LoadExtern();
 
     [SerializeField] TextMeshProUGUI _playerInfoText;
     private void Awake()
@@ -32,6 +32,9 @@ public class Progress : MonoBehaviour
             transform.parent = null;
             DontDestroyOnLoad(gameObject);
             Instance = this;
+#if UNITY_WEBGL
+            LoadExtern();
+#endif
 
         }
         else
@@ -43,7 +46,9 @@ public class Progress : MonoBehaviour
     public void Save()
     {
         string jsonString = JsonUtility.ToJson(PlayerInfo);
+#if UNITY_WEBGL
         SaveExtern(jsonString);
+#endif
     }
     public void SetPlayerInfo(string value)
     {
