@@ -17,14 +17,12 @@ public class PlayerInfo
 public class Progress : MonoBehaviour
 {
     public PlayerInfo PlayerInfo;
-    public static Progress Instance;
-
     [DllImport("__Internal")]
-    private static extern void SaveExtern(string data);
+    private static extern void SaveExtern(string date);
     [DllImport("__Internal")]
     private static extern void LoadExtern();
-
     [SerializeField] TextMeshProUGUI _playerInfoText;
+    public static Progress Instance;
     private void Awake()
     {
         if (Instance == null)
@@ -32,14 +30,23 @@ public class Progress : MonoBehaviour
             transform.parent = null;
             DontDestroyOnLoad(gameObject);
             Instance = this;
-#if UNITY_WEBGL
-            LoadExtern();
-#endif
-
         }
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    void Start()
+    {
+        PlayerInfo = new PlayerInfo(); // new otsebyatina
+
+        LoadExtern();
+
+        if (PlayerInfo == null)
+        {
+            Debug.Log("PlayerInfo == null");
+            _playerInfoText.text = "PlayerInfo == null";
         }
     }
 
@@ -50,10 +57,14 @@ public class Progress : MonoBehaviour
         SaveExtern(jsonString);
 #endif
     }
+
     public void SetPlayerInfo(string value)
     {
         PlayerInfo = JsonUtility.FromJson<PlayerInfo>(value);
-        _playerInfoText.text = PlayerInfo.Coins + "\n" + PlayerInfo.Width + "\n" + PlayerInfo.Height + "\n" + PlayerInfo.Level;
+        if (_playerInfoText)
+        {
+            _playerInfoText.text = PlayerInfo.Coins + "\n" + PlayerInfo.Width + "\n" + PlayerInfo.Height + "\n" + PlayerInfo.Level;
+        }
     }
 
 }
