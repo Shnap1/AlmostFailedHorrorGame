@@ -74,6 +74,7 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
         UpdateDamage();
         onZombieStateChanged?.Invoke(currentState);
 
+        healthBar.SetActive(false);
     }
 
     void UpdateDamage()
