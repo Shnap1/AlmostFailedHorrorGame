@@ -54,7 +54,7 @@ public class GameLoopManager : MonoBehaviour
     void Start()
     {
         UpdateGameState(GameState.GatesOpen);
-        UnityEngine.Debug.Log($"Start() ---------- UpdateGameState(GameState.{currentGameState})");
+        // UnityEngine.Debug.Log($"Start() ---------- UpdateGameState(GameState.{currentGameState})");
         // testString = onGameStateChanger?.Invoke("test String from event") ?? "nothing";
 
         if (currentTestString != null)
@@ -127,10 +127,18 @@ public class GameLoopManager : MonoBehaviour
                     //TODO replace SpawnEnemies() with SpawnEnemiesByLevel() 
                     //setting how many TARGETS to collect
                     number_of_TARGETS_to_collect = currentLevel.number_of_TARGETS_to_spawn;
+
                     //Spawning LOOT
                     LootSpawner.PowerUpSpawn(currentLevel.number_of_LOOT_to_spawn, LootSpawner.LootType.healthPU);
+                    // LootSpawner.PowerUpSpawn(5, LootSpawner.LootType.healthPU);
+
                     //Spawning TARGETS
+
                     LootSpawner.PowerUpSpawn(currentLevel.number_of_TARGETS_to_spawn, LootSpawner.LootType.target);
+
+                    //lets add 10 targets to check if  it spawns 2 targets per every sibgle point
+
+                    // LootSpawner.PowerUpSpawn(3, LootSpawner.LootType.target);
 
                     stopwatch = Stopwatch.StartNew();
 
@@ -186,7 +194,7 @@ public class GameLoopManager : MonoBehaviour
     void SpawnEnemies(int enemiesToSpawn)
     {
         enemySpawner.SpawnEnemies(enemiesToSpawn);
-        UnityEngine.Debug.Log($"SPAWN ENEMIES({enemiesToSpawn})");
+        // UnityEngine.Debug.Log($"SPAWN ENEMIES({enemiesToSpawn})");
     }
     void GoToLobby()
     {

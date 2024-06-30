@@ -50,7 +50,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
         if (Input.GetKeyDown(KeyCode.Space))
         {
             SetPatrollingType(Patrollers.playerFollower);
-            Debug.Log($" SetPatrollingType() =={thisEnemyPatrollerType}");
+            // Debug.Log($" SetPatrollingType() =={thisEnemyPatrollerType}");
         }
 
     }
@@ -124,9 +124,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
             if (thisEnemyPatrollerType == Patrollers.lastTriggeredPointFollower)
             {
                 //Debug.Log("lastTriggeredPointFollower");
-                EnemyGoesTo(SM.patrolPointManager.GetTriggeredPatrolPointPos());
-                Debug.Log("EnemyGoesTo(SM.patrolPointManager.GetTriggeredPatrolPointPos())");
-
+                EnemyGoesTo(SM.patrolPointManager.GetTriggeredPatrolPointPos()); ;
             }
             else if (thisEnemyPatrollerType == Patrollers.playerFollower)
             {
@@ -135,7 +133,7 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
             }
             else if (thisEnemyPatrollerType == Patrollers.randomPointFollower)
             {
-                Debug.Log("randomPointFollower");
+                //Debug.Log("randomPointFollower");
                 //SearchWalkPoint();
                 EnemyGoesTo(SM.patrolPointManager.GetEmptyRandomPointsToSpawn());
             }

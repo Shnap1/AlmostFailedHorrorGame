@@ -77,7 +77,7 @@ public class GateOpener : MonoBehaviour
 
             gateOpen = true;
             animator.SetBool("openGate", true);
-            Debug.Log($"OpenGate({gateOpen})");
+            // Debug.Log($"OpenGate({gateOpen})");
             animator.SetBool("testBool", true);
 
         }
@@ -89,7 +89,7 @@ public class GateOpener : MonoBehaviour
 
             gateOpen = false;
             animator.SetBool("openGate", false);
-            Debug.Log($"CloseGate({gateOpen})");
+            // Debug.Log($"CloseGate({gateOpen})");
             animator.SetBool("testBool", false);
 
 

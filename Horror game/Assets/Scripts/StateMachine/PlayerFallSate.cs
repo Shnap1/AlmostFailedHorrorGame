@@ -6,22 +6,23 @@ using System;
 
 public class PlayerFallSate : PlayerBaseState, IRootState
 {
-    public PlayerFallSate(PlayerStateMachine currentContext, 
-    PlayerStateFactory playerStateFactory) 
-    : base(currentContext, playerStateFactory) {
+    public PlayerFallSate(PlayerStateMachine currentContext,
+    PlayerStateFactory playerStateFactory)
+    : base(currentContext, playerStateFactory)
+    {
         IsRootState = true;
     }
 
     public override void EnterState()
     {
         InitializeSubState();
-        Debug.Log("Fall State");
+        // Debug.Log("Fall State");
         //Ctx.Animator.SetBool(Ctx.IsFallingHash, true);
         //StartDelayedExecution();
 
         if (Ctx.wasGroundedBeforePause == false)
         {
-            Debug.Log("Ctx.Animator.SetBool(Ctx.IsFallingHash, true);");
+            // Debug.Log("Ctx.Animator.SetBool(Ctx.IsFallingHash, true);");
             Ctx.Animator.SetBool(Ctx.IsFallingHash, true);
 
         }
@@ -54,7 +55,8 @@ public class PlayerFallSate : PlayerBaseState, IRootState
         HandleGravity();
         CheckSwitchStates();
     }
-    public override void ExitState(){
+    public override void ExitState()
+    {
         Ctx.Animator.SetBool(Ctx.IsFallingHash, false);
     }
 
@@ -99,12 +101,12 @@ public class PlayerFallSate : PlayerBaseState, IRootState
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

@@ -22,19 +22,19 @@ public class EnemySpawner : MonoBehaviour
             if (i == 0 || i >= 4)
             {
                 enemy.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.randomPointFollower);
-                Debug.Log("SetPatrollingType(randomPointFollower)");
+                // Debug.Log("SetPatrollingType(randomPointFollower)");
                 // break;
             }
             else if (i == 1)
             {
                 enemy.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.lastTriggeredPointFollower);
-                Debug.Log("SetPatrollingType(lastTriggeredPointFollower)");
+                // Debug.Log("SetPatrollingType(lastTriggeredPointFollower)");
                 // break;
             }
             else if (i == 3)
             {
                 enemy.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.playerFollower);
-                Debug.Log("SetPatrollingType(playerFollower)");
+                // Debug.Log("SetPatrollingType(playerFollower)");
                 // break;
             }
             var s = Instantiate(enemy, spawnPoint, Quaternion.identity);

@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour
     void OnEnable()
     {
         GameLoopManager.onPlayTimeSTopped += LevelCalculator;
-        Debug.Log("GameLoopManager.onPlayTimeSTopped += LevelCalculator;");
+        // Debug.Log("GameLoopManager.onPlayTimeSTopped += LevelCalculator;");
     }
 
     void OnDisable()

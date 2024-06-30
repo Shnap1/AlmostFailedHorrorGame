@@ -25,14 +25,14 @@ public class PatrolPointManager : MonoBehaviour
 
     public Vector3 GetTriggeredPatrolPointPos()
     {
-        Debug.Log("GetTriggeredPatrolPointPos");
+        // Debug.Log("GetTriggeredPatrolPointPos");
         Vector3 point = Vector3.zero; // Assign a default value to 'point'
 
         switch (triggeredPatrolPointsList.Count)
         {
             case 0:
                 point = GetEmptyRandomPointsToSpawn();
-                Debug.Log($"point Vector3= {point} from GetEmptyRandomPointsToSpawn");
+                // Debug.Log($"point Vector3= {point} from GetEmptyRandomPointsToSpawn");
                 break;
             case 1:
                 point = triggeredPatrolPointsList[0].transform.position;
@@ -42,7 +42,7 @@ public class PatrolPointManager : MonoBehaviour
                 point = randomTriggeredPatrolPoint.transform.position;
                 break;
         }
-        Debug.Log($"point Vector3= {point}");
+        // Debug.Log($"point Vector3= {point}");
         return point;
     }
 
@@ -55,7 +55,7 @@ public class PatrolPointManager : MonoBehaviour
 
     public Vector3 GetEmptyRandomPointsToSpawn()
     {
-        Debug.Log("GetEmptyRandomPointsToSpawn");
+        // Debug.Log("GetEmptyRandomPointsToSpawn");
         if (emptySpawnedPointsList.Count == 0)
         {
             emptySpawnedPointsList = new List<PatrolPointAI>(patrolPointsList);

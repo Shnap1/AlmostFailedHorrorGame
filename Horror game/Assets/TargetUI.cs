@@ -19,7 +19,7 @@ public class TargetUI : MonoBehaviour
         {
             targetText.text = $"COLLECT {targetName}";
             TargetCanvas.SetActive(true);
-            Debug.Log($"TargetCanvas.SetActive{TargetCanvas.activeSelf} ");
+            //Debug.Log($"TargetCanvas.SetActive{TargetCanvas.activeSelf} ");
         }
 
 

@@ -92,7 +92,7 @@ public class SettingsMenu : MonoBehaviour
     public void GetQuality()
     {
         var currentQuality = QualitySettings.GetQualityLevel();
-        Debug.Log("currentQuality" + currentQuality);
+        // Debug.Log("currentQuality" + currentQuality);
         GraphicsDropdown.value = currentQuality;
         GraphicsDropdown.RefreshShownValue();
     }
@@ -123,7 +123,7 @@ public class SettingsMenu : MonoBehaviour
     {
         Resolution resolution = resolutions[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-        Debug.Log("SetResolution --- " + resolution.width + " x " + resolution.height);
+        //Debug.Log("SetResolution --- " + resolution.width + " x " + resolution.height);
     }
     public void SetVolume(float volume)
     {
@@ -134,7 +134,7 @@ public class SettingsMenu : MonoBehaviour
     {
 
         QualitySettings.SetQualityLevel(qualityIndex);
-        Debug.Log("QualitySettings.SetQualityLevel --- " + qualityIndex);
+        // Debug.Log("QualitySettings.SetQualityLevel --- " + qualityIndex);
         //Debug.Log("GetQualityLevel() -------" + QualitySettings.GetQualityLevel());
     }
     public void SetFullscreen(bool isFullscreen)
@@ -160,7 +160,7 @@ public class SettingsMenu : MonoBehaviour
     }
     public void TogglePauseUI()
     {
-        Debug.Log("TogglePauseUI");
+        // Debug.Log("TogglePauseUI");
         if (isPaused)
         {
             TurnOffPauseUI();
@@ -214,7 +214,7 @@ public class SettingsMenu : MonoBehaviour
             Cursor.visible = true;
             OnGamePaused?.Invoke(true);
         }
-        Debug.Log($"PauseGame {isPaused}");
+        // Debug.Log($"PauseGame {isPaused}");
     }
 
 
