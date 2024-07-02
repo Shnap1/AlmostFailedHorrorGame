@@ -17,7 +17,7 @@ public class Zombie_Attacking_State : MonoBehaviour, IStateNew
     {
         SM.anim.SetBool("closeToAttack", true);
         SM.anim.SetBool("seePlayer", true);
-        Debug.Log("Attacking");
+        // Debug.Log("Attacking");
         onAttack?.Invoke(true);
 
         SM.healthBar.SetActive(true);

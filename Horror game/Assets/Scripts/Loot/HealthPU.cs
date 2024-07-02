@@ -18,7 +18,7 @@ public class HealthPU : MonoBehaviour, IPowerUp
         {
             DoActionTo.GetComponent<HealthCounter>().AddHealth(amount);
 
-            Debug.Log($"DoAction in {this.name}: {amount}");
+            // Debug.Log($"DoAction in {this.name}: {amount}");
         }
 
         //if (DoActioTo.GetComponent<PlayerStateMachine>())
@@ -33,7 +33,7 @@ public class HealthPU : MonoBehaviour, IPowerUp
     {
         if (other.CompareTag("Player") && !wasUsed)
         {
-            Debug.Log("Sphere collided with player");
+            // Debug.Log("Sphere collided with player");
             DoAction(healthPoint, other.gameObject); wasUsed = true;
             GetComponent<Collider>().enabled = false;
             Destroy(gameObject);

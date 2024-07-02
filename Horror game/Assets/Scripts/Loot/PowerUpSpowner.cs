@@ -81,11 +81,11 @@ public class LootSpawner : MonoBehaviour
 
     public static void PowerUpSpawn(int amountOfPowerUps, LootType lootType)
     {
-        Debug.Log($"PowerUpSpawn(amountOfPowerUps = {amountOfPowerUps}, LootType = {lootType})");
+        // Debug.Log($"PowerUpSpawn(amountOfPowerUps = {amountOfPowerUps}, LootType = {lootType})");
         for (int i = 0; i < amountOfPowerUps; i++)
         {
             // instance.RandomSpawnPowerUp();
-            Debug.Log($"PowerUpSpawn() LootType - {lootType} i: ({i})");
+            // Debug.Log($"PowerUpSpawn() LootType - {lootType} i: ({i})");
             instance.Spawn_Specific_LOOT_in_Random_Place(lootType);
         }
     }
@@ -105,7 +105,7 @@ public class LootSpawner : MonoBehaviour
         if (FreeTransformsForSpawn.Count <= 0)
         {
             FreeTransformsForSpawn = new List<Transform>(LocationsTrasnforms);
-            Debug.Log($"FreeTransformsForSpawn.Count = {FreeTransformsForSpawn.Count}, so FreeTransformsForSpawn = new List<Transform>(LocationsTrasnforms) ");
+            // Debug.Log($"FreeTransformsForSpawn.Count = {FreeTransformsForSpawn.Count}, so FreeTransformsForSpawn = new List<Transform>(LocationsTrasnforms) ");
         }
 
         switch (typeOfLoot)
@@ -127,9 +127,9 @@ public class LootSpawner : MonoBehaviour
         }
         randomFreeTransform = FreeTransformsForSpawn[UnityEngine.Random.Range(0, FreeTransformsForSpawn.Count)];
         Instantiate(lootToSpawn, randomFreeTransform);
-        Debug.Log($"Instantiate() lootToSpawn = {lootToSpawn} , randomFreeTransform = {randomFreeTransform}");
+        // Debug.Log($"Instantiate() lootToSpawn = {lootToSpawn} , randomFreeTransform = {randomFreeTransform}");
         FreeTransformsForSpawn.Remove(randomFreeTransform);
-        Debug.Log($"FreeTransformsForSpawn.Remove(randomFreeTransform = {randomFreeTransform}); FreeTransformsForSpawn.Count = {FreeTransformsForSpawn.Count}");
+        // Debug.Log($"FreeTransformsForSpawn.Remove(randomFreeTransform = {randomFreeTransform}); FreeTransformsForSpawn.Count = {FreeTransformsForSpawn.Count}");
 
         //Debug.Log($" randomTransform = {randomFreeTransform.position.ToString()}");
     }

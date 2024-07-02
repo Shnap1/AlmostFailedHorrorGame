@@ -9,7 +9,8 @@ using System.Diagnostics;
 public class GameLoopManager : MonoBehaviour
 {
     public static GameLoopManager instance;
-    [SerializeField] public static GameState currentGameState;
+    public static GameState currentGameState;
+    public string curGamStateText;
     //public static Action<GameState> OnGameStateChanged;
     [SerializeField] LootSpawner powerUpSpawner;
     [SerializeField] EnemySpawner enemySpawner;
@@ -61,6 +62,7 @@ public class GameLoopManager : MonoBehaviour
         {
             currentTestString = onGameStateChanger?.Invoke("test String from event") ?? "nothing";
         }
+
     }
 
     /// <summary>
@@ -108,6 +110,11 @@ public class GameLoopManager : MonoBehaviour
     }
     public void UpdateGameState(GameState newGameState)
     {
+        UnityEngine.Debug.Log($"UpdateGameState({newGameState})");
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         if (currentGameState != newGameState)
         {
             currentGameState = newGameState;
@@ -120,6 +127,11 @@ public class GameLoopManager : MonoBehaviour
                     // SpawnEnemies(currentLevel.enemiesToSpawn);
                     // SpawnLoot(currentLevel.lootToSpawn);
                     // SpawnCollectables(currentLevel.collectablesToSpawn);
+                    UnityEngine.Debug.Log("Gates Opened");
+
+                    // Cursor.lockState = CursorLockMode.Locked;
+                    // Cursor.visible = false;
+
                     break;
                 case GameState.GameStart:
 
@@ -166,6 +178,7 @@ public class GameLoopManager : MonoBehaviour
         }
         OnGameUpdate?.Invoke(currentGameState);
         onTargetCollected?.Invoke(currentGameState, number_of_TARGETS_to_collect, current_number_of_TARGETS_collected);
+        curGamStateText = currentGameState.ToString();
 
     }
 

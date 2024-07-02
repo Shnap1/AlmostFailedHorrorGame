@@ -51,7 +51,7 @@ public class GameData : MonoBehaviour
     {
         currentLevel = level;
         // currentScore = 0;
-        Debug.Log("GetPlayTimeData");
+        // Debug.Log("GetPlayTimeData");
         currentTestString = "IDI NAHYII!";
     }
     void GetCamTransform(Transform cam) => this.cam = cam;

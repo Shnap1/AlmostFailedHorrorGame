@@ -234,7 +234,7 @@ public class SettingsMenu : MonoBehaviour
         //TODO make RETURN TO THE BASE button active once I add a lobby location
         //TODO add Progress.Instance.PlayerInfo.Level = currentLevel;
 #if UNITY_WEBGL
-        Progress.Instance.Save();
+        //Progress.Instance.Save();
 #endif
         ReloadScene();
     }

@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
+using YG;
 //using UnityEngine.UIElements;
 
 public class HealthBar : MonoBehaviour
@@ -9,39 +11,124 @@ public class HealthBar : MonoBehaviour
     [SerializeField] Slider healthSlider;
     [SerializeField] int maxHealth;
     [SerializeField] Text currentGameStateText;
+    GameLoopManager.GameState currentGameState;
+    int number_of_TARGETS_to_collect;
+    int number_of_TARGETS_collected;
     public GameLoopManager gameLoopManager;
+
+    enum Languages { en, ru, tr }
+    Languages curLanguage;
+
 
     private void OnEnable()
     {
         HealthCounter.onPlayerHealthChanged += UpdateHealthUI;
         // GameLoopManager.OnGameUpdate += UpdateStateText;
-        GameLoopManager.onTargetCollected += UpdateStateText;
+        GameLoopManager.onTargetCollected += GetGameState;
         //UpdateHealthUI()
+        YandexGame.GetDataEvent += GetData;
+    }
+    private void OnDisable()
+    {
+        curLanguage = Languages.ru;
+        HealthCounter.onPlayerHealthChanged += UpdateHealthUI;
+        // GameLoopManager.OnGameUpdate -= UpdateStateText;
+        GameLoopManager.onTargetCollected -= GetGameState;
+        YandexGame.GetDataEvent -= GetData;
     }
     private void Start()
     {
         // UpdateStateText(GameLoopManager.currentGameState);
     }
-    private void OnDisable()
+
+    public async void GetData()
     {
-        HealthCounter.onPlayerHealthChanged += UpdateHealthUI;
-        // GameLoopManager.OnGameUpdate -= UpdateStateText;
-        GameLoopManager.onTargetCollected -= UpdateStateText;
+        while (!YandexGame.SDKEnabled)
+        {
+            await Task.Delay(200); // MoxHo W3MEHWTb wHTepean oxwpanua (EB MunnucekyHaax)
+
+            await Task.Delay(100);
+
+            // int currentLevel = (PlayerPrefs.GetInt("CurrentLevel", 0) + 1);
+            switch (YandexGame.EnvironmentData.language)
+            {
+                case "en":
+                    curLanguage = Languages.en;
+                    break;
+                case "ru":
+                    curLanguage = Languages.ru;
+                    break;
+                case "tr":
+                    curLanguage = Languages.tr;
+                    break;
+                default:
+                    curLanguage = Languages.en;
+                    break;
+            }
+
+        }
+        UpdateStateText(currentGameState, number_of_TARGETS_to_collect, number_of_TARGETS_collected);
+    }
+    void GetGameState(GameLoopManager.GameState gameState, int number_of_TARGETS_to_collect, int number_of_TARGETS_collected)
+    {
+        this.currentGameState = gameState;
+        this.number_of_TARGETS_to_collect = number_of_TARGETS_to_collect;
+        this.number_of_TARGETS_collected = number_of_TARGETS_collected;
+
+        UpdateStateText(currentGameState, number_of_TARGETS_to_collect, number_of_TARGETS_collected);
     }
 
-    void UpdateStateText(GameLoopManager.GameState gameState, int number_of_TARGETS_to_collect, int number_of_TARGETS_collected)
+    async void UpdateStateText(GameLoopManager.GameState gameState, int number_of_TARGETS_to_collect, int number_of_TARGETS_collected)
     {
         //currentGameStateText.text = gameState.ToString();
+        if (curLanguage == 0) await Task.Delay(300);
+        if (curLanguage == 0) curLanguage = Languages.ru;
+
         switch (gameState)
         {
             case GameLoopManager.GameState.GatesOpen:
-                currentGameStateText.text = "Go through the gates to collect all targets";
+
+                if (curLanguage == Languages.en)
+                {
+                    currentGameStateText.text = "Go through the gate to collect all the artifacts that are highlighted with a green arrow.";
+                }
+                else if (curLanguage == Languages.ru)
+                {
+                    currentGameStateText.text = "Перейди через ворота, чтобы собрать все артефакты, которые подсвечены зелёной стрелочкой.";
+                }
+                else if (curLanguage == Languages.tr)
+                {
+                    currentGameStateText.text = "Yeşil bir okla vurgulanan tüm eserleri toplamak için kapıdan geçin.";
+                }
                 break;
+
             case GameLoopManager.GameState.GameStart:
-                currentGameStateText.text = $"{gameLoopManager.current_number_of_TARGETS_collected} targets out of {gameLoopManager.number_of_TARGETS_to_collect} collected. Collect all targets";
+                if (curLanguage == Languages.en)
+                {
+                    currentGameStateText.text = $"{gameLoopManager.current_number_of_TARGETS_collected} artifacts out of {gameLoopManager.number_of_TARGETS_to_collect} collected. Collect all artifacts";
+                }
+                else if (curLanguage == Languages.ru)
+                {
+                    currentGameStateText.text = $"{gameLoopManager.current_number_of_TARGETS_collected} артефактов из {gameLoopManager.number_of_TARGETS_to_collect} собрано. Собери все цели";
+                }
+                else if (curLanguage == Languages.tr)
+                {
+                    currentGameStateText.text = $"{gameLoopManager.current_number_of_TARGETS_collected} eserden {gameLoopManager.number_of_TARGETS_to_collect}'u toplandı. Tüm eserleri toplayın";
+                }
                 break;
             case GameLoopManager.GameState.LootCollected:
-                currentGameStateText.text = "Loot Collected. RUN BACK TO THE GATE!";
+                if (curLanguage == Languages.en)
+                {
+                    currentGameStateText.text = "All artifacts collected. RUN BACK TO THE GATE!";
+                }
+                else if (curLanguage == Languages.ru)
+                {
+                    currentGameStateText.text = "Все артефакты собраны. БЕГИ НАЗАД К ВОРОТАМ!";
+                }
+                else if (curLanguage == Languages.tr)
+                {
+                    currentGameStateText.text = "Tüm hedefler toplandı. KAPIYA GERI KOŞUN!";
+                }
                 break;
             case GameLoopManager.GameState.Lobby:
                 currentGameStateText.text = "You are now in the lobby. Go to the gates to start the game";

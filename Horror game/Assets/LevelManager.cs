@@ -40,7 +40,7 @@ public class LevelManager : MonoBehaviour
             else currentLevel = 3;
         }
         OnLevelCalculated?.Invoke(currentLevel);
-        Debug.Log("LEVEL CALCULATED!!!!!!!!!!!!!!!");
+        // Debug.Log("LEVEL CALCULATED!!!!!!!!!!!!!!!");
     }
 
     public bool InRangeCheck(float timeOfRun, float minTime, float maxTime)

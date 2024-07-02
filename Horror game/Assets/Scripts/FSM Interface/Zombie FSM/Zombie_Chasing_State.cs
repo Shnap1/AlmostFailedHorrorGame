@@ -16,7 +16,7 @@ public class Zombie_Chasing_State : MonoBehaviour, IStateNew
     {
         SM.anim.SetBool("closeToAttack", false);
         SM.anim.SetBool("seePlayer", true);
-        Debug.Log("Chasing");
+        // Debug.Log("Chasing");
         SM.agent.speed = SM.chaseSpeed;
 
     }
