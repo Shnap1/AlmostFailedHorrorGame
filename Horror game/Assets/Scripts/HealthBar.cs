@@ -26,28 +26,39 @@ public class HealthBar : MonoBehaviour
         // GameLoopManager.OnGameUpdate += UpdateStateText;
         GameLoopManager.onTargetCollected += GetGameState;
         //UpdateHealthUI()
-        YandexGame.GetDataEvent += GetData;
+        // YandexGame.GetDataEvent += GetData;
     }
     private void OnDisable()
     {
-        curLanguage = Languages.ru;
         HealthCounter.onPlayerHealthChanged += UpdateHealthUI;
         // GameLoopManager.OnGameUpdate -= UpdateStateText;
         GameLoopManager.onTargetCollected -= GetGameState;
-        YandexGame.GetDataEvent -= GetData;
+        // YandexGame.GetDataEvent -= GetData;
     }
     private void Start()
     {
         // UpdateStateText(GameLoopManager.currentGameState);
+        curLanguage = Languages.ru;
+        testTranslate();
     }
 
-    public async void GetData()
+    void testTranslate()
+    {
+        if (YandexGame.SDKEnabled && YandexGame.LangEnable())
+        {
+            if (YandexGame.lang == "ru") curLanguage = Languages.ru;
+            if (YandexGame.lang == "tr") curLanguage = Languages.tr;
+            if (YandexGame.lang == "en") curLanguage = Languages.en;
+            Debug.Log("testTranslate " + curLanguage);
+        }
+
+    }
+
+    public void GetData()
     {
         while (!YandexGame.SDKEnabled)
         {
-            await Task.Delay(200); // MoxHo W3MEHWTb wHTepean oxwpanua (EB MunnucekyHaax)
-
-            await Task.Delay(100);
+            curLanguage = Languages.en;
 
             // int currentLevel = (PlayerPrefs.GetInt("CurrentLevel", 0) + 1);
             switch (YandexGame.EnvironmentData.language)
@@ -67,7 +78,7 @@ public class HealthBar : MonoBehaviour
             }
 
         }
-        UpdateStateText(currentGameState, number_of_TARGETS_to_collect, number_of_TARGETS_collected);
+        //UpdateStateText(currentGameState, number_of_TARGETS_to_collect, number_of_TARGETS_collected);
     }
     void GetGameState(GameLoopManager.GameState gameState, int number_of_TARGETS_to_collect, int number_of_TARGETS_collected)
     {
@@ -78,10 +89,9 @@ public class HealthBar : MonoBehaviour
         UpdateStateText(currentGameState, number_of_TARGETS_to_collect, number_of_TARGETS_collected);
     }
 
-    async void UpdateStateText(GameLoopManager.GameState gameState, int number_of_TARGETS_to_collect, int number_of_TARGETS_collected)
+    void UpdateStateText(GameLoopManager.GameState gameState, int number_of_TARGETS_to_collect, int number_of_TARGETS_collected)
     {
         //currentGameStateText.text = gameState.ToString();
-        if (curLanguage == 0) await Task.Delay(300);
         if (curLanguage == 0) curLanguage = Languages.ru;
 
         switch (gameState)
