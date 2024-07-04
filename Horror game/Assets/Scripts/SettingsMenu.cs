@@ -6,6 +6,7 @@ using UnityEngine.Audio;
 using TMPro;
 using System;
 using UnityEngine.SceneManagement;
+using YG;
 
 public class SettingsMenu : MonoBehaviour
 {
@@ -250,6 +251,11 @@ public class SettingsMenu : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
         GameLoopManager.instance.UpdateGameState(GameLoopManager.GameState.GatesOpen);
         PauseGame();
+    }
+
+    public void ReviewGame()
+    {
+        YandexGame.ReviewShow(true);
     }
 
 }

@@ -68,10 +68,7 @@ public class GameLoopManager : MonoBehaviour
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
-    void Update()
-    {
 
-    }
     // public GameLevel(int levelNumber, int enemiesToSpawn, int lootToSpawn, int collectablesToSpawn)
 
     string TestFuncValueChecker(string strToBeChecked)
@@ -90,14 +87,11 @@ public class GameLoopManager : MonoBehaviour
     }
     List<GameLevel> gameLevels = new List<GameLevel>()
     {
-        new GameLevel(0, 1, 1, 1),
-        new GameLevel(1, 1, 1, 1),
-        new GameLevel(2, 2, 2, 2),
-        new GameLevel(3, 3, 3, 3),
-        new GameLevel(4, 4, 4, 4)
+        new GameLevel(levelNumber: 0, enemiesToSpawn: 1, lootToSpawn: 1, collectablesToSpawn: 1),
+
     };
 
-    GameLevel currentLevel = new GameLevel(1, 5, 5, 3);
+    GameLevel currentLevel = new GameLevel(levelNumber: 1, enemiesToSpawn: 5, lootToSpawn: 4, collectablesToSpawn: 5);
 
     public enum GameState
     {
@@ -121,7 +115,6 @@ public class GameLoopManager : MonoBehaviour
             switch (currentGameState)
             {
                 case GameState.GatesOpen:
-                    OpenGate();
                     LoadLevelData(currentLevel);
                     current_number_of_TARGETS_collected = 0;
                     // SpawnEnemies(currentLevel.enemiesToSpawn);
@@ -142,15 +135,9 @@ public class GameLoopManager : MonoBehaviour
 
                     //Spawning LOOT
                     LootSpawner.PowerUpSpawn(currentLevel.number_of_LOOT_to_spawn, LootSpawner.LootType.healthPU);
-                    // LootSpawner.PowerUpSpawn(5, LootSpawner.LootType.healthPU);
 
-                    //Spawning TARGETS
-
+                    //Spawning ARTIFACTS
                     LootSpawner.PowerUpSpawn(currentLevel.number_of_TARGETS_to_spawn, LootSpawner.LootType.target);
-
-                    //lets add 10 targets to check if  it spawns 2 targets per every sibgle point
-
-                    // LootSpawner.PowerUpSpawn(3, LootSpawner.LootType.target);
 
                     stopwatch = Stopwatch.StartNew();
 
@@ -187,15 +174,7 @@ public class GameLoopManager : MonoBehaviour
         currentLevel = level;
     }
 
-    public void OpenGate()
-    {
-        //
-    }
 
-    public void CloseGate()
-    {
-        //
-    }
 
 
     void SpawnCollectables(int collectablesToSpawn)
@@ -228,7 +207,7 @@ public class GameLoopManager : MonoBehaviour
     public void CheckIfALLTargetsCollected()
     {
         current_number_of_TARGETS_collected++;
-        if (current_number_of_TARGETS_collected == number_of_TARGETS_to_collect)
+        if (current_number_of_TARGETS_collected >= number_of_TARGETS_to_collect && currentGameState == GameState.GameStart)
         {
             UpdateGameState(GameState.LootCollected);
         }

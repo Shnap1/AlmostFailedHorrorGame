@@ -27,6 +27,17 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
     {
         SM = stateManager as ZombieStateManager;
     }
+    void OnEnable()
+    {
+        GameLoopManager.OnGameUpdate += FollowPlayerOnLootCollected;
+
+    }
+
+    void OnDisable()
+    {
+        GameLoopManager.OnGameUpdate += FollowPlayerOnLootCollected;
+        StopAllCoroutines();
+    }
 
     public void EnterState()
     {
@@ -46,12 +57,6 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
     {
         //PatrolToSetPoint();
         CheckSwitchState();
-        // EnemyGoesTo(SM.patrolPointManager.GetTriggeredPatrolPointPos());
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SetPatrollingType(Patrollers.playerFollower);
-            // Debug.Log($" SetPatrollingType() =={thisEnemyPatrollerType}");
-        }
 
     }
 
@@ -104,6 +109,10 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
         SM.agent.SetDestination(SM.walkPoint);
     }
 
+    void FollowPlayerOnLootCollected(GameLoopManager.GameState gameState)
+    {
+        if (gameState == GameLoopManager.GameState.LootCollected) SetPatrollingType(Patrollers.playerFollower);
+    }
 
     public void SetPatrollingType(Patrollers patrollerType)
     {
