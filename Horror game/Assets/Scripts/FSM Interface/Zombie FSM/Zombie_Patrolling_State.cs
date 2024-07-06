@@ -116,6 +116,9 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
 
     public void SetPatrollingType(Patrollers patrollerType)
     {
+
+        if (SM == null) return; // Check if SM is null
+
         thisEnemyPatrollerType = patrollerType;
         StopCoroutine(ResettingPath(resetTime, thisEnemyPatrollerType));
         onPatrollingTypeSet?.Invoke(thisEnemyPatrollerType);
