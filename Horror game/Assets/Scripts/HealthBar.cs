@@ -16,8 +16,10 @@ public class HealthBar : MonoBehaviour
     int number_of_TARGETS_collected;
     public GameLoopManager gameLoopManager;
 
-    enum Languages { en, ru, tr }
-    Languages curLanguage;
+    public enum Languages { en, ru, tr }
+    public Languages curLanguage;
+
+    public string curLanguageString;
 
 
     private void OnEnable()
@@ -38,7 +40,6 @@ public class HealthBar : MonoBehaviour
     private void Start()
     {
         // UpdateStateText(GameLoopManager.currentGameState);
-        curLanguage = Languages.ru;
         testTranslate();
     }
 
@@ -46,40 +47,20 @@ public class HealthBar : MonoBehaviour
     {
         if (YandexGame.SDKEnabled && YandexGame.LangEnable())
         {
-            if (YandexGame.lang == "ru") curLanguage = Languages.ru;
-            if (YandexGame.lang == "tr") curLanguage = Languages.tr;
-            if (YandexGame.lang == "en") curLanguage = Languages.en;
-            Debug.Log("testTranslate " + curLanguage);
+            if (YandexGame.lang == "ru") { curLanguage = Languages.ru; Debug.Log("testTranslate() " + curLanguage); }
+
+
+            if (YandexGame.lang == "tr") { curLanguage = Languages.tr; Debug.Log("testTranslate() " + curLanguage); }
+            Debug.Log("testTranslate() " + curLanguage);
+
+            if (YandexGame.lang == "en") { curLanguage = Languages.en; Debug.Log("testTranslate() " + curLanguage); }
+
+            Debug.Log("testTranslate() YandexGame.lang ==  " + YandexGame.lang);
         }
 
     }
 
-    public void GetData()
-    {
-        while (!YandexGame.SDKEnabled)
-        {
-            curLanguage = Languages.en;
 
-            // int currentLevel = (PlayerPrefs.GetInt("CurrentLevel", 0) + 1);
-            switch (YandexGame.EnvironmentData.language)
-            {
-                case "en":
-                    curLanguage = Languages.en;
-                    break;
-                case "ru":
-                    curLanguage = Languages.ru;
-                    break;
-                case "tr":
-                    curLanguage = Languages.tr;
-                    break;
-                default:
-                    curLanguage = Languages.en;
-                    break;
-            }
-
-        }
-        //UpdateStateText(currentGameState, number_of_TARGETS_to_collect, number_of_TARGETS_collected);
-    }
     void GetGameState(GameLoopManager.GameState gameState, int number_of_TARGETS_to_collect, int number_of_TARGETS_collected)
     {
         this.currentGameState = gameState;
@@ -92,7 +73,7 @@ public class HealthBar : MonoBehaviour
     void UpdateStateText(GameLoopManager.GameState gameState, int number_of_TARGETS_to_collect, int number_of_TARGETS_collected)
     {
         //currentGameStateText.text = gameState.ToString();
-        if (curLanguage == 0) curLanguage = Languages.ru;
+        Debug.Log($"UpdateStateText() gameState = {gameState} + curLanguage =  {curLanguage} ");
 
         switch (gameState)
         {
