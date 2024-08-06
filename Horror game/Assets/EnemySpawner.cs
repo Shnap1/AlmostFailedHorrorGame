@@ -18,27 +18,27 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < numberOfEnemiesToSpawn; i++)
         {
             Vector3 spawnPoint = patrolPointsManager.GetEmptyRandomPointsToSpawn();
+            var s = Instantiate(enemy, spawnPoint, Quaternion.identity);
+            s.GetComponent<ZombieStateManager>().enabled = true;
 
             if (i == 0 || i >= 4)
             {
-                enemy.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.randomPointFollower);
+                s.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.randomPointFollower);
                 // Debug.Log("SetPatrollingType(randomPointFollower)");
                 // break;
             }
             else if (i == 1)
             {
-                enemy.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.lastTriggeredPointFollower);
+                s.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.lastTriggeredPointFollower);
                 // Debug.Log("SetPatrollingType(lastTriggeredPointFollower)");
                 // break;
             }
             else if (i == 3)
             {
-                enemy.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.playerFollower);
+                s.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.playerFollower);
                 // Debug.Log("SetPatrollingType(playerFollower)");
                 // break;
             }
-            var s = Instantiate(enemy, spawnPoint, Quaternion.identity);
-            //TODO fix UI not showing patrollingstate correctly
             // s.GetComponent<ZombieStateManager>().SetPatrollingType(Zombie_Patrolling_State.Patrollers.randomPointFollower);
 
         }

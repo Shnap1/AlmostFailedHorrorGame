@@ -37,6 +37,13 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
     public GameObject healthBar;
     public PatrolPointManager patrolPointManager;
     public Zombie_Patrolling_State.Patrollers patrollerType;
+    private void Awake()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        //agent.acceleration = speed;
+        agent.speed = speed;
+
+    }
 
     //TODO create a way to pass objects from the SCENE like main camera and player to instantiated prefabs like enemy.
     public void InitializeStates()
@@ -222,15 +229,7 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
     public bool playerInAttackRange, playerInSightRange;
 
 
-    private void Awake()
-    {
-        player = GameObject.Find("PLAYER").transform;
-        //player = GameObject.FindGameObjectWithTag("Player").transform;
-        agent = GetComponent<NavMeshAgent>();
-        //agent.acceleration = speed;
-        agent.speed = speed;
 
-    }
 
 
 

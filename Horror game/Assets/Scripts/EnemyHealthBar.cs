@@ -8,8 +8,12 @@ public class EnemyHealthBar : MonoBehaviour
     [SerializeField] Slider healthSlider;
     [SerializeField] int maxHealth;
     public Transform cam;
-    
 
+
+    void Start()
+    {
+        cam = GameData.instance.cam;
+    }
     public void UpdateHealthUI(int enemyHealth, int enemyHealthMax)
     {
         healthSlider.value = enemyHealth;

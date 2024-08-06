@@ -59,7 +59,7 @@ public class HealthCounter : MonoBehaviour
             //Debug.Log("totalDefence -= this.addedDamage; totalDefence:" + totalDefence);
 
         }
-        if (totalHealth <= 0)
+        if (totalHealth <= 0 && GameLoopManager.currentGameState != GameLoopManager.GameState.Victory)
         {
             GameLoopManager.instance.UpdateGameState(GameLoopManager.GameState.Lose);
         }
