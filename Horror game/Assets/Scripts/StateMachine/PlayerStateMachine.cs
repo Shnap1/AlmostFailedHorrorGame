@@ -90,6 +90,8 @@ public class PlayerStateMachine : MonoBehaviour
 
     public LootCounter lootCounter;
     public static event Action<Transform> onPlayerCreated;
+
+    public bool isPaused = false;
     void Awake()
     {
         onPlayerCreated?.Invoke(this.transform);
@@ -156,18 +158,19 @@ public class PlayerStateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         HandleRotation();
+
         _currentState.UpdateStates();
 
+        //TODO comment out to be replaced
         _cameraRelativeMovement = ConvertToCameraSpace(_appliedMovement);
+
+        //TODO comment out to be replaced
         _characterController.Move(_cameraRelativeMovement * Time.deltaTime);
 
 
 
-        //if(Input.GetMouseButtonDown(0))
-        //{
-        //    TakeDamage(1);
-        //}
     }
 
     Vector3 ConvertToCameraSpace(Vector3 vectorToRotate)
@@ -217,7 +220,7 @@ public class PlayerStateMachine : MonoBehaviour
     }
 
     //
-    void OnMovementInput(InputAction.CallbackContext context)
+    void OnMovementInput(InputAction.CallbackContext context) //TODO comment out to be replaced
     {
         _currentMovementInput = context.ReadValue<Vector2>();
         _isMovementPressed = _currentMovementInput.x != 0 || _currentMovementInput.y != _zero;
