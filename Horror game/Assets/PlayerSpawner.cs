@@ -5,14 +5,15 @@ using UnityEngine;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    public bool ShouldSpawnPlayer = false;
+    // public bool ShouldSpawnPlayer = false;
     public CinemachineFreeLook vcam;
     public static PlayerSpawner instance;
 
     public GameLoopManager gameLoopManager;
     public CameraDynamics cameraDynamics;
 
-    public Transform Player;
+    public Transform PlayerTransform;
+    public GameObject Player;
 
     public Transform ExampleLookatObject;
     public GameObject Gate;
@@ -41,12 +42,12 @@ public class PlayerSpawner : MonoBehaviour
 
     void Start()
     {
-        if (ShouldSpawnPlayer) SpawnStartingGates();
+        SpawnStartingGates();
     }
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.T)) SpawnStartingGates();
+        // if (Input.GetKey(KeyCode.T)) SpawnStartingGates();
     }
 
     public void SpawnStartingGates()
@@ -56,13 +57,23 @@ public class PlayerSpawner : MonoBehaviour
             Debug.LogWarning("No spawn points defined");
             return;
         }
+        GameData.instance.GetPlayerTransform(PlayerTransform);
+
 
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
-        Gate.SetActive(true);
+        // Gate.SetActive(true);
         Gate.transform.position = spawnPoint.position;
-        var instatiatedPlayer = Instantiate(Player, spawnPoint.position, Quaternion.identity);
         // cameraDynamics.focusObjectTransform = Player.transform;
-        cameraDynamics.SetLooktObject(instatiatedPlayer);
+        Player.GetComponent<PlayerStateMachine>().TurnOnCController(false);
+        Player.transform.position = spawnPoint.position;
+        Player.GetComponent<PlayerStateMachine>().TurnOnCController(true);
+
+
+
+        // var instatiatedPlayer = Instantiate(Player, spawnPoint.position, Quaternion.identity);
+
+
+        cameraDynamics.SetLooktObject(PlayerTransform);
         // vcam.LookAt = Player.transform;
         // vcam.Follow = Player.transform;
         // Player.transform.position = spawnPoint.position;

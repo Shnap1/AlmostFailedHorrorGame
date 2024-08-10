@@ -152,9 +152,13 @@ public class PlayerStateMachine : MonoBehaviour
     {
         _characterController.Move(_appliedMovement * Time.deltaTime);
         //onPlayerHealthChanged?.Invoke(playerHealth, playerHealthMax);
-
     }
 
+    public void TurnOnCController(bool value)
+    {
+        _characterController.enabled = value;
+        if (value) _characterController.Move(_appliedMovement * Time.deltaTime);
+    }
     // Update is called once per frame
     void Update()
     {

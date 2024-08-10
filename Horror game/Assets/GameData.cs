@@ -56,7 +56,7 @@ public class GameData : MonoBehaviour
     }
     void GetCamTransform(Transform cam) => this.cam = cam;
 
-    void GetPlayerTransform(Transform player) => this.player = player;
+    public void GetPlayerTransform(Transform player) => this.player = player;
     void GetPatrolPointManager(PatrolPointManager manager) => patrolPointManager = manager;
 
 }
