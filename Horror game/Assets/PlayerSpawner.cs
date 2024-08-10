@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerSpawner : MonoBehaviour
 {
+    public bool ShouldSpawnPlayer = false;
     public CinemachineFreeLook vcam;
     public static PlayerSpawner instance;
 
@@ -40,7 +41,7 @@ public class PlayerSpawner : MonoBehaviour
 
     void Start()
     {
-        SpawnStartingGates();
+        if (ShouldSpawnPlayer) SpawnStartingGates();
     }
 
     void Update()
