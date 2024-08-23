@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Diagnostics;
+using UnityEngine.AI;
+using Unity.AI.Navigation;
 
 
 public class GameLoopManager : MonoBehaviour
@@ -14,6 +16,7 @@ public class GameLoopManager : MonoBehaviour
     //public static Action<GameState> OnGameStateChanged;
     [SerializeField] LootSpawner powerUpSpawner;
     [SerializeField] EnemySpawner enemySpawner;
+    [SerializeField] NavMeshSurface surface;
 
     public static event Action<GameState> OnGameUpdate;
     public static Func<string, string> onGameStateChanger;
@@ -57,7 +60,6 @@ public class GameLoopManager : MonoBehaviour
         UpdateGameState(GameState.GatesOpen);
         // UnityEngine.Debug.Log($"Start() ---------- UpdateGameState(GameState.{currentGameState})");
         // testString = onGameStateChanger?.Invoke("test String from event") ?? "nothing";
-
         if (currentTestString != null)
         {
             currentTestString = onGameStateChanger?.Invoke("test String from event") ?? "nothing";
@@ -127,6 +129,8 @@ public class GameLoopManager : MonoBehaviour
 
                     break;
                 case GameState.GameStart:
+                    // surface.BuildNavMesh();
+
 
                     SpawnEnemies(currentLevel.enemiesToSpawn);
                     //TODO replace SpawnEnemies() with SpawnEnemiesByLevel() 
