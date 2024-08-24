@@ -20,12 +20,12 @@ public class ThirdPersonCam : MonoBehaviour
     // public GameObject topDownCam;
 
     public CameraStyle currentStyle;
-    public GameObject POVCam;
+    public HideBody HB;
     public enum CameraStyle
     {
         Basic,
         Combat,
-        FirstPerson,
+        POV,
         // Topdown
     }
 
@@ -40,8 +40,11 @@ public class ThirdPersonCam : MonoBehaviour
         // switch styles
 
         if (Input.GetKeyDown(KeyCode.Alpha1)) SwitchCameraStyle(CameraStyle.Basic);
+
         if (Input.GetKeyDown(KeyCode.Alpha2)) SwitchCameraStyle(CameraStyle.Combat);
-        if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchCameraStyle(CameraStyle.FirstPerson);
+
+        if (Input.GetKeyDown(KeyCode.Alpha3)) SwitchCameraStyle(CameraStyle.POV);
+
 
         // rotate orientation
         Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
@@ -64,9 +67,14 @@ public class ThirdPersonCam : MonoBehaviour
             orientation.forward = dirToCombatLookAt.normalized;
 
             playerObj.forward = dirToCombatLookAt.normalized;
+
+
         }
 
-        else if (currentStyle == CameraStyle.FirstPerson) POVCam.GetComponent<HideBody>().CallShowBodyObjectsWithDelay(false, 0.7f);
+        else if (currentStyle == CameraStyle.POV)
+        {
+
+        }
 
         // else if (currentStyle == CameraStyle.FirstPerson)
         // {
@@ -85,9 +93,12 @@ public class ThirdPersonCam : MonoBehaviour
         firstPersonCam.SetActive(false);
         // topDownCam.SetActive(false);
 
-        if (newStyle == CameraStyle.Basic) thirdPersonCam.SetActive(true);
-        if (newStyle == CameraStyle.Combat) combatCam.SetActive(true);
-        if (newStyle == CameraStyle.FirstPerson) firstPersonCam.SetActive(true);
+        if (newStyle == CameraStyle.Basic)
+        { thirdPersonCam.SetActive(true); HB.CallShowBodyObjectsWithDelay(true, .5f); }
+
+        if (newStyle == CameraStyle.Combat)
+        { combatCam.SetActive(true); HB.CallShowBodyObjectsWithDelay(true, .5f); }
+        if (newStyle == CameraStyle.POV) { firstPersonCam.SetActive(true); HB.CallShowBodyObjectsWithDelay(false, 1f); }
         // if (newStyle == CameraStyle.Topdown) topDownCam.SetActive(true);
 
         currentStyle = newStyle;
