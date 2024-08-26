@@ -144,9 +144,15 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
     //    }
     //}
 
-    void TakeDamage(int addedDamage)
+    public void TakeDamage(int addedDamage)
     {
-        enemyHealthCounter.TakeDamage(addedDamage);
+        enemyHealthCounter.NewTakeDamage(addedDamage);
+        Debug.Log($"ZombieStateManager: TakeDamage(int addedDamage{addedDamage} TOTAL HEALTH = {enemyHealthCounter.totalHealth}");
+
+        if (enemyHealthCounter.totalHealth <= 0)
+        {
+            DestroyEnemy();
+        }
     }
 
     public void SetPatrollingType(Zombie_Patrolling_State.Patrollers patrollerType)

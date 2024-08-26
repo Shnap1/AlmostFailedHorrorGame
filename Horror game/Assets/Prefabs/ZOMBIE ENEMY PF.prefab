@@ -3031,6 +3031,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7551172746471509604}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ac0eed192bad43b47a4d6b8ec98cc229,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3967117182826505804}
   m_SourcePrefab: {fileID: 100100000, guid: ac0eed192bad43b47a4d6b8ec98cc229, type: 3}
 --- !u!4 &125850875819105791 stripped
 Transform:
@@ -3182,6 +3186,19 @@ MonoBehaviour:
   zombieStateManager: {fileID: 218729066389837163}
   followerType: {fileID: 3232814985616908841}
   currentEnemyStateText: {fileID: 107881047580940832}
+--- !u!114 &3967117182826505804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6287607486970148205}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b631a235151b6547a32747c43823b0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ZSM: {fileID: 218729066389837163}
 --- !u!4 &6632044263578365911 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ac0eed192bad43b47a4d6b8ec98cc229,

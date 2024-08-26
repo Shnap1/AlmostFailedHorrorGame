@@ -8,7 +8,7 @@ using TMPro;
 
 public class EnemyHealthCounter : MonoBehaviour
 {
-    [SerializeField] int totalHealth = 1;
+    [SerializeField] public int totalHealth = 1;
     [SerializeField] GameObject healthBar;
     private EnemyHealthBar enemyHealthBar;
     [SerializeField] int maxHealth = 100;
@@ -54,6 +54,11 @@ public class EnemyHealthCounter : MonoBehaviour
     {
         this.addedDefence = Math.Clamp(addedDefence, 0, maxAddedDefence);
         totalDefence += this.addedDefence;
+    }
+
+    public void NewTakeDamage(int newDamage)
+    {
+        totalHealth -= newDamage;
     }
     public void TakeDamage(int newDamage)
     {
