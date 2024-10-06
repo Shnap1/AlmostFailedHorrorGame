@@ -6,6 +6,10 @@ public class Gun : MonoBehaviour
 {
     public int damage = 10;
     public float range = 106f;
+    float fireRate = 15f;
+    float impactFloat = 1000f;
+
+    float nextTimeToFire = 0f;
 
     public Camera fpsCam;
     RaycastHit hit;
@@ -16,8 +20,9 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
         {
+            nextTimeToFire = Time.time + 1f / fireRate;
             Shoot();
         }
 
@@ -38,6 +43,11 @@ public class Gun : MonoBehaviour
             if (target != null)
             {
                 target.TakeDamage(damage);
+            }
+
+            if (hit.rigidbody != null)
+            {
+                hit.rigidbody.AddForce(-hit.normal * impactFloat);
             }
         }
     }
