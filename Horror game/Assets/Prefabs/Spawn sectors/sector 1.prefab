@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 211698783867910625}
   - component: {fileID: 2570310553040780015}
   - component: {fileID: 8524093588603833837}
+  - component: {fileID: 358057814321147326}
   m_Layer: 0
   m_Name: sector 1
   m_TagString: Untagged
@@ -52,7 +53,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3419048647033059249}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -87,6 +88,31 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &358057814321147326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3419048647033059249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a94a76d39117449b793d93877f16c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  S_Placeholders:
+  - {fileID: 6971911034849168268}
+  M_Placeholders:
+  - {fileID: 3720134472400289678}
+  - {fileID: 5247394916310223537}
+  - {fileID: 8916191238334923468}
+  L_Placeholders: []
+  S_Buildings:
+  - {fileID: 6372516992101857477, guid: 28f7989e277b1d940999d6ea0c17368c, type: 3}
+  M_Buildings:
+  - {fileID: 3785615894670403850, guid: f85024cc82d922545a9d826d4bd06989, type: 3}
+  - {fileID: 6410798418629798717, guid: f9b5f6c472dd32d4ca6635704acecf7b, type: 3}
+  L_Buildings: []
 --- !u!1 &3720134472400289678
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,7 +291,7 @@ GameObject:
   - component: {fileID: 8826126640727639106}
   - component: {fileID: 3460141306618436407}
   m_Layer: 0
-  m_Name: Cube.001
+  m_Name: S-building
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
