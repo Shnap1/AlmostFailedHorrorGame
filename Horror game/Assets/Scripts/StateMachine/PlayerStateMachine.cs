@@ -37,8 +37,8 @@ public class PlayerStateMachine : MonoBehaviour
     //jumping variables
     [SerializeField] bool _isJumpPressed = false;
     float _initialJumpVelocity;
-    float _maxJumpHeight = 2.0f; // 4.0
-    float _maxJumpTime = 0.3f; //.75
+    public float _maxJumpHeight = 2.0f; // 4.0
+    public float _maxJumpTime = 0.3f; //.75
     [SerializeField] bool _isJumping = false;
     int _isJumpingHash;
     int _jumpCountHash;
@@ -163,8 +163,8 @@ public class PlayerStateMachine : MonoBehaviour
     void Update()
     {
 
-        HandleRotation();
-
+        HandleCharacterRotationTwo();
+        // HandleCharacterRotation();
         _currentState.UpdateStates();
 
         //TODO comment out to be replaced
@@ -172,7 +172,6 @@ public class PlayerStateMachine : MonoBehaviour
 
         //TODO comment out to be replaced
         _characterController.Move(_cameraRelativeMovement * Time.deltaTime);
-
 
 
     }
@@ -204,7 +203,17 @@ public class PlayerStateMachine : MonoBehaviour
         return vectorRotatedToCameraSpace;
     }
 
-    void HandleRotation()
+    void HandleTPCharRotation()
+    {
+        Vector3 mouseWorldPosition = Vector3.zero;
+        Vector3 worldAimTarget = mouseWorldPosition;
+        worldAimTarget.y = transform.position.y;
+        Vector3 aimDirection = (worldAimTarget - transform.position).normalized;
+        // transform.forward = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
+        Vector3 _TPCharRotation = Vector3.Lerp(transform.forward, aimDirection, Time.deltaTime * 20f);
+        // _characterController.Move(_TPCharRotation * Time.deltaTime);
+    }
+    void HandleCharacterRotation()
     {
         Vector3 positionToLookAt;
         //
@@ -223,6 +232,21 @@ public class PlayerStateMachine : MonoBehaviour
         }
     }
 
+    void HandleCharacterRotationTwo()
+    {
+        // Get the camera's forward direction
+        Vector3 cameraForward = Camera.main.transform.forward;
+
+        // Normalize the vector to ensure it has length 1
+        cameraForward.y = 0; // Ignore vertical component
+        cameraForward = cameraForward.normalized;
+
+        // Calculate the target rotation
+        Quaternion targetRotation = Quaternion.LookRotation(cameraForward);
+
+        // Smoothly rotate the character towards the target rotation
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationFactorPerFrame * Time.deltaTime);
+    }
     //
     void OnMovementInput(InputAction.CallbackContext context) //TODO comment out to be replaced
     {

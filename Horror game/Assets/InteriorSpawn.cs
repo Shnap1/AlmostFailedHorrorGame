@@ -65,6 +65,8 @@ public class InteriorSpawn : MonoBehaviour
             {
                 GameObject randomBuilding = Parts[Random.Range(0, Parts.Count)];
                 var instantiatedBuilding = Instantiate(randomBuilding, placeholders[i].transform.position, placeholders[i].transform.rotation);
+                instantiatedBuilding.transform.localScale = placeholders[i].transform.localScale;
+
 
                 if (placeholders[i] != null) Destroy(placeholders[i].gameObject);
 
