@@ -92,6 +92,8 @@ public class PlayerStateMachine : MonoBehaviour
     public static event Action<Transform> onPlayerCreated;
 
     public bool isPaused = false;
+
+    public bool FPS = true;
     void Awake()
     {
         onPlayerCreated?.Invoke(this.transform);
@@ -162,8 +164,10 @@ public class PlayerStateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        FPSModeSwitch();
+        if (FPS) HandleCharacterRotationTwo();
+        else HandleCharacterRotation();
 
-        HandleCharacterRotationTwo();
         // HandleCharacterRotation();
         _currentState.UpdateStates();
 
@@ -174,6 +178,11 @@ public class PlayerStateMachine : MonoBehaviour
         _characterController.Move(_cameraRelativeMovement * Time.deltaTime);
 
 
+    }
+
+    void FPSModeSwitch()
+    {
+        if (Input.GetKeyDown(KeyCode.F)) FPS = !FPS;
     }
 
     Vector3 ConvertToCameraSpace(Vector3 vectorToRotate)
