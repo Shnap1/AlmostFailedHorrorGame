@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6832345459212628331}
   - component: {fileID: 5746584667450356333}
   m_Layer: 0
-  m_Name: M-building 1.004
+  m_Name: M-placeholder 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 949693666453245277}
   - component: {fileID: 2594828964822827553}
   - component: {fileID: 8038118271296569843}
+  - component: {fileID: 4154568420751951153}
   m_Layer: 0
   m_Name: sector 3
   m_TagString: Untagged
@@ -171,6 +172,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &4154568420751951153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2171589010954170985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a94a76d39117449b793d93877f16c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  S_Placeholders:
+  - {fileID: 4287212288789567153}
+  - {fileID: 6488073322046304953}
+  - {fileID: 7875396787924359915}
+  M_Placeholders:
+  - {fileID: 7998355658523877420}
+  - {fileID: 1003417068818247879}
+  L_Placeholders: []
+  S_Buildings:
+  - {fileID: 6372516992101857477, guid: 28f7989e277b1d940999d6ea0c17368c, type: 3}
+  M_Buildings:
+  - {fileID: 919132149155446097, guid: de1f45e8adea11742a593bfcd1455637, type: 3}
+  - {fileID: 6648267854865370747, guid: 2caa21c845abfcc489f971383bf017e3, type: 3}
+  L_Buildings: []
 --- !u!1 &4287212288789567153
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +210,7 @@ GameObject:
   - component: {fileID: 2138971400216781437}
   - component: {fileID: 4809361818406935224}
   m_Layer: 0
-  m_Name: S - building 1.001
+  m_Name: S - placeholder 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -266,7 +293,7 @@ GameObject:
   - component: {fileID: 7309778960396762321}
   - component: {fileID: 7290664368217940593}
   m_Layer: 0
-  m_Name: S - building.002
+  m_Name: S - placeholder 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -349,7 +376,7 @@ GameObject:
   - component: {fileID: 4847873183658556664}
   - component: {fileID: 4702657806983890432}
   m_Layer: 0
-  m_Name: S - building.003
+  m_Name: S - placeholder 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -432,7 +459,7 @@ GameObject:
   - component: {fileID: 4674572669933305700}
   - component: {fileID: 7332982342523336875}
   m_Layer: 0
-  m_Name: M-building 1.002
+  m_Name: M-placeholder 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

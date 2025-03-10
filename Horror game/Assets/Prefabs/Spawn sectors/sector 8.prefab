@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 931840617792600541}
   - component: {fileID: 6274436722845029102}
   m_Layer: 0
-  m_Name: M-building 3.007
+  m_Name: M-placeholder 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2831528935131200357}
   - component: {fileID: 7279290257798838849}
   m_Layer: 0
-  m_Name: M-building 1.009
+  m_Name: M-placeholder 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -178,7 +178,7 @@ GameObject:
   - component: {fileID: 7255827109165314301}
   - component: {fileID: 2063937381356115250}
   m_Layer: 0
-  m_Name: M-building 1.010
+  m_Name: M-placeholder 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,6 +260,7 @@ GameObject:
   - component: {fileID: 2430262306194211809}
   - component: {fileID: 5246505780766514101}
   - component: {fileID: 3414020233921950230}
+  - component: {fileID: 814431808065481291}
   m_Layer: 0
   m_Name: sector 8
   m_TagString: Untagged
@@ -335,3 +336,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &814431808065481291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9158363859693228424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a94a76d39117449b793d93877f16c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  S_Placeholders: []
+  M_Placeholders:
+  - {fileID: 3476068091322535554}
+  - {fileID: 7663732301131440849}
+  - {fileID: 2105811945130620620}
+  L_Placeholders: []
+  S_Buildings:
+  - {fileID: 6372516992101857477, guid: 28f7989e277b1d940999d6ea0c17368c, type: 3}
+  M_Buildings:
+  - {fileID: 919132149155446097, guid: de1f45e8adea11742a593bfcd1455637, type: 3}
+  - {fileID: 6648267854865370747, guid: 2caa21c845abfcc489f971383bf017e3, type: 3}
+  L_Buildings: []

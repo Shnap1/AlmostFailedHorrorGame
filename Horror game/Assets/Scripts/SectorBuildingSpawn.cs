@@ -34,14 +34,11 @@ public class SectorBuildingSpawn : MonoBehaviour
 
         if (placeholders.Count > 0)
         {
-            Debug.Log("Picked placeholders list called " + nameof(placeholders));
             for (int i = 0; i < placeholders.Count; i++)
             {
-                GameObject randomBuilding = buildings[Random.Range(0, placeholders.Count)];
+                GameObject randomBuilding = buildings[Random.Range(0, buildings.Count)];
                 Instantiate(randomBuilding, placeholders[i].transform.position, placeholders[i].transform.rotation);
                 placeholders[i].gameObject.SetActive(false);
-
-                Debug.Log("Spawned " + randomBuilding.name + " in " + placeholders[i].name);
             }
 
 
