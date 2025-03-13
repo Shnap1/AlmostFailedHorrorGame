@@ -51,7 +51,6 @@ public class PlayerStateMachine : MonoBehaviour
 
     //state variables
     PlayerBaseState _currentState;
-    [SerializeField] PlayerBaseState _currentState;
     PlayerStateFactory _states;
 
 

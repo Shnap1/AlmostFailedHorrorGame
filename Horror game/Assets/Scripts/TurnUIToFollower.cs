@@ -5,9 +5,18 @@ using UnityEngine;
 public class TurnUIToFollower : MonoBehaviour
 {
     public Transform cam;
-    void Start()
+    // public TargetUI targetUI;
+    void Awake()
     {
-        cam = GameData.instance.cam;
+        SetCam();
+    }
+    public void SetCam()
+    {
+        if (GameData.instance.cam != null)
+        {
+            cam = GameData.instance.cam;
+            Debug.Log("CAM TEST -TurnUIToFollower got camera transform");
+        }
     }
     // Start is called before the first frame update    private void LateUpdate()
     private void LateUpdate()

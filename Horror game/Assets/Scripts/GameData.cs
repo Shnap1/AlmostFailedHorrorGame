@@ -18,8 +18,8 @@ public class GameData : MonoBehaviour
     void OnEnable()
     {
         // GameLoopManager.onPlayTimeSTopped += GetRuntimeData;
-        PlayerStateMachine.onPlayerCreated += GetPlayerTransform;
         LevelManager.OnLevelCalculated += GetPlayTimeData;
+        PlayerStateMachine.onPlayerCreated += GetPlayerTransform;
         MainCameraScript.onCamCreated += GetCamTransform;
         PatrolPointManager.onPatrolPointManagerCreated += GetPatrolPointManager;
 
@@ -55,7 +55,11 @@ public class GameData : MonoBehaviour
         // Debug.Log("GetPlayTimeData");
         currentTestString = "IDI NAHYII!";
     }
-    void GetCamTransform(Transform cam) => this.cam = cam;
+    public void GetCamTransform(Transform cam)
+    {
+        this.cam = cam;
+        Debug.Log("CAM TEST - GetCamTransform");
+    }
 
     public void GetPlayerTransform(Transform player)
     {
