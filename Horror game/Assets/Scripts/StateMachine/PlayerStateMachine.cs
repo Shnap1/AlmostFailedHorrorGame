@@ -50,6 +50,7 @@ public class PlayerStateMachine : MonoBehaviour
 
     //state variables
     PlayerBaseState _currentState;
+    [SerializeField] PlayerBaseState _currentState;
     PlayerStateFactory _states;
 
 
@@ -96,7 +97,6 @@ public class PlayerStateMachine : MonoBehaviour
     public bool FPS = true;
     void Awake()
     {
-        onPlayerCreated?.Invoke(this.transform);
         // initialy set reference variables
         lootCounter = GetComponent<LootCounter>();
 

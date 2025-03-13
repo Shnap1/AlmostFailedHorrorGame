@@ -14,6 +14,7 @@ public class GameData : MonoBehaviour
     public PatrolPointManager patrolPointManager;
 
 
+
     void OnEnable()
     {
         // GameLoopManager.onPlayTimeSTopped += GetRuntimeData;
@@ -56,7 +57,11 @@ public class GameData : MonoBehaviour
     }
     void GetCamTransform(Transform cam) => this.cam = cam;
 
-    public void GetPlayerTransform(Transform player) => this.player = player;
+    public void GetPlayerTransform(Transform player)
+    {
+        this.player = player;
+    }
+
     void GetPatrolPointManager(PatrolPointManager manager) => patrolPointManager = manager;
 
 }

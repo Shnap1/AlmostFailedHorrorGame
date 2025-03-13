@@ -57,7 +57,7 @@ public class PlayerSpawner : MonoBehaviour
             Debug.LogWarning("No spawn points defined");
             return;
         }
-        GameData.instance.GetPlayerTransform(PlayerTransform);
+        // GameData.instance.GetPlayerTransform(PlayerTransform);
 
 
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Count)];
