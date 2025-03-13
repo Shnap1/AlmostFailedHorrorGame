@@ -178,6 +178,8 @@ public class PlayerStateMachine : MonoBehaviour
         // HandleCharacterRotation();
         _currentState.UpdateStates();
 
+
+
         //TODO comment out to be replaced
         _cameraRelativeMovement = ConvertToCameraSpace(_appliedMovement);
 
@@ -190,6 +192,7 @@ public class PlayerStateMachine : MonoBehaviour
     void FPSModeSwitch()
     {
         if (Input.GetKeyDown(KeyCode.F)) FPS = !FPS;
+
     }
 
     Vector3 ConvertToCameraSpace(Vector3 vectorToRotate)
