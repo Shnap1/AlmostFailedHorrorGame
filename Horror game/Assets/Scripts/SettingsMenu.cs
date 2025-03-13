@@ -23,7 +23,8 @@ public class SettingsMenu : MonoBehaviour
     public GameObject GameOverUI;
 
     public GameObject VictoryUI;
-    [SerializeField] PlayerStateMachine player;
+    public camSensControl camSensControl;
+    // [SerializeField] PlayerStateMachine player;
 
     public List<GameObject> UItoHideForWEBGL = new List<GameObject>();
     void OnEnable()
@@ -130,6 +131,12 @@ public class SettingsMenu : MonoBehaviour
     {
         //audioMixer.SetFloat("volume", volume);
         audioMixer.SetFloat("volume", Mathf.Log10(volume) * 20);
+    }
+
+    public void SetSensitivity(float sensitivity)
+    {
+        camSensControl.UpdateSensitivity(sensitivity);
+        Debug.Log("Sensitivity - SetSensitivity in SettingsMenu.cs --- " + sensitivity);
     }
     public void SetQuality(int qualityIndex)
     {
