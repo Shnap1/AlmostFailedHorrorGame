@@ -24,6 +24,7 @@ public class PlayerStateMachine : MonoBehaviour
     Vector3 _cameraRelativeMovement;
     [SerializeField] bool _isMovementPressed;
     bool _isRunPressed;
+    [SerializeField] bool isMainPlayer = false;
 
     //constants
     float _rotationFactorPerFrame = 15.0f;
@@ -97,6 +98,12 @@ public class PlayerStateMachine : MonoBehaviour
     public bool FPS = true;
     void Awake()
     {
+        if (isMainPlayer)
+        {
+            onPlayerCreated?.Invoke(this.transform);
+            Debug.Log("onPlayerCreated?.Invoke in " + this.gameObject.name + "with isMainPlayer set to" + isMainPlayer);
+        }
+        // onPlayerCreated?.Invoke(this.transform);
         // initialy set reference variables
         lootCounter = GetComponent<LootCounter>();
 
