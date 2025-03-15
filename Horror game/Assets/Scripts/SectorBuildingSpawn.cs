@@ -40,12 +40,7 @@ public class SectorBuildingSpawn : MonoBehaviour
                 Instantiate(randomBuilding, placeholders[i].transform.position, placeholders[i].transform.rotation);
                 placeholders[i].gameObject.SetActive(false);
             }
-
-
         }
-        else
-        {
-            Debug.Log("No more placeholders in" + nameof(placeholders));
-        }
+
     }
 }

@@ -784,8 +784,9 @@ MonoBehaviour:
   S_Buildings:
   - {fileID: 6372516992101857477, guid: 28f7989e277b1d940999d6ea0c17368c, type: 3}
   M_Buildings:
-  - {fileID: 919132149155446097, guid: de1f45e8adea11742a593bfcd1455637, type: 3}
-  - {fileID: 6648267854865370747, guid: 2caa21c845abfcc489f971383bf017e3, type: 3}
+  - {fileID: 7369179728131974593, guid: 2caa21c845abfcc489f971383bf017e3, type: 3}
+  - {fileID: 919132149155446097, guid: 47a7328879a067a4d916d4b0001c6df5, type: 3}
+  - {fileID: 919132149155446097, guid: 5d09bce735c2e114fa4029aadc2848df, type: 3}
   L_Buildings: []
 --- !u!1 &8932532774863357044
 GameObject:
