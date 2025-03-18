@@ -196,6 +196,7 @@ MonoBehaviour:
   - {fileID: 7369179728131974593, guid: 2caa21c845abfcc489f971383bf017e3, type: 3}
   - {fileID: 919132149155446097, guid: 47a7328879a067a4d916d4b0001c6df5, type: 3}
   - {fileID: 919132149155446097, guid: 5d09bce735c2e114fa4029aadc2848df, type: 3}
+  - {fileID: 213459947936291902, guid: b24b674a32a7f4f43ad2863eb6f3ad06, type: 3}
   L_Buildings: []
 --- !u!1 &1877644801805071928
 GameObject:
