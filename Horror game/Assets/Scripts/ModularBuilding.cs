@@ -9,14 +9,10 @@ public class ModularBuilding : MonoBehaviour
 
     void Start()
     {
-        Facade.GetComponent<Renderer>().material = BuildingSpawner.instance.GetRandomBuildingFacadeMaterial();
-        Inside.GetComponent<Renderer>().material = BuildingSpawner.instance.GetRandomBuildingInsideMaterial();
-        transform.Rotate(0, Random.Range(0, 360), 0);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        if (Facade != null && Inside != null)
+        {
+            // Facade.GetComponent<Renderer>().material = BuildingSpawner.instance.GetRandomBuildingFacadeMaterial();
+            // Inside.GetComponent<Renderer>().material = BuildingSpawner.instance.GetRandomBuildingInsideMaterial();
+        }
     }
 }
