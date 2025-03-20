@@ -98,6 +98,7 @@ public class GameLoopManager : MonoBehaviour
     public enum GameState
     {
         GatesOpen,
+        // NavmeshBuild,
         GameStart,
         LootCollected,
         Victory,
