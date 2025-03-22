@@ -38,22 +38,22 @@ public class Zombie_Chasing_State : MonoBehaviour, IStateNew
 
     public void CheckSwitchState()
     {
-        if (SM.playerInAttackRange && SM.playerInSightRange)
-        {
-            SM.SwitchState(SM.Attacking);
-        }
-        else if (!SM.playerInSightRange && !SM.playerInAttackRange)
-        {
-            SM.SwitchState(SM.Patrolling);
-        }
-        else
-        {
-            ChasePlayer();
-        }
-        //else
-        //{
-        //    ChasePlayer();
-        //}
+        // if (SM.playerInAttackRange && SM.playerInSightRange)
+        // {
+        //     SM.SwitchState(SM.Attacking);
+        // }
+        // else if (!SM.playerInSightRange && !SM.playerInAttackRange)
+        // {
+        //     SM.SwitchState(SM.Patrolling);
+        // }
+        // else
+        // {
+        //     ChasePlayer();
+        // }
+
+
+        ChasePlayer();
+
 
     }
 }

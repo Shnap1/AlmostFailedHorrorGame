@@ -74,7 +74,9 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
         anim = GetComponent<Animator>();
 
         InitializeStates();
-        currentState = Patrolling;
+        // currentState = Patrolling; //TODO remove
+        currentState = Chasing; //changed to chasing
+
         currentState.EnterState();
         agent.speed = speed;
 
@@ -157,7 +159,9 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
 
     public void SetPatrollingType(Zombie_Patrolling_State.Patrollers patrollerType)
     {
-        this.patrollerType = patrollerType;
+        // this.patrollerType = patrollerType; // TODO: UNCOMMENT THIS
+        this.patrollerType = Zombie_Patrolling_State.Patrollers.playerFollower;
+
         // Patrolling.SetPatrollingType(this.patrollerType);
         //TODO figure out whether this shit can set the patrollerType in the Zombie_Patrolling_State.cs
     }

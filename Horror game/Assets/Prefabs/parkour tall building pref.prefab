@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3422373921146108371}
   - component: {fileID: 6389313967158810580}
+  - component: {fileID: 4245323857305917108}
   m_Layer: 0
   m_Name: parkour tall building pref
   m_TagString: Untagged
@@ -54,7 +55,7 @@ MonoBehaviour:
     m_Bits: 769
   m_UseGeometry: 0
   m_DefaultArea: 0
-  m_GenerateLinks: 0
+  m_GenerateLinks: 1
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
   m_OverrideTileSize: 0
@@ -64,6 +65,26 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 2d65905d675e9f542a7cf1c8f7523d7d, type: 2}
   m_BuildHeightMesh: 0
+--- !u!114 &4245323857305917108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134497314492515933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_StartPoint: {x: 6.16864, y: 4.548151, z: -46.57561}
+  m_EndPoint: {x: 5.362625, y: 0, z: -41.573483}
+  m_Width: 0
+  m_CostModifier: -1
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 0
+  m_Area: 0
 --- !u!1001 &6218328234122743308
 PrefabInstance:
   m_ObjectHideFlags: 0

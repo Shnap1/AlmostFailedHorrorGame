@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9157927125211662353}
   - component: {fileID: 6627438718647784103}
+  - component: {fileID: 5375837290607811212}
   m_Layer: 0
   m_Name: building frame 3 pref
   m_TagString: Untagged
@@ -64,6 +65,26 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: d7727c7d165fd5e469ee4fe55144cad3, type: 2}
   m_BuildHeightMesh: 0
+--- !u!114 &5375837290607811212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213459947936291902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_StartPoint: {x: -8.155762, y: 0.4393723, z: 22.659302}
+  m_EndPoint: {x: -7.848877, y: 0, z: 50.32251}
+  m_Width: 0
+  m_CostModifier: -1
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 0
+  m_Area: 0
 --- !u!1001 &1723848442373634982
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7580641101882548201}
   - component: {fileID: 4408396710044862715}
+  - component: {fileID: 6665445751877823370}
+  - component: {fileID: 5655469346796960633}
   m_Layer: 0
   m_Name: mining crane pref
   m_TagString: Untagged
@@ -54,7 +56,7 @@ MonoBehaviour:
     m_Bits: 769
   m_UseGeometry: 0
   m_DefaultArea: 0
-  m_GenerateLinks: 0
+  m_GenerateLinks: 1
   m_IgnoreNavMeshAgent: 1
   m_IgnoreNavMeshObstacle: 1
   m_OverrideTileSize: 0
@@ -64,6 +66,46 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 68f13d17b32678242ac550f1073186bc, type: 2}
   m_BuildHeightMesh: 0
+--- !u!114 &6665445751877823370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6574733068616820193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_StartPoint: {x: 3.4628448, y: 16.59841, z: -5.147156}
+  m_EndPoint: {x: -7.554474, y: 0, z: -1.7823486}
+  m_Width: 0
+  m_CostModifier: -1
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 0
+  m_Area: 0
+--- !u!114 &5655469346796960633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6574733068616820193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_StartPoint: {x: 1.3129959, y: 21.97931, z: -16.102661}
+  m_EndPoint: {x: -2.0893555, y: 22.591648, z: -22.588318}
+  m_Width: 0
+  m_CostModifier: -1
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 0
+  m_Area: 0
 --- !u!1001 &503937441664621517
 PrefabInstance:
   m_ObjectHideFlags: 0
