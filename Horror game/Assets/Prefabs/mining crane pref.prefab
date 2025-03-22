@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7580641101882548201}
+  - component: {fileID: 4408396710044862715}
   m_Layer: 0
   m_Name: mining crane pref
   m_TagString: Untagged
@@ -32,6 +33,37 @@ Transform:
   - {fileID: 104956165637356582}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4408396710044862715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6574733068616820193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 1
+  m_Size: {x: 55.22, y: 44.624516, z: 75.16235}
+  m_Center: {x: 3.4099998, y: 21.107943, z: 9.270386}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 769
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: 68f13d17b32678242ac550f1073186bc, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1001 &503937441664621517
 PrefabInstance:
   m_ObjectHideFlags: 0
