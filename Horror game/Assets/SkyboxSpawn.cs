@@ -10,7 +10,7 @@ public class SkyboxSpawn : MonoBehaviour
 
     private void Start()
     {
-
+        // RenderSettings.skybox = skyboxMaterialOne;
         SetRandomSkybox();
     }
 
@@ -33,7 +33,7 @@ public class SkyboxSpawn : MonoBehaviour
 
         // Update the environment lighting if using dynamic GI
         DynamicGI.UpdateEnvironment();
-
+        RenderSettings.customReflectionTexture = newTexture;
     }
 
 

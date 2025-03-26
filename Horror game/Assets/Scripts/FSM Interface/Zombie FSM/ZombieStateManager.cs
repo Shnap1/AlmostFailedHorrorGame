@@ -25,7 +25,7 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
 
     [SerializeField] AttackCollider attackCollider;
 
-    public int damage = 5;
+    public int damage;
 
     public static Action ResetAttackTrigger;
     public static Action TurnOnAttackTrigger;
@@ -80,14 +80,15 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
         currentState.EnterState();
         agent.speed = speed;
 
-        UpdateDamage();
+        UpdateDamage(damage);
         onZombieStateChanged?.Invoke(currentState);
 
         healthBar.SetActive(false);
     }
 
-    void UpdateDamage()
+    public void UpdateDamage(int _damage)
     {
+        if (_damage > 0) damage += _damage;
         attackCollider.damage = damage;
     }
 
