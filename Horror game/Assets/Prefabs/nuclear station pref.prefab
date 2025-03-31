@@ -301,12 +301,12 @@ PrefabInstance:
     - target: {fileID: 2554208233987003440, guid: 3f03f2e1ad85ce44bae95aa92195f674,
         type: 3}
       propertyPath: ShapeModule.angle
-      value: 90
+      value: 76.7
       objectReference: {fileID: 0}
     - target: {fileID: 2554208233987003440, guid: 3f03f2e1ad85ce44bae95aa92195f674,
         type: 3}
       propertyPath: ShapeModule.radius.value
-      value: 264.9
+      value: 29.8
       objectReference: {fileID: 0}
     - target: {fileID: 2554208233987003440, guid: 3f03f2e1ad85ce44bae95aa92195f674,
         type: 3}
@@ -326,7 +326,7 @@ PrefabInstance:
     - target: {fileID: 2554208233987003440, guid: 3f03f2e1ad85ce44bae95aa92195f674,
         type: 3}
       propertyPath: EmissionModule.rateOverTime.scalar
-      value: 25
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2554208233987003440, guid: 3f03f2e1ad85ce44bae95aa92195f674,
         type: 3}
@@ -421,7 +421,7 @@ PrefabInstance:
     - target: {fileID: 4764601504657558560, guid: 3f03f2e1ad85ce44bae95aa92195f674,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -37.8
+      value: -17.6
       objectReference: {fileID: 0}
     - target: {fileID: 4764601504657558560, guid: 3f03f2e1ad85ce44bae95aa92195f674,
         type: 3}
@@ -543,5 +543,5 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 649
-  m_Center: {x: 1.9, y: -341.9, z: 0}
+  m_Radius: 414.4
+  m_Center: {x: 1.9, y: -321.8, z: 0}

@@ -81,44 +81,44 @@ public class HealthBar : MonoBehaviour
 
                 if (curLanguage == Languages.en)
                 {
-                    currentGameStateText.text = "Go through the gate to collect all the artifacts that are highlighted with a green arrow.";
+                    currentGameStateText.text = "Go beyond the safe zone.";
                 }
                 else if (curLanguage == Languages.ru)
                 {
-                    currentGameStateText.text = "Перейди через ворота, чтобы собрать все артефакты, которые подсвечены зелёной стрелочкой.";
+                    currentGameStateText.text = "Выйди за границы безопасной зоны.";
                 }
                 else if (curLanguage == Languages.tr)
                 {
-                    currentGameStateText.text = "Yeşil bir okla vurgulanan tüm eserleri toplamak için kapıdan geçin.";
+                    currentGameStateText.text = "Güvenli bölgenin ötesine geçin.";
                 }
                 break;
 
             case GameLoopManager.GameState.GameStart:
                 if (curLanguage == Languages.en)
                 {
-                    currentGameStateText.text = $"{gameLoopManager.current_number_of_TARGETS_collected} artifacts out of {gameLoopManager.number_of_TARGETS_to_collect} collected. Collect all artifacts";
+                    currentGameStateText.text = $"{gameLoopManager.current_number_of_TARGETS_collected} of  {gameLoopManager.number_of_TARGETS_to_collect} monsters killed. Kill all monsters.";
                 }
                 else if (curLanguage == Languages.ru)
                 {
-                    currentGameStateText.text = $"{gameLoopManager.current_number_of_TARGETS_collected} артефактов из {gameLoopManager.number_of_TARGETS_to_collect} собрано. Собери все цели";
+                    currentGameStateText.text = $"{gameLoopManager.current_number_of_TARGETS_collected} из {gameLoopManager.number_of_TARGETS_to_collect} монстров убито. Убей всех монстров.";
                 }
                 else if (curLanguage == Languages.tr)
                 {
-                    currentGameStateText.text = $"{gameLoopManager.current_number_of_TARGETS_collected} eserden {gameLoopManager.number_of_TARGETS_to_collect}'u toplandı. Tüm eserleri toplayın";
+                    currentGameStateText.text = $"Öldürülen {gameLoopManager.number_of_TARGETS_to_collect} canavardan {gameLoopManager.current_number_of_TARGETS_collected}'ı. Bütün canavarları öldür.";
                 }
                 break;
             case GameLoopManager.GameState.LootCollected:
                 if (curLanguage == Languages.en)
                 {
-                    currentGameStateText.text = "All artifacts collected. RUN BACK TO THE GATE!";
+                    currentGameStateText.text = "Mission accomplished. Return to the safe zone.";
                 }
                 else if (curLanguage == Languages.ru)
                 {
-                    currentGameStateText.text = "Все артефакты собраны. БЕГИ НАЗАД К ВОРОТАМ!";
+                    currentGameStateText.text = "Задание выполнено. Возвращайтесь в безопасную зону.";
                 }
                 else if (curLanguage == Languages.tr)
                 {
-                    currentGameStateText.text = "Tüm hedefler toplandı. KAPIYA GERI KOŞUN!";
+                    currentGameStateText.text = "Görev tamamlandı. Güvenli bölgeye dönün.";
                 }
                 break;
             case GameLoopManager.GameState.Lobby:
