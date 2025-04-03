@@ -21,7 +21,7 @@ public class GameData : MonoBehaviour
         LevelManager.OnLevelCalculated += GetPlayTimeData;
         PlayerStateMachine.onPlayerCreated += GetPlayerTransform;
         MainCameraScript.onCamCreated += GetCamTransform;
-        PatrolPointManager.onPatrolPointManagerCreated += GetPatrolPointManager;
+        PatrolPointManager.onPatrolPointManagerCreated += AssignPatrolPointManager;
 
     }
     void OnDisable()
@@ -29,7 +29,7 @@ public class GameData : MonoBehaviour
         LevelManager.OnLevelCalculated -= GetPlayTimeData;
         PlayerStateMachine.onPlayerCreated -= GetPlayerTransform;
         MainCameraScript.onCamCreated -= GetCamTransform;
-        PatrolPointManager.onPatrolPointManagerCreated -= GetPatrolPointManager;
+        PatrolPointManager.onPatrolPointManagerCreated -= AssignPatrolPointManager;
 
 
 
@@ -66,6 +66,18 @@ public class GameData : MonoBehaviour
         this.player = player;
     }
 
-    void GetPatrolPointManager(PatrolPointManager manager) => patrolPointManager = manager;
+    void AssignPatrolPointManager(PatrolPointManager manager) => patrolPointManager = manager;
+    public PatrolPointManager GetPatrolPointManager()
+    {
+        if (patrolPointManager == null)
+        {
+            patrolPointManager = GameObject.Find("Patrol Point Manager").GetComponent<PatrolPointManager>();
+        }
+        else if (patrolPointManager != null)
+        {
+            return patrolPointManager;
+        }
+        return null;
+    }
 
 }

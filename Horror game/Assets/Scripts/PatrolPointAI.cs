@@ -10,7 +10,11 @@ public class PatrolPointAI : MonoBehaviour
     public int numberOfEnemies = 0;
     void Start()
     {
-        PatrolPointManager.patrolPointsList.Add(this);
+        PatrolPointManager = GameData.instance.GetPatrolPointManager();
+        if (PatrolPointManager)
+        {
+            PatrolPointManager.patrolPointsList.Add(this);
+        }
     }
 
     void OnTriggerEnter(Collider other)
