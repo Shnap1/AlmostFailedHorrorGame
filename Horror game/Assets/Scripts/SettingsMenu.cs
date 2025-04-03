@@ -78,7 +78,7 @@ public class SettingsMenu : MonoBehaviour
             case GameLoopManager.GameState.LootCollected:
                 TogglePauseUI();
                 break;
-            case GameLoopManager.GameState.GatesOpen:
+            case GameLoopManager.GameState.SpawnPlayer:
                 TogglePauseUI();
                 break;
             case GameLoopManager.GameState.Victory:
@@ -256,7 +256,7 @@ public class SettingsMenu : MonoBehaviour
     public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
-        GameLoopManager.instance.UpdateGameState(GameLoopManager.GameState.GatesOpen);
+        GameLoopManager.instance.UpdateGameState(GameLoopManager.GameState.SpawnPlayer);
         PauseGame();
     }
 

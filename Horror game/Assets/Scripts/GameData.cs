@@ -12,6 +12,8 @@ public class GameData : MonoBehaviour
     public Transform player;
     public Transform cam;
     public PatrolPointManager patrolPointManager;
+    public PlayerSpawner playerSpawner;
+    public LootSpawner lootSpawner;
 
 
 
@@ -79,5 +81,7 @@ public class GameData : MonoBehaviour
         }
         return null;
     }
+
+    public PlayerSpawner GetPlayerSpawner() => playerSpawner;
 
 }

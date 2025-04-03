@@ -77,7 +77,7 @@ public class HealthBar : MonoBehaviour
 
         switch (gameState)
         {
-            case GameLoopManager.GameState.GatesOpen:
+            case GameLoopManager.GameState.SpawnPlayer:
 
                 if (curLanguage == Languages.en)
                 {

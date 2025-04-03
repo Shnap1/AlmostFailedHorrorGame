@@ -34,7 +34,13 @@ public class LootSpawner : MonoBehaviour
         gasStation,
 
     }
-
+    void Awake()
+    {
+        if (GameData.instance != null)
+        {
+            GameData.instance.lootSpawner = this;
+        }
+    }
     void Start()
     {
         //var hp = healthPowerUp.GetComponent<IPowerUp>();

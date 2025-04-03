@@ -23,16 +23,16 @@ public class LootCounter : MonoBehaviour
     public void AddLoot()
     {
 
-        if(numbOfTargetCollectables + 1 <= maxTargetCollectables)
+        if (numbOfTargetCollectables + 1 <= maxTargetCollectables)
         {
-        numbOfTargetCollectables += 1;
-        } 
-        
-        if(numbOfTargetCollectables == maxTargetCollectables)
+            numbOfTargetCollectables += 1;
+        }
+
+        if (numbOfTargetCollectables == maxTargetCollectables)
         {
             //
             //OnAllLootCollected?.Invoke();
-            gameLoopManager.UpdateGameState(GameLoopManager.GameState.GatesOpen);
+            gameLoopManager.UpdateGameState(GameLoopManager.GameState.SpawnPlayer);
         }
 
     }

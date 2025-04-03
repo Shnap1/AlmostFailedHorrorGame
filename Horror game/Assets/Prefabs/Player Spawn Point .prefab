@@ -13,10 +13,11 @@ GameObject:
   - component: {fileID: 3509962912224499987}
   - component: {fileID: 4420253022942209043}
   - component: {fileID: 7785016068219101836}
+  - component: {fileID: 6183322035243436104}
   m_Layer: 0
   m_Name: 'Player Spawn Point '
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -116,5 +117,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9390d6a27d2b666469c515f38fe21909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6183322035243436104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3106909855822147508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b787a23dbc910dd4f90d40d4aae56bdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -54,7 +54,7 @@ public class GateOpener : MonoBehaviour
     {
         switch (gameState)
         {
-            case GameLoopManager.GameState.GatesOpen:
+            case GameLoopManager.GameState.SpawnPlayer:
                 OpenGate();
                 break;
             case GameLoopManager.GameState.GameStart:

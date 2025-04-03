@@ -30,6 +30,10 @@ public class PlayerSpawner : MonoBehaviour
 
     private void Awake()
     {
+        if (GameData.instance != null)
+        {
+            GameData.instance.playerSpawner = this;
+        }
         if (instance == null)
         {
             instance = this;

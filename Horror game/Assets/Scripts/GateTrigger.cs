@@ -31,7 +31,7 @@ public class GateTrigger : MonoBehaviour
     {
         // Debug.Log("Game Started  === PLAYER EXITED THE GATE");
 
-        if (other.gameObject.tag == "Player" && GameLoopManager.currentGameState == GameLoopManager.GameState.GatesOpen)
+        if (other.gameObject.tag == "Player" && GameLoopManager.currentGameState == GameLoopManager.GameState.SpawnPlayer)
         {
             //gateOpener.Close();
             gameLoopManager.UpdateGameState(GameLoopManager.GameState.GameStart);

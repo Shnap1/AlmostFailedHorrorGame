@@ -57,7 +57,7 @@ public class GameLoopManager : MonoBehaviour
 
     void Start()
     {
-        UpdateGameState(GameState.GatesOpen);
+        UpdateGameState(GameState.SpawnPlayer);
         // UnityEngine.Debug.Log($"Start() ---------- UpdateGameState(GameState.{currentGameState})");
         // testString = onGameStateChanger?.Invoke("test String from event") ?? "nothing";
         if (currentTestString != null)
@@ -97,10 +97,13 @@ public class GameLoopManager : MonoBehaviour
 
     public enum GameState
     {
-        GatesOpen,
-        // NavmeshBuild,
+        SpawnSectors,
+        SpawnBuildings,
+        SpawnLoot,
+        SpawnPlayer,
         GameStart,
         LootCollected,
+
         Victory,
         Lose,
         Lobby
@@ -117,7 +120,7 @@ public class GameLoopManager : MonoBehaviour
             currentGameState = newGameState;
             switch (currentGameState)
             {
-                case GameState.GatesOpen:
+                case GameState.SpawnPlayer:
                     LoadLevelData(currentLevel);
                     current_number_of_TARGETS_collected = 0;
                     // SpawnEnemies(currentLevel.enemiesToSpawn);
@@ -131,8 +134,6 @@ public class GameLoopManager : MonoBehaviour
                     break;
                 case GameState.GameStart:
                     // surface.BuildNavMesh();
-
-
                     SpawnEnemies(currentLevel.enemiesToSpawn);
                     //TODO replace SpawnEnemies() with SpawnEnemiesByLevel() 
                     //setting how many TARGETS to collect

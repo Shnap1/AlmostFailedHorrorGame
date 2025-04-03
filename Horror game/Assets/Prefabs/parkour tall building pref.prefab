@@ -11,6 +11,10 @@ GameObject:
   - component: {fileID: 3422373921146108371}
   - component: {fileID: 6389313967158810580}
   - component: {fileID: 4245323857305917108}
+  - component: {fileID: 1518331532792599828}
+  - component: {fileID: 6958476931642728519}
+  - component: {fileID: 4236821626919906059}
+  - component: {fileID: 1906696701569809181}
   m_Layer: 0
   m_Name: parkour tall building pref
   m_TagString: Untagged
@@ -80,6 +84,86 @@ MonoBehaviour:
   m_AgentTypeID: 0
   m_StartPoint: {x: 6.16864, y: 4.548151, z: -46.57561}
   m_EndPoint: {x: 5.362625, y: 0, z: -41.573483}
+  m_Width: 0
+  m_CostModifier: -1
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 0
+  m_Area: 0
+--- !u!114 &1518331532792599828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134497314492515933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_StartPoint: {x: 4.1021347, y: 7.2405176, z: -51.4704}
+  m_EndPoint: {x: -6.0888977, y: 6.5789967, z: -52.385006}
+  m_Width: 0
+  m_CostModifier: -1
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 0
+  m_Area: 0
+--- !u!114 &6958476931642728519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134497314492515933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_StartPoint: {x: -6.3574142, y: 11.63955, z: -58.766674}
+  m_EndPoint: {x: -5.3492355, y: 5.994671, z: -53.58293}
+  m_Width: 0
+  m_CostModifier: -1
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 0
+  m_Area: 0
+--- !u!114 &4236821626919906059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134497314492515933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_StartPoint: {x: -17.221107, y: 17.641144, z: -62.94997}
+  m_EndPoint: {x: -9.3181, y: 14.5560875, z: -21.73732}
+  m_Width: 0
+  m_CostModifier: -1
+  m_Bidirectional: 1
+  m_AutoUpdatePosition: 0
+  m_Area: 0
+--- !u!114 &1906696701569809181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2134497314492515933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6eeb5dc026fdf4b488bc7ae0138ab719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_StartPoint: {x: 16.801727, y: 36.183113, z: -23.67761}
+  m_EndPoint: {x: 11.08831, y: 34.89542, z: -22.893486}
   m_Width: 0
   m_CostModifier: -1
   m_Bidirectional: 1
