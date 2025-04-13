@@ -74,7 +74,7 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
         anim = GetComponent<Animator>();
 
         InitializeStates();
-        // currentState = Patrolling; //TODO remove
+        currentState = Patrolling; //TODO remove or comment out
         currentState = Chasing; //changed to chasing
 
         currentState.EnterState();

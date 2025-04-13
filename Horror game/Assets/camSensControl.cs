@@ -6,9 +6,9 @@ using UnityEngine;
 public class camSensControl : MonoBehaviour
 {
     // Start is called before the first frame update
-    public CinemachineVirtualCamera POV_VirtCam;
-    public CinemachineFreeLook TP_Cam;
-    public CinemachineFreeLook CombatCam;
+    public Cinemachine.CinemachineVirtualCamera POV_VirtCam;
+    public Cinemachine.CinemachineFreeLook TP_Cam;
+    public Cinemachine.CinemachineFreeLook CombatCam;
 
     private CinemachinePOV povComponent;
 
