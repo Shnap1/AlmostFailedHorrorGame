@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,7 +30,7 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     public float currentFuelInside;
 
 
-    public enum Materials
+    public enum MaterialsE
     {
         //Solids
         Metal,
@@ -57,8 +58,34 @@ public abstract class MaterialSmart_Base : MonoBehaviour
         Steam
     }
 
-    public Materials currentMaterial;
+    public enum MaterialStatesE
+    {
+        Dry,
+        Burning,
+        Melting,
+        Boiling,
+        Freezing,
+        Corrosive,
+        Electrifying,
+        Wet
+    }
 
+    public Dictionary<MaterialStatesE, bool> materialStates = new Dictionary<MaterialStatesE, bool>()
+{
+    { MaterialStatesE.Dry, false },
+    { MaterialStatesE.Burning, false },
+    { MaterialStatesE.Melting, false },
+    { MaterialStatesE.Boiling, false },
+    { MaterialStatesE.Freezing, false },
+    { MaterialStatesE.Corrosive, false },
+    { MaterialStatesE.Electrifying, false },
+    { MaterialStatesE.Wet, false }
+};
+
+    public MaterialsE currentMaterial;
+    public MaterialStatesE currentMatState1;
+    public MaterialStatesE currentMatState2;
+    public MaterialStatesE currentMatState3;
 
 
 
@@ -104,6 +131,18 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     public abstract void OnEarth();
     public abstract void OnLight();
     public abstract void OnMetal();
+
+    public void ChangeMaterial(MaterialSmart_Base newMaterial, GameObject objectWithMaterial)
+    {
+        // Get the type of the derived class
+        // Add the derived class component to the GameObject
+        Component derivedComponent = objectWithMaterial.AddComponent(newMaterial.GetType());
+        // Disable the existing MaterialSmart_Base component
+
+        this.enabled = false;
+    }
+
+    public abstract void GetEffects();
 
 
 

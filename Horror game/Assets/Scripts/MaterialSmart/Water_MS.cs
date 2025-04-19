@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class Water_MS : MaterialSmart_Base
 {
+    public GameObject ObjWithMaterial;
+
     void Start()
     {
-        currentMaterial = Materials.Water;
+        currentMaterial = MaterialsE.Water;
 
         // currentHealth = MSData.maxHealth;
         // currentSize = MSData.maxSize;
@@ -15,6 +17,8 @@ public class Water_MS : MaterialSmart_Base
         // currentWaterInside = MSData.maxWaterInside;
         // currentGasInside = MSData.maxGasInside;
         // currentFuelInside = MSData.maxFuelInside;
+
+        // ChangeMaterial(this, ObjWithMaterial); //TODO replace "this" with the other derived class
     }
 
     public Water_MS()
@@ -37,6 +41,12 @@ public class Water_MS : MaterialSmart_Base
         if (other.gameObject.tag == "Enemy")
         {
 
+        }
+
+        // materialStates[MaterialStatesE.Burning] = true; //TODO set the material state AND/OR if condition
+        if (materialStates[MaterialStatesE.Burning])
+        {
+            // Do something if the material is burning
         }
     }
 
@@ -94,6 +104,10 @@ public class Water_MS : MaterialSmart_Base
 
     }
 
+    public override void GetEffects()
+    {
+
+    }
     // Start is called before the first frame update
 
 
@@ -102,4 +116,5 @@ public class Water_MS : MaterialSmart_Base
     {
 
     }
+
 }
