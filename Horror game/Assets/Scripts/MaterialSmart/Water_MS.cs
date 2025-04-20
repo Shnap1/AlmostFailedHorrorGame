@@ -11,12 +11,12 @@ public class Water_MS : MaterialSmart_Base
     {
         currentMaterial = MaterialsE.Water;
 
-        // currentHealth = MSData.maxHealth;
-        // currentSize = MSData.maxSize;
+        currentHealth = MSData.maxHealth;
+        currentSize = MSData.maxSize;
 
-        // currentWaterInside = MSData.maxWaterInside;
-        // currentGasInside = MSData.maxGasInside;
-        // currentFuelInside = MSData.maxFuelInside;
+        currentWaterInside = MSData.maxWaterInside;
+        currentGasInside = MSData.maxGasInside;
+        currentFuelInside = MSData.maxFuelInside;
 
         // ChangeMaterial(this, ObjWithMaterial); //TODO replace "this" with the other derived class
     }
@@ -30,7 +30,8 @@ public class Water_MS : MaterialSmart_Base
     {
         if (other.gameObject.GetComponent<MaterialSmart_Base>() != null)
         {
-            other.gameObject.GetComponent<MaterialSmart_Base>().OnWater();
+            var temp = other.gameObject.GetComponent<MaterialSmart_Base>();
+            ApplyEffects(temp);
         }
 
         if (other.gameObject.tag == "Player")
@@ -44,25 +45,20 @@ public class Water_MS : MaterialSmart_Base
         }
 
         // materialStates[MaterialStatesE.Burning] = true; //TODO set the material state AND/OR if condition
-        if (materialStates[MaterialStatesE.Burning])
-        {
-            // Do something if the material is burning
-        }
+
     }
 
     public override void InterractWithNPCs()
     {
-
     }
 
     public override void OnEarth()
     {
-
     }
 
     public override void OnElectricity()
     {
-
+        materialStates[MaterialStatesE.Electrifying] = true;
     }
 
     public override void OnFire(float temperature)
@@ -79,9 +75,12 @@ public class Water_MS : MaterialSmart_Base
     {
     }
 
-    public override void OnIce()
+    public override void OnIce(float temperature)
     {
-
+        if (temperature < MSData.frozenDegree)
+        {
+            materialStates[MaterialStatesE.Freezing] = true;
+        }
     }
 
     public override void OnLight()
@@ -117,4 +116,17 @@ public class Water_MS : MaterialSmart_Base
 
     }
 
+    public override void ApplyEffects(MaterialSmart_Base materialToInfluence)
+    {
+        if (materialStates[MaterialStatesE.Freezing])
+        {
+            materialToInfluence.OnIce(currentDegree);
+        }
+        if (materialStates[MaterialStatesE.Electrifying])
+        {
+            materialToInfluence.OnElectricity();
+        }
+        materialToInfluence.OnWater();
+
+    }
 }

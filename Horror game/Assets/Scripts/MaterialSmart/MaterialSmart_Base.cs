@@ -121,7 +121,7 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     //Hihly interractive
     public abstract void InterractWithNPCs();
     public abstract void OnFire(float temperature);
-    public abstract void OnIce();
+    public abstract void OnIce(float temperature);
     public abstract void OnWater();
     public abstract void OnGas();
     public abstract void OnElectricity();
@@ -143,6 +143,7 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     }
 
     public abstract void GetEffects();
+    public abstract void ApplyEffects(MaterialSmart_Base materialToInfluence);
 
 
 
