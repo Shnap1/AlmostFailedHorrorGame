@@ -11,10 +11,12 @@ public class MaterialSmart_Data : ScriptableObject
     public float maxWeight;
     public float maxSize;
     public float shatteringPoint;
+    public float maxStableWindSpeed;
 
 
     // Temperature properties
     [Header("TEMPERATURE")]
+    public float defaultDegree;
     public float frozenDegree;
     public float liqidDegree;
     public float burningDegree;

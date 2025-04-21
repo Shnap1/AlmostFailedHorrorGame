@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: 8dcb72dec63295b4586041c4390914fa
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - MSData: {fileID: 11400000, guid: 0c411a77449759b4da961bfed97a5bc0, type: 2}
+  - ObjWithMaterial: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

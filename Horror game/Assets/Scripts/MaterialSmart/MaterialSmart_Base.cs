@@ -122,12 +122,12 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     public abstract void InterractWithNPCs();
     public abstract void OnFire(float temperature);
     public abstract void OnIce(float temperature);
-    public abstract void OnWater();
+    public abstract void OnWater(float WaterWeight, float WaterTemperature);
     public abstract void OnGas();
     public abstract void OnElectricity();
 
 
-    public abstract void OnWind();
+    public abstract void OnWind(float windSpeed, float windTemperature);
     public abstract void OnEarth();
     public abstract void OnLight();
     public abstract void OnMetal();
