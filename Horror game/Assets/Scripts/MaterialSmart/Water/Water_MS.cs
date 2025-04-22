@@ -95,6 +95,13 @@ public class Water_MS : MaterialSmart_Base
 
     public override void OnWater(float WaterWeight, float WaterTemperature)
     {
+        if (WaterWeight > 0)
+        {
+            var tempXmass = (WaterWeight * WaterTemperature + currentWeight * currentDegree);
+            currentDegree = tempXmass / (WaterWeight + currentWeight);
+
+            currentWeight += WaterWeight;
+        }
 
     }
 

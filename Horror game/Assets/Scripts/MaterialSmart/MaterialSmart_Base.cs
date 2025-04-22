@@ -83,9 +83,6 @@ public abstract class MaterialSmart_Base : MonoBehaviour
 };
 
     public MaterialsE currentMaterial;
-    public MaterialStatesE currentMatState1;
-    public MaterialStatesE currentMatState2;
-    public MaterialStatesE currentMatState3;
 
 
 
