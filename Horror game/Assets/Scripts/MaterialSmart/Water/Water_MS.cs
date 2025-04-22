@@ -7,6 +7,9 @@ public class Water_MS : MaterialSmart_Base
 {
     public GameObject ObjWithMaterial;
 
+
+
+
     void Start()
     {
         currentMaterial = MaterialsE.Water;
@@ -17,6 +20,8 @@ public class Water_MS : MaterialSmart_Base
         currentWaterInside = MSData.maxWaterInside;
         currentGasInside = MSData.maxGasInside;
         currentFuelInside = MSData.maxFuelInside;
+        reactionCoroutine = null;
+
 
         // ChangeMaterial(this, ObjWithMaterial); //TODO replace "this" with the other derived class
     }
@@ -28,12 +33,24 @@ public class Water_MS : MaterialSmart_Base
 
     void OnTriggerEnter(Collider other)
     {
+        MaterialSmart_Base otherMS = null;
         if (other.gameObject.GetComponent<MaterialSmart_Base>() != null)
         {
-            var temp = other.gameObject.GetComponent<MaterialSmart_Base>();
-            ApplyEffects(temp);
+            otherMS = other.gameObject.GetComponent<MaterialSmart_Base>();
         }
 
+        if (reactionCoroutine != null) //coroutine is already running so just adding contactedGameObject list
+        {
+            MSData.ContactedObjects.Add(otherMS);
+        }
+        else if (reactionCoroutine == null && MSData.ContactedObjects.Count <= 0) //the first Contacted Game object turns on the coroutine
+        {
+            MSData.ContactedObjects.Add(otherMS);
+            reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(otherMS, reactionRate_fast));
+        }
+
+
+        //TODO: rewrite. Described more specifically in ApplyEffects()
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("Player contacted with Water");
@@ -41,7 +58,7 @@ public class Water_MS : MaterialSmart_Base
 
         if (other.gameObject.tag == "Enemy")
         {
-
+            Debug.Log("Enemy contacted with Water");
         }
 
         // materialStates[MaterialStatesE.Burning] = true; //TODO set the material state AND/OR if condition
@@ -80,6 +97,7 @@ public class Water_MS : MaterialSmart_Base
         if (temperature < MSData.frozenDegree)
         {
             materialStates[MaterialStatesE.Freezing] = true;
+
         }
     }
 
@@ -96,7 +114,7 @@ public class Water_MS : MaterialSmart_Base
     public override void OnWater(float WaterWeight, float WaterTemperature)
     {
         if (WaterWeight > 0)
-        {
+        { //TODO that is NOT for Coroutines. ITS one time reaction ONLY OnCollisionEnter(). Needs  a multiplyier for dradual over-time reaction. OR an adjuster showing amount of water given per second from total amount
             var tempXmass = (WaterWeight * WaterTemperature + currentWeight * currentDegree);
             currentDegree = tempXmass / (WaterWeight + currentWeight);
 
@@ -110,29 +128,37 @@ public class Water_MS : MaterialSmart_Base
 
     }
 
-    public override void GetEffects()
+    public override void InnerReaction()
     {
 
     }
 
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator ApplyEffects_Enumerator(MaterialSmart_Base materialToInfluence, float time)
     {
-
+        yield return new WaitForSeconds(time);
+        ApplyEffects(materialToInfluence);
     }
-
     public override void ApplyEffects(MaterialSmart_Base materialToInfluence)
     {
-        if (materialStates[MaterialStatesE.Freezing])
+        //TODO: only works for materials, NOT  NPCs or PLAYERs. Needs to be fixed. Either by 1) rewriting PLAYER/NPC reaction logic or 2) creating a new material for them, or 3) separate method here for them
+
+        foreach (MaterialSmart_Base material in MSData.ContactedObjects)
         {
-            materialToInfluence.OnIce(currentDegree);
+            materialToInfluence.OnWater(currentWeight, currentDegree);
+
+
+            if (materialStates[MaterialStatesE.Freezing])
+            {
+                materialToInfluence.OnIce(currentDegree);
+            }
+            if (materialStates[MaterialStatesE.Electrifying])
+            {
+                materialToInfluence.OnElectricity();
+            }
         }
-        if (materialStates[MaterialStatesE.Electrifying])
-        {
-            materialToInfluence.OnElectricity();
-        }
-        materialToInfluence.OnWater(currentWeight, currentDegree);
+
 
     }
+
 }

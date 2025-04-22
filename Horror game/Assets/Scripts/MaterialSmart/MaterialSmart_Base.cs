@@ -9,6 +9,13 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     //Basic properties
     [Header("BASIC")]
 
+    [Header("Reaction rates")]
+    public float reactionRate_fast;
+    public float reactionRate_slow;
+
+
+    [HideInInspector] public Coroutine reactionCoroutine;
+
 
     public float currentHealth;
     public float currentWeight;
@@ -139,7 +146,7 @@ public abstract class MaterialSmart_Base : MonoBehaviour
         this.enabled = false;
     }
 
-    public abstract void GetEffects();
+    public abstract void InnerReaction();
     public abstract void ApplyEffects(MaterialSmart_Base materialToInfluence);
 
 

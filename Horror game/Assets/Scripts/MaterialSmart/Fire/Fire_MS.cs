@@ -43,7 +43,7 @@ public class Fire_MS : MaterialSmart_Base
         materialToInfluence.OnFire(currentDegree);
     }
 
-    public override void GetEffects()
+    public override void InnerReaction()
     {
 
     }
