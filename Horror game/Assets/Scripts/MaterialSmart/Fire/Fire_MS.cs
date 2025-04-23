@@ -88,7 +88,7 @@ public class Fire_MS : MaterialSmart_Base
         throw new System.NotImplementedException();
     }
 
-    public override void OnWater(float WaterWeight, float WaterTemperature)
+    public override void OnWater(float WaterWeight, float GiveWaterPerSecond, float WaterTemperature)
     {
         if (WaterWeight > currentSize)
         {

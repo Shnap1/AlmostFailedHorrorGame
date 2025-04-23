@@ -30,6 +30,8 @@ public class MaterialSmart_Data : ScriptableObject
 
 
 
+
+
     //Chemichal properties
     [Header("CHEMICAL")]
     public float maxWaterInside;

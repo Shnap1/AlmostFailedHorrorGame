@@ -13,9 +13,17 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     public float reactionRate_fast;
     public float reactionRate_slow;
 
+    [Header("SPENDING RATE")]
+    public float waterPerSecond;
+    public float gasPerSecond;
+    public float fuelPerSecond;
+    public float electricityPerSecond;
+
+
 
     [HideInInspector] public Coroutine reactionCoroutine;
 
+    [Header("current properties")]
 
     public float currentHealth;
     public float currentWeight;
@@ -35,6 +43,7 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     public float currentWaterInside;
     public float currentGasInside;
     public float currentFuelInside;
+    public float currentElectricityInside;
 
 
     public enum MaterialsE
@@ -126,10 +135,16 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     public abstract void InterractWithNPCs();
     public abstract void OnFire(float temperature);
     public abstract void OnIce(float temperature);
-    public abstract void OnWater(float WaterWeight, float WaterTemperature);
+    public abstract void OnWater(float WaterWeight, float GiveWaterPerSecond, float WaterTemperature);
     public abstract void OnGas();
-    public abstract void OnElectricity();
 
+
+    public abstract void OnElectricity();
+    public void DepleteResource(float resPerSecond, float currentResInside)
+    {
+        if (currentResInside >= resPerSecond && resPerSecond > 0) currentResInside -= resPerSecond;
+        else if (currentResInside <= 0) currentResInside = 0;
+    }
 
     public abstract void OnWind(float windSpeed, float windTemperature);
     public abstract void OnEarth();

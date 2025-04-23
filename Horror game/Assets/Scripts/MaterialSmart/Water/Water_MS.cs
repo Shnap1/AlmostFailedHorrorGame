@@ -39,11 +39,11 @@ public class Water_MS : MaterialSmart_Base
             otherMS = other.gameObject.GetComponent<MaterialSmart_Base>();
         }
 
-        if (reactionCoroutine != null) //coroutine is already running so just adding contactedGameObject list
+        if (reactionCoroutine != null && otherMS.GetType() == typeof(MaterialSmart_Base)) //coroutine is already running so just adding contactedGameObject list
         {
             MSData.ContactedObjects.Add(otherMS);
         }
-        else if (reactionCoroutine == null && MSData.ContactedObjects.Count <= 0) //the first Contacted Game object turns on the coroutine
+        else if (reactionCoroutine == null && MSData.ContactedObjects.Count <= 0 && otherMS.GetType() == typeof(MaterialSmart_Base)) //the first Contacted Game object turns on the coroutine
         {
             MSData.ContactedObjects.Add(otherMS);
             reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(otherMS, reactionRate_fast));
@@ -92,12 +92,15 @@ public class Water_MS : MaterialSmart_Base
     {
     }
 
-    public override void OnIce(float temperature)
+    public override void OnIce(float newTemperature)
     {
-        if (temperature < MSData.frozenDegree)
+        if (newTemperature < MSData.frozenDegree)
         {
-            materialStates[MaterialStatesE.Freezing] = true;
-
+            currentDegree = (currentDegree + newTemperature) / 2;
+            if (currentDegree < MSData.frozenDegree)
+            {
+                materialStates[MaterialStatesE.Freezing] = true;
+            }
         }
     }
 
@@ -111,14 +114,14 @@ public class Water_MS : MaterialSmart_Base
 
     }
 
-    public override void OnWater(float WaterWeight, float WaterTemperature)
+    public override void OnWater(float WaterWeight, float transferredWaterPerSecond, float WaterTemperature)
     {
-        if (WaterWeight > 0)
-        { //TODO that is NOT for Coroutines. ITS one time reaction ONLY OnCollisionEnter(). Needs  a multiplyier for dradual over-time reaction. OR an adjuster showing amount of water given per second from total amount
-            var tempXmass = (WaterWeight * WaterTemperature + currentWeight * currentDegree);
-            currentDegree = tempXmass / (WaterWeight + currentWeight);
+        if (transferredWaterPerSecond > 0)
+        {
+            var tempTimesMass = transferredWaterPerSecond * WaterTemperature + currentWeight * currentDegree;
+            currentDegree = tempTimesMass / (transferredWaterPerSecond + currentWeight);
 
-            currentWeight += WaterWeight;
+            currentWeight += transferredWaterPerSecond;
         }
 
     }
@@ -145,7 +148,8 @@ public class Water_MS : MaterialSmart_Base
 
         foreach (MaterialSmart_Base material in MSData.ContactedObjects)
         {
-            materialToInfluence.OnWater(currentWeight, currentDegree);
+            materialToInfluence.OnWater(currentWeight, waterPerSecond, currentDegree);
+            DepleteResource(waterPerSecond, currentWaterInside);
 
 
             if (materialStates[MaterialStatesE.Freezing])
@@ -155,6 +159,7 @@ public class Water_MS : MaterialSmart_Base
             if (materialStates[MaterialStatesE.Electrifying])
             {
                 materialToInfluence.OnElectricity();
+                DepleteResource(electricityPerSecond, currentElectricityInside);
             }
         }
 
