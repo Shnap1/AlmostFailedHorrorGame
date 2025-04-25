@@ -5,11 +5,24 @@ using UnityEngine;
 public class Fire_MS : MaterialSmart_Base
 {
     public GameObject ObjWithMaterial;
+    MeshRenderer objRenderer;
+
+    public Material BurningMat;
+    public Material ExtinguishedMat;
+
+    public Material currentMat;
 
 
     void Start()
     {
+
+        // currentMat = ObjWithMaterial.GetComponent<MeshRenderer>().material;
+
+        objRenderer = ObjWithMaterial.GetComponent<MeshRenderer>();
+
         currentMaterial = MaterialsE.Water;
+        materialStates[MaterialStatesE.Burning] = true;
+        objRenderer.material = BurningMat;
 
         currentHealth = MSData.maxHealth;
         currentSize = MSData.maxSize;
@@ -40,7 +53,18 @@ public class Fire_MS : MaterialSmart_Base
 
     public override void ApplyEffects(MaterialSmart_Base materialToInfluence)
     {
-        materialToInfluence.OnFire(currentDegree);
+        Debug.Log("ApplyEffects in Fire MS");
+
+        if (materialStates[MaterialStatesE.Burning])
+        {
+            materialToInfluence.OnFire(currentDegree);
+            DepleteResource(fuelPerSecond, currentFuelInside);
+        }
+        else
+        {
+            // currentMat = ExtinguishedMat;
+            objRenderer.material = ExtinguishedMat;
+        }
     }
 
     public override void InnerReaction()
@@ -93,8 +117,9 @@ public class Fire_MS : MaterialSmart_Base
         if (WaterWeight > currentSize)
         {
             currentDegree = 0;
-
         }
+        objRenderer.material = ExtinguishedMat;
+        // ObjWithMaterial.GetComponent<MeshRenderer>().material = currentMat;
     }
 
     public override void OnWind(float windSpeed, float windTemperature)
@@ -110,10 +135,7 @@ public class Fire_MS : MaterialSmart_Base
         }
     }
 
-    // Start is called before the first frame update
 
-
-    // Update is called once per frame
     void Update()
     {
 

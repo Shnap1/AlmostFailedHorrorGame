@@ -14,8 +14,7 @@ public class MaterialSmart_Data : ScriptableObject
     public float maxStableWindSpeed;
 
 
-    [Header("contacted OBJECTS")]
-    public List<MaterialSmart_Base> ContactedObjects = new List<MaterialSmart_Base>();
+
 
 
 

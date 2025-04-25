@@ -37,17 +37,19 @@ public class Water_MS : MaterialSmart_Base
         if (other.gameObject.GetComponent<MaterialSmart_Base>() != null)
         {
             otherMS = other.gameObject.GetComponent<MaterialSmart_Base>();
+
+
+            if (reactionCoroutine != null) //coroutine is already running so just adding contactedGameObject list ------------ && otherMS.GetType() == typeof(MaterialSmart_Base)
+            {
+                if (!ContactedObjects.Contains(otherMS)) { ContactedObjects.Add(otherMS); }
+            }
+            else if (reactionCoroutine == null && ContactedObjects.Count <= 0) //the first Contacted Game object turns on the coroutine -------- && otherMS.GetType() == typeof(MaterialSmart_Base)
+            {
+                if (!ContactedObjects.Contains(otherMS)) { ContactedObjects.Add(otherMS); }
+                reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(otherMS, reactionRate_fast));
+            }
         }
 
-        if (reactionCoroutine != null && otherMS.GetType() == typeof(MaterialSmart_Base)) //coroutine is already running so just adding contactedGameObject list
-        {
-            MSData.ContactedObjects.Add(otherMS);
-        }
-        else if (reactionCoroutine == null && MSData.ContactedObjects.Count <= 0 && otherMS.GetType() == typeof(MaterialSmart_Base)) //the first Contacted Game object turns on the coroutine
-        {
-            MSData.ContactedObjects.Add(otherMS);
-            reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(otherMS, reactionRate_fast));
-        }
 
 
         //TODO: rewrite. Described more specifically in ApplyEffects()
@@ -146,7 +148,7 @@ public class Water_MS : MaterialSmart_Base
     {
         //TODO: only works for materials, NOT  NPCs or PLAYERs. Needs to be fixed. Either by 1) rewriting PLAYER/NPC reaction logic or 2) creating a new material for them, or 3) separate method here for them
 
-        foreach (MaterialSmart_Base material in MSData.ContactedObjects)
+        foreach (MaterialSmart_Base material in ContactedObjects)
         {
             materialToInfluence.OnWater(currentWeight, waterPerSecond, currentDegree);
             DepleteResource(waterPerSecond, currentWaterInside);

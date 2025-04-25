@@ -100,7 +100,8 @@ public abstract class MaterialSmart_Base : MonoBehaviour
 
     public MaterialsE currentMaterial;
 
-
+    [Header("contacted OBJECTS")]
+    public List<MaterialSmart_Base> ContactedObjects = new List<MaterialSmart_Base>();
 
     // Start is called before the first frame update
     void Start()
