@@ -5,6 +5,11 @@ using UnityEngine;
 
 public abstract class MaterialSmart_Base : MonoBehaviour
 {
+    public GameObject ObjWithMaterial;
+    public MeshRenderer objRenderer;
+
+
+
     public MaterialSmart_Data MSData;
     //Basic properties
     [Header("BASIC")]
@@ -106,6 +111,8 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        objRenderer = ObjWithMaterial.GetComponent<MeshRenderer>();
+
         if (MSData == null)
         {
             Debug.LogError("Missing MS Data");
@@ -126,11 +133,44 @@ public abstract class MaterialSmart_Base : MonoBehaviour
         currentFuelInside = MSData.maxFuelInside;
     }
 
-    // Update is called once per frame
-    void Update()
+
+    void OnTriggerEnter(Collider other)
     {
 
+        MaterialSmart_Base otherMS = null;
+        if (other.gameObject.GetComponent<MaterialSmart_Base>() != null)
+        {
+            otherMS = other.gameObject.GetComponent<MaterialSmart_Base>();
+
+
+            if (reactionCoroutine != null) //coroutine is already running so just adding contactedGameObject list ------------ && otherMS.GetType() == typeof(MaterialSmart_Base)
+            {
+                if (!ContactedObjects.Contains(otherMS)) { ContactedObjects.Add(otherMS); }
+            }
+            else if (reactionCoroutine == null && ContactedObjects.Count <= 0) //the first Contacted Game object turns on the coroutine -------- && otherMS.GetType() == typeof(MaterialSmart_Base)
+            {
+                if (!ContactedObjects.Contains(otherMS)) { ContactedObjects.Add(otherMS); }
+                reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(otherMS, reactionRate_fast));
+            }
+        }
+
+
+
+        //TODO: rewrite. Described more specifically in ApplyEffects()
+        if (other.gameObject.tag == "Player")
+        {
+            Debug.Log("Player contacted with Water");
+        }
+
+        if (other.gameObject.tag == "Enemy")
+        {
+            Debug.Log("Enemy contacted with Water");
+        }
+
+        // materialStates[MaterialStatesE.Burning] = true; //TODO set the material state AND/OR if condition
+
     }
+
 
     //Hihly interractive
     public abstract void InterractWithNPCs();
@@ -152,7 +192,7 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     public abstract void OnLight();
     public abstract void OnMetal();
 
-    public void ChangeMaterial(MaterialSmart_Base newMaterial, GameObject objectWithMaterial)
+    public void ReplaceMaterialSmart(MaterialSmart_Base newMaterial, GameObject objectWithMaterial)
     {
         // Get the type of the derived class
         // Add the derived class component to the GameObject
@@ -165,6 +205,11 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     public abstract void InnerReaction();
     public abstract void ApplyEffects(MaterialSmart_Base materialToInfluence);
 
+    public IEnumerator ApplyEffects_Enumerator(MaterialSmart_Base materialToInfluence, float time)
+    {
+        yield return new WaitForSeconds(time);
+        ApplyEffects(materialToInfluence);
+    }
 
 
 

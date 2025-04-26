@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class Water_MS : MaterialSmart_Base
 {
-    public GameObject ObjWithMaterial;
 
 
 
@@ -31,41 +30,41 @@ public class Water_MS : MaterialSmart_Base
 
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        MaterialSmart_Base otherMS = null;
-        if (other.gameObject.GetComponent<MaterialSmart_Base>() != null)
-        {
-            otherMS = other.gameObject.GetComponent<MaterialSmart_Base>();
+    // void OnTriggerEnter(Collider other)
+    // {
+    //     MaterialSmart_Base otherMS = null;
+    //     if (other.gameObject.GetComponent<MaterialSmart_Base>() != null)
+    //     {
+    //         otherMS = other.gameObject.GetComponent<MaterialSmart_Base>();
 
 
-            if (reactionCoroutine != null) //coroutine is already running so just adding contactedGameObject list ------------ && otherMS.GetType() == typeof(MaterialSmart_Base)
-            {
-                if (!ContactedObjects.Contains(otherMS)) { ContactedObjects.Add(otherMS); }
-            }
-            else if (reactionCoroutine == null && ContactedObjects.Count <= 0) //the first Contacted Game object turns on the coroutine -------- && otherMS.GetType() == typeof(MaterialSmart_Base)
-            {
-                if (!ContactedObjects.Contains(otherMS)) { ContactedObjects.Add(otherMS); }
-                reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(otherMS, reactionRate_fast));
-            }
-        }
+    //         if (reactionCoroutine != null) //coroutine is already running so just adding contactedGameObject list ------------ && otherMS.GetType() == typeof(MaterialSmart_Base)
+    //         {
+    //             if (!ContactedObjects.Contains(otherMS)) { ContactedObjects.Add(otherMS); }
+    //         }
+    //         else if (reactionCoroutine == null && ContactedObjects.Count <= 0) //the first Contacted Game object turns on the coroutine -------- && otherMS.GetType() == typeof(MaterialSmart_Base)
+    //         {
+    //             if (!ContactedObjects.Contains(otherMS)) { ContactedObjects.Add(otherMS); }
+    //             reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(otherMS, reactionRate_fast));
+    //         }
+    //     }
 
 
 
-        //TODO: rewrite. Described more specifically in ApplyEffects()
-        if (other.gameObject.tag == "Player")
-        {
-            Debug.Log("Player contacted with Water");
-        }
+    //     //TODO: rewrite. Described more specifically in ApplyEffects()
+    //     if (other.gameObject.tag == "Player")
+    //     {
+    //         Debug.Log("Player contacted with Water");
+    //     }
 
-        if (other.gameObject.tag == "Enemy")
-        {
-            Debug.Log("Enemy contacted with Water");
-        }
+    //     if (other.gameObject.tag == "Enemy")
+    //     {
+    //         Debug.Log("Enemy contacted with Water");
+    //     }
 
-        // materialStates[MaterialStatesE.Burning] = true; //TODO set the material state AND/OR if condition
+    //     // materialStates[MaterialStatesE.Burning] = true; //TODO set the material state AND/OR if condition
 
-    }
+    // }
 
     public override void InterractWithNPCs()
     {
@@ -139,11 +138,11 @@ public class Water_MS : MaterialSmart_Base
     }
 
 
-    IEnumerator ApplyEffects_Enumerator(MaterialSmart_Base materialToInfluence, float time)
-    {
-        yield return new WaitForSeconds(time);
-        ApplyEffects(materialToInfluence);
-    }
+    // IEnumerator ApplyEffects_Enumerator(MaterialSmart_Base materialToInfluence, float time)
+    // {
+    //     yield return new WaitForSeconds(time);
+    //     ApplyEffects(materialToInfluence);
+    // }
     public override void ApplyEffects(MaterialSmart_Base materialToInfluence)
     {
         //TODO: only works for materials, NOT  NPCs or PLAYERs. Needs to be fixed. Either by 1) rewriting PLAYER/NPC reaction logic or 2) creating a new material for them, or 3) separate method here for them

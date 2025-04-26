@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Fire_MS : MaterialSmart_Base
 {
-    public GameObject ObjWithMaterial;
-    MeshRenderer objRenderer;
 
     public Material BurningMat;
     public Material ExtinguishedMat;
@@ -18,38 +16,31 @@ public class Fire_MS : MaterialSmart_Base
 
         // currentMat = ObjWithMaterial.GetComponent<MeshRenderer>().material;
 
-        objRenderer = ObjWithMaterial.GetComponent<MeshRenderer>();
 
         currentMaterial = MaterialsE.Water;
         materialStates[MaterialStatesE.Burning] = true;
         objRenderer.material = BurningMat;
 
-        currentHealth = MSData.maxHealth;
-        currentSize = MSData.maxSize;
-
-        currentWaterInside = MSData.maxWaterInside;
-        currentGasInside = MSData.maxGasInside;
-        currentFuelInside = MSData.maxFuelInside;
     }
 
-    void OnTriggerEnter(Collider other)
-    {
+    // void OnTriggerEnter(Collider other)
+    // {
 
-        if (other.gameObject.GetComponent<MaterialSmart_Base>() != null)
-        {
-            var temp = other.gameObject.GetComponent<MaterialSmart_Base>();
-            ApplyEffects(temp);
-        }
-        if (other.gameObject.tag == "Player")
-        {
-            Debug.Log("Player contacted with Water");
-        }
+    //     if (other.gameObject.GetComponent<MaterialSmart_Base>() != null)
+    //     {
+    //         var temp = other.gameObject.GetComponent<MaterialSmart_Base>();
+    //         ApplyEffects(temp);
+    //     }
+    //     if (other.gameObject.tag == "Player")
+    //     {
+    //         Debug.Log("Player contacted with Water");
+    //     }
 
-        if (other.gameObject.tag == "Enemy")
-        {
+    //     if (other.gameObject.tag == "Enemy")
+    //     {
 
-        }
-    }
+    //     }
+    // }
 
     public override void ApplyEffects(MaterialSmart_Base materialToInfluence)
     {
@@ -136,8 +127,4 @@ public class Fire_MS : MaterialSmart_Base
     }
 
 
-    void Update()
-    {
-
-    }
 }
