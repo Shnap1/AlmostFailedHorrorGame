@@ -40,7 +40,7 @@ public abstract class MaterialSmart_Base : MonoBehaviour
 
     // Temperature properties
     [Header("TEMPERATURE")]
-    public float currentDegree;
+    public float currentTemp;
 
     //Chemichal properties
     [Header("CHEMICAL")]
@@ -207,8 +207,12 @@ public abstract class MaterialSmart_Base : MonoBehaviour
 
     public IEnumerator ApplyEffects_Enumerator(MaterialSmart_Base materialToInfluence, float time)
     {
-        yield return new WaitForSeconds(time);
-        ApplyEffects(materialToInfluence);
+        while (true)
+        {
+            yield return new WaitForSeconds(time);
+            ApplyEffects(materialToInfluence);
+            Debug.Log("ApplyEffects_Enumerator");
+        }
     }
 
 

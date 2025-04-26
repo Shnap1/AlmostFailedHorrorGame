@@ -48,7 +48,7 @@ public class Fire_MS : MaterialSmart_Base
 
         if (materialStates[MaterialStatesE.Burning])
         {
-            materialToInfluence.OnFire(currentDegree);
+            materialToInfluence.OnFire(currentTemp);
             DepleteResource(fuelPerSecond, currentFuelInside);
         }
         else
@@ -107,7 +107,7 @@ public class Fire_MS : MaterialSmart_Base
     {
         if (WaterWeight > currentSize)
         {
-            currentDegree = 0;
+            currentTemp = 0;
         }
         objRenderer.material = ExtinguishedMat;
         // ObjWithMaterial.GetComponent<MeshRenderer>().material = currentMat;
@@ -117,12 +117,12 @@ public class Fire_MS : MaterialSmart_Base
     {
         if (windSpeed > MSData.maxStableWindSpeed)
         {
-            currentDegree = windTemperature;
+            currentTemp = windTemperature;
         }
         else
         {
-            float newDegree = (currentDegree + windTemperature) / 2;
-            currentDegree = newDegree;
+            float newDegree = (currentTemp + windTemperature) / 2;
+            currentTemp = newDegree;
         }
     }
 

@@ -82,10 +82,14 @@ public class Water_MS : MaterialSmart_Base
     public override void OnFire(float temperature)
     {
         //evaporate
-        Mathf.Clamp(temperature, 1, 100);
+        // Mathf.Clamp(temperature, 1, 100);
         if (temperature > 100)
         {
             currentWaterInside = 0;
+        }
+        else if (temperature < 0 && temperature > 100)
+        {
+            currentTemp = (temperature + currentTemp) / 2;
         }
     }
 
@@ -97,8 +101,8 @@ public class Water_MS : MaterialSmart_Base
     {
         if (newTemperature < MSData.frozenDegree)
         {
-            currentDegree = (currentDegree + newTemperature) / 2;
-            if (currentDegree < MSData.frozenDegree)
+            currentTemp = (currentTemp + newTemperature) / 2;
+            if (currentTemp < MSData.frozenDegree)
             {
                 materialStates[MaterialStatesE.Freezing] = true;
             }
@@ -119,8 +123,8 @@ public class Water_MS : MaterialSmart_Base
     {
         if (transferredWaterPerSecond > 0)
         {
-            var tempTimesMass = transferredWaterPerSecond * WaterTemperature + currentWeight * currentDegree;
-            currentDegree = tempTimesMass / (transferredWaterPerSecond + currentWeight);
+            var tempTimesMass = transferredWaterPerSecond * WaterTemperature + currentWeight * currentTemp;
+            currentTemp = tempTimesMass / (transferredWaterPerSecond + currentWeight);
 
             currentWeight += transferredWaterPerSecond;
         }
@@ -146,16 +150,17 @@ public class Water_MS : MaterialSmart_Base
     public override void ApplyEffects(MaterialSmart_Base materialToInfluence)
     {
         //TODO: only works for materials, NOT  NPCs or PLAYERs. Needs to be fixed. Either by 1) rewriting PLAYER/NPC reaction logic or 2) creating a new material for them, or 3) separate method here for them
+        Debug.Log("ApplyEffects in Water MS");
 
         foreach (MaterialSmart_Base material in ContactedObjects)
         {
-            materialToInfluence.OnWater(currentWeight, waterPerSecond, currentDegree);
+            materialToInfluence.OnWater(currentWeight, waterPerSecond, currentTemp);
             DepleteResource(waterPerSecond, currentWaterInside);
 
 
             if (materialStates[MaterialStatesE.Freezing])
             {
-                materialToInfluence.OnIce(currentDegree);
+                materialToInfluence.OnIce(currentTemp);
             }
             if (materialStates[MaterialStatesE.Electrifying])
             {
