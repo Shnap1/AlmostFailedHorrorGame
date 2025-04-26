@@ -15,8 +15,9 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     [Header("BASIC")]
 
     [Header("Reaction rates")]
-    public float reactionRate_fast;
-    public float reactionRate_slow;
+    [HideInInspector] public float reactionRate_fast = 1f;
+    [HideInInspector] public float reactionRate_slow = 10f;
+    public float currentReactionRate;
 
     [Header("SPENDING RATE")]
     public float waterPerSecond;
@@ -41,6 +42,14 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     // Temperature properties
     [Header("TEMPERATURE")]
     public float currentTemp;
+
+
+
+    //
+    public float lastHealth = 0;
+    public float lastWeight = 0;
+    public float lastSize = 0;
+    //
 
     //Chemichal properties
     [Header("CHEMICAL")]
@@ -142,12 +151,14 @@ public abstract class MaterialSmart_Base : MonoBehaviour
         {
             otherMS = other.gameObject.GetComponent<MaterialSmart_Base>();
 
+            currentReactionRate = reactionRate_fast;
+            otherMS.currentReactionRate = otherMS.reactionRate_fast;
 
-            if (reactionCoroutine != null) //coroutine is already running so just adding contactedGameObject list ------------ && otherMS.GetType() == typeof(MaterialSmart_Base)
+            if (reactionCoroutine != null) // 2 ----- coroutine is already running so just adding contactedGameObject list 
             {
                 if (!ContactedObjects.Contains(otherMS)) { ContactedObjects.Add(otherMS); }
             }
-            else if (reactionCoroutine == null && ContactedObjects.Count <= 0) //the first Contacted Game object turns on the coroutine -------- && otherMS.GetType() == typeof(MaterialSmart_Base)
+            else if (reactionCoroutine == null && ContactedObjects.Count <= 0) // 1 ---- the 1st Contacted Game object turns on the coroutine
             {
                 if (!ContactedObjects.Contains(otherMS)) { ContactedObjects.Add(otherMS); }
                 reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(otherMS, reactionRate_fast));
@@ -168,6 +179,36 @@ public abstract class MaterialSmart_Base : MonoBehaviour
         }
 
         // materialStates[MaterialStatesE.Burning] = true; //TODO set the material state AND/OR if condition
+
+    }
+    void OnTriggerExit(Collider other)
+    {
+
+
+
+        MaterialSmart_Base otherMS = null;
+        if (other.gameObject.GetComponent<MaterialSmart_Base>() != null)
+        {
+            otherMS = other.gameObject.GetComponent<MaterialSmart_Base>();
+
+            currentReactionRate = reactionRate_fast;
+            otherMS.currentReactionRate = otherMS.reactionRate_fast;
+
+            if (reactionCoroutine != null && ContactedObjects.Count >= 1) // 1 ----- coroutine is already running and theres more then 1 contactedGameObject list 
+            {
+                if (ContactedObjects.Contains(otherMS)) { ContactedObjects.Remove(otherMS); }
+
+            }
+            else if (reactionCoroutine != null && ContactedObjects.Count <= 0) // 2 ---- the LAST contactedGameObject isextracted so it turns off the coroutine
+            {
+                if (ContactedObjects.Contains(otherMS)) { ContactedObjects.Remove(otherMS); }
+                StopCoroutine(reactionCoroutine);
+                reactionCoroutine = null;
+            }
+        }
+
+
+
 
     }
 
@@ -209,12 +250,29 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(time);
+            time = ChangeReactionRate();
             ApplyEffects(materialToInfluence);
             Debug.Log("ApplyEffects_Enumerator");
+            yield return new WaitForSeconds(time);
         }
     }
 
-
+    public float ChangeReactionRate()
+    {
+        if (lastHealth == currentHealth || lastWeight == currentWeight || lastSize == currentSize)
+        {
+            lastHealth = currentHealth;
+            lastWeight = currentWeight;
+            lastSize = currentSize;
+            return reactionRate_slow;
+        }
+        else
+        {
+            lastHealth = currentHealth;
+            lastWeight = currentWeight;
+            lastSize = currentSize;
+            return reactionRate_fast;
+        }
+    }
 
 }

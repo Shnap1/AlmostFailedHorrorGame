@@ -27,7 +27,7 @@ public class nuclearSmokePowerUp : MonoBehaviour
             {
                 playerHealthCounter = other.GetComponent<HealthCounter>();
                 // Start the coroutine and store the reference
-                depleteHealthCoroutine = StartCoroutine(DepleteHealth());
+                depleteHealthCoroutine = StartCoroutine(DepleteHealth_Ienumerator());
             }
             if (other.gameObject.CompareTag("Enemy"))
             {
@@ -46,7 +46,7 @@ public class nuclearSmokePowerUp : MonoBehaviour
         }
     }
 
-    private IEnumerator DepleteHealth()
+    private IEnumerator DepleteHealth_Ienumerator()
     {
         while (true)
         {

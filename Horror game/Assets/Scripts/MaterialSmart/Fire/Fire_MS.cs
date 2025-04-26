@@ -105,11 +105,12 @@ public class Fire_MS : MaterialSmart_Base
 
     public override void OnWater(float WaterWeight, float GiveWaterPerSecond, float WaterTemperature)
     {
-        if (WaterWeight > currentSize)
+        if (GiveWaterPerSecond > currentSize)
         {
             currentTemp = 0;
+
+            objRenderer.material = ExtinguishedMat;
         }
-        objRenderer.material = ExtinguishedMat;
         // ObjWithMaterial.GetComponent<MeshRenderer>().material = currentMat;
     }
 
