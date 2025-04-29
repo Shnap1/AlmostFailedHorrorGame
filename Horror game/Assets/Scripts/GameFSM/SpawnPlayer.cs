@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnPlayer : MonoBehaviour
+public class SpawnPlayer : GAMEFSM_Base_State
 {
-    // Start is called before the first frame update
-    void Start()
+    GameStateManager SM;
+
+    public override void CheckSwitchState()
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void EnterState()
     {
-        
+        throw new System.NotImplementedException();
     }
+
+    public override void ExitState()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void UpdateState()
+    {
+    }
+
+
 }
