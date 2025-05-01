@@ -40,15 +40,13 @@ public class LootSpawner : MonoBehaviour
         {
             GameData.instance.lootSpawner = this;
         }
+        instance = this;
+
     }
     void Start()
     {
-        //var hp = healthPowerUp.GetComponent<IPowerUp>();
-        //hp.DoAction(2);
 
-        //thisPUSpawner = gameObject.GetComponent<PowerUpSpawner>();
-        FreeTransformsForSpawn = new List<Transform>(LocationsTrasnforms);
-        instance = this;
+        // instance = this;
     }
 
     // public void RandomSpawnPowerUp()
@@ -85,6 +83,10 @@ public class LootSpawner : MonoBehaviour
 
     // }
 
+    public void SetFreeTransPoints()
+    {
+        FreeTransformsForSpawn = new List<Transform>(LocationsTrasnforms);
+    }
     public static void PowerUpSpawn(int amountOfPowerUps, LootType lootType)
     {
         // Debug.Log($"PowerUpSpawn(amountOfPowerUps = {amountOfPowerUps}, LootType = {lootType})");

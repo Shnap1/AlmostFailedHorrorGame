@@ -7,11 +7,13 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
 
     [Header("Scripts for states")]
     public SectorSpawn sectorSpawn;
+    public GameLoopManager gameLoopManager;
+    public LootSpawner lootSpawner;
 
     [HideInInspector] public SpawnSectors_State SpawnSectors;
-    [HideInInspector] public SpawnBuilding_State SpawnBuilding;
-    [HideInInspector] public SpawnLoot_State SpawnLoot;
-    [HideInInspector] public SpawnPlayer_State SpawnPlayer;
+    [HideInInspector] public SpawnBuilding_State SpawnBuilding; //skipping for now
+    [HideInInspector] public SpawnLootAndEnemies_State SpawnLoot;
+    [HideInInspector] public SpawnPlayer_State SpawnPlayer; //put this above
     [HideInInspector] public GameStart_State GameStart;
     [HideInInspector] public GoalSelected_State GoalSelected;
     [HideInInspector] public GameCycle_State GameCycle;
@@ -45,7 +47,7 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
         SpawnBuilding.InitializeSM(this);
 
         //SpawnLoot
-        SpawnLoot = gameObject.AddComponent<SpawnLoot_State>();
+        SpawnLoot = gameObject.AddComponent<SpawnLootAndEnemies_State>();
         SpawnLoot.InitializeSM(this);
 
 

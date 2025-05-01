@@ -25,7 +25,7 @@ public class GameLoopManager : MonoBehaviour
     public int number_of_TARGETS_to_collect;
     public int current_number_of_TARGETS_collected;
 
-    public Stopwatch stopwatch;
+    // public Stopwatch stopwatch;
     public float gameTime;
 
     public static event Action<float, bool> onPlayTimeSTopped;
@@ -60,10 +60,11 @@ public class GameLoopManager : MonoBehaviour
         UpdateGameState(GameState.SpawnPlayer);
         // UnityEngine.Debug.Log($"Start() ---------- UpdateGameState(GameState.{currentGameState})");
         // testString = onGameStateChanger?.Invoke("test String from event") ?? "nothing";
-        if (currentTestString != null)
-        {
-            currentTestString = onGameStateChanger?.Invoke("test String from event") ?? "nothing";
-        }
+
+        // if (currentTestString != null)
+        // {
+        //     currentTestString = onGameStateChanger?.Invoke("test String from event") ?? "nothing";
+        // }
 
     }
 
@@ -134,18 +135,16 @@ public class GameLoopManager : MonoBehaviour
                     break;
                 case GameState.GameStart:
                     // surface.BuildNavMesh();
-                    SpawnEnemies(currentLevel.enemiesToSpawn);
-                    //TODO replace SpawnEnemies() with SpawnEnemiesByLevel() 
-                    //setting how many TARGETS to collect
-                    number_of_TARGETS_to_collect = currentLevel.number_of_TARGETS_to_spawn;
+
 
                     //Spawning LOOT
-                    LootSpawner.PowerUpSpawn(currentLevel.number_of_LOOT_to_spawn, LootSpawner.LootType.healthPU);
+                    // LootSpawner.PowerUpSpawn(currentLevel.number_of_LOOT_to_spawn, LootSpawner.LootType.healthPU);
 
                     //Spawning ARTIFACTS
-                    LootSpawner.PowerUpSpawn(currentLevel.number_of_TARGETS_to_spawn, LootSpawner.LootType.target);
+                    // LootSpawner.PowerUpSpawn(currentLevel.number_of_TARGETS_to_spawn, LootSpawner.LootType.target);
+                    SpawnLootAndEnemies();
 
-                    stopwatch = Stopwatch.StartNew();
+                    // stopwatch = Stopwatch.StartNew();
 
                     break;
                 case GameState.LootCollected:
@@ -153,11 +152,11 @@ public class GameLoopManager : MonoBehaviour
                     break;
                 case GameState.Victory:
                     //TODO add victory screen, kill enemies in gate boxCollider, add EXP and load next level 
-                    StopStopWatch(gameWon: true);
+                    // StopStopWatch(gameWon: true);
                     break;
                 case GameState.Lose:
                     //TODO add lose screen with 1) Retry button loading the same level 2) reload state 3) Lobby button to load lobby level
-                    StopStopWatch(gameWon: false);
+                    // StopStopWatch(gameWon: false);
                     break;
                 case GameState.Lobby:
                     //TODO add PLAY button in the corner that would open UI with options to load next level and scene that would change state to GatesOpen
@@ -181,7 +180,21 @@ public class GameLoopManager : MonoBehaviour
     }
 
 
+    public void SpawnLootAndEnemies()
+    {
 
+        LootSpawner.instance.SetFreeTransPoints();
+
+        LootSpawner.PowerUpSpawn(currentLevel.number_of_LOOT_to_spawn, LootSpawner.LootType.healthPU);
+
+        //Spawning ARTIFACTS
+        LootSpawner.PowerUpSpawn(currentLevel.number_of_TARGETS_to_spawn, LootSpawner.LootType.target);
+
+        SpawnEnemies(currentLevel.enemiesToSpawn);
+        //TODO replace SpawnEnemies() with SpawnEnemiesByLevel() 
+        //setting how many TARGETS to collect
+        number_of_TARGETS_to_collect = currentLevel.number_of_TARGETS_to_spawn;
+    }
 
     void SpawnCollectables(int collectablesToSpawn)
     {
@@ -222,12 +235,12 @@ public class GameLoopManager : MonoBehaviour
 
     }
 
-    void StopStopWatch(bool gameWon)
-    {
-        stopwatch.Stop();
-        gameTime = (float)stopwatch.Elapsed.TotalSeconds;
-        onPlayTimeSTopped?.Invoke(gameTime, gameWon);
-    }
+    // void StopStopWatch(bool gameWon)
+    // {
+    //     stopwatch.Stop();
+    //     gameTime = (float)stopwatch.Elapsed.TotalSeconds;
+    //     onPlayTimeSTopped?.Invoke(gameTime, gameWon);
+    // }
 }
 
 public class GameLevel

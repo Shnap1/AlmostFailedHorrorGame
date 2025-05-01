@@ -183,10 +183,6 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 02bfcace6dc1b854ea51228265c2072b,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4560287220256129427}
     - targetCorrespondingSourceObject: {fileID: -7640558969779515294, guid: 02bfcace6dc1b854ea51228265c2072b,
         type: 3}
       insertIndex: -1
@@ -202,34 +198,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2528405108873066050}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3447464682743679763 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 02bfcace6dc1b854ea51228265c2072b,
-    type: 3}
-  m_PrefabInstance: {fileID: 2528405108873066050}
-  m_PrefabAsset: {fileID: 0}
---- !u!64 &4560287220256129427
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3447464682743679763}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
 --- !u!1 &3954718019086149152 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7640558969779515294, guid: 02bfcace6dc1b854ea51228265c2072b,
@@ -255,7 +223,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5053925668127403250, guid: 02bfcace6dc1b854ea51228265c2072b, type: 3}
 --- !u!1 &5393893034728889021 stripped
@@ -283,7 +251,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2212009239438826721, guid: 02bfcace6dc1b854ea51228265c2072b, type: 3}
 --- !u!1001 &5010672009788393675
@@ -307,7 +275,7 @@ PrefabInstance:
     - target: {fileID: 4042982257667193145, guid: b591860ac519bd242b65f78e72e38537,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 51.47268
+      value: 52.614
       objectReference: {fileID: 0}
     - target: {fileID: 4042982257667193145, guid: b591860ac519bd242b65f78e72e38537,
         type: 3}
