@@ -12,7 +12,7 @@ public abstract class MaterialSmart_Base : MonoBehaviour
 
     public MaterialSmart_Data MSData;
     //Basic properties
-    [Header("BASIC")]
+    // [Header("BASIC")]
 
     [Header("Reaction rates")]
     [HideInInspector] public float reactionRate_fast = 1f;

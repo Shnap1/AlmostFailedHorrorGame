@@ -4,85 +4,92 @@ using UnityEngine;
 
 public class GameStateManager : MonoBehaviour, IStateManagerNew
 {
-    [HideInInspector] public SpawnSectors SpawnSectors;
-    [HideInInspector] public SpawnBuilding SpawnBuilding;
-    [HideInInspector] public SpawnLoot SpawnLoot;
-    [HideInInspector] public SpawnPlayer SpawnPlayer;
-    [HideInInspector] public GameStart GameStart;
-    [HideInInspector] public GoalSelected GoalSelected;
-    [HideInInspector] public GameCycle GameCycle;
-    [HideInInspector] public WaitingForPlayerResult WaitingForPlayerResult;
+
+    [Header("Scripts for states")]
+    public SectorSpawn sectorSpawn;
+
+    [HideInInspector] public SpawnSectors_State SpawnSectors;
+    [HideInInspector] public SpawnBuilding_State SpawnBuilding;
+    [HideInInspector] public SpawnLoot_State SpawnLoot;
+    [HideInInspector] public SpawnPlayer_State SpawnPlayer;
+    [HideInInspector] public GameStart_State GameStart;
+    [HideInInspector] public GoalSelected_State GoalSelected;
+    [HideInInspector] public GameCycle_State GameCycle;
+    [HideInInspector] public WaitingForPlayerResult_State WaitingForPlayerResult;
 
 
-    [HideInInspector] public Death Death;
-    [HideInInspector] public ObjectiveFailed ObjectiveFailed;
-    [HideInInspector] public Loose Loose;
+    [HideInInspector] public Death_State Death;
+    [HideInInspector] public ObjectiveFailed_State ObjectiveFailed;
+    [HideInInspector] public Loose_State Loose;
 
 
-    [HideInInspector] public Victory Victory;
-    [HideInInspector] public GetRewards GetRewards;
+    [HideInInspector] public Victory_State Victory;
+    [HideInInspector] public GetRewards_State GetRewards;
 
-    [HideInInspector] public GoToLobby GoToLobby;
-    [HideInInspector] public NextGame NextGame;
+    [HideInInspector] public GoToLobby_State GoToLobby;
+    [HideInInspector] public NextGame_State NextGame;
 
-    IStateNew currentState;
+    GAMEFSM_Base_State currentState;
+
+
+
 
 
     public void InitializeStates()
     {
-        SpawnSectors = gameObject.AddComponent<SpawnSectors>();
+        SpawnSectors = gameObject.AddComponent<SpawnSectors_State>();
         SpawnSectors.InitializeSM(this);
 
         //SpawnBuilding
-        SpawnBuilding = gameObject.AddComponent<SpawnBuilding>();
+        SpawnBuilding = gameObject.AddComponent<SpawnBuilding_State>();
         SpawnBuilding.InitializeSM(this);
 
         //SpawnLoot
-        SpawnLoot = gameObject.AddComponent<SpawnLoot>();
+        SpawnLoot = gameObject.AddComponent<SpawnLoot_State>();
         SpawnLoot.InitializeSM(this);
 
 
         //SpawnPlayer
-        SpawnPlayer = gameObject.AddComponent<SpawnPlayer>();
+        SpawnPlayer = gameObject.AddComponent<SpawnPlayer_State>();
         SpawnPlayer.InitializeSM(this);
 
         //GameStart
-        GameStart = gameObject.AddComponent<GameStart>();
+        GameStart = gameObject.AddComponent<GameStart_State>();
         GameStart.InitializeSM(this);
         //GoalSelected
-        GoalSelected = gameObject.AddComponent<GoalSelected>();
+        GoalSelected = gameObject.AddComponent<GoalSelected_State>();
         GoalSelected.InitializeSM(this);
         //GameCycle
-        GameCycle = gameObject.AddComponent<GameCycle>();
+        GameCycle = gameObject.AddComponent<GameCycle_State>();
         GameCycle.InitializeSM(this);
         //WaitingForPlayerResult
-        WaitingForPlayerResult = gameObject.AddComponent<WaitingForPlayerResult>();
+        WaitingForPlayerResult = gameObject.AddComponent<WaitingForPlayerResult_State>();
         WaitingForPlayerResult.InitializeSM(this);
 
 
         //Death
-        Death = gameObject.AddComponent<Death>();
+        Death = gameObject.AddComponent<Death_State>();
         Death.InitializeSM(this);
         //ObjectiveFailed
-        ObjectiveFailed = gameObject.AddComponent<ObjectiveFailed>();
+        ObjectiveFailed = gameObject.AddComponent<ObjectiveFailed_State>();
         ObjectiveFailed.InitializeSM(this);
         //Loose
-        Loose = gameObject.AddComponent<Loose>();
+        Loose = gameObject.AddComponent<Loose_State>();
         Loose.InitializeSM(this);
 
 
         //Victory
-        Victory = gameObject.AddComponent<Victory>();
+        Victory = gameObject.AddComponent<Victory_State>();
         Victory.InitializeSM(this);
         //GetRewards
-        GetRewards = gameObject.AddComponent<GetRewards>();
+        GetRewards = gameObject.AddComponent<GetRewards_State>();
         GetRewards.InitializeSM(this);
 
         //GoToLobby
-        GoToLobby = gameObject.AddComponent<GoToLobby>();
+        GoToLobby = gameObject.AddComponent<GoToLobby_State>();
         GoToLobby.InitializeSM(this);
         //NextGame
-        NextGame = gameObject.AddComponent<NextGame>();
+        NextGame = gameObject.AddComponent<NextGame_State>();
         NextGame.InitializeSM(this);
 
 
@@ -90,7 +97,11 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
 
     }
 
-    public void SwitchState(IStateNew state)
+    public void Switch_IState(IStateNew state)
+    {
+
+    }
+    public void SwitchState(GAMEFSM_Base_State state)
     {
         if (currentState != state)
         {

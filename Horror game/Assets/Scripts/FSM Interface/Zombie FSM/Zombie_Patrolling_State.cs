@@ -204,11 +204,11 @@ public class Zombie_Patrolling_State : MonoBehaviour, IStateNew
     {
         if (SM.playerInSightRange && !SM.playerInAttackRange)
         {
-            SM.SwitchState(SM.Chasing);
+            SM.Switch_IState(SM.Chasing);
         }
         else if (SM.playerInAttackRange && SM.playerInSightRange)
         {
-            SM.SwitchState(SM.Attacking);
+            SM.Switch_IState(SM.Attacking);
 
         }
     }

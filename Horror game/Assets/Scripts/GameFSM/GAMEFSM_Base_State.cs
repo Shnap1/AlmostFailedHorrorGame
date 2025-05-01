@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class GAMEFSM_Base_State : MonoBehaviour
 {
-    GameStateManager SM;
+    public GameStateManager SM;
 
     public virtual void InitializeSM<T>(T stateManager) where T : IStateManagerNew
     {

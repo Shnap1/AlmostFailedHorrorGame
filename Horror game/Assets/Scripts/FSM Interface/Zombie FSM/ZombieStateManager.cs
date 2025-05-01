@@ -102,7 +102,7 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
 
     }
 
-    public void SwitchState(IStateNew state)
+    public void Switch_IState(IStateNew state)
     {
         if (currentState != null)
         {
@@ -264,6 +264,11 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
         Gizmos.DrawWireSphere(transform.position, attackRange);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, sightRange);
+    }
+
+    public void SwitchState(GAMEFSM_Base_State state)
+    {
+        // throw new NotImplementedException();
     }
 
     #endregion
