@@ -6,6 +6,7 @@ using UnityEngine;
 public class SpawnSectors_State : GAMEFSM_Base_State
 {
     public SectorSpawn sectorSpawn;
+    public bool sectorsFinishedSpawning;
 
     void Start()
     {
@@ -14,7 +15,7 @@ public class SpawnSectors_State : GAMEFSM_Base_State
     public override void EnterState()
     {
         sectorSpawn = SM.sectorSpawn;
-        // sectorSpawn.SpawnRandomSectors();
+        sectorSpawn.SpawnRandomSectors();
     }
 
     public override void ExitState()
@@ -23,10 +24,16 @@ public class SpawnSectors_State : GAMEFSM_Base_State
 
     public override void UpdateState()
     {
+        CheckSwitchState();
     }
 
     public override void CheckSwitchState()
     {
+        sectorsFinishedSpawning = sectorSpawn.ReferenceState();
+        if (sectorsFinishedSpawning)
+        {
+            SM.SwitchState(SM.SpawnBuilding);
+        }
     }
 
 }

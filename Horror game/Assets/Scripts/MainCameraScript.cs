@@ -13,12 +13,12 @@ public class MainCameraScript : MonoBehaviour
         // {
         // }
         onCamCreated?.Invoke(this.transform);
-        Debug.Log("CAM TEST - MainCameraScript onCamCreated on " + this.name);
+        // Debug.Log("CAM TEST - MainCameraScript onCamCreated on " + this.name);
     }
     void Start()
     {
         onCamCreated?.Invoke(this.transform);
-        Debug.Log("CAM TEST - MainCameraScript onCamCreated on " + this.name);
+        // Debug.Log("CAM TEST - MainCameraScript onCamCreated on " + this.name);
     }
 
     // Start is called before the first frame update

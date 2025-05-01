@@ -119,12 +119,12 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
     {
         InitializeStates();
         SwitchState(SpawnSectors);
-        Debug.Log("CurrentState in StateManager--" + currentState);
+        // Debug.Log("CurrentState in StateManager--" + currentState);
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        currentState.UpdateState();
     }
 }

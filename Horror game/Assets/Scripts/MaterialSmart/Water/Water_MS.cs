@@ -150,7 +150,7 @@ public class Water_MS : MaterialSmart_Base
     public override void ApplyEffects(MaterialSmart_Base materialToInfluence)
     {
         //TODO: only works for materials, NOT  NPCs or PLAYERs. Needs to be fixed. Either by 1) rewriting PLAYER/NPC reaction logic or 2) creating a new material for them, or 3) separate method here for them
-        Debug.Log("ApplyEffects in Water MS");
+        // Debug.Log("ApplyEffects in Water MS");
 
         foreach (MaterialSmart_Base material in ContactedObjects)
         {

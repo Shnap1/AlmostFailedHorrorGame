@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering.Universal;
 using UnityEngine;
 
 public class SectorSpawn : MonoBehaviour
@@ -19,30 +20,30 @@ public class SectorSpawn : MonoBehaviour
     {
 
     }
-    public bool SpawnRandomSectors()
+    public void SpawnRandomSectors()
     {
         for (int i = 0; i < sectorPlaceholder.Count; i++)
         {
+            // Debug.Log($"i:{i} >= sectorPlaceholder.Count:{sectorPlaceholder.Count}");
             GameObject randomSector = sectors[Random.Range(0, sectors.Count)];
             Instantiate(randomSector, sectorPlaceholder[i].position, sectorPlaceholder[i].rotation);
             sectorPlaceholder[i].gameObject.SetActive(false);
-            if (i == sectorPlaceholder.Count)
+            if (i >= sectorPlaceholder.Count - 1)
             {
                 finishedSpawning = true;
-                return finishedSpawning;
+                // Debug.Log($"i:{i} >= sectorPlaceholder.Count - 1:{sectorPlaceholder.Count - 1}");
+
+                ReferenceState();
             }
-            else if (i >= sectorPlaceholder.Count)
+            else if (i <= sectorPlaceholder.Count)
             {
                 finishedSpawning = false;
-                return finishedSpawning;
-
             }
         }
-        return false;
     }
 
-    public void ReferenceSTate()
+    public bool ReferenceState()
     {
-
+        return finishedSpawning;
     }
 }

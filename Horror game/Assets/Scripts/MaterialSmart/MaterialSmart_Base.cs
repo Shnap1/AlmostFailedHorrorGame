@@ -252,7 +252,7 @@ public abstract class MaterialSmart_Base : MonoBehaviour
         {
             time = ChangeReactionRate();
             ApplyEffects(materialToInfluence);
-            Debug.Log("ApplyEffects_Enumerator");
+            // Debug.Log("ApplyEffects_Enumerator");
             yield return new WaitForSeconds(time);
         }
     }

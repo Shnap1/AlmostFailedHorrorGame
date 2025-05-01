@@ -22,10 +22,10 @@ public class InteriorSpawn : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey("r"))
-        {
-            SpawnAllSectorInteriors();
-        }
+        // if (Input.GetKey("r"))
+        // {
+        //     SpawnAllSectorInteriors();
+        // }
     }
 
     void OnTriggerEnter(Collider other)
@@ -75,7 +75,7 @@ public class InteriorSpawn : MonoBehaviour
         }
         else
         {
-            Debug.Log("No more placeholders in" + nameof(placeholders));
+            // Debug.Log("No more placeholders in" + nameof(placeholders));
         }
     }
 

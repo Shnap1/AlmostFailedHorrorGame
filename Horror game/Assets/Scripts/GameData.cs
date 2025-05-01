@@ -60,7 +60,7 @@ public class GameData : MonoBehaviour
     public void GetCamTransform(Transform cam)
     {
         this.cam = cam;
-        Debug.Log("CAM TEST - GetCamTransform");
+        // Debug.Log("CAM TEST - GetCamTransform");
     }
 
     public void GetPlayerTransform(Transform player)

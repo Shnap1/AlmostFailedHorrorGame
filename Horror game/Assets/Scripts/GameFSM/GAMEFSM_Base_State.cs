@@ -9,7 +9,7 @@ public abstract class GAMEFSM_Base_State : MonoBehaviour
     public virtual void InitializeSM<T>(T stateManager) where T : IStateManagerNew
     {
         SM = stateManager as GameStateManager;
-        Debug.Log("GAMEFSM InitializeSM");
+        // Debug.Log("GAMEFSM InitializeSM");
     }
     public abstract void CheckSwitchState()
 ;

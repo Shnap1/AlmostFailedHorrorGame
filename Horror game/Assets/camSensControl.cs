@@ -65,7 +65,7 @@ public class camSensControl : MonoBehaviour
 
     public void UpdateSensitivity(float newSensitivity)
     {
-        Debug.Log("Sensitivity - UpdateSensitivity in camSensControl.cs --- " + newSensitivity);
+        // Debug.Log("Sensitivity - UpdateSensitivity in camSensControl.cs --- " + newSensitivity);
 
         customSpeed = newSensitivity;
 

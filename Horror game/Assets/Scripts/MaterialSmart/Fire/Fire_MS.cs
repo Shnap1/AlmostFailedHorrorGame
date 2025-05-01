@@ -44,7 +44,7 @@ public class Fire_MS : MaterialSmart_Base
 
     public override void ApplyEffects(MaterialSmart_Base materialToInfluence)
     {
-        Debug.Log("ApplyEffects in Fire MS");
+        // Debug.Log("ApplyEffects in Fire MS");
 
         if (materialStates[MaterialStatesE.Burning])
         {

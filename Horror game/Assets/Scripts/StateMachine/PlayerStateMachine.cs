@@ -100,7 +100,7 @@ public class PlayerStateMachine : MonoBehaviour
         if (isMainPlayer)
         {
             onPlayerCreated?.Invoke(this.transform);
-            Debug.Log("onPlayerCreated?.Invoke in " + this.gameObject.name + "with isMainPlayer set to" + isMainPlayer);
+            // Debug.Log("onPlayerCreated?.Invoke in " + this.gameObject.name + "with isMainPlayer set to" + isMainPlayer);
         }
         // onPlayerCreated?.Invoke(this.transform);
         // initialy set reference variables

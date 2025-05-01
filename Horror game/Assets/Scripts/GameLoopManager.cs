@@ -110,7 +110,7 @@ public class GameLoopManager : MonoBehaviour
     }
     public void UpdateGameState(GameState newGameState)
     {
-        UnityEngine.Debug.Log($"UpdateGameState({newGameState})");
+        // UnityEngine.Debug.Log($"UpdateGameState({newGameState})");
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -126,7 +126,7 @@ public class GameLoopManager : MonoBehaviour
                     // SpawnEnemies(currentLevel.enemiesToSpawn);
                     // SpawnLoot(currentLevel.lootToSpawn);
                     // SpawnCollectables(currentLevel.collectablesToSpawn);
-                    UnityEngine.Debug.Log("Gates Opened");
+                    // UnityEngine.Debug.Log("Gates Opened");
 
                     // Cursor.lockState = CursorLockMode.Locked;
                     // Cursor.visible = false;

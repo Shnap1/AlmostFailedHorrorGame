@@ -47,15 +47,27 @@ public class HealthBar : MonoBehaviour
     {
         if (YandexGame.SDKEnabled && YandexGame.LangEnable())
         {
-            if (YandexGame.lang == "ru") { curLanguage = Languages.ru; Debug.Log("testTranslate() " + curLanguage); }
+            if (YandexGame.lang == "ru")
+            {
+                curLanguage = Languages.ru;
+                // Debug.Log("testTranslate() " + curLanguage); 
+            }
 
 
-            if (YandexGame.lang == "tr") { curLanguage = Languages.tr; Debug.Log("testTranslate() " + curLanguage); }
-            Debug.Log("testTranslate() " + curLanguage);
+            if (YandexGame.lang == "tr")
+            {
+                curLanguage = Languages.tr;
+                // Debug.Log("testTranslate() " + curLanguage);
+            }
+            // Debug.Log("testTranslate() " + curLanguage);
 
-            if (YandexGame.lang == "en") { curLanguage = Languages.en; Debug.Log("testTranslate() " + curLanguage); }
+            if (YandexGame.lang == "en")
+            {
+                curLanguage = Languages.en;
+                // Debug.Log("testTranslate() " + curLanguage); 
+            }
 
-            Debug.Log("testTranslate() YandexGame.lang ==  " + YandexGame.lang);
+            // Debug.Log("testTranslate() YandexGame.lang ==  " + YandexGame.lang);
         }
 
     }
@@ -73,7 +85,7 @@ public class HealthBar : MonoBehaviour
     void UpdateStateText(GameLoopManager.GameState gameState, int number_of_TARGETS_to_collect, int number_of_TARGETS_collected)
     {
         //currentGameStateText.text = gameState.ToString();
-        Debug.Log($"UpdateStateText() gameState = {gameState} + curLanguage =  {curLanguage} ");
+        // Debug.Log($"UpdateStateText() gameState = {gameState} + curLanguage =  {curLanguage} ");
 
         switch (gameState)
         {
