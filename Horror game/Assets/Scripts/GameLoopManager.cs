@@ -94,7 +94,7 @@ public class GameLoopManager : MonoBehaviour
 
     };
 
-    GameLevel currentLevel = new GameLevel(levelNumber: 1, enemiesToSpawn: 5, lootToSpawn: 4, collectablesToSpawn: 5);
+    public GameLevel currentLevel = new GameLevel(levelNumber: 1, enemiesToSpawn: 5, lootToSpawn: 4, collectablesToSpawn: 5);
 
     public enum GameState
     {
@@ -174,7 +174,7 @@ public class GameLoopManager : MonoBehaviour
 
     }
 
-    void LoadLevelData(GameLevel level)
+    public void LoadLevelData(GameLevel level)
     {
         currentLevel = level;
     }

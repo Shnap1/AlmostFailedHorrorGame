@@ -6,11 +6,14 @@ public class SpawnLootAndEnemies_State : GAMEFSM_Base_State
 {
     public override void EnterState()
     {
+        SpawningLoot();
 
     }
 
     void SpawningLoot()
     {
+
+        SM.gameLoopManager.LoadLevelData(SM.gameLoopManager.currentLevel);
         SM.gameLoopManager.SpawnLootAndEnemies();
     }
 
