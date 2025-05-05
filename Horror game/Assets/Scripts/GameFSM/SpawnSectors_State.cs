@@ -8,10 +8,7 @@ public class SpawnSectors_State : GAMEFSM_Base_State
     public SectorSpawn sectorSpawn;
     public bool sectorsFinishedSpawning;
 
-    void Start()
-    {
-        EnterState();
-    }
+
     public override void EnterState()
     {
         sectorSpawn = SM.sectorSpawn;

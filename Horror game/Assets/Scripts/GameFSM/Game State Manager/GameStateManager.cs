@@ -9,7 +9,8 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
     public SectorSpawn sectorSpawn;
     public GameLoopManager gameLoopManager;
     public LootSpawner lootSpawner;
-    public GateOpener gateOpener;
+    // public GateOpener gateOpener;
+    public GatesNew gatesNew;
     public HealthBar healthBar;
     public LootCounter lootCounter;
     public SettingsMenu settingsMenu;
@@ -36,7 +37,7 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
     [HideInInspector] public GoToLobby_State GoToLobby;
     [HideInInspector] public NextGame_State NextGame;
 
-    GAMEFSM_Base_State currentState;
+    public GAMEFSM_Base_State currentState;
 
 
 
@@ -53,10 +54,10 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
 
     public void SetGameMode(GameModes gameMode)
     {
-        if (gameMode != currentGameMode)
-        {
-            currentGameMode = gameMode;
-        }
+        currentGameMode = gameMode;
+        // if (gameMode != currentGameMode)
+        // {
+        // }
     }
     public void InitializeStates()
     {
@@ -67,9 +68,6 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
         switch (gameMode)
         {
             case GameModes.KillMonstersMode:
-                SpawnSectors = gameObject.AddComponent<SpawnSectors_State>();
-                SpawnSectors.InitializeSM(this);
-
                 SpawnSectors = gameObject.AddComponent<SpawnSectors_State>();
                 SpawnSectors.InitializeSM(this);
 
@@ -140,11 +138,18 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
     }
     public void SwitchState(GAMEFSM_Base_State state)
     {
-        if (currentState != state)
+        if (currentState != null)
         {
             currentState.ExitState();
-            currentState = state;
         }
+        currentState = state;
+        if (currentState != null)
+        {
+            currentState.EnterState();
+        }
+        // if (currentState != state)
+        // {
+        // }
     }
 
     // Start is called before the first frame update
@@ -152,19 +157,25 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
     {
         // player = GameData.instance.player; //TODO: add that 
         // cam = GameData.instance.cam;
-    }
-    void Start()
-    {
         SetGameMode(GameModes.KillMonstersMode);
         InitializeStates();
 
         SwitchState(SpawnSectors);
-        // Debug.Log("CurrentState in StateManager--" + currentState);
+    }
+    void Start()
+    {
     }
 
     // Update is called once per frame
     void Update()
     {
-        currentState.UpdateState();
+        if (currentState != null)
+        {
+            currentState.UpdateState();
+        }
+        else
+        {
+            Debug.Log("currentState == null");
+        }
     }
 }
