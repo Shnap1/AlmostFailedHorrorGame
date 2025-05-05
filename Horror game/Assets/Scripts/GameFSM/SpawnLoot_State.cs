@@ -4,17 +4,22 @@ using UnityEngine;
 
 public class SpawnLootAndEnemies_State : GAMEFSM_Base_State
 {
+    bool finished;
     public override void EnterState()
     {
-        SpawningLoot();
+        // SpawningLoot();
+        finished = false;
+        SM.gameLoopManager.LoadLevelData(SM.gameLoopManager.currentLevel);
+        SM.gameLoopManager.SpawnLootAndEnemies();
+        SM.playerSpawner.SpawnStartingGates();//spawns gates and player
+        finished = true;
 
     }
 
     void SpawningLoot()
     {
 
-        SM.gameLoopManager.LoadLevelData(SM.gameLoopManager.currentLevel);
-        SM.gameLoopManager.SpawnLootAndEnemies();
+
     }
 
     public override void ExitState()
@@ -23,10 +28,15 @@ public class SpawnLootAndEnemies_State : GAMEFSM_Base_State
 
     public override void UpdateState()
     {
+        CheckSwitchState();
     }
 
     public override void CheckSwitchState()
     {
+        if (finished)
+        {
+            SM.SwitchState(SM.GameCycle);
+        }
     }
 
 }

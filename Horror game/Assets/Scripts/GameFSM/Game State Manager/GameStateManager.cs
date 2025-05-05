@@ -11,6 +11,7 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
     public LootSpawner lootSpawner;
     // public GateOpener gateOpener;
     public GatesNew gatesNew;
+    public PlayerSpawner playerSpawner;
     public HealthBar healthBar;
     public LootCounter lootCounter;
     public SettingsMenu settingsMenu;

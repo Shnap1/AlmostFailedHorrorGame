@@ -21,11 +21,11 @@ public class PlayerSpawner : MonoBehaviour
 
     void OnEnable()
     {
-        GameLoopManager.OnGameUpdate += SpawnPlayer;
+        // GameLoopManager.OnGameUpdate += SpawnPlayer;
     }
     void OnDisable()
     {
-        GameLoopManager.OnGameUpdate -= SpawnPlayer;
+        // GameLoopManager.OnGameUpdate -= SpawnPlayer;
     }
 
     private void Awake()
@@ -46,7 +46,7 @@ public class PlayerSpawner : MonoBehaviour
 
     void Start()
     {
-        SpawnStartingGates();
+        // SpawnStartingGates();
     }
 
     void Update()
@@ -92,15 +92,15 @@ public class PlayerSpawner : MonoBehaviour
 
     }
 
-    public void SpawnPlayer()
-    {
+    // public void SpawnPlayer()
+    // {
 
-    }
+    // }
 
-    public void SpawnPlayer(GameLoopManager.GameState gameState)
-    {
+    // public void SpawnPlayer(GameLoopManager.GameState gameState)
+    // {
 
-    }
+    // }
 
 
 
