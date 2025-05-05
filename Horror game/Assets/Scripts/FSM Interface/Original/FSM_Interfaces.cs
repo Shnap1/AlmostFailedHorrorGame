@@ -5,6 +5,8 @@ using UnityEngine;
 public interface IStateManagerNew
 {
     void InitializeStates();
+
+
     void Switch_IState(IStateNew state);
     void SwitchState(GAMEFSM_Base_State state);
 
