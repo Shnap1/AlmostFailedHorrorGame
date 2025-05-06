@@ -7,18 +7,17 @@ public class SpawnLootAndEnemies_State : GAMEFSM_Base_State
     bool finished;
     public override void EnterState()
     {
-        // SpawningLoot();
-        finished = false;
-        SM.gameLoopManager.LoadLevelData(SM.gameLoopManager.currentLevel);
-        SM.gameLoopManager.SpawnLootAndEnemies();
-        SM.playerSpawner.SpawnStartingGates();//spawns gates and player
-        finished = true;
+        SpawningLoot();
 
     }
 
     void SpawningLoot()
     {
-
+        finished = false;
+        SM.gameLoopManager.LoadLevelData(SM.gameLoopManager.currentLevel);
+        SM.gameLoopManager.SpawnLootAndEnemies();
+        SM.playerSpawner.SpawnStartingGates();//spawns gates and player
+        finished = true;
 
     }
 

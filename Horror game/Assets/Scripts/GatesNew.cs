@@ -4,24 +4,20 @@ using UnityEngine;
 
 public class GatesNew : MonoBehaviour
 {
-    public PlayerSpawner playerSpawner;
+    public bool playerInside = false;
+
     void OnTriggerExit(Collider other)
     {
-        // Debug.Log("Game Started  === PLAYER EXITED THE GATE");
-
-        if (other.gameObject.tag == "Player" && GameLoopManager.currentGameState == GameLoopManager.GameState.SpawnPlayer)
+        if (other.gameObject.tag == "Player")
         {
-            playerSpawner.gameLoopManager.UpdateGameState(GameLoopManager.GameState.GameStart);
-            // Debug.Log("Game Started  === PLAYER EXITED THE GATE");
-
+            playerInside = false;
         }
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" && GameLoopManager.currentGameState == GameLoopManager.GameState.LootCollected)
+        if (other.gameObject.tag == "Player")
         {
-            //gateOpener.Close();
-            playerSpawner.gameLoopManager.UpdateGameState(GameLoopManager.GameState.Victory);
+            playerInside = true;
         }
     }
 }

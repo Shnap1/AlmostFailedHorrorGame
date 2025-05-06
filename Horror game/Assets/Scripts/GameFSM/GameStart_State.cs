@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameStart_State : GAMEFSM_Base_State
 {
+
     public override void EnterState()
     {
     }
@@ -18,6 +19,10 @@ public class GameStart_State : GAMEFSM_Base_State
 
     public override void CheckSwitchState()
     {
+        if (!SM.gatesNew.playerInside)
+        {
+            SM.SwitchState(SM.GameCycle);
+        }
     }
 
 }

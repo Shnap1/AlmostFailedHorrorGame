@@ -4,47 +4,22 @@ using UnityEngine;
 
 public class GateTrigger : MonoBehaviour
 {
-    bool gameBegan = false;
-    [SerializeField] GateOpener gateOpener;
-    [SerializeField] GameLoopManager gameLoopManager;
+    public bool playerInside = false;
 
-    void Awake()
-    {
-        // GameLoopManager.OnGameUpdate += PlayerGateTrigger;
-    }
-    void OnDisable()
-    {
-        // GameLoopManager.OnGameUpdate -= PlayerGateTrigger;
-    }
 
-    // void PlayerGateTrigger(GameLoopManager.GameState gameState){
-    //     if(gameState == GameLoopManager.GameState.GatesOpen){
-    //         gameBegan = true;
-    //     }
-    //     else if(gameState == GameLoopManager.GameState.LootCollected)
-    //     {
-    //         gameBegan = false;
-    //     }
-    // }
 
     void OnTriggerExit(Collider other)
     {
-        // Debug.Log("Game Started  === PLAYER EXITED THE GATE");
-
-        if (other.gameObject.tag == "Player" && GameLoopManager.currentGameState == GameLoopManager.GameState.SpawnPlayer)
+        if (other.gameObject.tag == "Player")
         {
-            //gateOpener.Close();
-            gameLoopManager.UpdateGameState(GameLoopManager.GameState.GameStart);
-            // Debug.Log("Game Started  === PLAYER EXITED THE GATE");
-
+            playerInside = false;
         }
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player" && GameLoopManager.currentGameState == GameLoopManager.GameState.LootCollected)
+        if (other.gameObject.tag == "Player")
         {
-            //gateOpener.Close();
-            gameLoopManager.UpdateGameState(GameLoopManager.GameState.Victory);
+            playerInside = true;
         }
     }
 }

@@ -18,13 +18,14 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
 
 
     [HideInInspector] public SpawnSectors_State SpawnSectors;
-    [HideInInspector] public SpawnBuilding_State SpawnBuilding; //skipping for now
-    [HideInInspector] public SpawnLootAndEnemies_State SpawnLoot;
+    // [HideInInspector] public SpawnBuilding_State SpawnBuilding; //skipping for now
+    [HideInInspector] public SpawnLootAndEnemies_State SpawnLootAndEnemies;
     [HideInInspector] public SpawnPlayer_State SpawnPlayer; //put this above
+
     [HideInInspector] public GameStart_State GameStart;
-    [HideInInspector] public GoalSelected_State GoalSelected;
+    // [HideInInspector] public GoalSelected_State GoalSelected;
     [HideInInspector] public GameCycle_State GameCycle;
-    [HideInInspector] public WaitingForPlayerResult_State WaitingForPlayerResult;
+    // [HideInInspector] public WaitingForPlayerResult_State WaitingForPlayerResult;
 
 
     [HideInInspector] public Death_State Death;
@@ -73,12 +74,12 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
                 SpawnSectors.InitializeSM(this);
 
                 //SpawnBuilding
-                SpawnBuilding = gameObject.AddComponent<SpawnBuilding_State>();
-                SpawnBuilding.InitializeSM(this);
+                // SpawnBuilding = gameObject.AddComponent<SpawnBuilding_State>();
+                // SpawnBuilding.InitializeSM(this);
 
                 //SpawnLoot
-                SpawnLoot = gameObject.AddComponent<SpawnLootAndEnemies_State>();
-                SpawnLoot.InitializeSM(this);
+                SpawnLootAndEnemies = gameObject.AddComponent<SpawnLootAndEnemies_State>();
+                SpawnLootAndEnemies.InitializeSM(this);
 
 
                 //SpawnPlayer
@@ -89,14 +90,16 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
                 GameStart = gameObject.AddComponent<GameStart_State>();
                 GameStart.InitializeSM(this);
                 //GoalSelected
-                GoalSelected = gameObject.AddComponent<GoalSelected_State>();
-                GoalSelected.InitializeSM(this);
+                // GoalSelected = gameObject.AddComponent<GoalSelected_State>();
+                // GoalSelected.InitializeSM(this);
+
                 //GameCycle
                 GameCycle = gameObject.AddComponent<GameCycle_State>();
                 GameCycle.InitializeSM(this);
+
                 //WaitingForPlayerResult
-                WaitingForPlayerResult = gameObject.AddComponent<WaitingForPlayerResult_State>();
-                WaitingForPlayerResult.InitializeSM(this);
+                // WaitingForPlayerResult = gameObject.AddComponent<WaitingForPlayerResult_State>();
+                // WaitingForPlayerResult.InitializeSM(this);
 
 
                 //Death

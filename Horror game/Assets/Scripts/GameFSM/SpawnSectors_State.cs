@@ -11,8 +11,10 @@ public class SpawnSectors_State : GAMEFSM_Base_State
 
     public override void EnterState()
     {
+        sectorsFinishedSpawning = false;
         sectorSpawn = SM.sectorSpawn;
         sectorSpawn.SpawnRandomSectors();
+        sectorsFinishedSpawning = true;
     }
 
     public override void ExitState()
@@ -26,10 +28,10 @@ public class SpawnSectors_State : GAMEFSM_Base_State
 
     public override void CheckSwitchState()
     {
-        sectorsFinishedSpawning = sectorSpawn.ReferenceState();
+        // sectorsFinishedSpawning = sectorSpawn.ReferenceState();
         if (sectorsFinishedSpawning)
         {
-            SM.SwitchState(SM.SpawnBuilding);
+            SM.SwitchState(SM.SpawnLootAndEnemies);
         }
     }
 

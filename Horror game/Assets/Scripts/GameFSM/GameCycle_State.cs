@@ -18,6 +18,7 @@ public class GameCycle_State : GAMEFSM_Base_State
 
     public override void CheckSwitchState()
     {
+
     }
 
 }
