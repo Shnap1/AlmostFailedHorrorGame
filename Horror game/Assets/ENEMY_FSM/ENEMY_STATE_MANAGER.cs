@@ -14,7 +14,8 @@ public class ENEMY_STATE_MANAGER : MonoBehaviour
         Patroling
     }
 
-    public enum ChasingType{
+    public enum ChasingType
+    {
         Follower, //always knows where the player is and follows it
         PointChecker, //knows the last point player triggerred and goes there
         FreePointWanderer //goes to point that has the least amount of other enemies then goes there, then chooses another free random point
@@ -45,7 +46,7 @@ public class ENEMY_STATE_MANAGER : MonoBehaviour
     public void SwitchStates(BaseStateNEW newState)
     {
         if (currentState == null) Debug.Log("current Enemy State is null");
-        if(newState != currentState)
+        if (newState != currentState)
         {
             currentState.ExitState();
             currentState = newState;
@@ -55,7 +56,7 @@ public class ENEMY_STATE_MANAGER : MonoBehaviour
     }
 
     #region ENEMY AI TUTORIL script DATA
-    
+
     public NavMeshAgent agent;
 
     public Transform player;
@@ -160,7 +161,10 @@ public class ENEMY_STATE_MANAGER : MonoBehaviour
     {
         health -= damage;
 
-        if (health <= 0) Invoke(nameof(DestroyEnemy), 0.5f);
+        if (health <= 0)
+        {
+            Invoke(nameof(DestroyEnemy), 0.5f);
+        }
     }
     private void DestroyEnemy()
     {

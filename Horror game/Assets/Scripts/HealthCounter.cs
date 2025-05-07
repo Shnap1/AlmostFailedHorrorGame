@@ -26,6 +26,10 @@ public class HealthCounter : MonoBehaviour
     private void Start()
     {
         onPlayerHealthChanged?.Invoke(totalHealth, maxHealth);
+        if (totalHealth > 0)
+        {
+            GameData.instance.playerAlive = true;
+        }
     }
     public void AddHealth(int addedHealth)
     {
@@ -59,9 +63,9 @@ public class HealthCounter : MonoBehaviour
             //Debug.Log("totalDefence -= this.addedDamage; totalDefence:" + totalDefence);
 
         }
-        if (totalHealth <= 0 && GameLoopManager.currentGameState != GameLoopManager.GameState.Victory)
+        if (totalHealth <= 0) //DEAD
         {
-            GameLoopManager.instance.UpdateGameState(GameLoopManager.GameState.Lose);
+            GameData.instance.playerAlive = false;
         }
         onPlayerHealthChanged?.Invoke(totalHealth, maxHealth);
         //Debug.Log("onPlayerHealthChanged?.Invoke(totalHealth, maxHealth); totalHealth=" + totalHealth + " maxHealth= " + maxHealth + "END/");

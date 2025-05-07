@@ -9,6 +9,11 @@ public class GameData : MonoBehaviour
     public string currentTestString;
     private int currentScore = 0;
 
+    // public int enemiesToKill;
+    public int enemiesKilled;
+    public bool playerAlive;
+
+
     public Transform player;
     public Transform cam;
     public PatrolPointManager patrolPointManager;
