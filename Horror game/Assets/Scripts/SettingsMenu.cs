@@ -27,17 +27,25 @@ public class SettingsMenu : MonoBehaviour
     // [SerializeField] PlayerStateMachine player;
 
     public List<GameObject> UItoHideForWEBGL = new List<GameObject>();
+
+    public bool restartGamePressed = false;
+    public bool exitGamePressed = false;
+    public bool loadNextScenePressed = false;
     void OnEnable()
     {
-        GameLoopManager.OnGameUpdate += TurnOnVictoryOrFailUI;
+        // GameLoopManager.OnGameUpdate += TurnOnVictoryOrFailUI;
     }
 
     void OnDisable()
     {
-        GameLoopManager.OnGameUpdate -= TurnOnVictoryOrFailUI;
+        // GameLoopManager.OnGameUpdate -= TurnOnVictoryOrFailUI;
     }
     void Start()
     {
+        restartGamePressed = false;
+        exitGamePressed = false;
+        loadNextScenePressed = false;
+
         GetResolutions();
         GetQuality();
         UIhider(UItoHideForWEBGL);
@@ -61,35 +69,19 @@ public class SettingsMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            PauseStateChecker(GameLoopManager.currentGameState);
-        }
+
         // if (Input.GetKeyDown(KeyCode.O)) ToggleGameOverUI(true);
     }
 
-    void PauseStateChecker(GameLoopManager.GameState gameState)
+    public void PauseStateChecker()
     {
-        switch (gameState)
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
-            case GameLoopManager.GameState.GameStart:
-                TogglePauseUI();
-                break;
-            case GameLoopManager.GameState.LootCollected:
-                TogglePauseUI();
-                break;
-            case GameLoopManager.GameState.SpawnPlayer:
-                TogglePauseUI();
-                break;
-            case GameLoopManager.GameState.Victory:
-                //
-                break;
-            case GameLoopManager.GameState.Lose:
-                break;
-            default:
-                break;
+            TogglePauseUI();
         }
+
     }
+
 
     public void GetQuality()
     {
@@ -150,22 +142,34 @@ public class SettingsMenu : MonoBehaviour
         Screen.fullScreen = isFullscreen;
     }
 
-    void TurnOnVictoryOrFailUI(GameLoopManager.GameState gameState)
+    // void TurnOnVictoryOrFailUI(GameLoopManager.GameState gameState)
+    // {
+    //     switch (gameState)
+    //     {
+    //         // case GameLoopManager.GameState.Lose:
+    //         //     isGameOver = true;
+    //         //     ToggleGameOverUI(isGameOver);
+    //         //     break;
+    //         // case GameLoopManager.GameState.Victory:
+    //         //     StartCoroutine(DelayedVictoryUI());
+    //         //     break;
+    //         // default:
+    //         //     break;
+    //     }
+    // }
+
+    public void ShowLooseUI()
     {
-        switch (gameState)
-        {
-            case GameLoopManager.GameState.Lose:
-                isGameOver = true;
-                ToggleGameOverUI(isGameOver);
-                break;
-            case GameLoopManager.GameState.Victory:
-                StartCoroutine(DelayedVictoryUI());
-                break;
-            default:
-                break;
-        }
+        isGameOver = true;
+        ToggleGameOverUI(isGameOver);
+    }
+    public void ShowVictoryUI()
+    {
+        StartCoroutine(DelayedVictoryUI());
 
     }
+
+
     public void TogglePauseUI()
     {
         // Debug.Log("TogglePauseUI");
@@ -197,12 +201,16 @@ public class SettingsMenu : MonoBehaviour
         }
     }
 
-    public void ExitToMainMenu() => SceneManager.LoadScene("MainMenu");
+    public void ExitToMainMenu()
+    {
+        exitGamePressed = true;
+        SceneManager.LoadScene("MainMenu");
+    }
 
     public void ToggleGameOverUI(bool gameOver)
     {
         GameOverUI.SetActive(gameOver);
-        PauseGame();
+        // PauseGame();
     }
     public void PauseGame()
     {
@@ -255,8 +263,9 @@ public class SettingsMenu : MonoBehaviour
 
     public void ReloadScene()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
-        GameLoopManager.instance.UpdateGameState(GameLoopManager.GameState.SpawnPlayer);
+        restartGamePressed = true;
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
+        // GameLoopManager.instance.UpdateGameState(GameLoopManager.GameState.SpawnPlayer);
         PauseGame();
     }
 

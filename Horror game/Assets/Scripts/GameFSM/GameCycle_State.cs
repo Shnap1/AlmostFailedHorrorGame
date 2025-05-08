@@ -18,6 +18,8 @@ public class GameCycle_State : GAMEFSM_Base_State
     public override void UpdateState()
     {
         CheckSwitchState();
+        SM.settingsMenu.PauseStateChecker();
+
     }
 
     public override void CheckSwitchState()

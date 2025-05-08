@@ -15,6 +15,7 @@ public class GameStart_State : GAMEFSM_Base_State
 
     public override void UpdateState()
     {
+        SM.settingsMenu.PauseStateChecker();
     }
 
     public override void CheckSwitchState()

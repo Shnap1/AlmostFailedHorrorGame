@@ -117,8 +117,8 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
                 Victory = gameObject.AddComponent<Victory_State>();
                 Victory.InitializeSM(this);
                 //GetRewards
-                GetRewards = gameObject.AddComponent<GetRewards_State>();
-                GetRewards.InitializeSM(this);
+                // GetRewards = gameObject.AddComponent<GetRewards_State>();
+                // GetRewards.InitializeSM(this);
 
                 //GoToLobby
                 GoToLobby = gameObject.AddComponent<GoToLobby_State>();
