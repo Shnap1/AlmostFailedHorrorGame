@@ -204,11 +204,13 @@ public class SettingsMenu : MonoBehaviour
     public void ExitToMainMenu()
     {
         exitGamePressed = true;
-        SceneManager.LoadScene("MainMenu");
+        // SceneManager.LoadScene("MainMenu");
     }
 
     public void ToggleGameOverUI(bool gameOver)
     {
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
         GameOverUI.SetActive(gameOver);
         // PauseGame();
     }

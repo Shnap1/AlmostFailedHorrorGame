@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class GameCycle_State : GAMEFSM_Base_State
 {
@@ -31,6 +33,11 @@ public class GameCycle_State : GAMEFSM_Base_State
         else if (GameData.instance.playerAlive == false)
         {
             SM.SwitchState(SM.Death);
+        }
+        else if (SM.settingsMenu.exitGamePressed)
+        {
+            SM.settingsMenu.exitGamePressed = false;
+            SceneManager.LoadScene("MainMenu");
         }
     }
 
