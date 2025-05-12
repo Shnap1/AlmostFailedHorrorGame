@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,12 +15,20 @@ public class GameData : MonoBehaviour
     public bool playerAlive;
 
 
+
     public Transform player;
     public Transform cam;
     public PatrolPointManager patrolPointManager;
     public PlayerSpawner playerSpawner;
     public LootSpawner lootSpawner;
 
+    public static Action onEnemyKilled;
+    public void EnemyKilled()
+    {
+        enemiesKilled++;
+
+        onEnemyKilled?.Invoke();
+    }
 
 
     void OnEnable()

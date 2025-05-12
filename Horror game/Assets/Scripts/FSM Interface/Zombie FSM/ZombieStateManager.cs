@@ -256,7 +256,7 @@ public class ZombieStateManager : MonoBehaviour, IStateManagerNew
     private void DestroyEnemy()
     {
         Debug.Log("DestroyEnemy()");
-        GameData.instance.enemiesKilled += 1;
+        GameData.instance.EnemyKilled();
         Destroy(gameObject);
     }
 

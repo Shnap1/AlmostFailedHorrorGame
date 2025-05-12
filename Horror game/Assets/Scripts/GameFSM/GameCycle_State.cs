@@ -8,9 +8,20 @@ public class GameCycle_State : GAMEFSM_Base_State
 {
     public int enemiesToKill;
 
+    void OnEnable()
+    {
+        GameData.onEnemyKilled += UpdateUIText;
+    }
+    void OnDisable()
+    {
+        GameData.onEnemyKilled -= UpdateUIText;
+
+    }
+
     public override void EnterState()
     {
         enemiesToKill = SM.gameLoopManager.currentLevel.enemiesToSpawn;
+        UpdateUIText();
     }
 
     public override void ExitState()
@@ -22,6 +33,22 @@ public class GameCycle_State : GAMEFSM_Base_State
         CheckSwitchState();
         SM.settingsMenu.PauseStateChecker();
 
+    }
+
+    void UpdateUIText()
+    {
+        if (SM.healthBar.curLanguage == HealthBar.GameLanguages.en)
+        {
+            SM.healthBar.currentGameStateText.text = $"{GameData.instance.enemiesKilled} of  {enemiesToKill} monsters killed. Kill all monsters.";
+        }
+        else if (SM.healthBar.curLanguage == HealthBar.GameLanguages.ru)
+        {
+            SM.healthBar.currentGameStateText.text = $"{GameData.instance.enemiesKilled} из {enemiesToKill} монстров убито. Убей всех монстров.";
+        }
+        else if (SM.healthBar.curLanguage == HealthBar.GameLanguages.tr)
+        {
+            SM.healthBar.currentGameStateText.text = $"Öldürülen  {enemiesToKill} canavardan {GameData.instance.enemiesKilled}'ı. Bütün canavarları öldür.";
+        }
     }
 
     public override void CheckSwitchState()
@@ -39,6 +66,7 @@ public class GameCycle_State : GAMEFSM_Base_State
             SM.settingsMenu.exitGamePressed = false;
             SceneManager.LoadScene("MainMenu");
         }
+
     }
 
 }

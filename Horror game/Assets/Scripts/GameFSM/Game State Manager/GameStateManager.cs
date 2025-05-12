@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class GameStateManager : MonoBehaviour, IStateManagerNew
 {
 
@@ -145,14 +146,14 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
     }
     public void SwitchState(GAMEFSM_Base_State state)
     {
-        if (currentState != null)
+        if (currentState)
         {
             currentState.ExitState();
         }
         currentState = state;
+        currentState.EnterState();
         if (currentState != null)
         {
-            currentState.EnterState();
         }
 
     }
