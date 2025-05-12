@@ -7,6 +7,7 @@ public class GameStart_State : GAMEFSM_Base_State
 
     public override void EnterState()
     {
+        GameData.instance.enemiesKilled = 0;
     }
 
     public override void ExitState()

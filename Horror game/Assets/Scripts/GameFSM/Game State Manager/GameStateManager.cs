@@ -105,9 +105,11 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
                 //Death
                 Death = gameObject.AddComponent<Death_State>();
                 Death.InitializeSM(this);
+
                 //ObjectiveFailed
-                ObjectiveFailed = gameObject.AddComponent<ObjectiveFailed_State>();
-                ObjectiveFailed.InitializeSM(this);
+                // ObjectiveFailed = gameObject.AddComponent<ObjectiveFailed_State>();
+                // ObjectiveFailed.InitializeSM(this);
+
                 //Loose
                 Loose = gameObject.AddComponent<Loose_State>();
                 Loose.InitializeSM(this);
@@ -121,8 +123,9 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
                 // GetRewards.InitializeSM(this);
 
                 //GoToLobby
-                GoToLobby = gameObject.AddComponent<GoToLobby_State>();
-                GoToLobby.InitializeSM(this);
+                // GoToLobby = gameObject.AddComponent<GoToLobby_State>();
+                // GoToLobby.InitializeSM(this);
+
                 //NextGame
                 NextGame = gameObject.AddComponent<NextGame_State>();
                 NextGame.InitializeSM(this);
@@ -151,9 +154,7 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
         {
             currentState.EnterState();
         }
-        // if (currentState != state)
-        // {
-        // }
+
     }
 
     // Start is called before the first frame update
@@ -161,16 +162,15 @@ public class GameStateManager : MonoBehaviour, IStateManagerNew
     {
         // player = GameData.instance.player; //TODO: add that 
         // cam = GameData.instance.cam;
+    }
+    void Start()
+    {
         SetGameMode(GameModes.KillMonstersMode);
         InitializeStates();
 
         SwitchState(SpawnSectors);
     }
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
     void Update()
     {
         if (currentState != null)

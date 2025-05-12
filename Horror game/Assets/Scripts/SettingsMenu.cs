@@ -230,7 +230,6 @@ public class SettingsMenu : MonoBehaviour
             Cursor.visible = true;
             OnGamePaused?.Invoke(true);
         }
-        // Debug.Log($"PauseGame {isPaused}");
     }
 
 
@@ -241,7 +240,7 @@ public class SettingsMenu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = true;
         yield return new WaitForSeconds(3); //
-        PauseGame();
+        // PauseGame();
     }
 
     public void LoadNextMission()
@@ -252,7 +251,8 @@ public class SettingsMenu : MonoBehaviour
 #if UNITY_WEBGL
         //Progress.Instance.Save();
 #endif
-        ReloadScene();
+        loadNextScenePressed = true;
+        // ReloadScene();
     }
 
     public void LoadBase()
@@ -266,7 +266,7 @@ public class SettingsMenu : MonoBehaviour
         restartGamePressed = true;
         // SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reload the current scene
         // GameLoopManager.instance.UpdateGameState(GameLoopManager.GameState.SpawnPlayer);
-        PauseGame();
+        // PauseGame();
     }
 
     public void ReviewGame()
