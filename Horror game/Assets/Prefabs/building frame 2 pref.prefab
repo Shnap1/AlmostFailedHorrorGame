@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2510254098649999240}
   - component: {fileID: 2202132878830055567}
   - component: {fileID: 7763373337146323741}
+  - component: {fileID: 537518380840871578}
   m_Layer: 0
   m_Name: building frame 2 pref
   m_TagString: Untagged
@@ -85,6 +86,25 @@ MonoBehaviour:
   m_Bidirectional: 1
   m_AutoUpdatePosition: 0
   m_Area: 0
+--- !u!205 &537518380840871578
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2481331451951298134}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 1.8318939, y: 36.47634, z: -1.9290543}
+  m_Size: 92.06477
+  m_FadeMode: 1
+  m_AnimateCrossFading: 1
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.101914145
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 5750944224297603915}
+  m_Enabled: 1
 --- !u!1001 &6345256231626952655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -163,6 +183,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 8809816857708128061}
   m_SourcePrefab: {fileID: 100100000, guid: 47a7328879a067a4d916d4b0001c6df5, type: 3}
+--- !u!23 &5750944224297603915 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 47a7328879a067a4d916d4b0001c6df5,
+    type: 3}
+  m_PrefabInstance: {fileID: 6345256231626952655}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &6111254116245729950 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 47a7328879a067a4d916d4b0001c6df5,

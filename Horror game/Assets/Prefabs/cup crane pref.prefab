@@ -83,8 +83,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_StartPoint: {x: -7.617508, y: 14.129042, z: -18.99353}
-  m_EndPoint: {x: -5.7121735, y: 14.741159, z: -20.304749}
+  m_StartPoint: {x: -14.097153, y: 0.21925437, z: -22.219421}
+  m_EndPoint: {x: -6.8265533, y: 14.807454, z: -20.570923}
   m_Width: 0
   m_CostModifier: -1
   m_Bidirectional: 1
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
   m_StartPoint: {x: -2.5414734, y: 4.0282097, z: -6.015869}
-  m_EndPoint: {x: -2.5478363, y: 8.276826, z: -13.617676}
+  m_EndPoint: {x: -4.831833, y: 15.069448, z: -15.785706}
   m_Width: 0
   m_CostModifier: -1
   m_Bidirectional: 1
@@ -123,8 +123,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_StartPoint: {x: -5.7121887, y: 4.1019106, z: 2.4945068}
-  m_EndPoint: {x: -6.890854, y: -0.05412948, z: 9.527954}
+  m_StartPoint: {x: -4.8545074, y: 4.1019106, z: -3.8458862}
+  m_EndPoint: {x: -11.240448, y: -0.05412948, z: -8.316895}
   m_Width: 0
   m_CostModifier: -1
   m_Bidirectional: 1
