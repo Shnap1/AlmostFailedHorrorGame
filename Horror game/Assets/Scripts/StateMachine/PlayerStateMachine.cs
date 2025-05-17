@@ -95,6 +95,11 @@ public class PlayerStateMachine : MonoBehaviour
     public bool isPaused = false;
 
     public bool FPS = true;
+
+    //launch
+    private Vector3 velocity;
+    public float launchGravity = -100f;
+    private bool isLaunching = false;
     void Awake()
     {
         if (isMainPlayer)
@@ -155,7 +160,34 @@ public class PlayerStateMachine : MonoBehaviour
         _jumpGravities.Add(3, thirdJumpGravity);
     }
 
-    // Start is called before the first frame update
+    public void Launch(Vector3 force)
+    {
+        velocity = force;
+        isLaunching = true;
+    }
+
+    public void LaunchLogic()
+    {
+        if (!CharacterController.enabled) return;
+
+        if (isLaunching)
+        {
+            CharacterController.Move(velocity * Time.deltaTime);
+            velocity += Vector3.up * launchGravity * Time.deltaTime; // simulate gravity
+
+            if (CharacterController.isGrounded)
+            {
+                isLaunching = false;
+                velocity = Vector3.zero;
+            }
+        }
+        else
+        {
+            // Your regular movement logic here
+        }
+    }
+
+
     void Start()
     {
         _characterController.Move(_appliedMovement * Time.deltaTime);
@@ -170,6 +202,9 @@ public class PlayerStateMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //NEW
+        LaunchLogic();
+
         FPSModeSwitch();
         if (FPS) HandleCharacterRotationTwo();
         else HandleCharacterRotation();
