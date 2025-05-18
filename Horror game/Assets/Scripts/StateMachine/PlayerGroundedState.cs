@@ -50,9 +50,9 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         //if player is grounded and JUMP is pressed,switch to jump state
         if (Ctx.IsJumpPressed && !Ctx.RequireNewJumpPress)
         {
-            Ctx.SetupJumpVariables();
             Ctx._currentJumpHeight = Ctx._maxJumpHeit;
             Ctx._currentJumpTime = Ctx._maxJumpTime;
+            Ctx.SetupJumpVariables();
             SwitchStates(Factory.Jump());
         }
         //if player is not grounded and jump is not pressed, switch to fall state 
@@ -63,13 +63,13 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
 
         else if (Ctx.isJumpPadCollided) //JUMP PAD
         {
-            Ctx.SetupJumpVariables();
 
             Debug.Log("CheckSwitchStates() isJumpPadCollided");
             Ctx.isJumpPadCollided = false;
 
             Ctx._currentJumpHeight = Ctx._maxJumpPadHeight;
             Ctx._currentJumpTime = Ctx._maxJumpPadTime;
+            Ctx.SetupJumpVariables();
             SwitchStates(Factory.Jump());
         }
 
