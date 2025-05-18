@@ -11,6 +11,7 @@ public class GameCycle_State : GAMEFSM_Base_State
     void OnEnable()
     {
         GameData.onEnemyKilled += UpdateUIText;
+
     }
     void OnDisable()
     {
@@ -20,6 +21,9 @@ public class GameCycle_State : GAMEFSM_Base_State
 
     public override void EnterState()
     {
+        GameData.instance.enemiesKilled = 0;
+        GameData.instance.playerAlive = true;
+
         enemiesToKill = SM.gameLoopManager.currentLevel.enemiesToSpawn;
         UpdateUIText();
     }
