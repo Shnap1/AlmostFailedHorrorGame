@@ -97,9 +97,14 @@ public class PlayerStateMachine : MonoBehaviour
     public bool FPS = true;
 
     //launch
+    Rigidbody boxRigidbody;
+
     private Vector3 velocity;
     public float launchGravity = -100f;
     private bool isLaunching = false;
+    public float jumpForce = 10f;
+    public bool isJumpPadCollided = false;
+
     void Awake()
     {
         if (isMainPlayer)
@@ -137,6 +142,9 @@ public class PlayerStateMachine : MonoBehaviour
         _playerInput.CharacterControlls.Jump.canceled += onJump;
 
         SetupJumpVariables();
+
+        boxRigidbody = GetComponent<Rigidbody>();
+
     }
 
     //
@@ -160,10 +168,16 @@ public class PlayerStateMachine : MonoBehaviour
         _jumpGravities.Add(3, thirdJumpGravity);
     }
 
-    public void Launch(Vector3 force)
+
+    public void Launch()
     {
-        velocity = force;
-        isLaunching = true;
+        isJumpPadCollided = true;
+        // velocity = force;
+        // isLaunching = true;
+
+        // boxRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+
+
     }
 
     public void LaunchLogic()

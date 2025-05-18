@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerGroundedState : PlayerBaseState, IRootState
 {
-    public PlayerGroundedState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory) 
-    : base(currentContext, playerStateFactory){
+    public PlayerGroundedState(PlayerStateMachine currentContext, PlayerStateFactory playerStateFactory)
+    : base(currentContext, playerStateFactory)
+    {
         IsRootState = true;
         //Debug.Log("PlayerGroundedState");
     }
@@ -16,30 +17,36 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         Ctx.AppliedMovementY = Ctx.Gravity;
     }
 
-    public override void EnterState() {
+    public override void EnterState()
+    {
         HandleGravity();
     }
 
-    public override void UpdateState() { 
-    CheckSwitchStates();
+    public override void UpdateState()
+    {
+        CheckSwitchStates();
     }
 
     public override void ExitState() { }
 
-    public override void InitializeSubState() {
+    public override void InitializeSubState()
+    {
         if (!Ctx.IsMovementPressed && !Ctx.IsRunPressed)
         {
             SetSubState(Factory.Idle());
         }
-        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed) {
+        else if (Ctx.IsMovementPressed && !Ctx.IsRunPressed)
+        {
             SetSubState(Factory.Walk());
         }
-        else {
+        else
+        {
             SetSubState(Factory.Run());
         }
     }
 
-    public override void CheckSwitchStates(){
+    public override void CheckSwitchStates()
+    {
         //if player is grounded and jump is pressed,switch to jump state
         if (Ctx.IsJumpPressed && !Ctx.RequireNewJumpPress)
         {
@@ -49,6 +56,13 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         else if (!Ctx.CharacterController.isGrounded)
         {
             SwitchStates(Factory.Fall());
+        }
+
+        else if (Ctx.isJumpPadCollided)
+        {
+            Debug.Log("CheckSwitchStates() isJumpPadCollided");
+            Ctx.isJumpPadCollided = false;
+            SwitchStates(Factory.Jump());
         }
 
     }
