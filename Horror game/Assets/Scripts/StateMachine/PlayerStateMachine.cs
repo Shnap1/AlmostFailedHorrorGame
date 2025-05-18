@@ -38,8 +38,20 @@ public class PlayerStateMachine : MonoBehaviour
     //jumping variables
     [SerializeField] bool _isJumpPressed = false;
     float _initialJumpVelocity;
-    public float _maxJumpHeight = 2.0f; // 4.0
-    public float _maxJumpTime = 0.3f; //.75
+
+    public float _currentJumpHeight; // 4.0
+    public float _currentJumpTime; //.75
+
+    public float _maxJumpHeit;
+    public float _maxJumpTime; //.75
+
+    public float _maxJumpPadHeight;
+
+    public float _maxJumpPadTime; //.75
+
+
+
+
     [SerializeField] bool _isJumping = false;
     int _isJumpingHash;
     int _jumpCountHash;
@@ -148,15 +160,18 @@ public class PlayerStateMachine : MonoBehaviour
     }
 
     //
-    void SetupJumpVariables()
+    public void SetupJumpVariables()
     {
-        float timeToApex = _maxJumpTime / 2;
-        float initialGravity = (-2 * _maxJumpHeight) / Mathf.Pow(timeToApex, 2);
-        _initialJumpVelocity = (2 * _maxJumpHeight) / timeToApex;
-        float secondJumpGravity = (-2 * (_maxJumpHeight + 2)) / Mathf.Pow((timeToApex * 1.25f), 2);
-        float secondJumpInitialVelocity = (2 * (_maxJumpHeight + 2)) / (timeToApex * 1.25f);
-        float thirdJumpGravity = (-2 * (_maxJumpHeight + 4)) / Mathf.Pow((timeToApex * 1.5f), 2);
-        float thirdJumpInitialVelocity = (2 * (_maxJumpHeight + 4)) / (timeToApex * 1.5f);
+        if (_initialJumpVelocities.Count > 0) _initialJumpVelocities.Clear();//new shit
+        if (_jumpGravities.Count > 0) _jumpGravities.Clear(); //new shit
+
+        float timeToApex = _currentJumpTime / 2;
+        float initialGravity = (-2 * _currentJumpHeight) / Mathf.Pow(timeToApex, 2);
+        _initialJumpVelocity = (2 * _currentJumpHeight) / timeToApex;
+        float secondJumpGravity = (-2 * (_currentJumpHeight + 2)) / Mathf.Pow((timeToApex * 1.25f), 2);
+        float secondJumpInitialVelocity = (2 * (_currentJumpHeight + 2)) / (timeToApex * 1.25f);
+        float thirdJumpGravity = (-2 * (_currentJumpHeight + 4)) / Mathf.Pow((timeToApex * 1.5f), 2);
+        float thirdJumpInitialVelocity = (2 * (_currentJumpHeight + 4)) / (timeToApex * 1.5f);
 
         _initialJumpVelocities.Add(1, _initialJumpVelocity);
         _initialJumpVelocities.Add(2, secondJumpInitialVelocity);
