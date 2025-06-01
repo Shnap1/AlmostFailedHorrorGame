@@ -8,8 +8,6 @@ using static LootSpawner;
 
 public class LootSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    //[SerializeField] public GameObject staminaPowerUp;
     //public Dictionary<Loot, GameObject> LootDict = new Dictionary<Loot, GameObject>();
     public List<GameObject> PowerUpList = new List<GameObject>();
     //public Dictionary<Locations, Transform> LocationsDict = new Dictionary<Locations, Transform>();
@@ -24,6 +22,8 @@ public class LootSpawner : MonoBehaviour
     public enum LootType
     {
         healthPU,
+        speedPU,
+        jumpHeightPU,
         staminaPU,
         defensePU,
         target
@@ -49,51 +49,14 @@ public class LootSpawner : MonoBehaviour
         // instance = this;
     }
 
-    // public void RandomSpawnPowerUp()
-    // {
-    //     if (AlreadySpawnedTransforms.Count == LocationsTrasnforms.Count)
-    //     {
-    //         AlreadySpawnedTransforms.Clear();
-    //     }
-
-    //     GameObject randomGameObject = PowerUpList[UnityEngine.Random.Range(0, PowerUpList.Count)];
-    //     Transform randomTransform = LocationsTrasnforms[UnityEngine.Random.Range(0, LocationsTrasnforms.Count)];
-    //     if (AlreadySpawnedTransforms.Contains(randomTransform))
-    //     {
-    //         for (int i = 0; i < AlreadySpawnedTransforms.Count; i++)
-    //         {
-    //             randomTransform = LocationsTrasnforms[UnityEngine.Random.Range(0, LocationsTrasnforms.Count)];
-    //             if (!AlreadySpawnedTransforms.Contains(randomTransform))
-    //             {
-    //                 Instantiate<GameObject>(randomGameObject, randomTransform);
-    //                 AlreadySpawnedTransforms.Add(randomTransform);
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     else if (!AlreadySpawnedTransforms.Contains(randomTransform))
-    //     {
-    //         Debug.Log($" randomTransform = {randomTransform.position.ToString()}");
-
-    //         Instantiate<GameObject>(randomGameObject, randomTransform);
-    //         Debug.Log($"{randomGameObject.name} spawned in {randomTransform.position.ToString()}");
-    //         AlreadySpawnedTransforms.Add(randomTransform);
-    //     }
-
-
-    // }
-
     public void SetFreeTransPoints()
     {
         FreeTransformsForSpawn = new List<Transform>(LocationsTrasnforms);
     }
     public static void PowerUpSpawn(int amountOfPowerUps, LootType lootType)
     {
-        // Debug.Log($"PowerUpSpawn(amountOfPowerUps = {amountOfPowerUps}, LootType = {lootType})");
         for (int i = 0; i < amountOfPowerUps; i++)
         {
-            // instance.RandomSpawnPowerUp();
-            // Debug.Log($"PowerUpSpawn() LootType - {lootType} i: ({i})");
             instance.Spawn_Specific_LOOT_in_Random_Place(lootType);
         }
     }
@@ -113,7 +76,6 @@ public class LootSpawner : MonoBehaviour
         if (FreeTransformsForSpawn.Count <= 0)
         {
             FreeTransformsForSpawn = new List<Transform>(LocationsTrasnforms);
-            // Debug.Log($"FreeTransformsForSpawn.Count = {FreeTransformsForSpawn.Count}, so FreeTransformsForSpawn = new List<Transform>(LocationsTrasnforms) ");
         }
 
         switch (typeOfLoot)
@@ -135,28 +97,18 @@ public class LootSpawner : MonoBehaviour
         }
         randomFreeTransform = FreeTransformsForSpawn[UnityEngine.Random.Range(0, FreeTransformsForSpawn.Count)];
         Instantiate(lootToSpawn, randomFreeTransform);
-        // Debug.Log($"Instantiate() lootToSpawn = {lootToSpawn} , randomFreeTransform = {randomFreeTransform}");
         FreeTransformsForSpawn.Remove(randomFreeTransform);
-        // Debug.Log($"FreeTransformsForSpawn.Remove(randomFreeTransform = {randomFreeTransform}); FreeTransformsForSpawn.Count = {FreeTransformsForSpawn.Count}");
-
-        //Debug.Log($" randomTransform = {randomFreeTransform.position.ToString()}");
     }
 
     public void AddPowerUp(GameObject thisPU)
     {
-        //var spawner = PowerUpSpowner.ReturnPUSPowner();
-
         if (!PowerUpList.Contains(thisPU))
         {
             Debug.Log($"{thisPU.name} added to LootList");
             //PowerUpSpowner.ReturnPUSPowner().LootList.Add(thisPU);
             PowerUpList.Add(thisPU);
         }
-        //if (!spawner.LootDict.ContainsValue(thisPU))
-        //{
-        //    Debug.Log($"{thisPU.name} added to LootDict");
-        //    PowerUpSpowner.ReturnPUSPowner().LootDict.Add(typeOfLoot, thisPU);
-        //}
+
     }
 
 }

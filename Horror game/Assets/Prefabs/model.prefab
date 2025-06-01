@@ -26,7 +26,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: bd472ca87a341e246937ba1d46722eeb,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -289.2
+      value: -98.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd472ca87a341e246937ba1d46722eeb,
         type: 3}
@@ -36,7 +36,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: bd472ca87a341e246937ba1d46722eeb,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -42.7
+      value: 42
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bd472ca87a341e246937ba1d46722eeb,
         type: 3}
@@ -176,5 +176,5 @@ OcclusionPortal:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6410798418629798717}
   m_Open: 1
-  m_Center: {x: 0, y: 0.0075, z: 0}
-  m_Size: {x: 0.15, y: 0, z: 0.06}
+  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.15, y: 0.02, z: 0.06}

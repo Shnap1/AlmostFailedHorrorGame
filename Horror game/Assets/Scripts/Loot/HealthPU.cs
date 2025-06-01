@@ -21,12 +21,6 @@ public class HealthPU : MonoBehaviour, IPowerUp
             // Debug.Log($"DoAction in {this.name}: {amount}");
         }
 
-        //if (DoActioTo.GetComponent<PlayerStateMachine>())
-        //{
-        //    DoActioTo.GetComponent<PlayerStateMachine>().AddHealth(amount);
-
-        //    Debug.Log($"DoAction in {this.name}: {amount}");
-        //}
     }
 
     private void OnTriggerEnter(Collider other)
