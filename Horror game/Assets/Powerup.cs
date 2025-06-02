@@ -62,8 +62,20 @@ public class Powerup : MonoBehaviour, IPowerUp
     void OnTriggerEnter(Collider other)
     {
         DoAction(0, other.gameObject);
+        currentPUParticle.Play();
+
+        Debug.Log("PowerUp Triggered");
     }
 
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.P))
+        {
+
+            currentPUParticle.Play();
+            Debug.Log("currentPUParticle.Play()");
+        }
+    }
     public void SetMat(Material mat)
     {
         MR.material = HealthMat;
@@ -106,7 +118,7 @@ public class Powerup : MonoBehaviour, IPowerUp
         switch (currentLootType)
         {
             case LootType.healthPU:
-                gameObject.GetComponent<HealthCounter>().AddHealth(amount);
+                // gameObject.GetComponent<HealthCounter>().AddHealth(amount);
                 break;
             case LootType.speedPU:
 
