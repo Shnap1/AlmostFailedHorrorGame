@@ -12,8 +12,21 @@ public class Powerup : MonoBehaviour, IPowerUp
     public Material HealthMat;
     public Material SpeedMat;
     public Material JumpMat;
-    public Material StaminaMat;
+    // public Material StaminaMat;
+
+
     public Material DefenseMat;
+
+    [Header("Particles")]
+    public ParticleSystem currentPUParticle;
+
+    public ParticleSystem healthPUParticle;
+    public ParticleSystem speedPUParticle;
+    public ParticleSystem jumpPUParticle;
+    // public ParticleSystem staminaPUParticle;
+    public ParticleSystem defensePUParticle;
+
+
 
     MeshRenderer MR;
 
@@ -62,17 +75,21 @@ public class Powerup : MonoBehaviour, IPowerUp
         {
             case LootType.healthPU:
                 SetMat(HealthMat);
+                currentPUParticle = healthPUParticle;
                 break;
             case LootType.speedPU:
                 SetMat(SpeedMat);
+                currentPUParticle = speedPUParticle;
                 break;
             case LootType.jumpHeightPU:
                 SetMat(JumpMat);
+                currentPUParticle = jumpPUParticle;
                 break;
             // case LootType.staminaPU:
             //     break;
             case LootType.defensePU:
                 SetMat(DefenseMat);
+                currentPUParticle = defensePUParticle;
                 break;
             // case LootType.target:
             //     break;
@@ -105,6 +122,7 @@ public class Powerup : MonoBehaviour, IPowerUp
             default:
                 break;
         }
+        currentPUParticle.Play();
     }
 
 }

@@ -63,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2c3f14c71b0c0114c8fa1bc28ccfd85b, type: 2}
+  - {fileID: 2100000, guid: 9b858f6c01f6a3847bbfa38d0535d476, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -124,3 +124,13 @@ MonoBehaviour:
   JumpMat: {fileID: 2100000, guid: 2c3f14c71b0c0114c8fa1bc28ccfd85b, type: 2}
   StaminaMat: {fileID: 0}
   DefenseMat: {fileID: 2100000, guid: 5093e554de3817c4abeee9847d1ceef3, type: 2}
+  currentPUParticle: {fileID: 0}
+  healthPUParticle: {fileID: 8707948119623055698, guid: 04a7314f3bb0dcd4091ccf8b67907e0e,
+    type: 3}
+  speedPUParticle: {fileID: 8458718156592468899, guid: 6c6e42de2f028274c972a84a3e4306fb,
+    type: 3}
+  jumpPUParticle: {fileID: 8824148116869532047, guid: c806075ecf1deba43af9963224dd2972,
+    type: 3}
+  staminaPUParticle: {fileID: 0}
+  defensePUParticle: {fileID: 1575144041814935064, guid: 40ab586a7f2896f45a8ac8dd62936147,
+    type: 3}
