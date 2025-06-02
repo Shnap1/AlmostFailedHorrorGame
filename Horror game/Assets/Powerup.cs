@@ -7,8 +7,8 @@ public class Powerup : MonoBehaviour, IPowerUp
     LootType currentLootType;
     Material currentMaterial;
 
-
-    public bool TypeSet = false;
+    [HideInInspector] public bool TypeSet = false;
+    [Header("Materials")]
     public Material HealthMat;
     public Material SpeedMat;
     public Material JumpMat;
@@ -18,7 +18,12 @@ public class Powerup : MonoBehaviour, IPowerUp
     MeshRenderer MR;
 
 
-
+    float prevHealth;
+    float prevSpeed;
+    float prevJumpHeight;
+    float prevStamina;
+    float prevDefense;
+    float prevATK;
     public enum LootType
     {
         healthPU,
@@ -26,6 +31,7 @@ public class Powerup : MonoBehaviour, IPowerUp
         jumpHeightPU,
         // staminaPU,
         defensePU,
+        //ATK_PU,
         // target
     }
     void Start()
@@ -73,7 +79,10 @@ public class Powerup : MonoBehaviour, IPowerUp
             default:
                 break;
         }
-        TypeSet = true;
+        if (TypeSet == false)
+        {
+            TypeSet = true;
+        }
     }
     public void DoAction(int amount, GameObject gameObject)
     {
