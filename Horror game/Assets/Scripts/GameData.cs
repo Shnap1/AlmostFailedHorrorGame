@@ -21,6 +21,7 @@ public class GameData : MonoBehaviour
     public PatrolPointManager patrolPointManager;
     public PlayerSpawner playerSpawner;
     public LootSpawner lootSpawner;
+    public PUPlace puPlace;
 
     public static Action onEnemyKilled;
     public void EnemyKilled()

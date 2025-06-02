@@ -115,6 +115,12 @@ public class Powerup : MonoBehaviour, IPowerUp
     }
     public void DoAction(int amount, GameObject gameObject)
     {
+        if (currentPUParticle != null)
+        {
+            currentPUParticle.GetComponent<Transform>().position = GameData.instance.puPlace.transform.position;
+            currentPUParticle.GetComponent<Transform>().rotation = GameData.instance.puPlace.transform.rotation;
+        }
+
         switch (currentLootType)
         {
             case LootType.healthPU:
