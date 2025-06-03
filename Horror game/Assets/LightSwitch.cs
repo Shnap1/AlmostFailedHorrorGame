@@ -9,7 +9,6 @@ public class LightSwitch : MonoBehaviour
     void Start()
     {
         playerFlashlight = gameObject.GetComponent<Light>();
-
     }
 
     public void ToggleFlashlight()
