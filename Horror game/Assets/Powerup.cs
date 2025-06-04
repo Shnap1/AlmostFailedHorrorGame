@@ -6,10 +6,13 @@ using UnityEngine;
 
 public class Powerup : MonoBehaviour, IPowerUp
 {
-    LootType currentLootType;
+    public LootType currentLootType;
+
+
     Material currentMaterial;
 
     [HideInInspector] public bool TypeSet = false;
+    public bool setTypeFromCode = false;
     [Header("Materials")]
     public Material HealthMat;
     public Material SpeedMat;
@@ -32,12 +35,15 @@ public class Powerup : MonoBehaviour, IPowerUp
 
     MeshRenderer MR;
 
-    float AddHealth;
-    float AddSpeed;
-    float AddJumpHeight;
-    float AddStamina;
-    float AddDefense;
-    float AddATK;
+    public float amount;
+    public float time = 1f;
+
+    public float AddHealth;
+    public float AddSpeed;
+    public float AddJumpHeight;
+    public float AddStamina;
+    public float AddDefense;
+    public float AddATK;
 
 
     float prevHealth;
@@ -60,27 +66,33 @@ public class Powerup : MonoBehaviour, IPowerUp
     {
         MR = GetComponent<MeshRenderer>();
 
-        if (TypeSet == false)
+        if (setTypeFromCode == false)
+        {
+            SetLootType(currentLootType);
+        }
+        if (setTypeFromCode == true)
         {
             SetLootType(LootType.healthPU);
         }
-        // SetLootType(LootType.healthPU);
-
     }
 
     void OnTriggerEnter(Collider other)
     {
-        DoAction(0, 0, other.gameObject);
-        currentPUParticle.Play();
+        if (other.gameObject.tag == "Player")
+        {
+            DoAction(amount, time, other.gameObject);
+            currentPUParticle.Play();
 
-        Debug.Log("PowerUp Triggered");
+            Debug.Log("PowerUp Triggered");
+        }
     }
 
 
     public void SetMat(Material mat)
     {
-        MR.material = HealthMat;
+        MR.material = mat;
     }
+
     public void SetLootType(LootType lootType)
     {
         currentLootType = lootType;
@@ -89,20 +101,24 @@ public class Powerup : MonoBehaviour, IPowerUp
             case LootType.healthPU:
                 SetMat(HealthMat);
                 currentPUParticle = healthPUParticle;
+                amount = AddHealth;
                 break;
             case LootType.speedPU:
                 SetMat(SpeedMat);
                 currentPUParticle = speedPUParticle;
+                amount = AddSpeed;
                 break;
             case LootType.jumpHeightPU:
                 SetMat(JumpMat);
                 currentPUParticle = jumpPUParticle;
+                amount = AddJumpHeight;
                 break;
             // case LootType.staminaPU:
             //     break;
             case LootType.defensePU:
                 SetMat(DefenseMat);
                 currentPUParticle = defensePUParticle;
+                amount = AddDefense;
                 break;
             // case LootType.target:
             //     break;
@@ -145,6 +161,7 @@ public class Powerup : MonoBehaviour, IPowerUp
                 break;
         }
         currentPUParticle.Play();
+        gameObject.SetActive(false);
     }
 
 

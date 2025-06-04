@@ -122,7 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9cf55f7a90b1924881cfaba1a40ba18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentLootType: 0
   TypeSet: 0
+  setTypeFromCode: 0
   HealthMat: {fileID: 2100000, guid: cb59ef6d19608af4eb0faf08caeab9d2, type: 2}
   SpeedMat: {fileID: 2100000, guid: 9b858f6c01f6a3847bbfa38d0535d476, type: 2}
   JumpMat: {fileID: 2100000, guid: 2c3f14c71b0c0114c8fa1bc28ccfd85b, type: 2}
@@ -132,6 +134,14 @@ MonoBehaviour:
   speedPUParticle: {fileID: 7695626604619037882}
   jumpPUParticle: {fileID: 7089802685762895100}
   defensePUParticle: {fileID: 3535116709592372177}
+  amount: 0
+  time: 5
+  AddHealth: 10
+  AddSpeed: 10
+  AddJumpHeight: 10
+  AddStamina: 10
+  AddDefense: 10
+  AddATK: 10
 --- !u!1001 &1734345517022918003
 PrefabInstance:
   m_ObjectHideFlags: 0
