@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static HealthPU;
 
-public class HealthCounter : MonoBehaviour
+public class StatsCounter : MonoBehaviour
 {
     [SerializeField] int totalHealth = 1;
     [SerializeField] int maxHealth = 100;
@@ -20,6 +20,7 @@ public class HealthCounter : MonoBehaviour
     int maxAddedDefence = 1000;
     int maxAddedDamage = 1000;
     //HealthPU.HealthPUEnum newPUType;
+    public PlayerStateMachine playerStateMachine;
 
     public static Action<int, int> onPlayerHealthChanged;
 
@@ -39,11 +40,7 @@ public class HealthCounter : MonoBehaviour
         onPlayerHealthChanged?.Invoke(totalHealth, maxHealth);
 
     }
-    public void AddDefence(int addedDefence)
-    {
-        this.addedDefence = Math.Clamp(addedDefence, 0, maxAddedDefence);
-        totalDefence += this.addedDefence;
-    }
+
     public void TakeDamage(int newDamage)
     {
         this.addedDamage = Math.Clamp(newDamage, 0, maxAddedDamage);
@@ -71,6 +68,43 @@ public class HealthCounter : MonoBehaviour
         //Debug.Log("onPlayerHealthChanged?.Invoke(totalHealth, maxHealth); totalHealth=" + totalHealth + " maxHealth= " + maxHealth + "END/");
 
 
+    }
+
+    public void AddDefence(int addedDefence)
+    {
+        this.addedDefence = Math.Clamp(addedDefence, 0, maxAddedDefence);
+        totalDefence += this.addedDefence;
+    }
+    public void RemoveDefence(int removeDefence)
+    {
+        this.addedDefence = Math.Clamp(removeDefence, 0, maxAddedDefence);
+        totalDefence -= this.addedDefence;
+    }
+
+    //TODO add a reverse SubtractDamange for debuffs
+
+    public void SetSpeed(float walkSpeed, float runSpeed)
+    {
+        playerStateMachine._currentRunMultiplier = walkSpeed;
+        playerStateMachine._currentWalkMultiplier = runSpeed;
+    }
+    public void AddSpeed(float addSpeed)
+    {
+        playerStateMachine._currentRunMultiplier += addSpeed;
+        playerStateMachine._currentWalkMultiplier = playerStateMachine._currentWalkMultiplier + (addSpeed * 2);
+    }
+    public void RemoveSpeed(float removeSpeed)
+    {
+        playerStateMachine._currentRunMultiplier -= removeSpeed;
+        playerStateMachine._currentWalkMultiplier = playerStateMachine._currentWalkMultiplier - (removeSpeed * 2);
+    }
+
+    public void AddJumpHight(float addJumpHight, float addJumpTime)
+    {
+
+        playerStateMachine._currentJumpHeight += addJumpHight;
+        playerStateMachine._currentJumpTime += addJumpTime;
+        playerStateMachine.SetupJumpVariables();
     }
 
 

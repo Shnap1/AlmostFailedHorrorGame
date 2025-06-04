@@ -23,7 +23,7 @@ public class HealthBar : MonoBehaviour
 
     private void OnEnable()
     {
-        HealthCounter.onPlayerHealthChanged += UpdateHealthUI;
+        StatsCounter.onPlayerHealthChanged += UpdateHealthUI;
         // GameLoopManager.OnGameUpdate += UpdateStateText;
         GameLoopManager.onTargetCollected += GetGameState;
         //UpdateHealthUI()
@@ -31,7 +31,7 @@ public class HealthBar : MonoBehaviour
     }
     private void OnDisable()
     {
-        HealthCounter.onPlayerHealthChanged += UpdateHealthUI;
+        StatsCounter.onPlayerHealthChanged += UpdateHealthUI;
         // GameLoopManager.OnGameUpdate -= UpdateStateText;
         GameLoopManager.onTargetCollected -= GetGameState;
         // YandexGame.GetDataEvent -= GetData;

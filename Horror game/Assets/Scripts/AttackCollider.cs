@@ -6,7 +6,7 @@ using UnityEngine;
 public class AttackCollider : MonoBehaviour
 {
     public int damage = 1;
-    [SerializeField]ZombieStateManager SM;
+    [SerializeField] ZombieStateManager SM;
     SphereCollider collider;
     //public static Action<int>onAttackColliderTriggered;
     //List<Collider> players;
@@ -27,7 +27,7 @@ public class AttackCollider : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        
+
         if (other.CompareTag("Player"))
         {
             if (!hitList.Contains(other.gameObject) && canAttack)
@@ -39,7 +39,7 @@ public class AttackCollider : MonoBehaviour
                 //    players.Add(other);
                 //}
                 //other.GetComponent<PlayerStateMachine>().TakeDamage(damage);
-                other.GetComponent<HealthCounter>().TakeDamage(damage);
+                other.GetComponent<StatsCounter>().TakeDamage(damage);
             }
 
         }
@@ -70,5 +70,5 @@ public class AttackCollider : MonoBehaviour
 
 
     void TurnOnAttackTrigger() { canAttack = true; }
-    void ResetAttack() { canAttack = false; hitList.Clear();}
+    void ResetAttack() { canAttack = false; hitList.Clear(); }
 }

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Powerup : MonoBehaviour, IPowerUp
@@ -29,6 +31,13 @@ public class Powerup : MonoBehaviour, IPowerUp
 
 
     MeshRenderer MR;
+
+    float AddHealth;
+    float AddSpeed;
+    float AddJumpHeight;
+    float AddStamina;
+    float AddDefense;
+    float AddATK;
 
 
     float prevHealth;
@@ -61,21 +70,13 @@ public class Powerup : MonoBehaviour, IPowerUp
 
     void OnTriggerEnter(Collider other)
     {
-        DoAction(0, other.gameObject);
+        DoAction(0, 0, other.gameObject);
         currentPUParticle.Play();
 
         Debug.Log("PowerUp Triggered");
     }
 
-    void Update()
-    {
-        if (Input.GetKey(KeyCode.P))
-        {
 
-            currentPUParticle.Play();
-            Debug.Log("currentPUParticle.Play()");
-        }
-    }
     public void SetMat(Material mat)
     {
         MR.material = HealthMat;
@@ -113,7 +114,7 @@ public class Powerup : MonoBehaviour, IPowerUp
             TypeSet = true;
         }
     }
-    public void DoAction(int amount, GameObject gameObject)
+    public void DoAction(float amount, float time, GameObject gameObject)
     {
         if (currentPUParticle != null)
         {
@@ -124,16 +125,19 @@ public class Powerup : MonoBehaviour, IPowerUp
         switch (currentLootType)
         {
             case LootType.healthPU:
-                // gameObject.GetComponent<HealthCounter>().AddHealth(amount);
+                gameObject.GetComponent<StatsCounter>().AddHealth(Mathf.RoundToInt(amount));
                 break;
             case LootType.speedPU:
-
+                gameObject.GetComponent<StatsCounter>().AddSpeed(amount);
                 break;
             case LootType.jumpHeightPU:
+                prevJumpHeight = gameObject.GetComponent<PlayerStateMachine>()._currentJumpHeight;
+                gameObject.GetComponent<StatsCounter>().AddJumpHight(amount, prevJumpHeight);
                 break;
             // case LootType.staminaPU:
             //     break;
             case LootType.defensePU:
+                gameObject.GetComponent<StatsCounter>().AddDefence(Mathf.RoundToInt(amount));
                 break;
             // case LootType.target:
             //     break;
@@ -142,5 +146,6 @@ public class Powerup : MonoBehaviour, IPowerUp
         }
         currentPUParticle.Play();
     }
+
 
 }

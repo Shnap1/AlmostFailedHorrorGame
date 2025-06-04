@@ -12,11 +12,11 @@ public class HealthPU : MonoBehaviour, IPowerUp
     {
         //powerUpSpowner.AddPowerUp(gameObject);
     }
-    public void DoAction(int amount, GameObject DoActionTo)
+    public void DoAction(float amount, float time, GameObject DoActionTo)
     {
-        if (DoActionTo.GetComponent<HealthCounter>())
+        if (DoActionTo.GetComponent<StatsCounter>())
         {
-            DoActionTo.GetComponent<HealthCounter>().AddHealth(amount);
+            DoActionTo.GetComponent<StatsCounter>().AddHealth(Mathf.RoundToInt(amount));
 
             // Debug.Log($"DoAction in {this.name}: {amount}");
         }
@@ -28,7 +28,7 @@ public class HealthPU : MonoBehaviour, IPowerUp
         if (other.CompareTag("Player") && !wasUsed)
         {
             // Debug.Log("Sphere collided with player");
-            DoAction(healthPoint, other.gameObject); wasUsed = true;
+            DoAction(healthPoint, 0, other.gameObject); wasUsed = true;
             GetComponent<Collider>().enabled = false;
             Destroy(gameObject);
         }

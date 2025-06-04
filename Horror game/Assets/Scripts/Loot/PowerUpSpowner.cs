@@ -115,5 +115,5 @@ public class LootSpawner : MonoBehaviour
 
 public interface IPowerUp
 {
-    public void DoAction(int amount, GameObject gameObject);
+    public void DoAction(float amount, float time, GameObject gameObject);
 }

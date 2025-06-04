@@ -50,7 +50,7 @@ public class PlayerGroundedState : PlayerBaseState, IRootState
         //if player is grounded and JUMP is pressed,switch to jump state
         if (Ctx.IsJumpPressed && !Ctx.RequireNewJumpPress)
         {
-            Ctx._currentJumpHeight = Ctx._maxJumpHeit;
+            Ctx._currentJumpHeight = Ctx._maxJumpHight;
             Ctx._currentJumpTime = Ctx._maxJumpTime;
             Ctx.SetupJumpVariables();
             SwitchStates(Factory.Jump());

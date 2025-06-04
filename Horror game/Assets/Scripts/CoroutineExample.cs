@@ -8,7 +8,7 @@ public class CoroutineExample : MonoBehaviour
     public int healthDepletionRate; // Health lost per second
     public float intervalInSeconds; // How often to reduce health
 
-    HealthCounter playerHealthCounter;
+    StatsCounter playerHealthCounter;
 
     private Coroutine depleteHealthCoroutine; // REFERENCE to the running coroutine
 
@@ -17,7 +17,7 @@ public class CoroutineExample : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            playerHealthCounter = other.GetComponent<HealthCounter>();
+            playerHealthCounter = other.GetComponent<StatsCounter>();
 
             depleteHealthCoroutine = StartCoroutine(DepleteHealth()); // START  coroutine and store the reference
         }

@@ -10,7 +10,7 @@ public class nuclearSmokePowerUp : MonoBehaviour
 
     public int healthDepletionRate; // Health lost per second
     public float intervalInSeconds; // How often to reduce health
-    public HealthCounter playerHealthCounter;
+    public StatsCounter playerHealthCounter;
 
     private Coroutine depleteHealthCoroutine; // Reference to the running coroutine
 
@@ -25,7 +25,7 @@ public class nuclearSmokePowerUp : MonoBehaviour
         {
             if (other.gameObject.CompareTag("Player"))
             {
-                playerHealthCounter = other.GetComponent<HealthCounter>();
+                playerHealthCounter = other.GetComponent<StatsCounter>();
                 // Start the coroutine and store the reference
                 depleteHealthCoroutine = StartCoroutine(DepleteHealth_Ienumerator());
             }

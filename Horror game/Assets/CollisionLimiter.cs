@@ -31,25 +31,5 @@ public class CollisionLimiter : MonoBehaviour
             CountCollisions();
         }
     }
-    // void OnCollisionEnter(Collision collision)
-    // {
-    //     Debug.Log("Collision ENTER");
-    //     if (collision.gameObject.tag == "Player")
-    //     {
-    //         Debug.Log("Collision with Player");
-    //         CountCollisions();
-    //     }
-    // }
-
-    // void OnControllerColliderHit(ControllerColliderHit hit)
-    // {
-    //     Debug.Log("OnControllerColliderHit called");
-    //     if (hit.gameObject.tag == "Player")
-    //     {
-    //         Debug.Log("Collision with Player");
-    //         CountCollisions();
-    //     }
-    //     Debug.Log("COLLISION ENTER Collision");
-    // }
 
 }

@@ -28,7 +28,13 @@ public class PlayerStateMachine : MonoBehaviour
 
     //constants
     float _rotationFactorPerFrame = 15.0f;
-    [SerializeField] float _runMultiplier = 5.0f; [SerializeField] float _walkMultiplier = 2.0f;
+
+    [Header("Movenment Multipliers")]
+    public float runMultiplier;
+    public float _currentRunMultiplier = 5.0f;
+
+    public float walkMultiplier;
+    public float _currentWalkMultiplier = 2.0f;
     int _zero = 0;
 
     //gravity variables
@@ -42,7 +48,7 @@ public class PlayerStateMachine : MonoBehaviour
     public float _currentJumpHeight; // 4.0
     public float _currentJumpTime; //.75
 
-    public float _maxJumpHeit;
+    public float _maxJumpHight;
     public float _maxJumpTime; //.75
 
     public float _maxJumpPadHeight;
@@ -65,8 +71,6 @@ public class PlayerStateMachine : MonoBehaviour
     PlayerBaseState _currentState;
     PlayerStateFactory _states;
 
-
-    //getters  and setters
     public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
     public Animator Animator { get { return _animator; } set { _animator = value; } }
     public CharacterController CharacterController { get { return _characterController; } set { _characterController = value; } }
@@ -90,16 +94,25 @@ public class PlayerStateMachine : MonoBehaviour
     public float AppliedMovementY { get { return _appliedMovement.y; } set { _appliedMovement.y = value; } }
     public float AppliedMovementX { get { return _appliedMovement.x; } set { _appliedMovement.x = value; } }
     public float AppliedMovementZ { get { return _appliedMovement.z; } set { _appliedMovement.z = value; } }
-    public float RunMultiplier { get { return _runMultiplier; } }
+    public float RunMultiplier { get { return _currentRunMultiplier; } }
     public Vector2 CurrentMovementInput { get { return _currentMovementInput; } }
     //
 
-    public float WalkMultiplier { get { return _walkMultiplier; } }
+    public float WalkMultiplier { get { return _currentWalkMultiplier; } }
+
+    public float launchGravity = -100f;
+    private bool isLaunching = false;
+    public float jumpForce = 10f;
+    public bool isJumpPadCollided = false;
+    public bool wasGroundedBeforePause;
+
+
+    [Header("Stats")]
+
     [SerializeField] int playerHealth;
     [SerializeField] int playerHealthMax;
 
 
-    public bool wasGroundedBeforePause;
 
     public LootCounter lootCounter;
     public static event Action<Transform> onPlayerCreated;
@@ -112,10 +125,7 @@ public class PlayerStateMachine : MonoBehaviour
     Rigidbody boxRigidbody;
 
     private Vector3 velocity;
-    public float launchGravity = -100f;
-    private bool isLaunching = false;
-    public float jumpForce = 10f;
-    public bool isJumpPadCollided = false;
+
 
     void Awake()
     {
@@ -156,6 +166,9 @@ public class PlayerStateMachine : MonoBehaviour
         SetupJumpVariables();
 
         boxRigidbody = GetComponent<Rigidbody>();
+
+        _currentWalkMultiplier = walkMultiplier;
+        _currentRunMultiplier = runMultiplier;
 
     }
 
