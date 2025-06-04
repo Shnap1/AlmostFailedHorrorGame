@@ -130,7 +130,7 @@ public class Powerup : MonoBehaviour, IPowerUp
             TypeSet = true;
         }
     }
-    public void DoAction(float amount, float time, GameObject gameObject)
+    public void DoAction(float amount, float time, GameObject playerObject)
     {
         if (currentPUParticle != null)
         {
@@ -141,27 +141,51 @@ public class Powerup : MonoBehaviour, IPowerUp
         switch (currentLootType)
         {
             case LootType.healthPU:
-                gameObject.GetComponent<StatsCounter>().AddHealth(Mathf.RoundToInt(amount));
+                playerObject.GetComponent<StatsCounter>().AddHealth(Mathf.RoundToInt(amount));
                 break;
             case LootType.speedPU:
-                gameObject.GetComponent<StatsCounter>().AddSpeed(amount);
+                playerObject.GetComponent<StatsCounter>().AddSpeed(amount);
                 break;
             case LootType.jumpHeightPU:
-                prevJumpHeight = gameObject.GetComponent<PlayerStateMachine>()._currentJumpHeight;
-                gameObject.GetComponent<StatsCounter>().AddJumpHight(amount, prevJumpHeight);
+                prevJumpHeight = playerObject.GetComponent<PlayerStateMachine>()._currentJumpHeight;
+                playerObject.GetComponent<StatsCounter>().AddJumpHight(amount, prevJumpHeight);
                 break;
             // case LootType.staminaPU:
             //     break;
             case LootType.defensePU:
-                gameObject.GetComponent<StatsCounter>().AddDefence(Mathf.RoundToInt(amount));
+                playerObject.GetComponent<StatsCounter>().AddDefence(Mathf.RoundToInt(amount));
                 break;
             // case LootType.target:
             //     break;
             default:
                 break;
         }
+        HidePowerup();
+    }
+
+    void HidePowerup()
+    {
         currentPUParticle.Play();
-        gameObject.SetActive(false);
+        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
+        Collider collider = GetComponent<Collider>();
+
+        collider.enabled = false;
+        meshRenderer.enabled = false;
+        StartCoroutine(DeactivatePowerUpCoroutine());
+    }
+
+    IEnumerator DeactivatePowerUpCoroutine()
+    {
+        yield return new WaitForSeconds(10f);
+        DeactivatePowerUp();
+    }
+    void DeactivatePowerUp()
+    {
+        this.gameObject.SetActive(false);
+    }
+    void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
 
