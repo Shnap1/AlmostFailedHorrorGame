@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Enemy
   - TargetCollectable
+  - Water
+  - Wood
+  - Metal
   layers:
   - Default
   - TransparentFX
