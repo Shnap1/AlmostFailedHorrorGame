@@ -68,7 +68,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 67202b6d1a8ed7e4c8c9c6b4eae52570, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 4ad79f0a6003486449adf600d986fbb0, type: 2}
   m_BuildHeightMesh: 0
 --- !u!114 &2417173197622988883
 MonoBehaviour:
@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_StartPoint: {x: -14.097153, y: 0.21925437, z: -22.219421}
+  m_StartPoint: {x: -14.097153, y: -0.040564507, z: -22.219421}
   m_EndPoint: {x: -6.8265533, y: 14.807454, z: -20.570923}
   m_Width: 0
   m_CostModifier: -1
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
-  m_StartPoint: {x: -2.5414734, y: 4.0282097, z: -6.015869}
+  m_StartPoint: {x: -9.310455, y: 0.036384642, z: -9.970032}
   m_EndPoint: {x: -4.831833, y: 15.069448, z: -15.785706}
   m_Width: 0
   m_CostModifier: -1
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AgentTypeID: 0
   m_StartPoint: {x: -4.8545074, y: 4.1019106, z: -3.8458862}
-  m_EndPoint: {x: -11.240448, y: -0.05412948, z: -8.316895}
+  m_EndPoint: {x: -11.240448, y: 0.08472565, z: -8.316895}
   m_Width: 0
   m_CostModifier: -1
   m_Bidirectional: 1
