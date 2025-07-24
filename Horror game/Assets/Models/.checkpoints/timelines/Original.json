@@ -1,1 +1,82 @@
-[{"id": "72fbd5d3f26546c0ac508bc77a8d7a75.blend", "description": "Initial checkpoint", "date": "Sun Mar  9 16:10:07 2025 +0000"}]
+[
+    {
+        "id": "38024c8b60ab46d1a64fdddaa30935f5.blend",
+        "description": "symmetrizing ik didnt work",
+        "date": "Tue Jul 15 22:05:14 2025 +0000"
+    },
+    {
+        "id": "cebfadef827a41e3866a40ac15b291fd.blend",
+        "description": "rig parented",
+        "date": "Tue Jul 15 21:03:14 2025 +0000"
+    },
+    {
+        "id": "eabbd2b72c2f424a9779fa35300d8684.blend",
+        "description": "mirrored the armature",
+        "date": "Tue Jul 15 20:54:59 2025 +0000"
+    },
+    {
+        "id": "7352d962bd5d470788b145b085e40116.blend",
+        "description": "+rig",
+        "date": "Tue Jul 15 13:27:47 2025 +0000"
+    },
+    {
+        "id": "929f2c3f2e1f4ada8dc37d675a965c39.blend",
+        "description": "saved some textures",
+        "date": "Tue Jul 15 12:39:27 2025 +0000"
+    },
+    {
+        "id": "e5ac2693f827483681177b814f5b19bf.blend",
+        "description": "p",
+        "date": "Sun Jul 13 16:36:02 2025 +0000"
+    },
+    {
+        "id": "e0955ab8064a4fd6826d2aa30daa60c0.blend",
+        "description": "lungs bigger",
+        "date": "Sun Jul 13 16:35:30 2025 +0000"
+    },
+    {
+        "id": "e6100dbf6a9c4179bcc8d68bd6fcb8b4.blend",
+        "description": "lungs painted",
+        "date": "Sun Jul 13 16:28:04 2025 +0000"
+    },
+    {
+        "id": "f6caf12745c8489b92436aa04dcfcece.blend",
+        "description": "body + tongue texture",
+        "date": "Sun Jul 13 16:02:00 2025 +0000"
+    },
+    {
+        "id": "98eb5bf3537e460d81280859bf3f6fad.blend",
+        "description": "smooth face shading applied",
+        "date": "Sat Jul 12 17:35:11 2025 +0000"
+    },
+    {
+        "id": "525d5adbb93f44a495519a88ba184a36.blend",
+        "description": "unwrapped again and seamed",
+        "date": "Sat Jul 12 16:04:32 2025 +0000"
+    },
+    {
+        "id": "e13d4389e33c42c28c1160cbf6e036ed.blend",
+        "description": "bubble  mesh thickened",
+        "date": "Sat Jul 12 15:45:07 2025 +0000"
+    },
+    {
+        "id": "1f8120a29b6f497dba61066aab93c56a.blend",
+        "description": "+ mirror applied",
+        "date": "Sat Jul 12 15:42:51 2025 +0000"
+    },
+    {
+        "id": "ecdcce06645943d995839555fa8424e5.blend",
+        "description": "+ new mat + reculc outside",
+        "date": "Sat Jul 12 15:39:06 2025 +0000"
+    },
+    {
+        "id": "f6bd4062a900445bbe42ab47d068fc0a.blend",
+        "description": "mirror mod ON",
+        "date": "Sat Jul 12 15:31:09 2025 +0000"
+    },
+    {
+        "id": "72fbd5d3f26546c0ac508bc77a8d7a75.blend",
+        "description": "Initial checkpoint",
+        "date": "Sun Mar  9 16:10:07 2025 +0000"
+    }
+]
