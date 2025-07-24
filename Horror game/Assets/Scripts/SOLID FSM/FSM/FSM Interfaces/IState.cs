@@ -4,7 +4,10 @@ using UnityEngine;
 
 public interface IState
 {
-    public void Initialize();
+    // public T context { get; set; }
+    //public IFSM fsm { get; set; }
+
+    public void Initialize<T>(T context, IFSM fsm) where T : IFSMContext;
 
     public void OnEnter();
     public void OnUpdate();
