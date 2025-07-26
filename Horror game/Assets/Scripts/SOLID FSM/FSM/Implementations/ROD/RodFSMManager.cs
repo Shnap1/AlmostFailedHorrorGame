@@ -10,8 +10,9 @@ public class RodFSMManager : MonoBehaviour, IFSMManager
     [SerializeField] public List<IFSMBuilder> builders = new List<IFSMBuilder>();
     [SerializeField] public IFSMBuilder[] buildersArray;
     [SerializeField] public List<string> testStrings = new List<string>();
-    public IFSMContext _context;
+    public FSMContext _context;
     public bool _launchOnStart;
+
 
     public void InitializeBuilders()
     {
@@ -30,7 +31,7 @@ public class RodFSMManager : MonoBehaviour, IFSMManager
         }
     }
 
-    public void SetContext(IFSMContext context)
+    public void SetContext(FSMContext context)
     {
         if (_context != null)
         {

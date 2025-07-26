@@ -24,7 +24,7 @@ public class RodFSMBuilderStandard : MonoBehaviour, IFSMBuilder
         throw new System.NotImplementedException();
     }
 
-    public void SetContext(IFSMContext context)
+    public void SetContext(FSMContext context)
     {
 
     }

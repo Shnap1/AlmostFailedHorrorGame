@@ -26,6 +26,6 @@ public interface IFSMManager
     /// <summary>
     ///loops  through all IFSMBuilders and puts IFSMContext data about the object as context.
     /// </summary>
-    public void SetContext(IFSMContext context);
+    public void SetContext(FSMContext context);
 
 }

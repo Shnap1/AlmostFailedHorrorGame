@@ -12,7 +12,7 @@ public interface IFSMBuilder
 
     public void SetFSM(IFSM fSM); //Gets the FSM from the Manager Inspector
 
-    public void SetContext(IFSMContext context)
+    public void SetContext(FSMContext context)
     {
 
     }
