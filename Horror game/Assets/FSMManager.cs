@@ -21,7 +21,7 @@ public interface IFSMManager
     ///loops  through all FSMs in a List (set through inspector) to call  SetContext<T>(T context)
     /// </summary>
 
-    public void AddIFSMBuilder(IFSMBuilder states); // add states to a list
+    public void AddIFSMBuilders(IFSMBuilder[] states); // add states to a list
 
     /// <summary>
     ///loops  through all IFSMBuilders and puts IFSMContext data about the object as context.

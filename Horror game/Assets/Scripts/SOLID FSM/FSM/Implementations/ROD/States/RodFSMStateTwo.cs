@@ -5,14 +5,17 @@ using UnityEngine;
 
 public class RodFSMStateTwo : MonoBehaviour, IState
 {
+    object _context;
+    IFSM _fsm;
     public void Initialize<T>(T context, IFSM fsm) where T : FSMContext
     {
-        throw new System.NotImplementedException();
+        _context = context;
+        _fsm = fsm;
     }
 
     public void OnEnter()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("RodFSMState 2");
     }
     public void CheckSwitch()
     {
@@ -23,9 +26,16 @@ public class RodFSMStateTwo : MonoBehaviour, IState
 
     public void OnUpdate()
     {
-        throw new System.NotImplementedException();
+
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            SwitchState();
+        }
+    }
     public void SwitchState()
     {
         throw new System.NotImplementedException();

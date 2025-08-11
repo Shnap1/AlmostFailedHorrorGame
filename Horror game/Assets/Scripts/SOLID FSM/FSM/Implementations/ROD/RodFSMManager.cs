@@ -7,38 +7,16 @@ using Unity.VisualScripting;
 [Serializable]
 public class RodFSMManager : MonoBehaviour, IFSMManager
 {
-    [SerializeField] public List<IFSMBuilder> builders = new List<IFSMBuilder>();
-    [SerializeField] public IFSMBuilder[] buildersArray;
-    [SerializeField] public List<string> testStrings = new List<string>();
+    IFSMBuilder[] Builders = new IFSMBuilder[1];
+
     public FSMContext _context;
     public bool _launchOnStart;
 
 
-    public void InitializeBuilders()
+    void Start()
     {
-        AddIFSMBuilder(new RodFSMBuilderStandard());
+        StartFSMManager(_launchOnStart);
     }
-    public void AddIFSMBuilder(IFSMBuilder builder)
-    {
-        if (builder != null && !builders.Contains(builder))
-        {
-            builder.SetContext(_context);
-            builders.Add(builder);
-        }
-        else
-        {
-            Debug.Log("builder is null or already exists");
-        }
-    }
-
-    public void SetContext(FSMContext context)
-    {
-        if (_context != null)
-        {
-            _context = context;
-        }
-    }
-
     public void StartFSMManager(bool launch)
     {
         if (launch)
@@ -47,15 +25,51 @@ public class RodFSMManager : MonoBehaviour, IFSMManager
             InitializeBuilders();
         }
     }
+    public void SetContext(FSMContext context)
+    {
+        if (_context != null)
+        {
+            _context = context;
+        }
+    }
+
+    public void InitializeBuilders()
+    {
+        Builders[0] = new RodFSMBuilderStandard();
+        AddIFSMBuilders(Builders);
+
+    }
+    public void AddIFSMBuilders(IFSMBuilder[] buildersArray)
+    {
+        if (buildersArray == null)
+        {
+            Debug.Log("builder is null");
+            return;
+        }
+        else if (buildersArray.Length > 0)
+        {
+            foreach (var builder in buildersArray)
+            {
+                builder.SetContext(_context);
+                Debug.Log("builder got context set");
+            }
+        }
+        else
+        {
+            Debug.Log("builder already exists");
+        }
+
+
+    }
+
+
+
 
     public void StopFSMManager()
     {
         throw new System.NotImplementedException();
     }
 
-    void Start()
-    {
-        StartFSMManager(_launchOnStart);
-    }
+
 
 }
