@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class Effect : MonoBehaviour
 {
-    E_Effect thistype;
+    public E_Effect thistype;
     public MatParams matParams = new MatParams();
+
+    public EffectManager effectManager;
+    public void SetStartParams(MatParams mp) { matParams = mp; }
+
     public void Subscribe(EffectManager effectManager)
     {
 
@@ -23,6 +27,11 @@ public class Effect : MonoBehaviour
 
 
     protected virtual void CheckForOtherEffects() { }
+    public virtual void CheckSwitchMaterial()
+    {
+        //example
+        if (matParams.oxygenIn < 0.1f) { effectManager.ChangeMaterial(E_Effect.Water); }
+    }
 
 
     public virtual void OnFire() { }//🔥
@@ -35,8 +44,5 @@ public class Effect : MonoBehaviour
     public virtual void OnEarth() { }//🌱
     public virtual void OnLight() { }//💡
     public virtual void OnMetal() { }//⚙️
-
-
-
 
 }

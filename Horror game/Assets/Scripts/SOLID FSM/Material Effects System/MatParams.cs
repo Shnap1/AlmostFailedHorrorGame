@@ -5,7 +5,8 @@ using UnityEngine;
 /// <summary>
 /// a universal class for holding all possible material and effect parameters. Should be passed as a patameter for methods instead of specific values so other classes will take specific values for themselves
 /// </summary>
-public class MatParams : MonoBehaviour
+[CreateAssetMenu(fileName = "MatParams", menuName = "MatParams")]
+public class MatParams : ScriptableObject
 {
     public float temperatureIn;
     public float temperatureOut;
