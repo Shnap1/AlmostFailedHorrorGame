@@ -5,9 +5,11 @@ using UnityEngine;
 public class EffectsFactory : MonoBehaviour
 {
 
-
     Dictionary<E_Effect, Effect> effects = new Dictionary<E_Effect, Effect>();
 
+    /// <summary>
+    /// holds all the effects and to be used in EffectManager and needs to be enhanced with every new effect with the same enum in E_Effect
+    /// </summary>
     public void InitializeEffectsDictionary()
     {
         //     effects.Add(E_Effect.Fire , new FireEffect());
@@ -21,8 +23,6 @@ public class EffectsFactory : MonoBehaviour
     {
         return effects[effectType];
     }
-
-
 
 }
 

@@ -5,10 +5,6 @@ using UnityEngine;
 
 public class Water_MS : MaterialSmart_Base
 {
-
-
-
-
     void Start()
     {
         currentMaterial = MaterialsE.Water;
@@ -21,15 +17,9 @@ public class Water_MS : MaterialSmart_Base
         currentFuelInside = MSData.maxFuelInside;
         reactionCoroutine = null;
 
-
         // ChangeMaterial(this, ObjWithMaterial); //TODO replace "this" with the other derived class
     }
-
-    public Water_MS()
-    {
-
-    }
-
+    public Water_MS() { }
     // void OnTriggerEnter(Collider other)
     // {
     //     MaterialSmart_Base otherMS = null;
@@ -66,19 +56,12 @@ public class Water_MS : MaterialSmart_Base
 
     // }
 
-    public override void InterractWithNPCs()
-    {
-    }
-
-    public override void OnEarth()
-    {
-    }
-
+    public override void InterractWithNPCs() { }
+    public override void OnEarth() { }
     public override void OnElectricity()
     {
         materialStates[MaterialStatesE.Electrifying] = true;
     }
-
     public override void OnFire(float temperature)
     {
         //evaporate
@@ -92,10 +75,7 @@ public class Water_MS : MaterialSmart_Base
             currentTemp = (temperature + currentTemp) / 2;
         }
     }
-
-    public override void OnGas()
-    {
-    }
+    public override void OnGas() { }
 
     public override void OnIce(float newTemperature)
     {
@@ -108,16 +88,9 @@ public class Water_MS : MaterialSmart_Base
             }
         }
     }
+    public override void OnLight() { }
 
-    public override void OnLight()
-    {
-
-    }
-
-    public override void OnMetal()
-    {
-
-    }
+    public override void OnMetal() { }
 
     public override void OnWater(float WaterWeight, float transferredWaterPerSecond, float WaterTemperature)
     {
@@ -128,20 +101,9 @@ public class Water_MS : MaterialSmart_Base
 
             currentWeight += transferredWaterPerSecond;
         }
-
     }
-
-    public override void OnWind(float speed, float temperature)
-    {
-
-    }
-
-    public override void InnerReaction()
-    {
-
-    }
-
-
+    public override void OnWind(float speed, float temperature) { }
+    public override void InnerReaction() { }
     // IEnumerator ApplyEffects_Enumerator(MaterialSmart_Base materialToInfluence, float time)
     // {
     //     yield return new WaitForSeconds(time);
@@ -157,7 +119,6 @@ public class Water_MS : MaterialSmart_Base
             materialToInfluence.OnWater(currentWeight, waterPerSecond, currentTemp);
             DepleteResource(waterPerSecond, currentWaterInside);
 
-
             if (materialStates[MaterialStatesE.Freezing])
             {
                 materialToInfluence.OnIce(currentTemp);
@@ -168,8 +129,5 @@ public class Water_MS : MaterialSmart_Base
                 DepleteResource(electricityPerSecond, currentElectricityInside);
             }
         }
-
-
     }
-
 }

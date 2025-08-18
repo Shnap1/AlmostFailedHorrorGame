@@ -7,59 +7,40 @@ public abstract class MaterialSmart_Base : MonoBehaviour
 {
     public GameObject ObjWithMaterial;
     public MeshRenderer objRenderer;
-
-
-
     public MaterialSmart_Data MSData;
     //Basic properties
     // [Header("BASIC")]
-
     [Header("Reaction rates")]
     [HideInInspector] public float reactionRate_fast = 1f;
     [HideInInspector] public float reactionRate_slow = 10f;
     public float currentReactionRate;
-
     [Header("SPENDING RATE")]
     public float waterPerSecond;
     public float gasPerSecond;
     public float fuelPerSecond;
     public float electricityPerSecond;
 
-
-
     [HideInInspector] public Coroutine reactionCoroutine;
-
     [Header("current properties")]
-
     public float currentHealth;
     public float currentWeight;
     public float currentSize;
     public float shatteringPoint;
 
-
-
-
     // Temperature properties
     [Header("TEMPERATURE")]
     public float currentTemp;
-
-
-
     //
     public float lastHealth = 0;
     public float lastWeight = 0;
     public float lastSize = 0;
     //
-
     //Chemichal properties
     [Header("CHEMICAL")]
-
     public float currentWaterInside;
     public float currentGasInside;
     public float currentFuelInside;
     public float currentElectricityInside;
-
-
     public enum MaterialsE
     {
         //Solids
@@ -87,7 +68,6 @@ public abstract class MaterialSmart_Base : MonoBehaviour
         Electric,
         Steam
     }
-
     public enum MaterialStatesE
     {
         Dry,
@@ -99,7 +79,6 @@ public abstract class MaterialSmart_Base : MonoBehaviour
         Electrifying,
         Wet
     }
-
     public Dictionary<MaterialStatesE, bool> materialStates = new Dictionary<MaterialStatesE, bool>()
 {
     { MaterialStatesE.Dry, false },
@@ -111,9 +90,7 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     { MaterialStatesE.Electrifying, false },
     { MaterialStatesE.Wet, false }
 };
-
     public MaterialsE currentMaterial;
-
     [Header("contacted OBJECTS")]
     public List<MaterialSmart_Base> ContactedObjects = new List<MaterialSmart_Base>();
 
@@ -121,7 +98,6 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     void Start()
     {
         objRenderer = ObjWithMaterial.GetComponent<MeshRenderer>();
-
         if (MSData == null)
         {
             Debug.LogError("Missing MS Data");
@@ -131,7 +107,6 @@ public abstract class MaterialSmart_Base : MonoBehaviour
             SetProperties();
         }
     }
-
     public void SetProperties()
     {
         currentHealth = MSData.maxHealth;
@@ -141,11 +116,8 @@ public abstract class MaterialSmart_Base : MonoBehaviour
         currentGasInside = MSData.maxGasInside;
         currentFuelInside = MSData.maxFuelInside;
     }
-
-
     void OnTriggerEnter(Collider other)
     {
-
         MaterialSmart_Base otherMS = null;
         if (other.gameObject.GetComponent<MaterialSmart_Base>() != null)
         {
@@ -164,28 +136,19 @@ public abstract class MaterialSmart_Base : MonoBehaviour
                 reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(otherMS, reactionRate_fast));
             }
         }
-
-
-
         //TODO: rewrite. Described more specifically in ApplyEffects()
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("Player contacted with Water");
         }
-
         if (other.gameObject.tag == "Enemy")
         {
             Debug.Log("Enemy contacted with Water");
         }
-
         // materialStates[MaterialStatesE.Burning] = true; //TODO set the material state AND/OR if condition
-
     }
     void OnTriggerExit(Collider other)
     {
-
-
-
         MaterialSmart_Base otherMS = null;
         if (other.gameObject.GetComponent<MaterialSmart_Base>() != null)
         {
@@ -197,7 +160,6 @@ public abstract class MaterialSmart_Base : MonoBehaviour
             if (reactionCoroutine != null && ContactedObjects.Count >= 1) // 1 ----- coroutine is already running and theres more then 1 contactedGameObject list 
             {
                 if (ContactedObjects.Contains(otherMS)) { ContactedObjects.Remove(otherMS); }
-
             }
             else if (reactionCoroutine != null && ContactedObjects.Count <= 0) // 2 ---- the LAST contactedGameObject isextracted so it turns off the coroutine
             {
@@ -206,13 +168,7 @@ public abstract class MaterialSmart_Base : MonoBehaviour
                 reactionCoroutine = null;
             }
         }
-
-
-
-
     }
-
-
     //Hihly interractive
     public abstract void InterractWithNPCs();
     public abstract void OnFire(float temperature);
@@ -220,14 +176,12 @@ public abstract class MaterialSmart_Base : MonoBehaviour
     public abstract void OnWater(float WaterWeight, float GiveWaterPerSecond, float WaterTemperature);
     public abstract void OnGas();
 
-
     public abstract void OnElectricity();
     public void DepleteResource(float resPerSecond, float currentResInside)
     {
         if (currentResInside >= resPerSecond && resPerSecond > 0) currentResInside -= resPerSecond;
         else if (currentResInside <= 0) currentResInside = 0;
     }
-
     public abstract void OnWind(float windSpeed, float windTemperature);
     public abstract void OnEarth();
     public abstract void OnLight();
@@ -239,13 +193,10 @@ public abstract class MaterialSmart_Base : MonoBehaviour
         // Add the derived class component to the GameObject
         Component derivedComponent = objectWithMaterial.AddComponent(newMaterial.GetType());
         // Disable the existing MaterialSmart_Base component
-
         this.enabled = false;
     }
-
     public abstract void InnerReaction();
     public abstract void ApplyEffects(MaterialSmart_Base materialToInfluence);
-
     public IEnumerator ApplyEffects_Enumerator(MaterialSmart_Base materialToInfluence, float time)
     {
         while (true)
@@ -256,7 +207,6 @@ public abstract class MaterialSmart_Base : MonoBehaviour
             yield return new WaitForSeconds(time);
         }
     }
-
     public float ChangeReactionRate()
     {
         if (lastHealth == currentHealth || lastWeight == currentWeight || lastSize == currentSize)
@@ -274,10 +224,4 @@ public abstract class MaterialSmart_Base : MonoBehaviour
             return reactionRate_fast;
         }
     }
-
-
-
-
-
-
 }
