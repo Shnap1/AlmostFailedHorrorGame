@@ -25,7 +25,7 @@ public class EffectManager : MonoBehaviour
     public float fuelPerSecond;
     public float electricityPerSecond;
 
-    public List<MaterialSmart_Base> ContactedObjects = new List<MaterialSmart_Base>();
+    public List<EffectManager> ContactedObjects = new List<EffectManager>();
 
 
     [HideInInspector] public Coroutine reactionCoroutine;
@@ -112,12 +112,12 @@ public class EffectManager : MonoBehaviour
         else if (currentResInside <= 0) currentResInside = 0;
     }
 
-    public virtual void ApplyEffects(MaterialSmart_Base materialToInfluence) //TODO - that is OLD and. Need to rewrite  rewrite
+    public virtual void ApplyEffects(EffectManager materialToInfluence) //TODO - that is OLD and. Need to rewrite  rewrite
     {
         // only works for materials, NOT  NPCs or PLAYERs. Needs to be fixed. Either by 1) rewriting PLAYER/NPC reaction logic or 2) creating a new material for them, or 3) separate method here for them
         // Debug.Log("ApplyEffects in Water MS");
 
-        foreach (MaterialSmart_Base material in ContactedObjects)
+        foreach (EffectManager material in ContactedObjects)
         {
             // materialToInfluence.OnWater(currentWeight, waterPerSecond, currentTemp);
             // DepleteResource(waterPerSecond, currentWaterInside);
@@ -134,7 +134,7 @@ public class EffectManager : MonoBehaviour
         }
     }
 
-    public IEnumerator ApplyEffects_Enumerator(MaterialSmart_Base materialToInfluence, float time)
+    public IEnumerator ApplyEffects_Enumerator(EffectManager materialToInfluence, float time)
     {
         while (true)
         {
@@ -166,22 +166,22 @@ public class EffectManager : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        MaterialSmart_Base otherMS = null;
-        if (other.gameObject.GetComponent<MaterialSmart_Base>() != null)
+        EffectManager otherEM = null;
+        if (other.gameObject.GetComponent<EffectManager>() != null)
         {
-            otherMS = other.gameObject.GetComponent<MaterialSmart_Base>();
+            otherEM = other.gameObject.GetComponent<EffectManager>();
 
             currentReactionRate = reactionRate_fast;
-            otherMS.currentReactionRate = otherMS.reactionRate_fast;
+            otherEM.currentReactionRate = otherEM.reactionRate_fast;
 
             if (reactionCoroutine != null) // 2 ----- coroutine is already running so just adding contactedGameObject list 
             {
-                if (!ContactedObjects.Contains(otherMS)) { ContactedObjects.Add(otherMS); }
+                if (!ContactedObjects.Contains(otherEM)) { ContactedObjects.Add(otherEM); }
             }
             else if (reactionCoroutine == null && ContactedObjects.Count <= 0) // 1 ---- the 1st Contacted Game object turns on the coroutine
             {
-                if (!ContactedObjects.Contains(otherMS)) { ContactedObjects.Add(otherMS); }
-                reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(otherMS, reactionRate_fast));
+                if (!ContactedObjects.Contains(otherEM)) { ContactedObjects.Add(otherEM); }
+                reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(otherEM, reactionRate_fast));
             }
         }
         //TODO: rewrite. Described more specifically in ApplyEffects()
@@ -197,21 +197,21 @@ public class EffectManager : MonoBehaviour
     }
     void OnTriggerExit(Collider other)
     {
-        MaterialSmart_Base otherMS = null;
-        if (other.gameObject.GetComponent<MaterialSmart_Base>() != null)
+        EffectManager otherEM = null;
+        if (other.gameObject.GetComponent<EffectManager>() != null)
         {
-            otherMS = other.gameObject.GetComponent<MaterialSmart_Base>();
+            otherEM = other.gameObject.GetComponent<EffectManager>();
 
             currentReactionRate = reactionRate_fast;
-            otherMS.currentReactionRate = otherMS.reactionRate_fast;
+            otherEM.currentReactionRate = otherEM.reactionRate_fast;
 
             if (reactionCoroutine != null && ContactedObjects.Count >= 1) // 1 ----- coroutine is already running and theres more then 1 contactedGameObject list 
             {
-                if (ContactedObjects.Contains(otherMS)) { ContactedObjects.Remove(otherMS); }
+                if (ContactedObjects.Contains(otherEM)) { ContactedObjects.Remove(otherEM); }
             }
             else if (reactionCoroutine != null && ContactedObjects.Count <= 0) // 2 ---- the LAST contactedGameObject isextracted so it turns off the coroutine
             {
-                if (ContactedObjects.Contains(otherMS)) { ContactedObjects.Remove(otherMS); }
+                if (ContactedObjects.Contains(otherEM)) { ContactedObjects.Remove(otherEM); }
                 StopCoroutine(reactionCoroutine);
                 reactionCoroutine = null;
             }
