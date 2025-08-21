@@ -5,7 +5,7 @@ using UnityEngine;
 public class Effect : MonoBehaviour
 {
     public E_Effect thistype;
-    public MatParams matParams = new MatParams();
+    public MatParams matParams;
 
     public EffectManager effectManager;
     public void SetStartParams(MatParams mp) { matParams = mp; }
@@ -27,8 +27,22 @@ public class Effect : MonoBehaviour
     {
         CalculateInnerState(matParams);
         CheckSwitchMaterial();
+        AllVFXcontrol();//TODO might have to move it to an update() method for propper vfx animationS
         return matParams;
     }
+
+
+    ///<summary>
+    /// Checks if the material should switch to another materialbased on stats via if statements. It must be overriden for each material.
+    ///</summary>
+    public virtual void CheckSwitchMaterial()
+    {
+        //example
+        if (matParams.oxygenIn < 0.1f) { effectManager.ChangeMaterial(E_Effect.Water); }
+        //or add all the if statements into separate methods. For example:
+        // ToWater();
+    }
+
 
     ///<summary>
     ///Calculates stats with formulas in methods, determining when to switch it's material to another material, add an effect to the manager destroy the object etc. It must be overriden for each material.
@@ -41,18 +55,28 @@ public class Effect : MonoBehaviour
         return mp;
     }
 
-    ///<summary>
-    /// Checks if the material should switch to another materialbased on stats via if statements. It must be overriden for each material.
-    ///</summary>
-    public virtual void CheckSwitchMaterial()
-    {
-        //example
-        if (matParams.oxygenIn < 0.1f) { effectManager.ChangeMaterial(E_Effect.Water); }
-    }
+    public virtual void TemperatureCalc() { }//in here add formulas for calculstions
+    public virtual void PressureCalc() { }
+    public virtual void MoistureCalc() { }
+    public virtual void StrengthCalc() { }
+    public virtual void WeightCalc() { }
+    public virtual void DecayCalc() { }
+    public virtual void BioDecayCalc() { }
+    public virtual void ElasticityCalc() { }
 
 
+    // SOUND + VISUAL EFFECTS
+    public virtual void AllVFXcontrol() { } //contains the following 3 methods
+    public virtual void SwitchMat() { }
+    public virtual void SwitchVFX() { }
+    public virtual void SwitchSFX() { }
 
-    //All reactions with to the existing materials:
+    //playing as a reaction to collision with other objects
+    public virtual void PlayVFX() { }
+    public virtual void PlaySFX() { }
+
+
+    //All REACTIONS to all existing materials:
 
     //WATER  with its 3 states
     public virtual void OnIce() { }//🧊
@@ -109,6 +133,4 @@ public class Effect : MonoBehaviour
 
     //universal states of all materials
     public virtual void OnPlasma() { }//🔮
-
-
 }

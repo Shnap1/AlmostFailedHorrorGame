@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f923c1dbe10e0438bee1da56626828, type: 3}
   m_Name: Test Mat Params
   m_EditorClassIdentifier: 
-  temperatureIn: 0
-  temperatureOut: 0
-  waterIn: 0
-  waterOut: 0
-  pressureIn: 0
-  pressureOut: 0
-  oxygenIn: 0
-  oxygenOut: 0
+  temperatureIn: 10
+  temperatureOut: 10
+  waterIn: 10
+  waterOut: 10
+  pressureIn: 10
+  pressureOut: 10
+  oxygenIn: 10
+  oxygenOut: 10

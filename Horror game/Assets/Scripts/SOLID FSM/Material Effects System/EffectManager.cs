@@ -12,6 +12,8 @@ public class EffectManager : MonoBehaviour
     public EffectsFactory effectsFactory = new EffectsFactory();
 
     public Effect objectMaterial;
+    public Material materialSkin;
+
 
     // .............................................................................
     // [Header("BASIC")]
