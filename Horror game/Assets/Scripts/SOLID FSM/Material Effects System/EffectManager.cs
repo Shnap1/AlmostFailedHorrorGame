@@ -114,27 +114,27 @@ public class EffectManager : MonoBehaviour
         else if (currentResInside <= 0) currentResInside = 0;
     }
 
-    public virtual void ApplyEffects(EffectManager materialToInfluence) //TODO - that is OLD and. Need to rewrite  rewrite
+
+    //Applies this material's effects to all materials in contacted EffectManagerToInfluence
+    public virtual void ApplyEffects(EffectManager EffectManagerToInfluence)
     {
         // only works for materials, NOT  NPCs or PLAYERs. Needs to be fixed. Either by 1) rewriting PLAYER/NPC reaction logic or 2) creating a new material for them, or 3) separate method here for them
         // Debug.Log("ApplyEffects in Water MS");
-
-        foreach (EffectManager material in ContactedObjects)
+        foreach (EffectManager otherEffectManager in ContactedObjects)
         {
-            // materialToInfluence.OnWater(currentWeight, waterPerSecond, currentTemp);
-            // DepleteResource(waterPerSecond, currentWaterInside);
+            List<Effect> otherManagersEffectList = otherEffectManager.effects;
+            foreach (Effect effect in otherManagersEffectList)
+            {
+                //this method is for WATER material only
+                effect.OnWater(objectMaterial.matParams); //TODO replace ot with current material lists effects
 
-            // if (materialStates[MaterialStatesE.Freezing])
-            // {
-            //     materialToInfluence.OnIce(currentTemp);
-            // }
-            // if (materialStates[MaterialStatesE.Electrifying])
-            // {
-            //     materialToInfluence.OnElectricity();
-            //     DepleteResource(electricityPerSecond, currentElectricityInside);
-            // }
+                // OnWater (currentWeight, waterPerSecond, currentTemp);
+
+                DepleteResource(waterPerSecond, currentWaterInside);
+            }
         }
     }
+
 
     public IEnumerator ApplyEffects_Enumerator(EffectManager materialToInfluence, float time)
     {
@@ -142,7 +142,7 @@ public class EffectManager : MonoBehaviour
         {
             time = ChangeReactionRate();
             ApplyEffects(materialToInfluence);
-            // Debug.Log("ApplyEffects_Enumerator");
+            Debug.Log("ApplyEffects_Enumerator");
             yield return new WaitForSeconds(time);
         }
     }
@@ -211,7 +211,7 @@ public class EffectManager : MonoBehaviour
             {
                 if (ContactedObjects.Contains(otherEM)) { ContactedObjects.Remove(otherEM); }
             }
-            else if (reactionCoroutine != null && ContactedObjects.Count <= 0) // 2 ---- the LAST contactedGameObject isextracted so it turns off the coroutine
+            else if (reactionCoroutine != null && ContactedObjects.Count <= 0) // 2 ---- the LAST contactedGameObject is extracted so it turns off the coroutine
             {
                 if (ContactedObjects.Contains(otherEM)) { ContactedObjects.Remove(otherEM); }
                 StopCoroutine(reactionCoroutine);

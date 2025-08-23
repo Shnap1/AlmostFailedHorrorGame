@@ -19,6 +19,16 @@ public class Effect : MonoBehaviour
     }
     public virtual MatParams SetEffectStats(MatParams matParams) { return matParams; }
 
+    /// <summary>
+    /// Choose wich effect to activate on another Material based on thisn material.
+    /// Must override in each material/effect
+    /// </summary>
+    public virtual void Interract(Effect effectToInterractWith, MatParams matParams)
+    {
+        //example with OnAcid() if THIS effect is an acid
+        effectToInterractWith.OnAcid();
+    }
+
     ///<summary>
     ///Is updated from the EffectManager's UpdateEffects method in a coroutine. Should update inside all continously changing methods of the effect/material like CalculateInnerState(MatParams mp);
     /// No need to override.
@@ -79,9 +89,9 @@ public class Effect : MonoBehaviour
     //All REACTIONS to all existing materials:
 
     //WATER  with its 3 states
-    public virtual void OnIce() { }//🧊
-    public virtual void OnWater() { }//💧
-    public virtual void OnGas() { }//☁️
+    public virtual void OnIce(MatParams matParams) { }//🧊
+    public virtual void OnWater(MatParams matParams) { }//💧
+    public virtual void OnGas(MatParams matParams) { }//☁️
 
     //effects - NOT materials.
     public virtual void OnFire() { }//🔥
