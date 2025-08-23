@@ -80,7 +80,22 @@ public class Effect : MonoBehaviour
         return mp;
     }
 
-    public virtual void TemperatureCalc() { }//in here add formulas for calculstions
+    public virtual void LiquidTemperatureCalc(MatParams mp, EffectManager EM)//in here add formulas for calculstions
+    {
+        if (EM.curResourcePerSecond > 0)
+        {
+            var tempTimesMass = EM.curResourcePerSecond * matParams.curResourceTemperature + matParams.currentWeight * matParams.currentTemp;
+            matParams.currentTemp = tempTimesMass / (mp.curResourcePerSecond + mp.currentWeight);
+
+            AddLiquidWeight(mp, EM);//todo Probably not needed here
+        }
+    }
+    public void AddLiquidWeight(MatParams mp, EffectManager EM)
+    {
+        matParams.currentWeight += mp.curResourcePerSecond;
+
+    }
+
     public virtual void PressureCalc() { }
     public virtual void MoistureCalc() { }
     public virtual void StrengthCalc() { }

@@ -139,6 +139,7 @@ public class EffectManager : MonoBehaviour
                     thisEffect.Interract(otherEffect, objectMaterial.matParams);
                     ////TODO: waterPerSecond can be set by the manager or a gun, but currentWaterInside must be depleted from the material 
                     DepleteResource(curResourcePerSecond, currentWaterInside);//TODO: fix a pronlem - it depletes manager's resources not materal's. Either A) Equate material's resources to manager's or B) deplete material's resources 
+                    //todo actually its better to put it into Effects and manage from there, getting the depletionrates from the manager. The effects howewver should update the manager on its stats via MatParams and let Managars methods do what thy need based on them
                 }
             }
         }

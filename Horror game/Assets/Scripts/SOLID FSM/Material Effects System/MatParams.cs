@@ -24,6 +24,8 @@ public class MatParams : ScriptableObject
     // Temperature properties
     [Header("TEMPERATURE")]
     public float currentTemp;
+    public float curResourceTemperature;
+
     //
     public float lastHealth = 0;
     public float lastWeight = 0;
