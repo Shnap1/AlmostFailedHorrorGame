@@ -8,6 +8,39 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MatParams", menuName = "MatParams")]
 public class MatParams : ScriptableObject
 {
+    [Header("SPENDING RATE")] //todo SPENDING RATEs could be removed and only assign in effectmanager and a gun
+    public float curResourcePerSecond;
+    public float waterPerSecond;
+    public float gasPerSecond;
+    public float fuelPerSecond;
+    public float electricityPerSecond;
+
+    [Header("current properties")]
+    public float currentHealth;
+    public float currentWeight;
+    public float currentSize;
+    public float shatteringPoint;
+
+    // Temperature properties
+    [Header("TEMPERATURE")]
+    public float currentTemp;
+    //
+    public float lastHealth = 0;
+    public float lastWeight = 0;
+    public float lastSize = 0;
+    //
+    //Chemichal properties
+    [Header("CHEMICAL")]
+    public float currentResourceInside; //assign other values from Effect to it and deplete
+
+    public float currentWaterInside;
+    public float currentGasInside;
+    public float currentFuelInside;
+    public float currentElectricityInside;
+
+    //...............................................................................
+
+
     public float temperatureIn;
     public float temperatureOut;
 

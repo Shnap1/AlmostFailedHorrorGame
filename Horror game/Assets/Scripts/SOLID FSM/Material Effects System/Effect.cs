@@ -8,6 +8,9 @@ public class Effect : MonoBehaviour
     public MatParams matParams;
 
     public EffectManager effectManager;
+
+
+
     public void SetStartParams(MatParams mp) { matParams = mp; }
 
     ///<summary>
@@ -27,6 +30,18 @@ public class Effect : MonoBehaviour
     {
         //example with OnAcid() if THIS effect is an acid
         effectToInterractWith.OnAcid();
+        InterractOtherConditions(effectToInterractWith, matParams);
+    }
+
+    /// <summary>
+    /// Contains special conditions for interraction usually with player, characters, NPCs etc
+    /// Can be overriden in each material/effect
+    /// </summary>
+    public virtual void InterractOtherConditions(Effect effectToInterractWith, MatParams matParams)
+    {
+        //example
+        // if (effectToInterractWith.gameObject.tag == "Player")
+        // Debug.Log("Player touched with acid");
     }
 
     ///<summary>

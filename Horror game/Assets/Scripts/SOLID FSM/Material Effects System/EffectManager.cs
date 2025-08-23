@@ -8,7 +8,7 @@ using UnityEngine;
 /// </summary>
 public class EffectManager : MonoBehaviour
 {
-    List<Effect> effects = new List<Effect>();
+    List<Effect> thisManagersEffects = new List<Effect>();
     public EffectsFactory effectsFactory = new EffectsFactory();
 
     public Effect objectMaterial;
@@ -21,7 +21,9 @@ public class EffectManager : MonoBehaviour
     [HideInInspector] public float reactionRate_fast = 1f;
     [HideInInspector] public float reactionRate_slow = 10f;
     public float currentReactionRate;
+
     [Header("SPENDING RATE")]
+    public float curResourcePerSecond; //assign other values from Effect to it and deplete
     public float waterPerSecond;
     public float gasPerSecond;
     public float fuelPerSecond;
@@ -47,6 +49,8 @@ public class EffectManager : MonoBehaviour
     //
     //Chemichal properties
     [Header("CHEMICAL")]
+    public float currentResourceInside; //assign other values from Effect to it and deplete
+
     public float currentWaterInside;
     public float currentGasInside;
     public float currentFuelInside;
@@ -59,9 +63,9 @@ public class EffectManager : MonoBehaviour
     //➕🔥
     public virtual void AddEffect(Effect effect)
     {
-        if (effect != null && effects.Contains(effect))
+        if (effect != null && thisManagersEffects.Contains(effect))
         {
-            effects.Add(effect);
+            thisManagersEffects.Add(effect);
         }
     }
 
@@ -69,8 +73,8 @@ public class EffectManager : MonoBehaviour
     public virtual void RemoveEffect(Effect effect)
     {
         if (effect == null) return;
-        if (effects.Contains(effect))
-            effects.Remove(effect);
+        if (thisManagersEffects.Contains(effect))
+            thisManagersEffects.Remove(effect);
         else
             Debug.Log($"Effect {effect.name} not found - can't remove");
     }
@@ -78,7 +82,7 @@ public class EffectManager : MonoBehaviour
     //🔄️🔥
     public virtual void UpdateEffects()
     {
-        foreach (Effect effect in effects)
+        foreach (Effect effect in thisManagersEffects)
         {
             effect.UpdateEffect(effect.matParams); //
             // 🔥
@@ -94,7 +98,7 @@ public class EffectManager : MonoBehaviour
     //🧹🔥
     public void ClearEffects()
     {
-        effects.Clear();
+        thisManagersEffects.Clear();
     }
 
     public virtual void ChangeMaterial(E_Effect effectEnum)
@@ -114,23 +118,28 @@ public class EffectManager : MonoBehaviour
         else if (currentResInside <= 0) currentResInside = 0;
     }
 
+    public void DepleteEffectsResource(float resPerSecond, float currentResInside, Effect effect)
+    {
+        if (currentResInside >= resPerSecond && resPerSecond > 0) currentResInside -= resPerSecond;
+        else if (currentResInside <= 0) currentResInside = 0;
+    }
+
 
     //Applies this material's effects to all materials in contacted EffectManagerToInfluence
     public virtual void ApplyEffects(EffectManager EffectManagerToInfluence)
     {
-        // only works for materials, NOT  NPCs or PLAYERs. Needs to be fixed. Either by 1) rewriting PLAYER/NPC reaction logic or 2) creating a new material for them, or 3) separate method here for them
-        // Debug.Log("ApplyEffects in Water MS");
+        // Debug.Log("ApplyEffects in EffectManager");
         foreach (EffectManager otherEffectManager in ContactedObjects)
         {
-            List<Effect> otherManagersEffectList = otherEffectManager.effects;
-            foreach (Effect effect in otherManagersEffectList)
+            List<Effect> otherManagersEffectList = otherEffectManager.thisManagersEffects;
+            foreach (Effect otherEffect in otherManagersEffectList)
             {
-                //this method is for WATER material only
-                effect.OnWater(objectMaterial.matParams); //TODO replace ot with current material lists effects
-
-                // OnWater (currentWeight, waterPerSecond, currentTemp);
-
-                DepleteResource(waterPerSecond, currentWaterInside);
+                foreach (Effect thisEffect in thisManagersEffects)
+                {
+                    thisEffect.Interract(otherEffect, objectMaterial.matParams);
+                    ////TODO: waterPerSecond can be set by the manager or a gun, but currentWaterInside must be depleted from the material 
+                    DepleteResource(curResourcePerSecond, currentWaterInside);//TODO: fix a pronlem - it depletes manager's resources not materal's. Either A) Equate material's resources to manager's or B) deplete material's resources 
+                }
             }
         }
     }
@@ -189,13 +198,12 @@ public class EffectManager : MonoBehaviour
         //TODO: rewrite. Described more specifically in ApplyEffects()
         if (other.gameObject.tag == "Player")
         {
-            Debug.Log("Player contacted with Water");
+            Debug.Log("Player contacted with EffectManager");
         }
         if (other.gameObject.tag == "Enemy")
         {
-            Debug.Log("Enemy contacted with Water");
+            Debug.Log("Enemy contacted with EffectManager");
         }
-        // materialStates[MaterialStatesE.Burning] = true; //TODO set the material state AND/OR if condition
     }
     void OnTriggerExit(Collider other)
     {
