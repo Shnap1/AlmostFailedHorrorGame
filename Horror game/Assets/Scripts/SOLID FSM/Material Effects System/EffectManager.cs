@@ -8,8 +8,8 @@ using UnityEngine;
 /// </summary>
 public class EffectManager : MonoBehaviour
 {
-    List<Effect> thisManagersEffects = new List<Effect>();
-    public EffectsFactory effectsFactory = new EffectsFactory();
+    List<Effect> thisManagersEffects;
+    public EffectsFactory effectsFactory;
 
     public Effect objectMaterial;
     public Material materialSkin;
@@ -58,7 +58,11 @@ public class EffectManager : MonoBehaviour
 
     //...............................................................................
 
-
+    void Start()
+    {
+        thisManagersEffects = new List<Effect>();
+        effectsFactory = gameObject.AddComponent<EffectsFactory>();
+    }
 
     //➕🔥
     public virtual void AddEffect(Effect effect)

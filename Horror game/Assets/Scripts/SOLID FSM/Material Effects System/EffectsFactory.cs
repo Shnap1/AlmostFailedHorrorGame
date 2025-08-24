@@ -5,7 +5,7 @@ using UnityEngine;
 public class EffectsFactory : MonoBehaviour
 {
 
-    Dictionary<E_Effect, Effect> effects = new Dictionary<E_Effect, Effect>();
+    Dictionary<E_Effect, Effect> effects;
 
     /// <summary>
     /// holds all the effects and to be used in EffectManager and needs to be enhanced with every new effect with the same enum in E_Effect
