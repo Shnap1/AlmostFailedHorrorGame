@@ -88,7 +88,7 @@ public class EffectManager : MonoBehaviour
     {
         foreach (Effect effect in thisManagersEffects)
         {
-            effect.UpdateEffect(effect.matParams); //
+            effect.UpdateEffect(); //
             // 🔥
         }
     }
@@ -122,18 +122,13 @@ public class EffectManager : MonoBehaviour
         else if (currentResInside <= 0) currentResInside = 0;
     }
 
-    public void DepleteEffectsResource(float resPerSecond, float currentResInside, Effect effect)
-    {
-        if (currentResInside >= resPerSecond && resPerSecond > 0) currentResInside -= resPerSecond;
-        else if (currentResInside <= 0) currentResInside = 0;
-    }
-
 
     //Applies this material's effects to all materials in contacted EffectManagerToInfluence
     public virtual void ApplyEffects(EffectManager EffectManagerToInfluence)
     {
         // Debug.Log("ApplyEffects in EffectManager");
-        foreach (EffectManager otherEffectManager in ContactedObjects)
+
+        foreach (EffectManager otherEffectManager in ContactedObjects) //todo there is a mistake with not using EffectManagerToInfluence
         {
             List<Effect> otherManagersEffectList = otherEffectManager.thisManagersEffects;
             foreach (Effect otherEffect in otherManagersEffectList)
@@ -141,11 +136,13 @@ public class EffectManager : MonoBehaviour
                 foreach (Effect thisEffect in thisManagersEffects)
                 {
                     thisEffect.Interract(otherEffect, objectMaterial.matParams);
-                    ////TODO: waterPerSecond can be set by the manager or a gun, but currentWaterInside must be depleted from the material 
-                    DepleteResource(curResourcePerSecond, currentWaterInside);//TODO: fix a pronlem - it depletes manager's resources not materal's. Either A) Equate material's resources to manager's or B) deplete material's resources 
-                    //todo actually its better to put it into Effects and manage from there, getting the depletionrates from the manager. The effects howewver should update the manager on its stats via MatParams and let Managars methods do what thy need based on them
                 }
             }
+            foreach (Effect thisEffect in thisManagersEffects)
+            {
+                thisEffect.Interract(thisEffect, objectMaterial.matParams); // todo figure why an objectMaterial is influencing not all effects
+            }
+
         }
     }
 
@@ -157,6 +154,10 @@ public class EffectManager : MonoBehaviour
             time = ChangeReactionRate();
             ApplyEffects(materialToInfluence);
             Debug.Log("ApplyEffects_Enumerator");
+            foreach (Effect thisEffect in thisManagersEffects)
+            {
+                thisEffect.UpdateEffect();
+            }
             yield return new WaitForSeconds(time);
         }
     }
@@ -178,6 +179,9 @@ public class EffectManager : MonoBehaviour
             return reactionRate_fast;
         }
     }
+
+
+
 
 
     void OnTriggerEnter(Collider other)

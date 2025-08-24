@@ -33,4 +33,13 @@ public enum E_Effect
     Lightning,
     Flesh
 }
+public enum E_MatterState
+{
+    Gas,
+    Liquid,
+    Mud,
+    Gel,
+    Solid,
+}
+
 

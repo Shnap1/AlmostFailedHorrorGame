@@ -28,9 +28,10 @@ public class Effect : MonoBehaviour
     /// </summary>
     public virtual void Interract(Effect effectToInterractWith, MatParams matParams)
     {
-        //example with OnAcid() if THIS effect is an acid
+        //example with OnAcid()🧪 if THIS effect is an acid
         effectToInterractWith.OnAcid();
         InterractOtherConditions(effectToInterractWith, matParams);
+        DepleteResource(matParams.acidPerSecond, matParams.currentAcidInside);
     }
 
     /// <summary>
@@ -43,17 +44,48 @@ public class Effect : MonoBehaviour
         // if (effectToInterractWith.gameObject.tag == "Player")
         // Debug.Log("Player touched with acid");
     }
+    public void DepleteResource(float resPerSecond, float currentResInside)
+    {
+        // subtracts the resource from the material IF it is greater than the resource per second and 0
+        if (currentResInside >= resPerSecond && resPerSecond > 0) matParams.currentResourceInside -= matParams.curResourcePerSecond;
 
+        // if the resource is less than 0, set it to 0
+        else if (currentResInside <= 0) currentResInside = 0;
+    }
     ///<summary>
     ///Is updated from the EffectManager's UpdateEffects method in a coroutine. Should update inside all continously changing methods of the effect/material like CalculateInnerState(MatParams mp);
     /// No need to override.
     ///</summary>
-    public virtual MatParams UpdateEffect(MatParams matParams)
+    public virtual MatParams UpdateEffect() //🔁
     {
-        CalculateInnerState(matParams);
+        CalculateInnerState();
         CheckSwitchMaterial();
         AllVFXcontrol();//TODO might have to move it to an update() method for propper vfx animationS
         return matParams;
+    }
+
+
+    public bool CheckInnerReaction(MatParams effectMatParams)
+    {
+        bool isReacting;
+        if (effectMatParams.currentHealth == effectMatParams.lastHealth || effectMatParams.currentWeight == effectMatParams.lastWeight || effectMatParams.currentSize == effectMatParams.lastSize)
+        {
+            effectMatParams.lastHealth = effectMatParams.currentHealth;
+            effectMatParams.lastWeight = effectMatParams.currentWeight;
+            effectMatParams.lastSize = effectMatParams.currentSize;
+
+            isReacting = false;
+            return isReacting;
+        }
+        else
+        {
+            effectMatParams.lastHealth = effectMatParams.currentHealth;
+            effectMatParams.lastWeight = effectMatParams.currentWeight;
+            effectMatParams.lastSize = effectMatParams.currentSize;
+
+            isReacting = true;
+            return isReacting;
+        }
     }
 
 
@@ -63,7 +95,7 @@ public class Effect : MonoBehaviour
     public virtual void CheckSwitchMaterial()
     {
         //example
-        if (matParams.oxygenIn < 0.1f) { effectManager.ChangeMaterial(E_Effect.Water); }
+        if (matParams.currentOxygenInside < 0.1f) { effectManager.ChangeMaterial(E_Effect.Water); }
         //or add all the if statements into separate methods. For example:
         // ToWater();
     }
@@ -72,12 +104,11 @@ public class Effect : MonoBehaviour
     ///<summary>
     ///Calculates stats with formulas in methods, determining when to switch it's material to another material, add an effect to the manager destroy the object etc. It must be overriden for each material.
     ///</summary>
-    public virtual MatParams CalculateInnerState(MatParams mp)
+    public virtual void CalculateInnerState()
     {
         // will contain:
         // formulas for its own stat calculation
         //  CheckSwitchMaterial();
-        return mp;
     }
 
     public virtual void LiquidTemperatureCalc(MatParams mp, EffectManager EM)//in here add formulas for calculstions
@@ -93,7 +124,6 @@ public class Effect : MonoBehaviour
     public void AddLiquidWeight(MatParams mp, EffectManager EM)
     {
         matParams.currentWeight += mp.curResourcePerSecond;
-
     }
 
     public virtual void PressureCalc() { }
