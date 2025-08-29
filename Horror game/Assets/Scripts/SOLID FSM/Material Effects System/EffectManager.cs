@@ -8,18 +8,27 @@ using UnityEngine;
 /// </summary>
 public class EffectManager : MonoBehaviour
 {
-    List<Effect> thisManagersEffects;
+    List<Effect> thisManagerEffects;
     public EffectsFactory effectsFactory;
+
+    public bool statsChanging;
+    public bool calcReactionsBetweenMatsOnStart = false;
+
 
     public Effect objectMaterial;
     public Material materialSkin;
 
 
+
     // .............................................................................
     // [Header("BASIC")]
     [Header("Reaction rates")]
-    [HideInInspector] public float reactionRate_fast = 1f;
-    [HideInInspector] public float reactionRate_slow = 10f;
+    // [HideInInspector]
+    public float reactionRate_fast = 1f;
+
+    // [HideInInspector]
+    public float reactionRate_slow = 10f;
+
     public float currentReactionRate;
 
     [Header("SPENDING RATE")]
@@ -33,6 +42,7 @@ public class EffectManager : MonoBehaviour
 
 
     [HideInInspector] public Coroutine reactionCoroutine;
+    [HideInInspector] public Coroutine reactionsBetweenMatsCoroutine;
     [Header("current properties")]
     public float currentHealth;
     public float currentWeight;
@@ -56,20 +66,36 @@ public class EffectManager : MonoBehaviour
     public float currentFuelInside;
     public float currentElectricityInside;
 
+
     //...............................................................................
 
     void Start()
     {
-        thisManagersEffects = new List<Effect>();
+        thisManagerEffects = new List<Effect>();
         effectsFactory = gameObject.AddComponent<EffectsFactory>();
+
+        if (calcReactionsBetweenMatsOnStart)
+        {
+
+            if (reactionsBetweenMatsCoroutine == null)
+            {
+                reactionsBetweenMatsCoroutine = StartCoroutine(CalcInMaterialReactions_Enumerator(ChangeReactionRate()));
+            }
+            else
+            {
+                StopCoroutine(reactionsBetweenMatsCoroutine);
+
+                reactionsBetweenMatsCoroutine = StartCoroutine(CalcInMaterialReactions_Enumerator(ChangeReactionRate()));
+            }
+        }
     }
 
     //➕🔥
     public virtual void AddEffect(Effect effect)
     {
-        if (effect != null && thisManagersEffects.Contains(effect))
+        if (effect != null && thisManagerEffects.Contains(effect))
         {
-            thisManagersEffects.Add(effect);
+            thisManagerEffects.Add(effect);
         }
     }
 
@@ -77,8 +103,8 @@ public class EffectManager : MonoBehaviour
     public virtual void RemoveEffect(Effect effect)
     {
         if (effect == null) return;
-        if (thisManagersEffects.Contains(effect))
-            thisManagersEffects.Remove(effect);
+        if (thisManagerEffects.Contains(effect))
+            thisManagerEffects.Remove(effect);
         else
             Debug.Log($"Effect {effect.name} not found - can't remove");
     }
@@ -86,9 +112,12 @@ public class EffectManager : MonoBehaviour
     //🔄️🔥
     public virtual void UpdateEffects()
     {
-        foreach (Effect effect in thisManagersEffects)
+        foreach (Effect effect in thisManagerEffects)
         {
-            effect.UpdateEffect(); //
+            effect.UpdateEffect();//usually calculates inner reactions
+            CalcReactionsBetweenMats();
+
+            //
             // 🔥
         }
     }
@@ -102,7 +131,7 @@ public class EffectManager : MonoBehaviour
     //🧹🔥
     public void ClearEffects()
     {
-        thisManagersEffects.Clear();
+        thisManagerEffects.Clear();
     }
 
     public virtual void ChangeMaterial(E_Effect effectEnum)
@@ -116,45 +145,75 @@ public class EffectManager : MonoBehaviour
 
     // dddddddddddddddddddddddddddddddddddddddddddddd
 
-    public void DepleteResource(float resPerSecond, float currentResInside)
-    {
-        if (currentResInside >= resPerSecond && resPerSecond > 0) currentResInside -= resPerSecond;
-        else if (currentResInside <= 0) currentResInside = 0;
-    }
+    // public void DepleteResource(float resPerSecond, float currentResInside)
+    // {
+    //     if (currentResInside >= resPerSecond && resPerSecond > 0) currentResInside -= resPerSecond;
+    //     else if (currentResInside <= 0) currentResInside = 0;
+    // }
 
 
-    //Applies this material's effects to all materials in contacted EffectManagerToInfluence
-    public virtual void ApplyEffects(EffectManager EffectManagerToInfluence)
+    //Applies this material's effects to all materials in contacted objects
+    public virtual void ApplyEffects()
     {
         // Debug.Log("ApplyEffects in EffectManager");
 
-        foreach (EffectManager otherEffectManager in ContactedObjects) //todo there is a mistake with not using EffectManagerToInfluence
+        // 1. Take an EffectManager from a contacted object. (And loop through all of them)
+        foreach (EffectManager otherEffectManager in ContactedObjects)
         {
-            List<Effect> otherManagersEffectList = otherEffectManager.thisManagersEffects;
-            foreach (Effect otherEffect in otherManagersEffectList)
+            List<Effect> otherManagerEffectList = otherEffectManager.thisManagerEffects;
+
+            // 2.From this contacted object's EffectManager take each material/effect
+            foreach (Effect otherEffect in otherManagerEffectList)
             {
-                foreach (Effect thisEffect in thisManagersEffects)
+                //3. Apply to another material each this material's effects. (And loop through all of other object's materials)
+                foreach (Effect thisEffect in thisManagerEffects)
                 {
-                    thisEffect.Interract(otherEffect, objectMaterial.matParams);
+                    thisEffect.Interract(otherEffect, thisEffect.matParams);
                 }
             }
-            foreach (Effect thisEffect in thisManagersEffects)
-            {
-                thisEffect.Interract(thisEffect, objectMaterial.matParams); // todo figure why an objectMaterial is influencing not all effects
-            }
-
         }
+
+    }
+
+    public void CalcReactionsBetweenMats()
+    {
+        //4. Take one effect from this effect list
+        foreach (Effect thisEffect in thisManagerEffects)
+        {
+            // 5. Apply to that material all this material's effects
+            foreach (Effect otherthisEffect in thisManagerEffects)
+                if (thisEffect.name != thisEffect.name)
+                {
+                    thisEffect.Interract(otherthisEffect, thisEffect.matParams);
+                }
+        }
+
     }
 
 
-    public IEnumerator ApplyEffects_Enumerator(EffectManager materialToInfluence, float time)
+    public IEnumerator ApplyEffects_Enumerator(float time)
     {
         while (true)
         {
             time = ChangeReactionRate();
-            ApplyEffects(materialToInfluence);
+            ApplyEffects();
             Debug.Log("ApplyEffects_Enumerator");
-            foreach (Effect thisEffect in thisManagersEffects)
+            // foreach (Effect thisEffect in thisManagerEffects)
+            // {
+            //     thisEffect.UpdateEffect();
+            // }
+            yield return new WaitForSeconds(time);
+        }
+    }
+
+    public IEnumerator CalcInMaterialReactions_Enumerator(float time)
+    {
+        while (true)
+        {
+            time = ChangeReactionRate();
+            CalcReactionsBetweenMats();
+
+            foreach (Effect thisEffect in thisManagerEffects)
             {
                 thisEffect.UpdateEffect();
             }
@@ -164,11 +223,13 @@ public class EffectManager : MonoBehaviour
 
     public float ChangeReactionRate()
     {
-        if (lastHealth == currentHealth || lastWeight == currentWeight || lastSize == currentSize)
+        if (lastHealth == currentHealth && lastWeight == currentWeight && lastSize == currentSize)
         {
             lastHealth = currentHealth;
             lastWeight = currentWeight;
             lastSize = currentSize;
+
+            statsChanging = false;
             return reactionRate_slow;
         }
         else
@@ -176,6 +237,8 @@ public class EffectManager : MonoBehaviour
             lastHealth = currentHealth;
             lastWeight = currentWeight;
             lastSize = currentSize;
+
+            statsChanging = true;
             return reactionRate_fast;
         }
     }
@@ -201,7 +264,7 @@ public class EffectManager : MonoBehaviour
             else if (reactionCoroutine == null && ContactedObjects.Count <= 0) // 1 ---- the 1st Contacted Game object turns on the coroutine
             {
                 if (!ContactedObjects.Contains(otherEM)) { ContactedObjects.Add(otherEM); }
-                reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(otherEM, reactionRate_fast));
+                reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(reactionRate_fast));
             }
         }
         //TODO: rewrite. Described more specifically in ApplyEffects()
@@ -224,7 +287,7 @@ public class EffectManager : MonoBehaviour
             currentReactionRate = reactionRate_fast;
             otherEM.currentReactionRate = otherEM.reactionRate_fast;
 
-            if (reactionCoroutine != null && ContactedObjects.Count >= 1) // 1 ----- coroutine is already running and theres more then 1 contactedGameObject list 
+            if (reactionCoroutine != null && ContactedObjects.Count >= 1) // 1 ----- coroutine is running and theres more then 1 contactedGameObject list 
             {
                 if (ContactedObjects.Contains(otherEM)) { ContactedObjects.Remove(otherEM); }
             }
@@ -235,6 +298,21 @@ public class EffectManager : MonoBehaviour
                 reactionCoroutine = null;
             }
         }
+    }
+
+    void OnDisable()
+    {
+        if (reactionCoroutine != null)
+        {
+            StopCoroutine(reactionCoroutine);
+            reactionCoroutine = null;
+        }
+        if (reactionsBetweenMatsCoroutine != null)
+        {
+            StopCoroutine(reactionsBetweenMatsCoroutine);
+            reactionsBetweenMatsCoroutine = null;
+        }
+
     }
 
 }

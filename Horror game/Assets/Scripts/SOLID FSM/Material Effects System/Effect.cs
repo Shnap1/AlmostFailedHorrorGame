@@ -23,7 +23,7 @@ public class Effect : MonoBehaviour
     public virtual MatParams SetEffectStats(MatParams matParams) { return matParams; }
 
     /// <summary>
-    /// Choose wich effect to activate on another Material based on thisn material.
+    /// Choose wich effect to activate on another Material based on this  material.
     /// Must override in each material/effect
     /// </summary>
     public virtual void Interract(Effect effectToInterractWith, MatParams matParams)
@@ -146,6 +146,7 @@ public class Effect : MonoBehaviour
     public virtual void PlaySFX() { }
 
 
+    //Under is a list of metods that this material passively REACTS to, not actively acts.
     //All REACTIONS to all existing materials:
 
     //WATER  with its 3 states
