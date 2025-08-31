@@ -112,4 +112,8 @@ public class MatParams : ScriptableObject
     public float currentAcidInside;
     [HideInInspector] public float lastAcidInside;
 
+    public Material material;
+    public Material[] materialsVariations;
+
+
 }

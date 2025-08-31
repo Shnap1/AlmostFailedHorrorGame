@@ -15,8 +15,10 @@ public class EffectManager : MonoBehaviour
     public bool calcReactionsBetweenMatsOnStart = false;
 
 
-    public Effect objectMaterial;
-    public Material materialSkin;
+    public Effect MainMaterial; //TODO figure out if this is needed, or call MainMaterial that determines the mesh of an object
+    public Material MainMaterialSkin;
+
+    MeshRenderer meshRenderer;
 
 
 
@@ -71,6 +73,9 @@ public class EffectManager : MonoBehaviour
 
     void Start()
     {
+        meshRenderer = GetComponent<MeshRenderer>();
+
+
         thisManagerEffects = new List<Effect>();
         effectsFactory = gameObject.AddComponent<EffectsFactory>();
 
@@ -88,6 +93,9 @@ public class EffectManager : MonoBehaviour
                 reactionsBetweenMatsCoroutine = StartCoroutine(CalcInMaterialReactions_Enumerator(ChangeReactionRate()));
             }
         }
+
+        if (MainMaterial != null) ChangeMainMaterial(MainMaterial.thistype);
+
     }
 
     //➕🔥
@@ -109,19 +117,6 @@ public class EffectManager : MonoBehaviour
             Debug.Log($"Effect {effect.name} not found - can't remove");
     }
 
-    //🔄️🔥
-    public virtual void UpdateEffects()
-    {
-        foreach (Effect effect in thisManagerEffects)
-        {
-            effect.UpdateEffect();//usually calculates inner reactions
-            CalcReactionsBetweenMats();
-
-            //
-            // 🔥
-        }
-    }
-
     //📊🔥
     public virtual void SetCustomEffectStats(MatParams matParams, Effect effect)
     {
@@ -134,10 +129,21 @@ public class EffectManager : MonoBehaviour
         thisManagerEffects.Clear();
     }
 
-    public virtual void ChangeMaterial(E_Effect effectEnum)
-    {
-        if (objectMaterial.thistype == effectEnum) return;
-        objectMaterial = effectsFactory.GetEffectFromDictionary(effectEnum);
+    public virtual void ChangeMainMaterial(E_Effect effectEnum)
+    { //TODO get rid of all this if statements-shit. replace with proper get methods in Effect
+        if (MainMaterial == null) return;
+
+        if (MainMaterial.thistype == effectEnum) return;
+        if (MainMaterial.thistype == 0) return;
+
+
+        if (effectsFactory.GetEffectFromDictionary(effectEnum) != null) MainMaterial = effectsFactory.GetEffectFromDictionary(effectEnum);
+
+        if (MainMaterial.matParams.material != null) MainMaterialSkin = MainMaterial.matParams.material;
+
+        //todo also take physical properties from MainMaterial and apply to this object
+        if (meshRenderer != null && MainMaterialSkin != null) meshRenderer.material = MainMaterialSkin;
+        else Debug.Log($"MeshRenderer or MainMaterialSkin in EffectManager on {gameObject.name} is null");
 
     }
 
@@ -175,17 +181,23 @@ public class EffectManager : MonoBehaviour
 
     }
 
-    public void CalcReactionsBetweenMats()
+    public void CalcReactionsInAndBetweenMats()
     {
+
         //4. Take one effect from this effect list
         foreach (Effect thisEffect in thisManagerEffects)
         {
             // 5. Apply to that material all this material's effects
             foreach (Effect otherthisEffect in thisManagerEffects)
+            {
+
                 if (thisEffect.name != thisEffect.name)
                 {
                     thisEffect.Interract(otherthisEffect, thisEffect.matParams);
                 }
+            }
+            //🔁 updating inner reaction calculation of every Effect/Material after interraction
+            thisEffect.UpdateEffect();
         }
 
     }
@@ -197,8 +209,9 @@ public class EffectManager : MonoBehaviour
         {
             time = ChangeReactionRate();
             ApplyEffects();
-            Debug.Log("ApplyEffects_Enumerator");
-            // foreach (Effect thisEffect in thisManagerEffects)
+            Debug.Log($"ApplyEffects_Enumerator called on {gameObject.name}");
+            //todo comment it out because it updates material's inner state only while ApplyEffects() not always
+            // foreach (Effect thisEffect in thisManagerEffects) 
             // {
             //     thisEffect.UpdateEffect();
             // }
@@ -211,12 +224,8 @@ public class EffectManager : MonoBehaviour
         while (true)
         {
             time = ChangeReactionRate();
-            CalcReactionsBetweenMats();
+            CalcReactionsInAndBetweenMats();
 
-            foreach (Effect thisEffect in thisManagerEffects)
-            {
-                thisEffect.UpdateEffect();
-            }
             yield return new WaitForSeconds(time);
         }
     }

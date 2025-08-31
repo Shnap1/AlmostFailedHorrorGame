@@ -95,7 +95,7 @@ public class Effect : MonoBehaviour
     public virtual void CheckSwitchMaterial()
     {
         //example
-        if (matParams.currentOxygenInside < 0.1f) { effectManager.ChangeMaterial(E_Effect.Water); }
+        if (matParams.currentOxygenInside < 0.1f) { effectManager.ChangeMainMaterial(E_Effect.Water); }
         //or add all the if statements into separate methods. For example:
         // ToWater();
     }
