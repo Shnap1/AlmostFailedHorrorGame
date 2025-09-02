@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Effect : MonoBehaviour
+public abstract class Effect : MonoBehaviour //Made it abstract
 {
     public E_Effect thistype;
     public MatParams matParams;
@@ -10,6 +10,20 @@ public class Effect : MonoBehaviour
     public EffectManager effectManager;
 
 
+    void Start()
+    {
+        thistype = matParams.thistype;
+        CheckEffectManager();
+        if (matParams == null) Debug.Log($"MatParams on {gameObject.name} is null");
+    }
+
+    public void CheckEffectManager()
+    {
+        if (gameObject.TryGetComponent<EffectManager>(out EffectManager em)) effectManager = em;
+        else if (gameObject.GetComponent<EffectManager>() == null)
+            em = gameObject.AddComponent<EffectManager>();
+        effectManager = em;
+    }
 
     public void SetStartParams(MatParams mp) { matParams = mp; }
 
@@ -34,6 +48,13 @@ public class Effect : MonoBehaviour
         DepleteResource(matParams.acidPerSecond, matParams.currentAcidInside);
     }
 
+    /// <summary>
+    /// Creates a reaction product like gas when water and fire interract as a game object
+    /// </summary>
+    public void MakeReactionProduct()
+    {
+
+    }
     /// <summary>
     /// Contains special conditions for interraction usually with player, characters, NPCs etc
     /// Can be overriden in each material/effect
@@ -61,27 +82,28 @@ public class Effect : MonoBehaviour
         CalculateInnerState();
         CheckSwitchMaterial();
         AllVFXcontrol();//TODO might have to move it to an update() method for propper vfx animationS
+        CheckInnerReaction();
         return matParams;
     }
 
 
-    public bool CheckInnerReaction(MatParams effectMatParams)
+    public bool CheckInnerReaction()
     {
         bool isReacting;
-        if (effectMatParams.currentHealth == effectMatParams.lastHealth || effectMatParams.currentWeight == effectMatParams.lastWeight || effectMatParams.currentSize == effectMatParams.lastSize)
+        if (matParams.currentHealth == matParams.lastHealth || matParams.currentWeight == matParams.lastWeight || matParams.currentSize == matParams.lastSize)
         {
-            effectMatParams.lastHealth = effectMatParams.currentHealth;
-            effectMatParams.lastWeight = effectMatParams.currentWeight;
-            effectMatParams.lastSize = effectMatParams.currentSize;
+            matParams.lastHealth = matParams.currentHealth;
+            matParams.lastWeight = matParams.currentWeight;
+            matParams.lastSize = matParams.currentSize;
 
             isReacting = false;
             return isReacting;
         }
         else
         {
-            effectMatParams.lastHealth = effectMatParams.currentHealth;
-            effectMatParams.lastWeight = effectMatParams.currentWeight;
-            effectMatParams.lastSize = effectMatParams.currentSize;
+            matParams.lastHealth = matParams.currentHealth;
+            matParams.lastWeight = matParams.currentWeight;
+            matParams.lastSize = matParams.currentSize;
 
             isReacting = true;
             return isReacting;

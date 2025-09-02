@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 /// <summary>
@@ -8,6 +9,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "MatParams", menuName = "MatParams")]
 public class MatParams : ScriptableObject
 {
+    public E_Effect thistype;
     [Header("REACTION PROPERTIES")]
     public float boilingPoint;
     public float meltingPoint;
@@ -16,6 +18,7 @@ public class MatParams : ScriptableObject
     public bool isShattered;
 
     [Header("STABLE PROPERTIES")]
+    public EffectState_E state;
     public float rigidity;
     public float viscosity;
     public float hardness;
@@ -45,7 +48,7 @@ public class MatParams : ScriptableObject
     public float acidPerSecond;
 
     [Header("CHANGING PROPERTIES")]
-    public float currentResourceInside; //assign other values from Effect to it and deplete
+    public float currentResourceInside; //assign other values from Effect to it and deplete //todo delete
     [HideInInspector] public float lastResourceInside;
 
     public float curResourceTemperature;
@@ -69,8 +72,7 @@ public class MatParams : ScriptableObject
     [HideInInspector] public float lastPressure;
 
 
-    //Other Materias
-
+    //Other Materias //TODO delete those that are already separate effects
     public float currentFireInside;
     [HideInInspector] public float lastFireInside;
 
@@ -112,8 +114,15 @@ public class MatParams : ScriptableObject
     public float currentAcidInside;
     [HideInInspector] public float lastAcidInside;
 
-    public Material material;
-    public Material[] materialsVariations;
+    public Material materialVisual;
+    public Material[] materialsViasualVariations;
+}
 
-
+public enum EffectState_E
+{
+    Liquid,
+    Gas,
+    Solid,
+    Powder,
+    Energy,
 }

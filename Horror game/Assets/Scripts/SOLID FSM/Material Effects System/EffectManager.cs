@@ -139,7 +139,7 @@ public class EffectManager : MonoBehaviour
 
         if (effectsFactory.GetEffectFromDictionary(effectEnum) != null) MainMaterial = effectsFactory.GetEffectFromDictionary(effectEnum);
 
-        if (MainMaterial.matParams.material != null) MainMaterialSkin = MainMaterial.matParams.material;
+        if (MainMaterial.matParams.materialVisual != null) MainMaterialSkin = MainMaterial.matParams.materialVisual;
 
         //todo also take physical properties from MainMaterial and apply to this object
         if (meshRenderer != null && MainMaterialSkin != null) meshRenderer.material = MainMaterialSkin;

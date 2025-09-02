@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f923c1dbe10e0438bee1da56626828, type: 3}
+  m_Name: Fire MatParams
+  m_EditorClassIdentifier: 
+  boilingPoint: 999999
+  meltingPoint: 999999
+  freezingPoint: 999999
+  shatteringPoint: 999999
+  isShattered: 0
+  state: 0
+  rigidity: 0
+  viscosity: 0
+  hardness: 0
+  density: 0
+  surfaceRoughness: 0
+  electricConductivity: 0.5
+  heatConductivity: 1000
+  heatCapacity: 0
+  specificHeatCapacity: 0
+  liquidAbsorbtionRate: 0.1
+  gasAbsorbtionRate: 1
+  fuelAbsorbtionRate: 10
+  electricityAbsorbtionRate: 0.5
+  curResourcePerSecond: 0
+  waterPerSecond: 0
+  gasPerSecond: 0
+  fuelPerSecond: 0
+  electricityPerSecond: 0
+  windPerSecond: 0
+  acidPerSecond: 0
+  currentResourceInside: 0
+  lastResourceInside: 0
+  curResourceTemperature: 0
+  lastResourceTemperature: 0
+  currentHealth: 0
+  lastHealth: 0
+  currentWeight: 0
+  lastWeight: 0
+  currentSize: 0
+  lastSize: 0
+  currentTemp: 0
+  lastTemp: 0
+  currentPressure: 0
+  lastPressure: 0
+  currentFireInside: 0
+  lastFireInside: 0
+  currentWaterInside: 0
+  lastWaterInside: 0
+  currentIceInside: 0
+  lastIceInside: 0
+  currentMetalInside: 0
+  lastMetalInside: 0
+  currentLightInside: 0
+  lastLightInside: 0
+  currentMudInside: 0
+  lastMudInside: 0
+  currentRotInside: 0
+  lastRotInside: 0
+  currentGasInside: 0
+  lastGasInside: 0
+  currentOxygenInside: 0
+  lastOxygenInside: 0
+  currentFuelInside: 0
+  lastFuelInside: 0
+  currentElectricityInside: 0
+  lastElectricityInside: 0
+  currentWindInside: 0
+  lastWindInside: 0
+  currentAcidInside: 0
+  lastAcidInside: 0
+  materialVisual: {fileID: 0}
+  materialsViasualVariations: []

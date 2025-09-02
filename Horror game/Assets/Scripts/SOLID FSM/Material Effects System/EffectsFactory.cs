@@ -28,18 +28,57 @@ public class EffectsFactory : MonoBehaviour
 
 public enum E_Effect
 {
-    Fire,
+    Ice,
     Water,
-    Lightning,
+    Gas,
+
+    Fire,
+    Electricity,
+    Light,
+    Radiation,
+
+    Rust,
+    Rot,
+
+    Vibration,
+    Sound,
+    Temperature,
+    Gravity,
+    Pressure,
+    Humidity,
+
+    Wind,
+    Snow,
+
+    Earth,
+    Lava,
+    Mud,
+    Sand,
+    Stone,
+    Glass,
+    Dust,
+    Crystal,
+    Oil,
+    Gasoline,
+    Plastic,
+    Rubber,
+
+    Coal,
+    Wood,
+    Foliage,
+    Plants,
+    Paper,
+    Textile,
+    Metal,
+    OnMoltenMetal,
+
+    Acid,
+    ToxicGas,
+
+    Plasma,
+
     Flesh
 }
-public enum E_MatterState
-{
-    Gas,
-    Liquid,
-    Mud,
-    Gel,
-    Solid,
-}
+
 
 
