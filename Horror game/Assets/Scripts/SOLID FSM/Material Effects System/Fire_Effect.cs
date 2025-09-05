@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class Fire_Effect : Effect
 {
-    void Start()
+    public override void Interract(Effect effectToInterractWith)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        //example with OnAcid()🧪 if THIS effect is an acid
+        effectToInterractWith.OnFire(matParams);
+        InterractOtherConditions(effectToInterractWith, matParams);
+        DepleteResource(matParams.fuelPerSecond, matParams.currentAcidInside);
     }
 }

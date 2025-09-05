@@ -13,6 +13,7 @@ public class MatParams : ScriptableObject
     [Header("REACTION PROPERTIES")]
     public float boilingPoint;
     public float meltingPoint;
+    public float burningPoint_C;
     public float freezingPoint;
     public float shatteringPoint;
     public bool isShattered;

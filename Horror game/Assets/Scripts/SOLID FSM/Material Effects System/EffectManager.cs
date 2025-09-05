@@ -174,7 +174,7 @@ public class EffectManager : MonoBehaviour
                 //3. Apply to another material each this material's effects. (And loop through all of other object's materials)
                 foreach (Effect thisEffect in thisManagerEffects)
                 {
-                    thisEffect.Interract(otherEffect, thisEffect.matParams);
+                    thisEffect.Interract(otherEffect);
                 }
             }
         }
@@ -193,7 +193,7 @@ public class EffectManager : MonoBehaviour
 
                 if (thisEffect.name != thisEffect.name)
                 {
-                    thisEffect.Interract(otherthisEffect, thisEffect.matParams);
+                    thisEffect.Interract(otherthisEffect);
                 }
             }
             //🔁 updating inner reaction calculation of every Effect/Material after interraction

@@ -25,8 +25,6 @@ public abstract class Effect : MonoBehaviour //Made it abstract
         effectManager = em;
     }
 
-    public void SetStartParams(MatParams mp) { matParams = mp; }
-
     ///<summary>
     ///Subscribe to the EffectManager's events
     ///</summary>
@@ -40,13 +38,12 @@ public abstract class Effect : MonoBehaviour //Made it abstract
     /// Choose wich effect to activate on another Material based on this  material.
     /// Must override in each material/effect
     /// </summary>
-    public virtual void Interract(Effect effectToInterractWith, MatParams matParams)
-    {
-        //example with OnAcid()🧪 if THIS effect is an acid
-        effectToInterractWith.OnAcid();
-        InterractOtherConditions(effectToInterractWith, matParams);
-        DepleteResource(matParams.acidPerSecond, matParams.currentAcidInside);
-    }
+    /// Should contain:
+    //example with OnAcid()🧪 if THIS effect is an acid
+    // effectToInterractWith.OnAcid();
+    // InterractOtherConditions(effectToInterractWith, matParams);
+    // DepleteResource(matParams.acidPerSecond, matParams.currentAcidInside);
+    public abstract void Interract(Effect effectToInterractWith);
 
     /// <summary>
     /// Creates a reaction product like gas when water and fire interract as a game object
@@ -177,53 +174,53 @@ public abstract class Effect : MonoBehaviour //Made it abstract
     public virtual void OnGas(MatParams matParams) { }//☁️
 
     //effects - NOT materials.
-    public virtual void OnFire() { }//🔥
-    public virtual void OnElectricity() { } //⚡
-    public virtual void OnLight() { }//💡
-    public virtual void OnRadiation() { }//☢️
+    public virtual void OnFire(MatParams OtherEffectMatParams) { }//🔥
+    public virtual void OnElectricity(MatParams OtherEffectMatParams) { } //⚡
+    public virtual void OnLight(MatParams OtherEffectMatParams) { }//💡
+    public virtual void OnRadiation(MatParams OtherEffectMatParams) { }//☢️
     // decay related
-    public virtual void OnRust() { }//⚙️
-    public virtual void OnRot() { }//🪰
+    public virtual void OnRust(MatParams OtherEffectMatParams) { }//⚙️
+    public virtual void OnRot(MatParams OtherEffectMatParams) { }//🪰
     //others
-    public virtual void OnVibration() { }//💓
-    public virtual void OnSound() { }//🔊
-    public virtual void OnTemperature() { }//🌡️
-    public virtual void OnGravity() { }//🪐
-    public virtual void OnPressure() { }//🧭
-    public virtual void OnHumidity() { }//💧
+    public virtual void OnVibration(MatParams OtherEffectMatParams) { }//💓
+    public virtual void OnSound(MatParams OtherEffectMatParams) { }//🔊
+    public virtual void OnTemperature(MatParams OtherEffectMatParams) { }//🌡️
+    public virtual void OnGravity(MatParams OtherEffectMatParams) { }//🪐
+    public virtual void OnPressure(MatParams OtherEffectMatParams) { }//🧭
+    public virtual void OnHumidity(MatParams OtherEffectMatParams) { }//💧
 
-    public virtual void OnWind() { }//💨
-    public virtual void OnSnow() { }//❄️
+    public virtual void OnWind(MatParams OtherEffectMatParams) { }//💨
+    public virtual void OnSnow(MatParams OtherEffectMatParams) { }//❄️
 
     //SOIL with its 10 all variations 
-    public virtual void OnEarth() { }//🌱
-    public virtual void OnLava() { }//🌋
-    public virtual void OnMud() { }//💩
-    public virtual void OnSand() { }//⌛
-    public virtual void OnStone() { }//🪨
-    public virtual void OnGlass() { }//🪟
-    public virtual void OnDust() { }//🧹
-    public virtual void OnCrystal() { }//💎
-    public virtual void OnOil() { }//🛢️
-    public virtual void OnGasoline() { }//⛽️
-    public virtual void OnPlastic() { }//🧸
-    public virtual void OnRubber() { }//🏀
+    public virtual void OnEarth(MatParams OtherEffectMatParams) { }//🌱
+    public virtual void OnLava(MatParams OtherEffectMatParams) { }//🌋
+    public virtual void OnMud(MatParams OtherEffectMatParams) { }//💩
+    public virtual void OnSand(MatParams OtherEffectMatParams) { }//⌛
+    public virtual void OnStone(MatParams OtherEffectMatParams) { }//🪨
+    public virtual void OnGlass(MatParams OtherEffectMatParams) { }//🪟
+    public virtual void OnDust(MatParams OtherEffectMatParams) { }//🧹
+    public virtual void OnCrystal(MatParams OtherEffectMatParams) { }//💎
+    public virtual void OnOil(MatParams OtherEffectMatParams) { }//🛢️
+    public virtual void OnGasoline(MatParams OtherEffectMatParams) { }//⛽️
+    public virtual void OnPlastic(MatParams OtherEffectMatParams) { }//🧸
+    public virtual void OnRubber(MatParams OtherEffectMatParams) { }//🏀
     //fliages
-    public virtual void OnCoal() { }//🪨⛏️
-    public virtual void OnWood() { }//🪵
-    public virtual void OnFoliage() { }//🍀
-    public virtual void OnPlants() { }//🌿
-    public virtual void OnPaper() { }//📜
-    public virtual void OnTextile() { }//👚
+    public virtual void OnCoal(MatParams OtherEffectMatParams) { }//🪨⛏️
+    public virtual void OnWood(MatParams OtherEffectMatParams) { }//🪵
+    public virtual void OnFoliage(MatParams OtherEffectMatParams) { }//🍀
+    public virtual void OnPlants(MatParams OtherEffectMatParams) { }//🌿
+    public virtual void OnPaper(MatParams OtherEffectMatParams) { }//📜
+    public virtual void OnTextile(MatParams OtherEffectMatParams) { }//👚
     //METAL with its 2 states
-    public virtual void OnMetal() { }//⚙️
-    public virtual void OnMoltenMetal() { }//⚙️🔥
+    public virtual void OnMetal(MatParams OtherEffectMatParams) { }//⚙️
+    public virtual void OnMoltenMetal(MatParams OtherEffectMatParams) { }//⚙️🔥
 
     //
-    public virtual void OnAcid() { }//🧪
-    public virtual void OnToxicGas() { }//💨🧪
+    public virtual void OnAcid(MatParams OtherEffectMatParams) { }//🧪
+    public virtual void OnToxicGas(MatParams OtherEffectMatParams) { }//💨🧪
 
 
     //universal states of all materials
-    public virtual void OnPlasma() { }//🔮
+    public virtual void OnPlasma(MatParams OtherEffectMatParams) { }//🔮
 }
