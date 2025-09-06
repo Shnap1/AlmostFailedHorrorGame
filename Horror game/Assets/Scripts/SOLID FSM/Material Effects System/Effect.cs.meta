@@ -3,7 +3,9 @@ guid: 0ccf2925f0652324a8df4f6f9f929cc7
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - matParams: {instanceID: 0}
+  - effectManager: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

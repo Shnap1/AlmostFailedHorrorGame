@@ -2,28 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Effect : MonoBehaviour //Made it abstract
+[System.Serializable]
+public abstract class Effect : MonoBehaviour//Made it abstract
 {
-    public E_Effect thistype;
+    [HideInInspector] protected E_Effect thistype;
     public MatParams matParams;
 
     public EffectManager effectManager;
 
+    public E_Effect GetEffectType() { return thistype; }
 
     void Start()
     {
-        thistype = matParams.thistype;
-        CheckEffectManager();
-        if (matParams == null) Debug.Log($"MatParams on {gameObject.name} is null");
+        if (matParams == null)
+        {
+            Debug.Log($"MatParams on is null");
+            // matParams = GetComponent<MatParams>();
+            // thistype = matParams.thistype;
+        }
+        // CheckEffectManager();
     }
 
-    public void CheckEffectManager()
-    {
-        if (gameObject.TryGetComponent<EffectManager>(out EffectManager em)) effectManager = em;
-        else if (gameObject.GetComponent<EffectManager>() == null)
-            em = gameObject.AddComponent<EffectManager>();
-        effectManager = em;
-    }
+    // public void CheckEffectManager()
+    // {
+    //     if (gameObject.TryGetComponent<EffectManager>(out EffectManager em)) effectManager = em;
+    //     else if (gameObject.GetComponent<EffectManager>() == null)
+    //         em = gameObject.AddComponent<EffectManager>();
+    //     effectManager = em;
+    // }
 
     ///<summary>
     ///Subscribe to the EffectManager's events
@@ -32,7 +38,10 @@ public abstract class Effect : MonoBehaviour //Made it abstract
     {
 
     }
-    public virtual MatParams SetEffectStats(MatParams matParams) { return matParams; }
+    public virtual void SetEffectStats(MatParams newMatParams)
+    {
+        matParams = newMatParams;
+    }
 
     /// <summary>
     /// Choose wich effect to activate on another Material based on this  material.

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -8,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class EffectManager : MonoBehaviour
 {
-    List<Effect> thisManagerEffects;
+    public List<Effect> thisManagerEffects;
     public EffectsFactory effectsFactory;
 
     public bool statsChanging;
@@ -16,6 +17,7 @@ public class EffectManager : MonoBehaviour
 
 
     public Effect MainMaterial; //TODO figure out if this is needed, or call MainMaterial that determines the mesh of an object
+    public E_Effect mainMaterialType;
     public Material MainMaterialSkin;
 
     MeshRenderer meshRenderer;
@@ -71,13 +73,15 @@ public class EffectManager : MonoBehaviour
 
     //...............................................................................
 
-    void Start()
+    public void Start()
     {
         meshRenderer = GetComponent<MeshRenderer>();
 
-
         thisManagerEffects = new List<Effect>();
-        effectsFactory = gameObject.AddComponent<EffectsFactory>();
+
+        // effectsFactory = gameObject.AddComponent<EffectsFactory>();
+
+        ChangeMainMaterial(mainMaterialType);
 
         if (calcReactionsBetweenMatsOnStart)
         {
@@ -93,18 +97,53 @@ public class EffectManager : MonoBehaviour
                 reactionsBetweenMatsCoroutine = StartCoroutine(CalcInMaterialReactions_Enumerator(ChangeReactionRate()));
             }
         }
-
-        if (MainMaterial != null) ChangeMainMaterial(MainMaterial.thistype);
-
+        // if (MainMaterial != null) ChangeMainMaterial(MainMaterial.thistype);
+        // effectsFactory = EffectsFactory.instance;
     }
 
     //➕🔥
-    public virtual void AddEffect(Effect effect)
+    // public virtual void AddEffect(Effect effect)
+    // {
+    //     if (effect != null && thisManagerEffects.Contains(effect))
+    //     {
+    //         thisManagerEffects.Add(EffectsFactory.instance.GetEffectFromDictionary(effect));
+    //     }
+    // }
+    //2nd version:
+    public virtual Effect AddEffect(E_Effect e_Effect)
     {
-        if (effect != null && thisManagerEffects.Contains(effect))
-        {
-            thisManagerEffects.Add(effect);
-        }
+        //Addingeffect factory if its not there and getting the effect from there from an enum
+        // if (effectsFactory == null) effectsFactory = gameObject.AddComponent<EffectsFactory>();
+
+        // effectsFactory = EffectsFactory.instance;
+
+        // Effect effect = EffectsFactory.instance.GetEffectFromDictionary(e_Effect);
+
+        thisManagerEffects.Add(EffectsFactory.instance.GetEffectFromDictionary(e_Effect));
+
+        // if (effect != null && !thisManagerEffects.Contains(effect))
+        // {
+        // }
+
+        return EffectsFactory.instance.GetEffectFromDictionary(e_Effect);
+    }
+    //3d version with custom Material Parameters:
+    public virtual void AddEffect(E_Effect e_Effect, MatParams newMatParams)
+    {
+        //Addingeffect factory if its not there and getting the effect from there from an enum
+        // if (effectsFactory == null) effectsFactory = gameObject.AddComponent<EffectsFactory>();
+
+        //todo commented out double-code  from AddEffect(E_Effect e_Effect)
+        // Effect effect = effectsFactory.GetEffectFromDictionary(e_Effect);
+        // if (effect != null && thisManagerEffects.Contains(effect))
+        // {
+
+        //     thisManagerEffects.Add(effect);
+        //     SetCustomEffectStats(newMatParams, effect);
+        // }
+
+        SetCustomEffectStats(newMatParams, AddEffect(e_Effect));
+
     }
 
     //❌🔥
@@ -113,8 +152,7 @@ public class EffectManager : MonoBehaviour
         if (effect == null) return;
         if (thisManagerEffects.Contains(effect))
             thisManagerEffects.Remove(effect);
-        else
-            Debug.Log($"Effect {effect.name} not found - can't remove");
+
     }
 
     //📊🔥
@@ -131,19 +169,23 @@ public class EffectManager : MonoBehaviour
 
     public virtual void ChangeMainMaterial(E_Effect effectEnum)
     { //TODO get rid of all this if statements-shit. replace with proper get methods in Effect
-        if (MainMaterial == null) return;
+      // if (MainMaterial == null) return;
 
-        if (MainMaterial.thistype == effectEnum) return;
-        if (MainMaterial.thistype == 0) return;
+        // if (MainMaterial.thistype == effectEnum) return;
+        // if (MainMaterial.thistype == 0) return;
 
 
-        if (effectsFactory.GetEffectFromDictionary(effectEnum) != null) MainMaterial = effectsFactory.GetEffectFromDictionary(effectEnum);
+        // if (effectsFactory.GetEffectFromDictionary(effectEnum) != null)
+        MainMaterial = EffectsFactory.instance.GetEffectFromDictionary(effectEnum);
+        // MainMaterial
+        // gameObject.AddComponent<MainMaterial>();
+        // else Debug.Log($"MainMaterial in EffectManager on {gameObject.name} is null");
 
-        if (MainMaterial.matParams.materialVisual != null) MainMaterialSkin = MainMaterial.matParams.materialVisual;
+        // if (MainMaterial.matParams.materialVisual != null) MainMaterialSkin = MainMaterial.matParams.materialVisual;
 
         //todo also take physical properties from MainMaterial and apply to this object
-        if (meshRenderer != null && MainMaterialSkin != null) meshRenderer.material = MainMaterialSkin;
-        else Debug.Log($"MeshRenderer or MainMaterialSkin in EffectManager on {gameObject.name} is null");
+        // if (meshRenderer != null && MainMaterialSkin != null) meshRenderer.material = MainMaterialSkin;
+        // else Debug.Log($"MeshRenderer or MainMaterialSkin in EffectManager on {gameObject.name} is null");
 
     }
 
@@ -191,7 +233,7 @@ public class EffectManager : MonoBehaviour
             foreach (Effect otherthisEffect in thisManagerEffects)
             {
 
-                if (thisEffect.name != thisEffect.name)
+                if (thisEffect.GetEffectType() != otherthisEffect.GetEffectType())
                 {
                     thisEffect.Interract(otherthisEffect);
                 }
