@@ -25,15 +25,15 @@ public class Wood_Effect : Effect
     public void AddMatParams()
     {
         // Load the MatParams asset from the Resources folder
-        matParams = Resources.Load<MatParams>("WoodMatParams");
-        Debug.Log($"Resources.Load<MatParams>(WoodMatParams);");
+        // matParams = Resources.Load<MatParams>("WoodMatParams");
+        // Debug.Log($"Resources.Load<MatParams>(WoodMatParams);");
 
         // If the asset is not found, you can create a new one
         if (matParams == null)
         {
-            matParams = ScriptableObject.CreateInstance<MatParams>();
-            matParams.name = "WoodMatParams";
-            AssetDatabase.CreateAsset(matParams, "Assets/Resources/WoodMatParams.asset");
+            // matParams = ScriptableObject.CreateInstance<MatParams>();
+            // matParams.name = "WoodMatParams";
+            // AssetDatabase.CreateAsset(matParams, "Assets/Resources/WoodMatParams.asset");
 
         }
     }

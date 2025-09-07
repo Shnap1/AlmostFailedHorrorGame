@@ -15,7 +15,7 @@ public class TurnUIToFollower : MonoBehaviour
         if (GameData.instance.cam != null)
         {
             cam = GameData.instance.cam;
-            Debug.Log("CAM TEST -TurnUIToFollower got camera transform");
+            // Debug.Log("CAM TEST -TurnUIToFollower got camera transform");
         }
     }
     // Start is called before the first frame update    private void LateUpdate()

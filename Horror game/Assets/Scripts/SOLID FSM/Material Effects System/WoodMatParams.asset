@@ -44,7 +44,7 @@ MonoBehaviour:
   lastResourceInside: 0
   curResourceTemperature: 0
   lastResourceTemperature: 0
-  currentHealth: 0
+  currentHealth: 10
   lastHealth: 0
   currentWeight: 0
   lastWeight: 0

@@ -82,7 +82,7 @@ public class EffectsFactory : MonoBehaviour
         // InitializeEffectsList();
     }
 
-    public Effect GetEffectFromDictionary(E_Effect effectType)
+    public Effect GetEffectFromList(E_Effect effectType)
     {
         // if (effects[effectType] != null)
         //     return effects[effectType];

@@ -5,14 +5,20 @@ using UnityEngine;
 [System.Serializable]
 public abstract class Effect : MonoBehaviour//Made it abstract
 {
-    [HideInInspector] protected E_Effect thistype;
+    [HideInInspector]
+    public E_Effect thistype;
     public MatParams matParams;
 
     public EffectManager effectManager;
 
-    public E_Effect GetEffectType() { return thistype; }
+    public E_Effect GetEffectType() { return matParams.thistype; }
 
     void Start()
+    {
+        StartEffect();
+    }
+
+    public virtual void StartEffect()
     {
         if (matParams == null)
         {

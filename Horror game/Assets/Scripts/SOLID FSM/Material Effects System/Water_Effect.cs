@@ -7,14 +7,14 @@ public class Water_Effect : Effect
 {
     void Start()
     {
-        AddMatParams();
         thistype = E_Effect.Water;
+        AddMatParams();
     }
     public void AddMatParams()
     {
         // Load the MatParams asset from the Resources folder
-        matParams = Resources.Load<MatParams>("WaterMatParams");
-        Debug.Log($"Resources.Load<MatParams>(WaterMatParams);");
+        // matParams = Resources.Load<MatParams>("WaterMatParams");
+        // Debug.Log($"Resources.Load<MatParams>(WaterMatParams);");
 
         // If the asset is not found, you can create a new one
         if (matParams == null)

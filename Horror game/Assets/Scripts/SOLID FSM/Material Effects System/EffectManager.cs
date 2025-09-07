@@ -9,7 +9,7 @@ using UnityEngine;
 /// </summary>
 public class EffectManager : MonoBehaviour
 {
-    public List<Effect> thisManagerEffects;
+    public List<Effect> thisManagerEffects = new List<Effect>();
     public EffectsFactory effectsFactory;
 
     public bool statsChanging;
@@ -75,9 +75,9 @@ public class EffectManager : MonoBehaviour
 
     public void Start()
     {
+
         meshRenderer = GetComponent<MeshRenderer>();
 
-        thisManagerEffects = new List<Effect>();
 
         // effectsFactory = gameObject.AddComponent<EffectsFactory>();
 
@@ -119,13 +119,13 @@ public class EffectManager : MonoBehaviour
 
         // Effect effect = EffectsFactory.instance.GetEffectFromDictionary(e_Effect);
 
-        thisManagerEffects.Add(EffectsFactory.instance.GetEffectFromDictionary(e_Effect));
+        thisManagerEffects.Add(EffectsFactory.instance.GetEffectFromList(e_Effect));
 
         // if (effect != null && !thisManagerEffects.Contains(effect))
         // {
         // }
 
-        return EffectsFactory.instance.GetEffectFromDictionary(e_Effect);
+        return EffectsFactory.instance.GetEffectFromList(e_Effect);
     }
     //3d version with custom Material Parameters:
     public virtual void AddEffect(E_Effect e_Effect, MatParams newMatParams)
@@ -176,7 +176,7 @@ public class EffectManager : MonoBehaviour
 
 
         // if (effectsFactory.GetEffectFromDictionary(effectEnum) != null)
-        MainMaterial = EffectsFactory.instance.GetEffectFromDictionary(effectEnum);
+        MainMaterial = EffectsFactory.instance.GetEffectFromList(effectEnum);
         // MainMaterial
         // gameObject.AddComponent<MainMaterial>();
         // else Debug.Log($"MainMaterial in EffectManager on {gameObject.name} is null");
@@ -251,7 +251,7 @@ public class EffectManager : MonoBehaviour
         {
             time = ChangeReactionRate();
             ApplyEffects();
-            Debug.Log($"ApplyEffects_Enumerator called on {gameObject.name}");
+            // Debug.Log($"ApplyEffects_Enumerator called on {gameObject.name}");
             //todo comment it out because it updates material's inner state only while ApplyEffects() not always
             // foreach (Effect thisEffect in thisManagerEffects) 
             // {
@@ -366,4 +366,17 @@ public class EffectManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+
+            Debug.Log($"Update called on {gameObject.name}");
+            thisManagerEffects.Add(new Wood_Effect());
+        }
+
+    }
 }
