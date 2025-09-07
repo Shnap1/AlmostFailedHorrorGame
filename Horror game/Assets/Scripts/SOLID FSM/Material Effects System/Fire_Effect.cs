@@ -7,7 +7,7 @@ public class Fire_Effect : Effect
 {
     void Start()
     {
-        thistype = E_Effect.Fire;
+        // thistype = E_Effect.Fire;
         AddMatParams();
     }
 

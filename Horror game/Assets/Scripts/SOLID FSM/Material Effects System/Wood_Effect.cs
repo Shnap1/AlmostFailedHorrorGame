@@ -13,14 +13,27 @@ public class Wood_Effect : Effect
         //todo Apparently effectManager cant add Effect classes to a list
         //todo Should stop inhereting Effect from MonoBehaviour and add a a wrapper to put into as a reference in a Monobeh so it could be easily attachable to objects.
 
-        thistype = E_Effect.Wood;
+        // thistype = E_Effect.Wood;
 
         //Not specifying water stats for now 
         // 1st the waterMatParams needs to be created 
         // 2nd it has to be done like this: 
-        // effectManager.AddEffect(E_Effect.Water, waterMatParams);
-        AddMatParams();
 
+        // CheckEffectManager();
+        // effectManager.AddEffect(E_Effect.Water);
+
+        // AddMatParams();
+
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            CheckEffectManager();
+            effectManager.AddEffect(E_Effect.Water);
+
+        }
     }
     public void AddMatParams()
     {

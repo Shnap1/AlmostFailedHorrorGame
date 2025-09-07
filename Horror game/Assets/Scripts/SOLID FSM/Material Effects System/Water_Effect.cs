@@ -7,7 +7,7 @@ public class Water_Effect : Effect
 {
     void Start()
     {
-        thistype = E_Effect.Water;
+        // thistype = E_Effect.Water;
         AddMatParams();
     }
     public void AddMatParams()
@@ -19,9 +19,9 @@ public class Water_Effect : Effect
         // If the asset is not found, you can create a new one
         if (matParams == null)
         {
-            matParams = ScriptableObject.CreateInstance<MatParams>();
-            matParams.name = "WoodMaWaterMatParamstParams";
-            AssetDatabase.CreateAsset(matParams, "Assets/Resources/WaterMatParams.asset");
+            // matParams = ScriptableObject.CreateInstance<MatParams>();
+            // matParams.name = "WoodMaWaterMatParamstParams";
+            // AssetDatabase.CreateAsset(matParams, "Assets/Resources/WaterMatParams.asset");
 
         }
 

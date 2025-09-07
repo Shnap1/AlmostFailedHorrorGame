@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public abstract class Effect : MonoBehaviour//Made it abstract
+public class Effect : MonoBehaviour//Made it abstract
 {
     [HideInInspector]
     public E_Effect thistype;
@@ -26,16 +26,16 @@ public abstract class Effect : MonoBehaviour//Made it abstract
             // matParams = GetComponent<MatParams>();
             // thistype = matParams.thistype;
         }
-        // CheckEffectManager();
+        CheckEffectManager();
     }
 
-    // public void CheckEffectManager()
-    // {
-    //     if (gameObject.TryGetComponent<EffectManager>(out EffectManager em)) effectManager = em;
-    //     else if (gameObject.GetComponent<EffectManager>() == null)
-    //         em = gameObject.AddComponent<EffectManager>();
-    //     effectManager = em;
-    // }
+    public void CheckEffectManager()
+    {
+        if (gameObject.TryGetComponent<EffectManager>(out EffectManager em)) effectManager = em;
+        // else if (gameObject.GetComponent<EffectManager>() == null)
+        //     em = gameObject.AddComponent<EffectManager>();
+        // effectManager = em;
+    }
 
     ///<summary>
     ///Subscribe to the EffectManager's events
@@ -58,7 +58,7 @@ public abstract class Effect : MonoBehaviour//Made it abstract
     // effectToInterractWith.OnAcid();
     // InterractOtherConditions(effectToInterractWith, matParams);
     // DepleteResource(matParams.acidPerSecond, matParams.currentAcidInside);
-    public abstract void Interract(Effect effectToInterractWith);
+    public virtual void Interract(Effect effectToInterractWith) { }
 
     /// <summary>
     /// Creates a reaction product like gas when water and fire interract as a game object

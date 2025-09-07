@@ -16,8 +16,8 @@ public class EffectManager : MonoBehaviour
     public bool calcReactionsBetweenMatsOnStart = false;
 
 
-    public Effect MainMaterial; //TODO figure out if this is needed, or call MainMaterial that determines the mesh of an object
-    public E_Effect mainMaterialType;
+    public Effect MainMaterial;
+    // public E_Effect mainMaterialType;
     public Material MainMaterialSkin;
 
     MeshRenderer meshRenderer;
@@ -81,7 +81,7 @@ public class EffectManager : MonoBehaviour
 
         // effectsFactory = gameObject.AddComponent<EffectsFactory>();
 
-        ChangeMainMaterial(mainMaterialType);
+        ChangeMainMaterial(MainMaterial);
 
         if (calcReactionsBetweenMatsOnStart)
         {
@@ -119,7 +119,8 @@ public class EffectManager : MonoBehaviour
 
         // Effect effect = EffectsFactory.instance.GetEffectFromDictionary(e_Effect);
 
-        thisManagerEffects.Add(EffectsFactory.instance.GetEffectFromList(e_Effect));
+        thisManagerEffects.Add(EffectsFactory.instance.GetEffectFromList(e_Effect));//todo cant add to a list
+
 
         // if (effect != null && !thisManagerEffects.Contains(effect))
         // {
@@ -188,6 +189,12 @@ public class EffectManager : MonoBehaviour
         // else Debug.Log($"MeshRenderer or MainMaterialSkin in EffectManager on {gameObject.name} is null");
 
     }
+    public virtual void ChangeMainMaterial(Effect effect)
+    {
+        MainMaterial = effect;
+    }
+
+
 
 
 
