@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Effect : MonoBehaviour//Made it abstract
+public class Effect //Made it abstract
 {
     [HideInInspector]
     public E_Effect thistype;
@@ -11,27 +11,33 @@ public class Effect : MonoBehaviour//Made it abstract
 
     public EffectManager effectManager;
 
-    public E_Effect GetEffectType() { return matParams.thistype; }
+    public virtual E_Effect GetEffectType() { return matParams.thistype; }
 
-    void Start()
+
+
+    public Effect()
     {
         StartEffect();
     }
 
     public virtual void StartEffect()
     {
-        if (matParams == null)
-        {
-            Debug.Log($"MatParams on is null");
-            // matParams = GetComponent<MatParams>();
-            // thistype = matParams.thistype;
-        }
-        CheckEffectManager();
+        AddMatParams();
     }
 
+    public virtual void SecondAction()
+    {
+
+    }
+    public void SetEffectManager(EffectManager EM)
+    {
+        effectManager = EM;
+    }
     public void CheckEffectManager()
     {
-        if (gameObject.TryGetComponent<EffectManager>(out EffectManager em)) effectManager = em;
+        // if (gameObject.TryGetComponent<EffectManager>(out EffectManager em)) effectManager = em;
+
+
         // else if (gameObject.GetComponent<EffectManager>() == null)
         //     em = gameObject.AddComponent<EffectManager>();
         // effectManager = em;
@@ -60,6 +66,7 @@ public class Effect : MonoBehaviour//Made it abstract
     // DepleteResource(matParams.acidPerSecond, matParams.currentAcidInside);
     public virtual void Interract(Effect effectToInterractWith) { }
 
+    public virtual void AddMatParams() { }
     /// <summary>
     /// Creates a reaction product like gas when water and fire interract as a game object
     /// </summary>
@@ -129,7 +136,8 @@ public class Effect : MonoBehaviour//Made it abstract
     public virtual void CheckSwitchMaterial()
     {
         //example
-        if (matParams.currentOxygenInside < 0.1f) { effectManager.ChangeMainMaterial(E_Effect.Water); }
+        // if (matParams.currentOxygenInside < 0.1f) { effectManager.ChangeMainMaterial(E_Effect.Water); }
+
         //or add all the if statements into separate methods. For example:
         // ToWater();
     }

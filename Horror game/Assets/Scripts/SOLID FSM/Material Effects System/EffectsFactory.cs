@@ -5,11 +5,9 @@ using UnityEngine;
 public class EffectsFactory : MonoBehaviour
 {
 
-    public Dictionary<E_Effect, Effect> effects;
-    public List<Effect> effectsList;
-    public List<GameObject> effectGameObjectsList;
-
-    //
+    // public Dictionary<E_Effect, Effect> effects;
+    public List<Effect> effectsList = new List<Effect>();
+    // public List<GameObject> effectGameObjectsList;
     [HideInInspector] public static EffectsFactory instance;
 
     private void Awake()
@@ -23,28 +21,70 @@ public class EffectsFactory : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        InitializeEffectsList();
+        AssignSO();
+    }
+    public void InitializeEffectsList()
+    {
+        Debug.Log("InitializeEffectsList");
+        effectsList.Add(new Water_Effect());
+        effectsList.Add(new Fire_Effect());
+        effectsList.Add(new Wood_Effect());
+    }
+    public void AssignSO()
+    {
+        foreach (Effect effect in effectsList)
+        {
+            effect.AddMatParams();
+        }
+    }
+    public Effect SearchInList(E_Effect effectType)
+    {
+        Debug.Log("SearchInList");
+        Effect effectToReturn = null;// = effectsList[0];//todo delete
+        for (int i = 0; i < effectsList.Count; i++)
+        {
+            Debug.Log($"Effect {i} {effectsList[i].matParams.thistype}");
+            if (effectsList[i].matParams == null)
+            {
+                Debug.Log($"Effect {i} has no matParams");
+            }
+            if (effectsList[i].matParams.thistype == effectType)
+            {
+                effectToReturn = effectsList[i];
+                Debug.Log($"Effect {effectType} found");
+                // return effectToReturn;
+            }
+        }
+        return effectToReturn;
 
     }
 
-    public Effect SearchInList(E_Effect effectType)
+    public Effect PrimitiveShitSearch(E_Effect effectType)
     {
-        for (int i = 0; i < effectGameObjectsList.Count; i++)
+        Effect effectToReturn = null;//todo delete
+        switch (effectType)
         {
-            if (effectGameObjectsList[i].GetComponent<Effect>().GetEffectType() == effectType)
-            {
-                Effect effectToReturn = effectGameObjectsList[i].GetComponent<Effect>();
-                return effectToReturn;
-            }
+            case E_Effect.Water:
+                effectToReturn = new Water_Effect();
+                break;
+            case E_Effect.Fire:
+                effectToReturn = new Fire_Effect();
+                break;
+            case E_Effect.Wood:
+                effectToReturn = new Wood_Effect();
+                break;
         }
-        return null;
+        return effectToReturn;
     }
 
     void Start()
     {
-        if (effects == null)
-        {
-            effects = new Dictionary<E_Effect, Effect>();
-        }
+        // if (effects == null)
+        // {
+        //     effects = new Dictionary<E_Effect, Effect>();
+        // }
+
         // InitializeEffectsDictionary();
         // InitializeEffectsList();
     }
@@ -56,7 +96,9 @@ public class EffectsFactory : MonoBehaviour
         // else if (effects[effectType] == null)
         //     Debug.Log($"Effect {effectType} not found");
         // return null;
-        return SearchInList(effectType);
+        // return SearchInList(effectType);
+        // return PrimitiveShitSearch(effectType);
+        return PrimitiveShitSearch(effectType);
     }
 
 }

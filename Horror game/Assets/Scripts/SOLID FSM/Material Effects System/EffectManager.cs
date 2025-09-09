@@ -16,8 +16,8 @@ public class EffectManager : MonoBehaviour
     public bool calcReactionsBetweenMatsOnStart = false;
 
 
+    public E_Effect mainMaterialType;
     public Effect MainMaterial;
-    // public E_Effect mainMaterialType;
     public Material MainMaterialSkin;
 
     MeshRenderer meshRenderer;
@@ -81,7 +81,7 @@ public class EffectManager : MonoBehaviour
 
         // effectsFactory = gameObject.AddComponent<EffectsFactory>();
 
-        ChangeMainMaterial(MainMaterial);
+        ChangeMainMaterial(mainMaterialType);
 
         if (calcReactionsBetweenMatsOnStart)
         {
@@ -97,6 +97,7 @@ public class EffectManager : MonoBehaviour
                 reactionsBetweenMatsCoroutine = StartCoroutine(CalcInMaterialReactions_Enumerator(ChangeReactionRate()));
             }
         }
+
         // if (MainMaterial != null) ChangeMainMaterial(MainMaterial.thistype);
         // effectsFactory = EffectsFactory.instance;
     }
@@ -146,6 +147,13 @@ public class EffectManager : MonoBehaviour
         SetCustomEffectStats(newMatParams, AddEffect(e_Effect));
 
     }
+    public virtual void AddEffect(Effect effect)
+    {
+        effect.SetEffectManager(this);
+        effect.SecondAction();
+        thisManagerEffects.Add(effect);
+
+    }
 
     //❌🔥
     public virtual void RemoveEffect(Effect effect)
@@ -177,7 +185,17 @@ public class EffectManager : MonoBehaviour
 
 
         // if (effectsFactory.GetEffectFromDictionary(effectEnum) != null)
+
         MainMaterial = EffectsFactory.instance.GetEffectFromList(effectEnum);
+
+        // Water_Effect we = new();//todo remove it
+        // MainMaterial = we;//todo remove it
+        // Effect we = new typeof(EffectsFactory.instance.GetEffectFromList(effectEnum));//todo remove it
+        MainMaterial.SetEffectManager(this);
+        if (!thisManagerEffects.Contains(MainMaterial))
+        {
+            AddEffect(MainMaterial);
+        }
         // MainMaterial
         // gameObject.AddComponent<MainMaterial>();
         // else Debug.Log($"MainMaterial in EffectManager on {gameObject.name} is null");
@@ -232,12 +250,13 @@ public class EffectManager : MonoBehaviour
 
     public void CalcReactionsInAndBetweenMats()
     {
+        List<Effect> effectsToProcess = new List<Effect>(thisManagerEffects);
 
         //4. Take one effect from this effect list
-        foreach (Effect thisEffect in thisManagerEffects)
+        foreach (Effect thisEffect in effectsToProcess) // in thisManagerEffects)
         {
             // 5. Apply to that material all this material's effects
-            foreach (Effect otherthisEffect in thisManagerEffects)
+            foreach (Effect otherthisEffect in effectsToProcess) // in thisManagerEffects)
             {
 
                 if (thisEffect.GetEffectType() != otherthisEffect.GetEffectType())
@@ -322,7 +341,7 @@ public class EffectManager : MonoBehaviour
             else if (reactionCoroutine == null && ContactedObjects.Count <= 0) // 1 ---- the 1st Contacted Game object turns on the coroutine
             {
                 if (!ContactedObjects.Contains(otherEM)) { ContactedObjects.Add(otherEM); }
-                reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(reactionRate_fast));
+                // reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(reactionRate_fast));
             }
         }
         //TODO: rewrite. Described more specifically in ApplyEffects()
