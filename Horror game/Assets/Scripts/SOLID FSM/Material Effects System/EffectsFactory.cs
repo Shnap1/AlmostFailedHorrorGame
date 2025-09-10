@@ -21,7 +21,7 @@ public class EffectsFactory : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        InitializeEffectsList();
+        // InitializeEffectsList();
         AssignSO();
     }
     public void InitializeEffectsList()

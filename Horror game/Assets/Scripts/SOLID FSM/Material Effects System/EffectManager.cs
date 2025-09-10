@@ -18,9 +18,9 @@ public class EffectManager : MonoBehaviour
 
     public E_Effect mainMaterialType;
     public Effect MainMaterial;
-    public Material MainMaterialSkin;
+    public Material MainMaterialVisual;
 
-    MeshRenderer meshRenderer;
+    [HideInInspector] public MeshRenderer meshRenderer;
 
 
 
@@ -341,7 +341,7 @@ public class EffectManager : MonoBehaviour
             else if (reactionCoroutine == null && ContactedObjects.Count <= 0) // 1 ---- the 1st Contacted Game object turns on the coroutine
             {
                 if (!ContactedObjects.Contains(otherEM)) { ContactedObjects.Add(otherEM); }
-                // reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(reactionRate_fast));
+                reactionCoroutine = StartCoroutine(ApplyEffects_Enumerator(reactionRate_fast));
             }
         }
         //TODO: rewrite. Described more specifically in ApplyEffects()

@@ -13,6 +13,8 @@ public class Effect //Made it abstract
 
     public virtual E_Effect GetEffectType() { return matParams.thistype; }
 
+    public Material currentVisualMaterial;
+
 
 
     public Effect()
@@ -157,8 +159,8 @@ public class Effect //Made it abstract
     {
         if (EM.curResourcePerSecond > 0)
         {
-            var tempTimesMass = EM.curResourcePerSecond * matParams.curResourceTemperature + matParams.currentWeight * matParams.currentTemp;
-            matParams.currentTemp = tempTimesMass / (mp.curResourcePerSecond + mp.currentWeight);
+            var tempTimesMass = EM.curResourcePerSecond * matParams.curResourceTemperature + matParams.currentWeight * matParams.currentTemp_C;
+            matParams.currentTemp_C = tempTimesMass / (mp.curResourcePerSecond + mp.currentWeight);
 
             AddLiquidWeight(mp, EM);//todo Probably not needed here
         }
@@ -179,7 +181,11 @@ public class Effect //Made it abstract
 
     // SOUND + VISUAL EFFECTS
     public virtual void AllVFXcontrol() { } //contains the following 3 methods
-    public virtual void SwitchMat() { }
+    public virtual void SwitchMat(Material newMat)
+    {
+        currentVisualMaterial = newMat;
+        effectManager.MainMaterialVisual = currentVisualMaterial;
+    }
     public virtual void SwitchVFX() { }
     public virtual void SwitchSFX() { }
 

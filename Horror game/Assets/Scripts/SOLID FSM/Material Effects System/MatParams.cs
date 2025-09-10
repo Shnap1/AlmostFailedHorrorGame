@@ -11,11 +11,11 @@ public class MatParams : ScriptableObject
 {
     public E_Effect thistype;
     [Header("REACTION PROPERTIES")]
-    public float boilingPoint;
-    public float meltingPoint;
+    public float boilingPoint_C;
+    public float meltingPoint_C;
     public float burningPoint_C;
-    public float freezingPoint;
-    public float shatteringPoint;
+    public float freezingPoint_C;
+    public float shatteringPoint_N;
     public bool isShattered;
 
     [Header("STABLE PROPERTIES")]
@@ -58,6 +58,7 @@ public class MatParams : ScriptableObject
     //
 
     public float currentHealth;
+    public float maxHealth;
     [HideInInspector] public float lastHealth;
 
     public float currentWeight;
@@ -66,8 +67,8 @@ public class MatParams : ScriptableObject
     public float currentSize;
     [HideInInspector] public float lastSize;
 
-    public float currentTemp;
-    [HideInInspector] public float lastTemp;
+    public float currentTemp_C;
+    [HideInInspector] public float lastTemp_C;
 
     public float currentPressure;
     [HideInInspector] public float lastPressure;
@@ -115,7 +116,12 @@ public class MatParams : ScriptableObject
     public float currentAcidInside;
     [HideInInspector] public float lastAcidInside;
 
+    [Header("MATERIAL VISUALS")]
     public Material materialVisual;
+    public Material materialBurntLittle;
+    public Material materialBurntMedium;
+    public Material materialBurntMax;
+
     public Material[] materialsViasualVariations;
 }
 

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: WoodMatParams
   m_EditorClassIdentifier: 
   thistype: 30
-  boilingPoint: 0
-  meltingPoint: 999999
+  boilingPoint_C: 0
+  meltingPoint_C: 0
   burningPoint_C: 0
-  freezingPoint: 0
-  shatteringPoint: 0
+  freezingPoint_C: 0
+  shatteringPoint_N: 0
   isShattered: 0
   state: 2
   rigidity: 0.6
@@ -45,13 +45,14 @@ MonoBehaviour:
   curResourceTemperature: 0
   lastResourceTemperature: 0
   currentHealth: 10
+  maxHealth: 10
   lastHealth: 0
   currentWeight: 0
   lastWeight: 0
   currentSize: 0
   lastSize: 0
-  currentTemp: 0
-  lastTemp: 0
+  currentTemp_C: 0
+  lastTemp_C: 0
   currentPressure: 0
   lastPressure: 0
   currentFireInside: 0
@@ -80,5 +81,8 @@ MonoBehaviour:
   lastWindInside: 0
   currentAcidInside: 0
   lastAcidInside: 0
-  materialVisual: {fileID: 2100000, guid: eab5efa465b03714da570a4886e682c4, type: 2}
+  materialVisual: {fileID: 2100000, guid: e6d752fe8f293f643b32153ed0aa19be, type: 2}
+  materialBurntLittle: {fileID: 2100000, guid: 7cf014611ad64e449b7dc89ec72cf09c, type: 2}
+  materialBurntMedium: {fileID: 2100000, guid: 13cea18ed172f504eb215178feb6818f, type: 2}
+  materialBurntMax: {fileID: 2100000, guid: 9e3cbd13a583f9844b7f5e7d5c9ef1c3, type: 2}
   materialsViasualVariations: []

@@ -15,13 +15,13 @@ public class Fire_Effect : Effect
         Debug.Log($"Resources.Load<MatParams>(FireEffectMatParams);");
 
         // If the asset is not found, you can create a new one
-        if (matParams == null)
-        {
-            matParams = ScriptableObject.CreateInstance<MatParams>();
-            matParams.name = "FireEffectMatParams";
-            AssetDatabase.CreateAsset(matParams, "Assets/Resources/FireMatParams.asset");
+        // if (matParams == null)
+        // {
+        //     matParams = ScriptableObject.CreateInstance<MatParams>();
+        //     matParams.name = "FireEffectMatParams";
+        //     AssetDatabase.CreateAsset(matParams, "Assets/Resources/FireMatParams.asset");
 
-        }
+        // }
     }
 
 
@@ -31,6 +31,7 @@ public class Fire_Effect : Effect
         //example with OnAcid()🧪 if THIS effect is an acid
         effectToInterractWith.OnFire(matParams);
         InterractOtherConditions(effectToInterractWith, matParams);
-        DepleteResource(matParams.fuelPerSecond, matParams.currentAcidInside);
+        //todo uncomment this to limit the fire
+        // DepleteResource(matParams.fuelPerSecond, matParams.currentAcidInside);
     }
 }

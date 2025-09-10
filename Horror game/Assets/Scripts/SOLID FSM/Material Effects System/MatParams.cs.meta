@@ -3,7 +3,13 @@ guid: c7f923c1dbe10e0438bee1da56626828
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - materialVisual: {fileID: 2100000, guid: e6d752fe8f293f643b32153ed0aa19be, type: 2}
+  - materialBurntLittle: {fileID: 2100000, guid: 7cf014611ad64e449b7dc89ec72cf09c,
+      type: 2}
+  - materialBurntMedium: {fileID: 2100000, guid: 9e3cbd13a583f9844b7f5e7d5c9ef1c3,
+      type: 2}
+  - materialBurntMax: {fileID: 2100000, guid: 9e3cbd13a583f9844b7f5e7d5c9ef1c3, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

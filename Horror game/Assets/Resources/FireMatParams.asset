@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7f923c1dbe10e0438bee1da56626828, type: 3}
   m_Name: FireMatParams
   m_EditorClassIdentifier: 
-  thistype: 0
-  boilingPoint: 0
-  meltingPoint: 0
+  thistype: 3
+  boilingPoint: 999999
+  meltingPoint: 999999
   burningPoint_C: 0
-  freezingPoint: 0
-  shatteringPoint: 0
+  freezingPoint: 999999
+  shatteringPoint: 999999
   isShattered: 0
   state: 0
   rigidity: 0
@@ -25,14 +25,14 @@ MonoBehaviour:
   hardness: 0
   density: 0
   surfaceRoughness: 0
-  electricConductivity: 0
-  heatConductivity: 0
+  electricConductivity: 0.5
+  heatConductivity: 1000
   heatCapacity: 0
   specificHeatCapacity: 0
-  liquidAbsorbtionRate: 0
-  gasAbsorbtionRate: 0
-  fuelAbsorbtionRate: 0
-  electricityAbsorbtionRate: 0
+  liquidAbsorbtionRate: 0.1
+  gasAbsorbtionRate: 1
+  fuelAbsorbtionRate: 10
+  electricityAbsorbtionRate: 0.5
   curResourcePerSecond: 0
   waterPerSecond: 0
   gasPerSecond: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   lastResourceInside: 0
   curResourceTemperature: 0
   lastResourceTemperature: 0
-  currentHealth: 0
+  currentHealth: 10
   lastHealth: 0
   currentWeight: 0
   lastWeight: 0
