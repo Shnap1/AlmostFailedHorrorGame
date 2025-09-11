@@ -70,7 +70,6 @@ public class EffectManager : MonoBehaviour
     public float currentFuelInside;
     public float currentElectricityInside;
 
-
     //...............................................................................
 
     public void Start()
