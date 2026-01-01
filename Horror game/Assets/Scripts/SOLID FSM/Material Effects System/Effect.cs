@@ -8,7 +8,7 @@ public class Effect //Made it abstract
     [HideInInspector]
     public E_Effect thistype;
     public MatParams matParams;
-    public MatParamsScript matParamsScript;//todo auses a bug
+    // public MatParamsScript matParamsScript;//todo causes a bug
 
 
     public EffectManager effectManager;

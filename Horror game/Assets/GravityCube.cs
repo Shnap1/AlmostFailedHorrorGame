@@ -8,8 +8,10 @@ public class GravityCube : MonoBehaviour
     public float topY = 10f; // Top height
     public float stopDuration = 2f;
 
-    private enum State { WaitingAtBottom, GoingUp, WaitingAtTop, GoingDown }
-    private State currentState = State.WaitingAtBottom;
+    private enum VerticalPositions { WaitingAtBottom, GoingUp, WaitingAtTop, GoingDown }
+    private VerticalPositions currentState = VerticalPositions.WaitingAtBottom;
+
+    enum MoveStyle { UpAndDown, RandPositions, AvoidPlayer, ChasePlayer, StayInPlace }//AvoidObject, ChaseObkect
 
     private float stopTimer = 0f;
     private Vector3 startPos;
@@ -21,45 +23,52 @@ public class GravityCube : MonoBehaviour
 
     void FixedUpdate()
     {
+        UpAndDown();
+    }
+
+    void UpAndDown()
+    {
         switch (currentState)
         {
-            case State.WaitingAtBottom:
+            case VerticalPositions.WaitingAtBottom:
                 stopTimer += Time.deltaTime;
                 if (stopTimer >= stopDuration)
                 {
                     stopTimer = 0f;
-                    currentState = State.GoingUp;
+                    currentState = VerticalPositions.GoingUp;
                 }
                 break;
 
-            case State.GoingUp:
+            case VerticalPositions.GoingUp:
                 transform.position += Vector3.up * moveSpeed * Time.deltaTime;
                 if (transform.position.y >= topY)
                 {
                     transform.position = new Vector3(transform.position.x, topY, transform.position.z);
-                    currentState = State.WaitingAtTop;
+                    currentState = VerticalPositions.WaitingAtTop;
                     stopTimer = 0f;
                 }
                 break;
 
-            case State.WaitingAtTop:
+            case VerticalPositions.WaitingAtTop:
                 stopTimer += Time.deltaTime;
                 if (stopTimer >= stopDuration)
                 {
                     stopTimer = 0f;
-                    currentState = State.GoingDown;
+                    currentState = VerticalPositions.GoingDown;
                 }
                 break;
 
-            case State.GoingDown:
+            case VerticalPositions.GoingDown:
                 transform.position -= Vector3.up * moveSpeed * Time.deltaTime;
                 if (transform.position.y <= startPos.y)
                 {
                     transform.position = new Vector3(transform.position.x, startPos.y, transform.position.z);
-                    currentState = State.WaitingAtBottom;
+                    currentState = VerticalPositions.WaitingAtBottom;
                     stopTimer = 0f;
                 }
                 break;
         }
     }
+
+
 }

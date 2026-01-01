@@ -15,6 +15,7 @@ public class Gun : MonoBehaviour
     RaycastHit hit;
     public ParticleSystem muzzleFlash;
     public ZSMReference target;
+    public Ishootable ishootable;
 
 
     // Update is called once per frame
@@ -37,12 +38,18 @@ public class Gun : MonoBehaviour
         muzzleFlash.Play();
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-            Debug.Log(hit.transform.name + " was hit");
+            // Debug.Log(hit.transform.name + " was hit");
 
             target = hit.transform.GetComponent<ZSMReference>();
             if (target != null)
             {
                 target.TakeDamage(damage);
+            }
+
+            ishootable = hit.transform.GetComponent<Ishootable>();
+            if (ishootable != null)
+            {
+                ishootable.TakeDamage(damage);
             }
 
             if (hit.rigidbody != null)
@@ -52,3 +59,15 @@ public class Gun : MonoBehaviour
         }
     }
 }
+
+public interface Ishootable
+{
+    public void TakeDamage(int damageHP);
+    public void TakeDamage(int damageHP, GunType gunType);
+}
+
+public enum GunType
+{
+    Basic,
+}
+

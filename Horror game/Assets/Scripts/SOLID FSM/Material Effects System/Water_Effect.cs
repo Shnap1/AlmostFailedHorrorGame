@@ -18,7 +18,10 @@ public class Water_Effect : Effect
         {
             matParams = ScriptableObject.CreateInstance<MatParams>();
             matParams.name = "WoodMaWaterMatParamstParams";
+#if UNITY_EDITOR
             AssetDatabase.CreateAsset(matParams, "Assets/Resources/WaterMatParams.asset");
+#endif
+
 
         }
 

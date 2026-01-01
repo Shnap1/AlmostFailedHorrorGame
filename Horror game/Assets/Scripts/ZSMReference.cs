@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ZSMReference : MonoBehaviour
+public class ZSMReference : MonoBehaviour, Ishootable
 {
     // Start is called before the first frame update
     public ZombieStateManager ZSM;
@@ -13,4 +13,10 @@ public class ZSMReference : MonoBehaviour
         ZSM.TakeDamage(damage);
 
     }
+
+    public void TakeDamage(int damage, GunType gunType)
+    {
+        ZSM.TakeDamage(damage);
+    }
+
 }
