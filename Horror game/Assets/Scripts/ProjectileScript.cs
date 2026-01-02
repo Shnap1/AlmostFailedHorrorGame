@@ -9,19 +9,18 @@ public class ProjectileScript : MonoBehaviour
     private float projectileLife;
     void Start()
     {
-        StartCoroutine(DestrouProjectile(projectileLife));
+        StartCoroutine(DestroyProjectile(projectileLife));
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public IEnumerator DestrouProjectile(float f)
+    public IEnumerator DestroyProjectile(float f)
     {
         yield return new WaitForSeconds(f);
         Destroy(gameObject);
+    }
+
+    void OnDestroy()
+    {
+        StopCoroutine(DestroyProjectile(projectileLife));
     }
 
 }

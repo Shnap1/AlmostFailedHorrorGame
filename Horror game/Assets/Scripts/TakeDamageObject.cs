@@ -13,17 +13,15 @@ public class TakeDamageObject : MonoBehaviour, Ishootable
 
     public void TakeDamage(int damageHP)
     {
-        throw new System.NotImplementedException();
+        if (hp > 0)
+        {
+            hp -= damageHP;
+        }
     }
 
     public void TakeDamage(int damageHP, GunType gunType)
     {
-        throw new System.NotImplementedException();
+        TakeDamage(damageHP);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
