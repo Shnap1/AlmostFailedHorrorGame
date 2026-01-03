@@ -33,7 +33,7 @@ public class GunProjectile : MonoBehaviour
         while (true)
         {
             AttackTarget();
-            Debug.Log("Attacking");
+            // Debug.Log("Attacking");
             yield return new WaitForSeconds(time);
         }
     }
