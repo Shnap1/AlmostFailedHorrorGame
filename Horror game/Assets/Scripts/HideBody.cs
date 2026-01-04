@@ -14,7 +14,7 @@ public class HideBody : MonoBehaviour
     }
     public void CallShowBodyObjectsWithDelay(bool value, float delay)
     {
-        Debug.Log($" CallShowBodyObjectsWithDelay(value :{value}, delay: {delay})");
+        // Debug.Log($" CallShowBodyObjectsWithDelay(value :{value}, delay: {delay})");
         hideValue = value;
         Invoke(nameof(ShowBodyObjectsWrapper), delay);
         // Store the value in a class-level variable to use it in the wrapper method
@@ -28,7 +28,7 @@ public class HideBody : MonoBehaviour
 
     public void ShowBodyObjects(bool value)
     {
-        Debug.Log($" ShowBodyObjects(value :{value})");
+        // Debug.Log($" ShowBodyObjects(value :{value})");
         foreach (GameObject obj in bodyObjects)
         {
             obj.GetComponent<SkinnedMeshRenderer>().enabled = value;
