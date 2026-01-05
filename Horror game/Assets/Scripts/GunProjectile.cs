@@ -5,11 +5,16 @@ using UnityEngine;
 public class GunProjectile : MonoBehaviour
 {
 
-    public bool attackOnSTart = true;
+    public bool attackOnStart = true;
+    public bool attackOn;
+
     public Transform target;
     public GameObject projectile;
 
-    public float timeBetweenAttacks = 1f;
+    public float timeBetweenAttacks;
+
+    [SerializeField] public float forwardForce = 40f;
+    [SerializeField] public float upwardForce = 10f;
 
     public Transform ChooseTarget(Transform newTarget)
     {
@@ -20,7 +25,20 @@ public class GunProjectile : MonoBehaviour
     {
         // ChooseTarget(target);
         // if (attackOnSTart) StartAttacking();
-        StartCoroutine(AttackCoroutine(1));
+        attackOn = attackOnStart;
+        StartCoroutine(AttackCoroutine(timeBetweenAttacks));
+    }
+
+    [ContextMenu("Restart Attacking Coroutine")]
+    public void RestartAttackingCoroutine()
+    {
+        StopCoroutine(AttackCoroutine(timeBetweenAttacks));
+        StopAllCoroutines();
+        attackOn = false;
+
+        attackOn = true;
+        StartCoroutine(AttackCoroutine(timeBetweenAttacks));
+        Debug.Log("Restart Attacking Coroutine");
     }
 
 
@@ -30,7 +48,7 @@ public class GunProjectile : MonoBehaviour
     // }
     public IEnumerator AttackCoroutine(float time)
     {
-        while (true)
+        while (attackOn)
         {
             AttackTarget();
             // Debug.Log("Attacking");
@@ -43,8 +61,8 @@ public class GunProjectile : MonoBehaviour
     {
         transform.LookAt(target);
         Rigidbody rb = Instantiate(projectile, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward * 32f, ForceMode.Impulse);
-        rb.AddForce(transform.up * 8f, ForceMode.Impulse);
+        rb.AddForce(transform.forward * forwardForce, ForceMode.Impulse);
+        rb.AddForce(transform.up * upwardForce, ForceMode.Impulse);
     }
     void OnDestroy()
     {
