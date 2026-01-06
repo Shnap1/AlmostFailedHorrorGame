@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CollisionLimiter : MonoBehaviour
 {
+    public UnityEvent onMaxCollisionsHit;
+
     public int _MaxCollisions;
     public int _currentCollisions;
     public bool _collisionsLimited;
@@ -29,8 +32,16 @@ public class CollisionLimiter : MonoBehaviour
             if (_currentCollisions >= _MaxCollisions)
             {
                 gameObject.SetActive(false);
+                // onMaxCollisionsHit.Invoke();
+                ActivateMaxCollisions();
             }
         }
+    }
+
+    [ContextMenu("ActivateMaxCollisions")]
+    public void ActivateMaxCollisions()
+    {
+        onMaxCollisionsHit.Invoke();
     }
     void OnTriggerEnter(Collider other)
     {
