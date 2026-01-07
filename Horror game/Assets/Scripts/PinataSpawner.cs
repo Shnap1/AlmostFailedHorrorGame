@@ -6,12 +6,18 @@ public class PinataSpawner : MonoBehaviour
 {
 
     public List<GameObject> Loot = new List<GameObject>();
+    public bool spawnedAll = false;
     [ContextMenu("Spawn Loot")]
     public void SpawnLoot()
     {
-        foreach (GameObject loot in Loot)
+        if (!spawnedAll)
         {
-            Instantiate(loot, transform.position, transform.rotation);
+            foreach (GameObject loot in Loot)
+            {
+                Instantiate(loot, transform.position, transform.rotation);
+            }
+            spawnedAll = true;
         }
     }
+
 }

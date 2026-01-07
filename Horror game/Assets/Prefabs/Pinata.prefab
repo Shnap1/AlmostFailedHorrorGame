@@ -260,8 +260,8 @@ GameObject:
   - component: {fileID: 7685929035653122084}
   - component: {fileID: 3570488100780041884}
   - component: {fileID: 932632287433850765}
-  - component: {fileID: 1168674904530032446}
   - component: {fileID: 4115016223937497165}
+  - component: {fileID: 7741384055233795256}
   m_Layer: 0
   m_Name: Pinata
   m_TagString: Untagged
@@ -321,36 +321,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 4.75
   m_Center: {x: 0, y: 4.62, z: 0}
---- !u!114 &1168674904530032446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3399516960991961207}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fb9e4a369d476e47842d8f49c8fd527, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onMaxCollisionsHit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4115016223937497165}
-        m_TargetAssemblyTypeName: PinataSpawner, Assembly-CSharp
-        m_MethodName: SpawnLoot
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  _MaxCollisions: 10
-  _currentCollisions: 0
-  _collisionsLimited: 1
 --- !u!114 &4115016223937497165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,6 +335,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Loot:
   - {fileID: 4723692209224359832, guid: eceb7e2921d838441a02588b40ef20e5, type: 3}
+  spawnedAll: 0
+--- !u!114 &7741384055233795256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3399516960991961207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b1ee723016aa4458809e179d7a0476, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
+  onDead:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4115016223937497165}
+        m_TargetAssemblyTypeName: PinataSpawner, Assembly-CSharp
+        m_MethodName: SpawnLoot
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  hp: 10
 --- !u!1 &4025153576577645223
 GameObject:
   m_ObjectHideFlags: 0
