@@ -56,7 +56,16 @@ public class Gun : MonoBehaviour
             {
                 hit.rigidbody.AddForce(-hit.normal * impactFloat);
             }
+
+            //todo add effectaddTest here
+            Ability ability = new();
+            AbilityAdder(ability, hit.transform.gameObject);
         }
+    }
+
+    void AbilityAdder(Ability ability, GameObject obj)
+    {
+        ability.AddSelfTo(obj);
     }
 }
 
