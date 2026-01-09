@@ -6,60 +6,66 @@ using static HealthPU;
 
 public class StatsCounter : MonoBehaviour
 {
-    [SerializeField] int totalHealth = 1;
-    [SerializeField] int maxHealth = 100;
+    public float totalHealth = 1;
+    public float TotalHealth { get { return totalHealth; } }
 
-    int totalDefence = 0;
+    public float maxHealth = 100;
+    public float MaxHealth { get { return maxHealth; } }
+
+    float totalDefence = 0;
 
 
-    int addedDamage;
-    int addedHealth;
-    int addedDefence;
+    float addedDamage;
+    float addedHealth;
+    float addedDefence;
 
-    int maxAddedHealth = 1000;
-    int maxAddedDefence = 1000;
-    int maxAddedDamage = 1000;
+    float maxAddedHealth = 1000;
+    float maxAddedDefence = 1000;
+    float maxAddedDamage = 1000;
     //HealthPU.HealthPUEnum newPUType;
     public PlayerStateMachine playerStateMachine;
 
-    public static Action<int, int> onPlayerHealthChanged;
+    public bool setMaxHealthOnStart = true;
+
+    public static Action<float, float> onPlayerHealthChanged;
 
     private void Start()
     {
-        onPlayerHealthChanged?.Invoke(totalHealth, maxHealth);
+        if (setMaxHealthOnStart) totalHealth = maxHealth;
+        onPlayerHealthChanged?.Invoke(totalHealth, MaxHealth);
         if (totalHealth > 0)
         {
             GameData.instance.playerAlive = true;
         }
     }
-    public void AddHealth(int addedHealth)
+    public void AddHealth(float addedHealth)
     {
         this.addedHealth = Math.Clamp(addedHealth, 0, maxAddedHealth);
         totalHealth += this.addedHealth;
-        totalHealth = Math.Clamp(totalHealth + addedHealth, 0, maxHealth);
-        onPlayerHealthChanged?.Invoke(totalHealth, maxHealth);
+        totalHealth = Math.Clamp(totalHealth + addedHealth, 0, MaxHealth);
+        onPlayerHealthChanged?.Invoke(totalHealth, MaxHealth);
 
     }
 
-    public void TakeDamage(int newDamage)
+    public void TakeDamage(float newDamage)
     {
         this.addedDamage = Math.Clamp(newDamage, 0, maxAddedDamage);
         if ((totalDefence - this.addedDamage) <= 0)
         {
             //Debug.Log("newDamage = " + newDamage);
-            int LeftAfterDefence = this.addedDamage - totalDefence;
+            float LeftAfterDefence = this.addedDamage - totalDefence;
             //Debug.Log(" LeftAfterDefence = totalDefence - this.addedDamage; = " + LeftAfterDefence);
 
             totalDefence = 0;
-            totalHealth = Math.Clamp(totalHealth - LeftAfterDefence, 0, maxHealth);
+            totalHealth = Math.Clamp(totalHealth, 0, MaxHealth);
             //Debug.Log("totalHealth" + totalHealth);
         }
         else
         {
             totalDefence -= this.addedDamage;
             //Debug.Log("totalDefence -= this.addedDamage; totalDefence:" + totalDefence);
-
         }
+
         if (totalHealth <= 0) //DEAD
         {
             GameData.instance.playerAlive = false;
@@ -75,7 +81,7 @@ public class StatsCounter : MonoBehaviour
         this.addedDefence = Math.Clamp(addedDefence, 0, maxAddedDefence);
         totalDefence += this.addedDefence;
     }
-    public void RemoveDefence(int removeDefence)
+    public void RemoveDefence(float removeDefence)
     {
         this.addedDefence = Math.Clamp(removeDefence, 0, maxAddedDefence);
         totalDefence -= this.addedDefence;

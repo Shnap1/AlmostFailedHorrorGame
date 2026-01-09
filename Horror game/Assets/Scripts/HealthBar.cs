@@ -81,7 +81,7 @@ public class HealthBar : MonoBehaviour
 
 
 
-    void UpdateHealthUI(int playerHealth, int playerHealthMax)
+    void UpdateHealthUI(float playerHealth, float playerHealthMax)
     {
         healthSlider.value = playerHealth;
         healthSlider.maxValue = playerHealthMax;

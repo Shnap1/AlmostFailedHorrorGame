@@ -5,7 +5,15 @@ using UnityEngine;
 
 public class DeathZone : MonoBehaviour
 {
-    List<Collider> colliders = new List<Collider>();
+    public int damagePonts = 1;
+    public float damagePercent = 1;
+    public float leaveHP = 1;
+    public float leaveHPPercent = 1;
+
+
+    public enum DamageMode { Percent, Points, leaveHP, leaveHPPercent, kill };
+    public DamageMode currentDamageMode;
+    [SerializeField] List<Collider> colliders = new List<Collider>();
     public float zoneDamageCooldown;
     public bool isTriggered = false;
     void OnTriggerEnter(Collider other)
@@ -16,9 +24,10 @@ public class DeathZone : MonoBehaviour
         }
         if (colliders.Count == 1 && !isTriggered)
         {
-            StartCoroutine(AttackBreak(zoneDamageCooldown, other));
             isTriggered = true;
+            StartCoroutine(AttackBreak(zoneDamageCooldown, other));
         }
+
     }
     void OnTriggerExit(Collider other)
     {
@@ -26,7 +35,7 @@ public class DeathZone : MonoBehaviour
         {
             colliders.Remove(other);
         }
-        if (colliders.Count <= 0 && isTriggered)
+        if (colliders.Count <= 0)
         {
             StopCoroutine(AttackBreak(zoneDamageCooldown, other));
             StopAllCoroutines();
@@ -39,9 +48,48 @@ public class DeathZone : MonoBehaviour
     {
         while (isTriggered)
         {
+            DealDamage(collider);
             yield return new WaitForSeconds(time);
-            // collider.GetComponent<StatsCounter>().AddHealth(-1);
-            Debug.Log("Attack Break");
+            // Debug.Log("AttackBreak");
+        }
+    }
+
+    public void SetDamageMode(DamageMode mode)
+    {
+        currentDamageMode = mode;
+    }
+
+    void DealDamage(Collider collider)
+    {
+        var totalEnemyHealth = collider.GetComponent<StatsCounter>().TotalHealth;
+
+        switch (currentDamageMode)
+        {
+            case DamageMode.Percent:
+                var damageInHP = (totalEnemyHealth / 100) * damagePercent;
+                collider.GetComponent<StatsCounter>().AddHealth(-damageInHP);
+                break;
+            case DamageMode.Points:
+                collider.GetComponent<StatsCounter>().AddHealth(-damagePonts);
+                break;
+            case DamageMode.leaveHP:
+                var damageToTake = totalEnemyHealth - leaveHP;
+                collider.GetComponent<StatsCounter>().AddHealth(-damageToTake);
+                isTriggered = false;
+                break;
+            case DamageMode.leaveHPPercent:
+                var damageToTakePercentInHP = (totalEnemyHealth / 100) * (100 - leaveHPPercent);
+                if (totalEnemyHealth <= 1) damageToTakePercentInHP = 1;
+
+                collider.GetComponent<StatsCounter>().AddHealth(-damageToTakePercentInHP);
+                isTriggered = false;
+                break;
+            case DamageMode.kill:
+                collider.GetComponent<StatsCounter>().AddHealth(-totalEnemyHealth);
+                isTriggered = false;
+                break;
+            default:
+                break;
         }
     }
 
