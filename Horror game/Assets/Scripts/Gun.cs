@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class Gun : MonoBehaviour
     public Ishootable ishootable;
 
     public UnityEvent<GameObject> onShoot;
+    public UnityEvent<Vector3> onHitTransform;
 
 
     // Update is called once per frame
@@ -63,6 +65,7 @@ public class Gun : MonoBehaviour
             //todo add effectaddTest here
             onShoot?.Invoke(hit.transform.gameObject);
             // AbilityAdder( hit.transform.gameObject);
+            onHitTransform?.Invoke(hit.point);
         }
     }
 

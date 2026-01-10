@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -5,30 +6,82 @@ using UnityEngine;
 
 public class AbilityAdder : MonoBehaviour
 {
-    public Ability currnetChosenAbility;
+    public Ability chosenAbility;
+    public Ability currentAbilty;
+
+
+    public Action onShot;
+    // public Action<Vector3> onHitTransform;
+
+    void Start()
+    {
+        // SelectAbilityUI(AbilityType.AbilityBasic);
+        currentAbilty = new Ability();
+        // currentAbilty = chosenAbility;
+
+    }
+
+
     public void SelectAbilityUI(AbilityType abilityType)
     {
         switch (abilityType)
         {
-            case AbilityType.Test:
-                currnetChosenAbility = new Ability();
+            case AbilityType.AbilityBasic:
+                chosenAbility = new Ability();
                 break;
             case AbilityType.GravitySphere:
-                currnetChosenAbility = new GravitySphere();
+                chosenAbility = new GravitySphere();
                 break;
 
         }
-
     }
-    public void ChooseAbility()
+
+    public void GetHitPoint(Vector3 hitPoint)
     {
+        if (currentAbilty == null) return;
 
+        if (currentAbilty.isInitialized && !currentAbilty.setupEnded)
+        {
+            currentAbilty.GetHitPoint(hitPoint);
+            currentAbilty.Setup();
+        }
     }
+
     public void ShootAbility(GameObject gameObject)
     {
-        Ability ability = new();
-        ability.AddSelfTo(gameObject);
+        //todo if Portals are chosen you gotta spawn 2 of them with 2 shots. So need a way to check how many times are shot and then 
+
+        //DONT add ability if it is already there and can't be added twice
+        // if (gameObject.GetComponent(currentAbilty.GetType()) == null && !currentAbilty.canBeAddedTwice) return;
+
+        //ADD ability if it IS there and CAN be added twice 
+        // if (currentAbilty.canBeAddedTwice)
+        // {
+        //     gameObject.AddComponent(currentAbilty.GetType());
+        // }
+
+        //ADD ability if it is NOT there and CANT be added twice
+        if (!gameObject.GetComponent(currentAbilty.GetType()) && !currentAbilty.canBeAddedTwice)
+        {
+            gameObject.AddComponent(currentAbilty.GetType());
+            currentAbilty.Initialize();
+        }
+        if (gameObject.GetComponent(currentAbilty.GetType()))
+        {
+            var abilityComponent = gameObject.GetComponent(currentAbilty.GetType()) as Ability;
+            if (abilityComponent != null)
+            {
+                abilityComponent.Setup();
+            }
+        }
+
+
+        // gameObject.AddComponent(currentAbilty.GetType());
+
+
     }
+
+
 
 
 }
