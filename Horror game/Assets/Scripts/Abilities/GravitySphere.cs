@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public class GravitySphere : MonoBehaviour
+public class GravitySphere : Ability
 {
     [Header("Параметры силы притяжения")]
     [Tooltip("Базовая «константа» гравитации (G).")]

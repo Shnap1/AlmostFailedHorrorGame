@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PinataSpawner : MonoBehaviour
+public class PinataSpawner : Ability
 {
 
     public List<GameObject> Loot = new List<GameObject>();

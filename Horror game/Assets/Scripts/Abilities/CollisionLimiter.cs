@@ -4,7 +4,7 @@ using System.Data;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CollisionLimiter : MonoBehaviour
+public class CollisionLimiter : Ability
 {
     public UnityEvent onMaxCollisionsHit;
 

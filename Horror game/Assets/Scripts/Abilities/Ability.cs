@@ -26,6 +26,8 @@ public class Ability : MonoBehaviour
 public enum AbilityType
 {
     Test,
-
+    GravitySphere,
+    Pinata,
+    GunProjectile,
 }
 

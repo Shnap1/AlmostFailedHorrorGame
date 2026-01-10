@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GravityCube : MonoBehaviour
+public class GravityCube : Ability
 {
     public float moveSpeed = 2f;
     public float topY = 10f; // Top height

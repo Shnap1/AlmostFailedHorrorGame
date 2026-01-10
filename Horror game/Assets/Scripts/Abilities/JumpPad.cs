@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class JumpPad : MonoBehaviour
+public class JumpPad : Ability
 {
     public float launchForce = 10f; // Adjust force as needed
 

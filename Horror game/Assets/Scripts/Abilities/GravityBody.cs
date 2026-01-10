@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class GravityBody : MonoBehaviour, IGravityBody
+public class GravityBody : Ability, IGravityBody
 {
     [Header("Параметры для Rigidbody-версии")]
     [Tooltip("Если true и на объекте есть Rigidbody, мы будем применять силы через AddForce.")]
