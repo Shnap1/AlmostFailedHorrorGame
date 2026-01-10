@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Gun : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class Gun : MonoBehaviour
     public ParticleSystem muzzleFlash;
     public ZSMReference target;
     public Ishootable ishootable;
+
+    public UnityEvent<GameObject> onShoot;
 
 
     // Update is called once per frame
@@ -58,15 +61,12 @@ public class Gun : MonoBehaviour
             }
 
             //todo add effectaddTest here
-            Ability ability = new();
-            AbilityAdder(ability, hit.transform.gameObject);
+            onShoot?.Invoke(hit.transform.gameObject);
+            // AbilityAdder( hit.transform.gameObject);
         }
     }
 
-    void AbilityAdder(Ability ability, GameObject obj)
-    {
-        ability.AddSelfTo(obj);
-    }
+
 }
 
 public interface Ishootable

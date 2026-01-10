@@ -10,6 +10,7 @@ public class Ability : MonoBehaviour
     {
         if (dontAddTwice && obj.GetComponent<Ability>()) return;
         obj.AddComponent<Ability>();
+        Initialize();
     }
     public virtual void Initialize()
     {
@@ -21,3 +22,10 @@ public class Ability : MonoBehaviour
     public virtual void UseAbility() { }
     public virtual void StopAbility() { }
 }
+
+public enum AbilityType
+{
+    Test,
+
+}
+
