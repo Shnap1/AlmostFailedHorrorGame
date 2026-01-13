@@ -11,12 +11,27 @@ public class AbilityAdder : MonoBehaviour
 
 
     public Action onShot;
+
+    public List<Ability> abilities = new();
     // public Action<Vector3> onHitTransform;
 
     void Start()
     {
         // SelectAbilityUI(AbilityType.AbilityBasic);
-        currentAbilty = new Ability();
+        abilities.Add(new Ability());
+        abilities.Add(new DeathZone());
+        abilities.Add(new JumpPad());
+
+        int i = 0;
+
+        foreach (var ability in abilities)
+        {
+            i++;
+            UnityEngine.Debug.Log(ability.GetType() + " called: " + i);
+
+        }
+        // currentAbilty = new Ability();
+
         // currentAbilty = chosenAbility;
 
     }
