@@ -19,7 +19,9 @@ public class Gun : MonoBehaviour
     public ZSMReference target;
     public Ishootable ishootable;
 
-    public UnityEvent<GameObject> onShoot;
+    // public UnityEvent<GameObject> onShoot;
+    public UnityEvent<RaycastHit> onShoot;
+
     public UnityEvent<Vector3> onHitTransform;
 
 
@@ -63,7 +65,12 @@ public class Gun : MonoBehaviour
             }
 
             //todo add effectaddTest here
-            onShoot?.Invoke(hit.transform.gameObject);
+            if (hit.transform.gameObject != null)
+            {
+                // onShoot.Invoke(hit.transform.gameObject);
+                onShoot?.Invoke(hit);
+
+            }
             // AbilityAdder( hit.transform.gameObject);
             onHitTransform?.Invoke(hit.point);
         }

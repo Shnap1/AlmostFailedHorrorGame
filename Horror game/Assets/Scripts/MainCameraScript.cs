@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class MainCameraScript : MonoBehaviour
 {
     public static event Action<Transform> onCamCreated;
+    public UnityEvent<Transform> onCamCreatedEvent;
     void Awake()
     {
         // if (this.isActiveAndEnabled)
@@ -14,6 +16,7 @@ public class MainCameraScript : MonoBehaviour
         // }
         onCamCreated?.Invoke(this.transform);
         // Debug.Log("CAM TEST - MainCameraScript onCamCreated on " + this.name);
+        onCamCreatedEvent?.Invoke(this.transform);
     }
     void Start()
     {

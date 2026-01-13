@@ -7,7 +7,7 @@ using UnityEngine;
 public class AbilityAdder : MonoBehaviour
 {
     public Ability chosenAbility;
-    public Ability currentAbilty;
+    public Ability currentAbility;
 
 
     public Action onShot;
@@ -30,7 +30,7 @@ public class AbilityAdder : MonoBehaviour
             UnityEngine.Debug.Log(ability.GetType() + " called: " + i);
 
         }
-        // currentAbilty = new Ability();
+        currentAbility = new Ability();
 
         // currentAbilty = chosenAbility;
 
@@ -53,17 +53,18 @@ public class AbilityAdder : MonoBehaviour
 
     public void GetHitPoint(Vector3 hitPoint)
     {
-        if (currentAbilty == null) return;
+        if (currentAbility == null) return;
 
-        if (currentAbilty.isInitialized && !currentAbilty.setupEnded)
+        if (currentAbility.isInitialized && !currentAbility.setupEnded)
         {
-            currentAbilty.GetHitPoint(hitPoint);
-            currentAbilty.Setup();
+            currentAbility.GetHitPoint(hitPoint);
+            currentAbility.Setup();
         }
     }
 
-    public void ShootAbility(GameObject gameObject)
+    public void ShootAbility(RaycastHit hit)
     {
+        GameObject newGameObject = hit.transform.gameObject;
         //todo if Portals are chosen you gotta spawn 2 of them with 2 shots. So need a way to check how many times are shot and then 
 
         //DONT add ability if it is already there and can't be added twice
@@ -75,15 +76,19 @@ public class AbilityAdder : MonoBehaviour
         //     gameObject.AddComponent(currentAbilty.GetType());
         // }
 
+
+
         //ADD ability if it is NOT there and CANT be added twice
-        if (!gameObject.GetComponent(currentAbilty.GetType()) && !currentAbilty.canBeAddedTwice)
+        if (currentAbility != null && !newGameObject.GetComponent(currentAbility.GetType()) && !currentAbility.canBeAddedTwice)
         {
-            gameObject.AddComponent(currentAbilty.GetType());
-            currentAbilty.Initialize();
+
+            newGameObject.AddComponent(currentAbility.GetType());
+            currentAbility.Initialize();
         }
-        if (gameObject.GetComponent(currentAbilty.GetType()))
+
+        if (currentAbility != null && newGameObject.GetComponent(currentAbility.GetType()) != null)
         {
-            var abilityComponent = gameObject.GetComponent(currentAbilty.GetType()) as Ability;
+            var abilityComponent = newGameObject.GetComponent(currentAbility.GetType()) as Ability;
             if (abilityComponent != null)
             {
                 abilityComponent.Setup();

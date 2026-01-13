@@ -21,15 +21,21 @@ public class TargetUI : MonoBehaviour
         //TargetCanvas.SetActive(true);
         if (other.gameObject.tag == "Player")
         {
-            // turnUIToFollower.enabled = true;
-            turnUIToFollower.SetCam();
+            // Debug.Log("OnTriggerEnter MainCamera");
+            // // turnUIToFollower.enabled = true;
+            // turnUIToFollower.SetCustomCam(other.transform);
 
-            targetText.text = $"COLLECT {targetName}";
+            // targetText.text = $"COLLECT {targetName}";
             TargetCanvas.SetActive(true);
             //Debug.Log($"TargetCanvas.SetActive{TargetCanvas.activeSelf} ");
         }
 
 
+    }
+
+    public void ChangeText(string text)
+    {
+        targetText.text = text;
     }
     void OnTriggerExit(Collider other)
     {
