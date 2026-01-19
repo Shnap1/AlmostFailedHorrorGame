@@ -50,6 +50,15 @@ public class ChangeScaleAbility : Ability
     /// <summary>
     /// Initiates a smooth scale transition with vertical compensation.
     /// </summary>
+
+    void OnEnable()
+    {
+
+    }
+    void OnDisable()
+    {
+
+    }
     public void ApplyScaleProcess()
     {
         // Prevent multiple scaling operations from overlapping

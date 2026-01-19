@@ -15,9 +15,18 @@ public class Ability : MonoBehaviour
     Vector3 hitPoint;
     public bool canBeAddedTwice = false;
 
+    void OnEnable()
+    {
+
+    }
+    void OnDisable()
+    {
+
+    }
 
     public virtual void Initialize()
     {
+        if (isInitialized) return;
         string className = GetType().Name;
         isInitialized = true;
         Debug.Log($"Ability {className} Initialize");
@@ -25,7 +34,7 @@ public class Ability : MonoBehaviour
         CheckOtherAbilities();
         Setup();
     }
-    public void GetHitPoint(Vector3 hitPoint)
+    public virtual void GetHitPoint(Vector3 hitPoint)
     {
         ++shots;
     }
@@ -42,7 +51,7 @@ public class Ability : MonoBehaviour
         }
     }
 
-
+    public virtual void GetRaycastHit(RaycastHit hit) { }
     public virtual void AddNecessaryComponents() { }
     public virtual void CheckOtherAbilities() { }
     public virtual void UseAbility() { }

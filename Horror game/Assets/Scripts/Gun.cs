@@ -30,8 +30,17 @@ public class Gun : MonoBehaviour
     {
         if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
         {
+            //todo USE Ability
+
             nextTimeToFire = Time.time + 1f / fireRate;
             Shoot();
+        }
+        if (Input.GetButton("Fire2") && Time.time >= nextTimeToFire)
+        {
+            nextTimeToFire = Time.time + 1f / fireRate;
+            // Shoot();
+            //todo PUT Ability on another object
+            //todo add another unityevent for that
         }
 
         // The ray will be red in the Scene view

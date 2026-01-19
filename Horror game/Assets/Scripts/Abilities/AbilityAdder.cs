@@ -13,24 +13,18 @@ public class AbilityAdder : MonoBehaviour
     public Action onShot;
 
     public List<Ability> abilities = new();
-    // public Action<Vector3> onHitTransform;
 
     void Start()
     {
         // SelectAbilityUI(AbilityType.AbilityBasic);
-        abilities.Add(new Ability());
-        abilities.Add(new DeathZone());
-        abilities.Add(new JumpPad());
 
-        int i = 0;
+        // abilities.Add(new Ability());
+        // abilities.Add(new DeathZone());
+        // abilities.Add(new JumpPad());
 
-        foreach (var ability in abilities)
-        {
-            i++;
-            UnityEngine.Debug.Log(ability.GetType() + " called: " + i);
-
-        }
-        currentAbility = new Ability();
+        currentAbility = new SpawnOnHit();
+        gameObject.AddComponent(currentAbility.GetType());
+        currentAbility.Initialize();
 
         // currentAbilty = chosenAbility;
 
@@ -62,7 +56,7 @@ public class AbilityAdder : MonoBehaviour
         }
     }
 
-    public void ShootAbility(RaycastHit hit)
+    public void SetAbilityTo(RaycastHit hit)
     {
         GameObject newGameObject = hit.transform.gameObject;
         //todo if Portals are chosen you gotta spawn 2 of them with 2 shots. So need a way to check how many times are shot and then 
@@ -97,7 +91,7 @@ public class AbilityAdder : MonoBehaviour
 
 
         // gameObject.AddComponent(currentAbilty.GetType());
-
+        currentAbility = null;
 
     }
 
