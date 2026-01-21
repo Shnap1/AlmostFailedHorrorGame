@@ -15,6 +15,7 @@ public class SpawnOnHit : Ability
     {//todo figure out why _hit.transform returns null
         if (objectToSpawn == null && !setupEnded)
         {
+            if (_hit.transform == null) return;
             objectToSpawn = _hit.transform.gameObject;
             if (objectToSpawn != null) setupEnded = true;
         }
@@ -37,6 +38,7 @@ public class SpawnOnHit : Ability
 
     public override void UseAbility()
     {
+        if (objectToSpawn == null) return;
         Collider col = objectToSpawn.GetComponent<Collider>();
         float height = col.bounds.extents.y + spawnExtraOffsetY;
         Vector3 spawnPosition = _hitpoint + Vector3.up * height;

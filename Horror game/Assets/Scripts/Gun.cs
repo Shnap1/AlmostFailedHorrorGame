@@ -30,31 +30,31 @@ public class Gun : MonoBehaviour
     {
         if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
         {
-            //todo USE Ability
-
             nextTimeToFire = Time.time + 1f / fireRate;
             Shoot();
         }
+        //THROW ABILITY
         if (Input.GetButton("Fire2") && Time.time >= nextTimeToFire)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
-            // Shoot();
-            //todo PUT Ability on another object
-            //todo add another unityevent for that
+            muzzleFlash.Play();
+
+            ThrowAbility();
         }
 
         // The ray will be red in the Scene view
-        // Debug.DrawRay(fpsCam.transform.position, fpsCam.transform.forward * range, Color.red); 
-
+        Debug.DrawRay(fpsCam.transform.position, fpsCam.transform.forward * range, Color.red);
     }
 
     void Shoot()
     {
 
-        muzzleFlash.Play();
+        // muzzleFlash.Play();
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
             // Debug.Log(hit.transform.name + " was hit");
+            target = hit.transform.GetComponent<ZSMReference>();
+
 
             target = hit.transform.GetComponent<ZSMReference>();
             if (target != null)
@@ -76,11 +76,17 @@ public class Gun : MonoBehaviour
             //todo add effectaddTest here
             if (hit.transform.gameObject != null)
             {
-                // onShoot.Invoke(hit.transform.gameObject);
                 onShoot?.Invoke(hit);
-
             }
             // AbilityAdder( hit.transform.gameObject);
+            // onHitTransform?.Invoke(hit.point);
+        }
+    }
+
+    public void ThrowAbility()
+    {
+        if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
+        {
             onHitTransform?.Invoke(hit.point);
         }
     }
