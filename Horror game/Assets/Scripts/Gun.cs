@@ -16,7 +16,11 @@ public class Gun : MonoBehaviour
     public Camera fpsCam;
     RaycastHit hit;
     public ParticleSystem muzzleFlash;
-    public ZSMReference target;
+
+    public GameObject hitGameObject;
+    private Component[] hitGOComponents = new Component[0];
+
+    public ZSMReference targetZSM;
     public Ishootable ishootable;
 
     // public UnityEvent<GameObject> onShoot;
@@ -31,6 +35,8 @@ public class Gun : MonoBehaviour
         if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
+            muzzleFlash.Play();
+
             Shoot();
         }
         //THROW ABILITY
@@ -53,33 +59,66 @@ public class Gun : MonoBehaviour
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
             // Debug.Log(hit.transform.name + " was hit");
-            target = hit.transform.GetComponent<ZSMReference>();
+            if (hit.transform.gameObject == null) return;
 
+            GameObject newHitGO = hit.transform.gameObject;
 
-            target = hit.transform.GetComponent<ZSMReference>();
-            if (target != null)
+            if (hitGameObject != newHitGO)
             {
-                target.TakeDamage(damage);
+                hitGameObject = newHitGO;
+                hitGOComponents = hitGameObject.GetComponentsInChildren<Component>();
+            }
+            if (hitGOComponents.Length <= 0 && hitGameObject != null)
+            {
+                hitGOComponents = hitGameObject.GetComponentsInChildren<Component>();
             }
 
-            ishootable = hit.transform.GetComponent<Ishootable>();
-            if (ishootable != null)
+            if (hitGOComponents.Length >= 0 && hitGameObject != null)
             {
-                ishootable.TakeDamage(damage);
+                foreach (var component in hitGOComponents)
+                {
+                    Debug.Log(component.name);
+                    if (component is ZSMReference)
+                    {
+                        (component as ZSMReference).TakeDamage(damage);
+                    }
+                    else if (component is Ishootable)
+                    {
+                        (component as Ishootable).TakeDamage(damage);
+                    }
+                    if (component is Rigidbody)
+                    {
+                        (component as Rigidbody).AddForce(-hit.normal * impactFloat);
+                    }
+                }
             }
+            onShoot?.Invoke(hit);
 
-            if (hit.rigidbody != null)
-            {
-                hit.rigidbody.AddForce(-hit.normal * impactFloat);
-            }
+            //old way:
 
-            //todo add effectaddTest here
-            if (hit.transform.gameObject != null)
-            {
-                onShoot?.Invoke(hit);
-            }
-            // AbilityAdder( hit.transform.gameObject);
-            // onHitTransform?.Invoke(hit.point);
+            // targetZSM = hit.transform.GetComponent<ZSMReference>();
+            // if (targetZSM != null)
+            // {
+            //     targetZSM.TakeDamage(damage);
+            // }
+
+            // ishootable = hit.transform.GetComponent<Ishootable>();
+            // if (ishootable != null)
+            // {
+            //     ishootable.TakeDamage(damage);
+            // }
+
+            // if (hit.rigidbody != null)
+            // {
+            //     hit.rigidbody.AddForce(-hit.normal * impactFloat);
+            // }
+
+            // //todo add effectaddTest here
+            // if (hit.transform.gameObject != null)
+            // {
+            //     onShoot?.Invoke(hit);
+            // }
+
         }
     }
 
