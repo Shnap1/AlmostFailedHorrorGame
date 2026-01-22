@@ -22,8 +22,13 @@ public class AbilityAdder : MonoBehaviour
         // abilities.Add(new DeathZone());
         // abilities.Add(new JumpPad());
 
-        currentAbility = new SpawnOnHit();
-        gameObject.AddComponent(currentAbility.GetType());
+        // currentAbility = new SpawnOnHit();//UNSAFE
+        // gameObject.AddComponent(currentAbility.GetType());//UNSAFE
+
+        //      WORKED! cuz the Abilityfrom the solution above had no game object/ Although I need a new way to add monobehs
+        currentAbility = gameObject.AddComponent<SpawnOnHit>();
+        //
+
         currentAbility.Initialize();
         currentAbility.Setup();
 

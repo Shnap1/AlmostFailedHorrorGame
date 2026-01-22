@@ -6,7 +6,7 @@ using UnityEngine;
 public class SpawnOnHit : Ability
 {
     public GameObject objectToSpawn;
-    public float spawnExtraOffsetY = 0.5f;
+    public float spawnExtraOffsetY = 1f;
     public Vector3 _hitpoint;
 
     public RaycastHit _hit;
@@ -37,8 +37,8 @@ public class SpawnOnHit : Ability
 
     public override void GetHitPoint(Vector3 hitPoint)
     {
-        _hitpoint = hitPoint;
-        TestAbility();
+        _hitpoint = hitPoint;//gets incorrect data that is 0
+        // TestAbility();
 
         // if (setupEnded)
         // {
@@ -59,19 +59,27 @@ public class SpawnOnHit : Ability
         if (isInitialized == false) Initialize();
         if (setupEnded == false) Setup();
         _hit = hit;
-        // objectToSpawn = hit.transform.gameObject;
-        TestAbility();
+
+        objectToSpawn = _hit.transform.gameObject;
+        // TestAbility();
+        UseAbility();
 
     }
 
     public override void UseAbility()
     {
-        // if (objectToSpawn == null) return;
-        // Collider col = objectToSpawn.GetComponent<Collider>();
-        // float height = col.bounds.extents.y + spawnExtraOffsetY;
-        // Vector3 spawnPosition = _hitpoint + Vector3.up * height;
+        if (objectToSpawn != null)
+        {
+            Collider col = objectToSpawn.GetComponent<Collider>();
+            float height = col.bounds.extents.y + spawnExtraOffsetY;//+ spawnExtraOffsetY
+            Vector3 spawnPosition = _hit.point + Vector3.up * height;// +(Vector3.up * height)
 
-        // GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, transform.rotation);
-        TestAbility();
+            // GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, transform.rotation);
+            GameObject spawnedObject = objectToSpawn != null ? Instantiate(objectToSpawn, spawnPosition, transform.rotation) : null;
+
+
+        }
+
+        // TestAbility();
     }
 }
