@@ -51,7 +51,7 @@ public class Ability : MonoBehaviour
         }
     }
 
-    public virtual void GetRaycastHit(RaycastHit hit) { }
+    public virtual void UseAbility(RaycastHit hit) { }
     public virtual void AddNecessaryComponents() { }
     public virtual void CheckOtherAbilities() { }
     public virtual void UseAbility() { }

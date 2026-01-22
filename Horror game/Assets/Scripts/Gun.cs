@@ -24,9 +24,11 @@ public class Gun : MonoBehaviour
     public Ishootable ishootable;
 
     // public UnityEvent<GameObject> onShoot;
-    public UnityEvent<RaycastHit> onShoot;
+    // public UnityEvent<RaycastHit> onShoot;
 
-    public UnityEvent<Vector3> onHitTransform;
+    public UnityEvent<RaycastHit> onThrowAbility;
+    public UnityEvent<RaycastHit> onUseAbility;
+
 
 
     // Update is called once per frame
@@ -45,6 +47,7 @@ public class Gun : MonoBehaviour
             nextTimeToFire = Time.time + 1f / fireRate;
             muzzleFlash.Play();
 
+
             ThrowAbility();
         }
 
@@ -54,10 +57,16 @@ public class Gun : MonoBehaviour
 
     void Shoot()
     {
-
         // muzzleFlash.Play();
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
+            onUseAbility?.Invoke(hit);
+
+            //Works
+            // GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            // cube.transform.position = hit.point;
+            // Debug.Log("SpawnOnHit");
+
             // Debug.Log(hit.transform.name + " was hit");
             if (hit.transform.gameObject == null) return;
 
@@ -77,7 +86,7 @@ public class Gun : MonoBehaviour
             {
                 foreach (var component in hitGOComponents)
                 {
-                    Debug.Log(component.name);
+                    // Debug.Log(component.name);
                     if (component is ZSMReference)
                     {
                         (component as ZSMReference).TakeDamage(damage);
@@ -125,8 +134,8 @@ public class Gun : MonoBehaviour
     {
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-            onHitTransform?.Invoke(hit.point);
-            onShoot?.Invoke(hit);
+            onThrowAbility?.Invoke(hit);
+            // onShoot?.Invoke(hit);
 
         }
     }

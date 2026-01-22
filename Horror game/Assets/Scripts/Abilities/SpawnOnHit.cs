@@ -14,15 +14,16 @@ public class SpawnOnHit : Ability
     public override void Setup()
     {//todo figure out why _hit.transform returns null
      // if (_hit.transform.gameObject == null) return;
-        if (objectToSpawn == null) return;
 
-        if (objectToSpawn != null)
-        {
-            objectToSpawn = _hit.transform.gameObject;
-            setupEnded = true;
-        }
-        TestAbility();
+        // if (objectToSpawn == null) return;
+        // if (objectToSpawn != null)
+        // {
+        //     objectToSpawn = _hit.transform.gameObject;
+        //     setupEnded = true;
+        // }
+        // TestAbility();
 
+        setupEnded = true;//
 
 
         // if (objectToSpawn == null && !setupEnded)
@@ -33,12 +34,7 @@ public class SpawnOnHit : Ability
         // }
     }
 
-    public void TestAbility()
-    {
-        GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-        cube.transform.position = _hitpoint;
-        Debug.Log("SpawnOnHit");
-    }
+
     public override void GetHitPoint(Vector3 hitPoint)
     {
         _hitpoint = hitPoint;
@@ -51,9 +47,18 @@ public class SpawnOnHit : Ability
 
     }
 
-    public override void GetRaycastHit(RaycastHit hit)
+    public void TestAbility()
     {
-        // _hit = hit;
+        GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        cube.transform.position = _hit.point;
+        Debug.Log("SpawnOnHit");
+    }
+
+    public override void UseAbility(RaycastHit hit)
+    {
+        if (isInitialized == false) Initialize();
+        if (setupEnded == false) Setup();
+        _hit = hit;
         // objectToSpawn = hit.transform.gameObject;
         TestAbility();
 

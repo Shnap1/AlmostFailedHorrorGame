@@ -25,6 +25,7 @@ public class AbilityAdder : MonoBehaviour
         currentAbility = new SpawnOnHit();
         gameObject.AddComponent(currentAbility.GetType());
         currentAbility.Initialize();
+        currentAbility.Setup();
 
         // currentAbilty = chosenAbility;
 
@@ -41,22 +42,31 @@ public class AbilityAdder : MonoBehaviour
             case AbilityType.GravitySphere:
                 chosenAbility = new GravitySphere();
                 break;
-
         }
     }
 
-    public void GetHitPoint(Vector3 hitPoint)
+    public void UseAbility(RaycastHit hit)
     {
-        if (currentAbility == null) return;
+        // if (currentAbility == null) return;
+        // if (hit.transform == null) return;
+        Vector3 hitPoint = hit.point;
 
-        if (currentAbility.isInitialized && !currentAbility.setupEnded)
-        {
-            currentAbility.GetHitPoint(hitPoint);
-            currentAbility.Setup();
-        }
+        // GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        // cube.transform.position = hit.point;
+        // UnityEngine.Debug.Log("SpawnOnHit");
+
+        // if (currentAbility.isInitialized && !currentAbility.setupEnded)
+        // {
+        //     currentAbility.GetHitPoint(hitPoint);
+        //     currentAbility.Setup();
+        // }
+        // if (currentAbility.isInitialized && currentAbility.setupEnded) currentAbility.UseAbility(hit);
+
+        currentAbility.UseAbility(hit);
     }
 
-    public void SetAbilityTo(RaycastHit hit)
+
+    public void ThrowAbilityAt(RaycastHit hit)
     {
         GameObject newGameObject = hit.transform.gameObject;
         //todo if Portals are chosen you gotta spawn 2 of them with 2 shots. So need a way to check how many times are shot and then 
@@ -91,7 +101,7 @@ public class AbilityAdder : MonoBehaviour
 
 
         // gameObject.AddComponent(currentAbilty.GetType());
-        currentAbility = null;
+        // currentAbility = null;
 
     }
 
