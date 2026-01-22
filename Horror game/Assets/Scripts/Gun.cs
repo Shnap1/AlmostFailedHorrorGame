@@ -92,7 +92,6 @@ public class Gun : MonoBehaviour
                     }
                 }
             }
-            onShoot?.Invoke(hit);
 
             //old way:
 
@@ -127,6 +126,8 @@ public class Gun : MonoBehaviour
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
             onHitTransform?.Invoke(hit.point);
+            onShoot?.Invoke(hit);
+
         }
     }
 

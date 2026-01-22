@@ -13,36 +13,60 @@ public class SpawnOnHit : Ability
 
     public override void Setup()
     {//todo figure out why _hit.transform returns null
-        if (objectToSpawn == null && !setupEnded)
+     // if (_hit.transform.gameObject == null) return;
+        if (objectToSpawn == null) return;
+
+        if (objectToSpawn != null)
         {
-            if (_hit.transform == null) return;
             objectToSpawn = _hit.transform.gameObject;
-            if (objectToSpawn != null) setupEnded = true;
+            setupEnded = true;
         }
+        TestAbility();
+
+
+
+        // if (objectToSpawn == null && !setupEnded)
+        // {
+        //     if (_hit.transform == null) return;
+        //     objectToSpawn = _hit.transform.gameObject;
+        //     if (objectToSpawn != null) setupEnded = true;
+        // }
+    }
+
+    public void TestAbility()
+    {
+        GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        cube.transform.position = _hitpoint;
+        Debug.Log("SpawnOnHit");
     }
     public override void GetHitPoint(Vector3 hitPoint)
     {
         _hitpoint = hitPoint;
+        TestAbility();
 
-        if (setupEnded)
-        {
-            UseAbility();
-        }
+        // if (setupEnded)
+        // {
+        //     UseAbility();
+        // }
 
     }
 
     public override void GetRaycastHit(RaycastHit hit)
     {
-        _hit = hit;
+        // _hit = hit;
+        // objectToSpawn = hit.transform.gameObject;
+        TestAbility();
+
     }
 
     public override void UseAbility()
     {
-        if (objectToSpawn == null) return;
-        Collider col = objectToSpawn.GetComponent<Collider>();
-        float height = col.bounds.extents.y + spawnExtraOffsetY;
-        Vector3 spawnPosition = _hitpoint + Vector3.up * height;
+        // if (objectToSpawn == null) return;
+        // Collider col = objectToSpawn.GetComponent<Collider>();
+        // float height = col.bounds.extents.y + spawnExtraOffsetY;
+        // Vector3 spawnPosition = _hitpoint + Vector3.up * height;
 
-        GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, transform.rotation);
+        // GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, transform.rotation);
+        TestAbility();
     }
 }
