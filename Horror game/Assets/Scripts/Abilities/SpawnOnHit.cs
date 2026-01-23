@@ -11,6 +11,11 @@ public class SpawnOnHit : Ability
 
     public RaycastHit _hit;
 
+    //new
+    public float cooldown = 2f;
+    private bool isOnCooldown = false;
+    private bool hasStoredObject => objectToSpawn != null;
+
     public override void Setup()
     {//todo figure out why _hit.transform returns null
      // if (_hit.transform.gameObject == null) return;
@@ -58,12 +63,49 @@ public class SpawnOnHit : Ability
     {
         if (isInitialized == false) Initialize();
         if (setupEnded == false) Setup();
+
+        if (isOnCooldown) return;
+
         _hit = hit;
 
-        objectToSpawn = _hit.transform.gameObject;
-        // TestAbility();
-        UseAbility();
 
+        // STEP 1: Store object if we don't have one yet
+        if (!hasStoredObject)
+        {
+            objectToSpawn = hit.transform.gameObject;
+            StartCoroutine(CooldownRoutine());
+            Debug.Log("Stored object: " + objectToSpawn.name);
+            return;
+        }
+
+        // STEP 2: Spawn stored object
+        SpawnStoredObject();
+        StartCoroutine(CooldownRoutine());
+
+        // objectToSpawn = _hit.transform.gameObject;
+        // UseAbility();
+
+    }
+
+    private void SpawnStoredObject()
+    {
+        Collider col = objectToSpawn.GetComponent<Collider>();
+        float height = col.bounds.extents.y + spawnExtraOffsetY;
+        Vector3 spawnPosition = _hit.point + Vector3.up * height;
+
+        Instantiate(objectToSpawn, spawnPosition, transform.rotation);
+
+        Debug.Log("Spawned object: " + objectToSpawn.name);
+
+        // Optional: clear stored object so ability repeats
+        objectToSpawn = null;
+    }
+
+    private IEnumerator CooldownRoutine()
+    {
+        isOnCooldown = true;
+        yield return new WaitForSeconds(cooldown);
+        isOnCooldown = false;
     }
 
     public override void UseAbility()
@@ -76,10 +118,6 @@ public class SpawnOnHit : Ability
 
             // GameObject spawnedObject = Instantiate(objectToSpawn, spawnPosition, transform.rotation);
             GameObject spawnedObject = objectToSpawn != null ? Instantiate(objectToSpawn, spawnPosition, transform.rotation) : null;
-
-
         }
-
-        // TestAbility();
     }
 }
