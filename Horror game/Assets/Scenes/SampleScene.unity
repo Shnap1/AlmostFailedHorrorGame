@@ -21404,6 +21404,7 @@ GameObject:
   - component: {fileID: 825296657}
   - component: {fileID: 825296658}
   - component: {fileID: 825296659}
+  - component: {fileID: 825296660}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -21622,11 +21623,31 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 825296648}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a678891d6e3a26c45b83963fcf92d389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &825296660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825296648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5472eb3fe93205a4aa526d854887f370, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canSpawnOnHit: 1
+  canInvisibility: 1
+  canChangeScale: 1
+  canChangeMass: 1
+  canJumpPad: 1
+  canGravitySphere: 1
+  canCollisionLimiter: 1
+  canDeathZone: 1
 --- !u!1 &827540776 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -466329591000292508, guid: 12db8853435a79d4a989ed3ada02ad41,
@@ -46314,7 +46335,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1603017446}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.092054546, y: 0.20022659, z: 0.018899875, w: 0.9752323}
+  m_LocalRotation: {x: -0.09205454, y: 0.20022653, z: 0.018899865, w: 0.97523236}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -57924,7 +57945,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2081223942}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.056887295, y: 0.20077722, z: 0.011679629, w: 0.9779141}
+  m_LocalRotation: {x: -0.05688729, y: 0.20077716, z: 0.011679624, w: 0.9779141}
   m_LocalPosition: {x: -0.03579712, y: 2.972474, z: -2.942505}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
