@@ -40,17 +40,17 @@ public class SpawnOnHit : Ability
     }
 
 
-    public override void GetHitPoint(Vector3 hitPoint)
-    {
-        _hitpoint = hitPoint;//gets incorrect data that is 0
-        // TestAbility();
+    // public override void GetHitPoint(Vector3 hitPoint)
+    // {
+    //     _hitpoint = hitPoint;//gets incorrect data that is 0
+    //     // TestAbility();
 
-        // if (setupEnded)
-        // {
-        //     UseAbility();
-        // }
+    //     // if (setupEnded)
+    //     // {
+    //     //     UseAbility();
+    //     // }
 
-    }
+    // }
 
     public void TestAbility()
     {
